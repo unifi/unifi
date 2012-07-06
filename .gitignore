@@ -1,3 +1,4 @@
+unifi/database.py
 */migrations
 static/
 .DS_Store
