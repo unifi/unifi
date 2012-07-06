@@ -1,0 +1,13 @@
+kgen/settings.py
+mvp/migrations/
+communications/migrations/
+static/
+.DS_Store
+*.pyc
+.*.swp
+.*.swo
+*~
+*.tmp
+.idea
+gen
+privatetestfiles/
