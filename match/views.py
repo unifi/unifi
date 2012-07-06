@@ -5,7 +5,8 @@ from django.core.context_processors import csrf
 from django.template.context import RequestContext
 from django.views.decorators.csrf import csrf_protect
 from django.contrib import auth
-from mvp.models import Wish, Student, Tag
+from student.models import Wish, Student
+from tag.models import Tag
 
 from util import *
 

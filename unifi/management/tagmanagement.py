@@ -51,7 +51,7 @@ class TagManagement:
             Get all students with a given tag
             @param tag: the tag
         """
-        from mvp.management.wishmanagement import WishManagement
+        from unifi.management.wishmanagement import WishManagement
         self.wish_management = WishManagement()
 
         wishes = self.wish_management.getAllWishesWithTag(tag)

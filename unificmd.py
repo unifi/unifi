@@ -209,12 +209,12 @@ if __name__ == "__main__":
     # Have to set DJANGO_SETTINGS_MODULE when run as standalone program
     # to get access to modules
     import os
-    os.environ['DJANGO_SETTINGS_MODULE'] = 'kgen.settings'
+    os.environ['DJANGO_SETTINGS_MODULE'] = 'unifi.settings'
 
-    from mvp.management.usermanagement  import UserManagement
-    from mvp.management.tagmanagement   import TagManagement
-    from mvp.management.groupmanagement import GroupManagement
-    from mvp.management.wishmanagement  import WishManagement
+    from unifi.management.usermanagement  import UserManagement
+    from unifi.management.tagmanagement   import TagManagement
+    from unifi.management.groupmanagement import GroupManagement
+    from unifi.management.wishmanagement  import WishManagement
 
     apidraft = apidraft()
     apidraft.main(sys.argv)
