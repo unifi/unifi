@@ -1,6 +1,4 @@
-kgen/settings.py
-mvp/migrations/
-communications/migrations/
+*/migrations
 static/
 .DS_Store
 *.pyc
@@ -10,4 +8,5 @@ static/
 *.tmp
 .idea
 gen
-privatetestfiles/
+.vim
+

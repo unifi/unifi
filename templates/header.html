@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{{ title }}</title>
+    <script></script>
+
+    <!-- less stylesheets (must be loaded prior to the script) -->
+    <link href="/static/stylesheets/main.less" rel="stylesheet/less" type="text/css" />
+
+    <!-- less.js scripts -->
+    <script src="/static/javascripts/less.min.js"></script>
+
+    <!-- jquery -->
+    <script src="/static/javascripts/jquery.min.js"></script>
+
+    <script src="/static/javascripts/main.js"></script>
+
+    <style type="text/css">
+        <!--
+        -->
+    </style>
+</head>
+
+<body>
+
+{% include "navigator.html" %}
+
+{% include "status.html" %}
+
+<div class="content">

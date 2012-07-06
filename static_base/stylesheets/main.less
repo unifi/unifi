@@ -1,0 +1,171 @@
+body {
+    font-family: Arial, sans-serif;
+    padding: 1.5em 3em 1.5em 10%;
+    background-color: rgb( 212, 212, 212 );
+    background-image: url("http://subtlepatterns.com/patterns/lghtmesh.png");
+}
+
+.content {
+    width: 60%;
+    padding: 0.5em 3em 2em 2em;
+    text-align: left;
+    border: 0.5em solid rgba( 0, 0, 0, 0.25 );
+    background-color: rgba( 255, 255, 255, 0.75 );
+    -webkit-box-shadow: 0em 0.3em 0.3em 0.3em rgba( 0, 0, 0, 0.25 );
+    -moz-border-radius: 0.3em;
+    border-radius: 0.3em;
+
+    .listing {
+        .element {
+            padding: 0.5em;
+        }
+    }
+
+    .wish_form {
+        .tags {
+            width: 90%;
+            padding: 0.5em;
+            min-height: 10em;
+            font-size: 1.5em;
+            -moz-border-radius: 0.25em;
+            border-radius: 0.25em;
+            border-bottom-color: red;
+        }
+
+        .action {
+            width: 50%;
+        }
+
+    }
+}
+
+.tag_container {
+
+    padding: 0.4em 0em 1em 0em;
+
+    .tag {
+        display: inline-block;
+        padding: 0.4em 0.4em 0.4em 0.4em;
+        margin: 0.3em 0em 0.3em 0em;
+        border: none;
+        background-color: rgba(200, 100, 50, 0.25);
+        border-radius: 0.2em;
+        -moz-border-radius: 0.2em;
+        cursor: pointer;
+    }
+}
+
+.bar {
+    position: fixed;
+    bottom: 1em;
+    right: 1em;
+    display: inline;
+    float: right;
+    border-radius: 0.5em;
+    -moz-border-radius: 0.5em;
+    padding: 0.5em;
+    background-color: #111;
+
+    .status {
+        top: 1em;
+        right: 1em;
+        float: right;
+    }
+
+    .navigator {
+        bottom: 1em;
+        right: 1em;
+        float: right;
+
+        a {
+            text-decoration: none;
+            color: #CCC;
+            margin-right: 2em;
+        }
+    }
+}
+
+.navigator {
+    position: fixed;
+    bottom: 1em;
+    right: 1em;
+    display: inline;
+    float: right;
+    border-radius: 0.5em;
+    -moz-border-radius: 0.5em;
+    padding: 0.5em;
+    background-color: #111;
+
+    a {
+        text-decoration: none;
+        color: #CCC;
+        margin-right: 2em;
+    }
+}
+
+.status {
+    position: fixed;
+    top: 1em;
+    right: 1em;
+    display: inline;
+    float: right;
+    border-radius: 0.5em;
+    -moz-border-radius: 0.5em;
+    padding: 0.5em;
+    background-color: #111;
+    color: white;
+}
+
+.student {
+    font-size: 1.5em;
+    font-style: italic;
+    text-decoration: underline;
+    margin-right: 0.5em;
+}
+
+.tagger {
+    padding: 0.2em;
+    display: block;
+    overflow: auto;
+    border-radius: 0.3em;
+    -moz-border-radius: 0.3em;
+
+
+    .tag {
+        float: left;
+        clear: right;
+        padding: 0.5em 0.25em 0.5em 1em;
+        margin: 0.3em;
+        border: none;
+        background-color: rgba(255, 0, 0, 0.35);
+        border-radius: 0.5em;
+        -moz-border-radius: 0.5em;
+
+        .remove {
+            background-color: rgba( 0, 0, 0, 0.4 );
+            font-family: sans-serif;
+            color: white;
+            margin-left: 0.75em;
+            padding: 0.3em 0.5em 0.3em 0.5em;
+            border-radius: 0.2em;
+            -moz-border-radius: 0.2em;
+            cursor: pointer;
+        }
+
+    }
+
+    .tag_input {
+        float: left;
+        border: none;
+        width: auto;
+        padding: 0.5em;
+        font-size: 1.2em;
+        background-color: rgba( 255, 255, 255, 0 );
+        width: 90%;
+    }
+
+
+}
+
+
+

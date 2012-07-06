@@ -1,24 +1,20 @@
-# Django settings for unifi project.
+# Django settings for kgen project.
+
+# fetches the DATABASE
+from database import DATABASES
+
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+from os.path import dirname, realpath
+PROJECT_ROOT = dirname(
+    realpath(__file__ + "/../")
 )
 
-MANAGERS = ADMINS
+ADMINS = ()
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '',                      # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-    }
-}
+MANAGERS = ADMINS
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -27,11 +23,11 @@ DATABASES = {
 # timezone as the operating system.
 # If running in a Windows environment this must be set to the same as your
 # system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'Europe/Oslo'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'no'
 
 SITE_ID = 1
 
@@ -59,7 +55,9 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = ''
+# Use PROJECT_ROOT if you store the target files in the project folder.
+# STATIC_ROOT = '/Users/ilyakh/Projects/django/unifi/static/'
+STATIC_ROOT = PROJECT_ROOT + '/static/'
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -70,6 +68,8 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    # Use PROJECT_ROOT if you store the target files in the project folder.
+   PROJECT_ROOT + "/static_base/",
 )
 
 # List of finder classes that know how to find static files in
@@ -77,11 +77,11 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'z+f6z+v6!#0lxr*%jl@fhhe=b-c54lqa0fslbnn^4wyjz3e92-'
+SECRET_KEY = 'qm1=rh=r-#1dqu2_&amp;8ci#zlpi3l82d+&amp;6^$y1kxki7c#0roa5h'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -100,16 +100,12 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'unifi.urls'
+ROOT_URLCONF = 'kgen.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'unifi.wsgi.application'
+WSGI_APPLICATION = 'kgen.wsgi.application'
 
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-)
+TEMPLATE_DIRS = ( PROJECT_ROOT + '/templates', )
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -118,11 +114,32 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
+    'django.contrib.admin',
+    'django.contrib.admindocs',
+    'south',
+    'crap',
+    'group'
+    'login',
+    'match',
+    'oracle',
+    'prototype',
+    'student',
+    'tag',
+    'util',
+    'wish',
+    'communication',
 )
+
+
+# temporary: reduces the testing time
+PASSWORD_HASHERS = (
+    # 'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    # 'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    # 'django.contrib.auth.hashers.BCryptPasswordHasher',
+    'django.contrib.auth.hashers.SHA1PasswordHasher',
+    'django.contrib.auth.hashers.MD5PasswordHasher',
+    # 'django.contrib.auth.hashers.CryptPasswordHasher',
+    )
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -152,3 +169,8 @@ LOGGING = {
         },
     }
 }
+
+
+#Use console backend for testing
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+

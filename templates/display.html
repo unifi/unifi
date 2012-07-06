@@ -1,0 +1,17 @@
+{% include "header.html" %}
+
+<h2>Wish database view</h2>
+
+<div class="listing">
+    {% for w in wishes %}
+        <div class="element">
+            <span class="student">{{ w.student }}</span>
+            {% for t in w.tags.all %}
+                <span class="tag">{{ t }}</span>
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>
+
+{% include "footer.html" %}
+

@@ -1,3 +1,17 @@
 from django.db import models
+from student.models import Student
+from oracle.models import Oracle
 
-# Create your models here.
+
+
+class Group(models.Model):
+    """ Group
+    Student container.
+    Requires assistance from an Oracle.
+    """
+    tags     = models.ManyToManyField( "Tag" )
+    students = models.ManyToManyField( Student, null=True )
+    oracle   = models.OneToOneField( Oracle, null=True ) # !
+
+    def __unicode__(self):
+        return "Group" #TODO change this
