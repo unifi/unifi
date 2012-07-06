@@ -100,10 +100,10 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'kgen.urls'
+ROOT_URLCONF = 'unifi.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'kgen.wsgi.application'
+WSGI_APPLICATION = 'unifi.wsgi.application'
 
 TEMPLATE_DIRS = ( PROJECT_ROOT + '/templates', )
 
@@ -118,7 +118,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'south',
     'crap',
-    'group'
+    'group',
     'login',
     'match',
     'oracle',
