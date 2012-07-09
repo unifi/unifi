@@ -3,6 +3,7 @@ unifi/database.py
 static/
 .DS_Store
 *.pyc
+*/*.pyc
 .*.swp
 .*.swo
 *~
@@ -11,5 +12,3 @@ static/
 gen
 .vim
 *.db
-*/*.pyc
-

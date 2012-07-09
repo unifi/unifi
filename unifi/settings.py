@@ -1,6 +1,6 @@
 # Django settings for kgen project.
 
-from os.path import dirname, realpath
+from os.path import dirname, realpath, basename
 from database import DATABASES
 
 
