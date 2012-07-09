@@ -1,16 +1,24 @@
 # Django settings for kgen project.
 
-# fetches the DATABASE
+from os.path import dirname, realpath
 from database import DATABASES
+
 
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
-from os.path import dirname, realpath
 PROJECT_ROOT = dirname(
-    realpath(__file__ + "/../")
+    realpath( __file__ + "/../" )
 )
+
+# Testing runtime reduction measure. 
+if DEBUG:
+    PASSWORD_HASHERS = (
+        'django.contrib.auth.hashers.SHA1PasswordHasher',
+        'django.contrib.auth.hashers.MD5PasswordHasher',
+    )
+
 
 ADMINS = ()
 
@@ -56,7 +64,6 @@ MEDIA_URL = ''
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
 # Use PROJECT_ROOT if you store the target files in the project folder.
-# STATIC_ROOT = '/Users/ilyakh/Projects/django/unifi/static/'
 STATIC_ROOT = PROJECT_ROOT + '/static/'
 
 # URL prefix for static files.
@@ -87,7 +94,7 @@ SECRET_KEY = 'qm1=rh=r-#1dqu2_&amp;8ci#zlpi3l82d+&amp;6^$y1kxki7c#0roa5h'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
+    # 'django.template.loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -95,7 +102,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',    
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -116,6 +124,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.admindocs',
+    # 'debug_toolbar',
     'south',
     'crap',
     'group',
@@ -130,16 +139,22 @@ INSTALLED_APPS = (
     'communication',
 )
 
+# DEBUG_TOOLBAR_PANELS = (
+    # 'debug_toolbar.panels.version.VersionDebugPanel',
+    # 'debug_toolbar.panels.timer.TimerDebugPanel',
+    # 'debug_toolbar.panels.settings_vars.SettingsVarsDebugPanel',
+    # 'debug_toolbar.panels.headers.HeaderDebugPanel',
+    # 'debug_toolbar.panels.request_vars.RequestVarsDebugPanel',
+    # 'debug_toolbar.panels.template.TemplateDebugPanel',
+    # 'debug_toolbar.panels.sql.SQLDebugPanel',
+    # 'debug_toolbar.panels.signals.SignalDebugPanel',
+    # 'debug_toolbar.panels.logger.LoggingPanel',
+# )
 
-# temporary: reduces the testing time
-PASSWORD_HASHERS = (
-    # 'django.contrib.auth.hashers.PBKDF2PasswordHasher',
-    # 'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
-    # 'django.contrib.auth.hashers.BCryptPasswordHasher',
-    'django.contrib.auth.hashers.SHA1PasswordHasher',
-    'django.contrib.auth.hashers.MD5PasswordHasher',
-    # 'django.contrib.auth.hashers.CryptPasswordHasher',
-    )
+
+INTERNAL_IPS = (
+    '127.0.0.1',
+)
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -171,6 +186,6 @@ LOGGING = {
 }
 
 
-#Use console backend for testing
+# Use console backend for testing
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 

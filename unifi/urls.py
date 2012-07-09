@@ -15,7 +15,7 @@ urlpatterns = patterns('',
     # other project applications
     # url( r'^communication/',       include('communication.urls')),
     # url( r'^crap/',                include('match.urls')),
-    url( r'^group/',                include('group.urls')),
+    url( r'^group/',                 include('group.urls')),
     # url( r'^login/',               include('login.urls')),
     url( r'^match/',                 include('match.urls')),
     # url( r'^oracle/',              include('oracle.urls')),
