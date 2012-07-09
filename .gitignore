@@ -11,4 +11,5 @@ static/
 gen
 .vim
 *.db
+*/*.pyc
 
