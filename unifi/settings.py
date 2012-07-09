@@ -12,7 +12,25 @@ PROJECT_ROOT = dirname(
     realpath( __file__ + "/../" )
 )
 
-# Testing runtime reduction measure. 
+TEMPLATE_DIRS = ( PROJECT_ROOT + '/templates', )
+
+# Absolute path to the directory static files should be collected to.
+# Don't put anything in this directory yourself; store your static files
+# in apps' "static/" subdirectories and in STATICFILES_DIRS.
+# Example: "/home/media/media.lawrence.com/static/"
+# Use PROJECT_ROOT if you store the target files in the project folder.
+STATIC_ROOT = PROJECT_ROOT + '/static/'
+
+# Additional locations of static files
+STATICFILES_DIRS = (
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    # Use PROJECT_ROOT if you store the target files in the project folder.
+    PROJECT_ROOT + "/static_base/",
+)
+
+# Test runtime reduction measure. 
 if DEBUG:
     PASSWORD_HASHERS = (
         'django.contrib.auth.hashers.SHA1PasswordHasher',
@@ -59,25 +77,9 @@ MEDIA_ROOT = ''
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
 MEDIA_URL = ''
 
-# Absolute path to the directory static files should be collected to.
-# Don't put anything in this directory yourself; store your static files
-# in apps' "static/" subdirectories and in STATICFILES_DIRS.
-# Example: "/home/media/media.lawrence.com/static/"
-# Use PROJECT_ROOT if you store the target files in the project folder.
-STATIC_ROOT = PROJECT_ROOT + '/static/'
-
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/static/'
-
-# Additional locations of static files
-STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    # Use PROJECT_ROOT if you store the target files in the project folder.
-   PROJECT_ROOT + "/static_base/",
-)
 
 # List of finder classes that know how to find static files in
 # various locations.
@@ -112,8 +114,6 @@ ROOT_URLCONF = 'unifi.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'unifi.wsgi.application'
-
-TEMPLATE_DIRS = ( PROJECT_ROOT + '/templates', )
 
 INSTALLED_APPS = (
     'django.contrib.auth',

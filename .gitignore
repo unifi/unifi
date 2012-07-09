@@ -10,4 +10,5 @@ static/
 .idea
 gen
 .vim
+*.db
 
