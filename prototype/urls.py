@@ -21,9 +21,13 @@ urlpatterns = patterns( '',
 
     url(
         r'wishes/$',
-        views.display_wishes ),
+        views.display_wishes 
+    ),
 
-    url( r'flush/$',                  views.flush ),
+    url( 
+        r'flush/$',                  
+        views.flush 
+    ),
 
     # allows flushing of a specific model supplied after the forward-slash
     url(
@@ -31,8 +35,9 @@ urlpatterns = patterns( '',
         views.flush
     ),
 
+    # populates the database by a given test-data profile
     url(
-        r'populate/$',
+        r'populate/(\w{1,32})$',
         views.populate
     ),
 )

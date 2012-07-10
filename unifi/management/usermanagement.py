@@ -33,6 +33,11 @@ class UserManagement:
 
         return u
 
+    def addStudent(self, usr):
+        self.addUser(usr)
+        self.updateUser(usr, "s")
+        
+        
     def getUser(self, usr):
         """
             Get the user with username usr
