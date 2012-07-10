@@ -9,8 +9,8 @@ from django.contrib import auth
 from tag.models import Tag
 from student.models import Student, Wish
 
-from unifi.management import *
 
+from unifi.management import *
 from util import get_project_models, get_project_models_dict
 
 
@@ -73,11 +73,8 @@ def populate( request, profile=None ):
                 with open( target, "r" ) as source:
                     data[f] = [ line.strip() for line in source.readlines() ]
             
-            for k,v in data.items():
-                print "a: ",k,v
                 
-            models = get_project_models_dict()
-            
+            # models = get_project_models_dict()
             # try:
                 # for k,v in data.items():
                     # print models[k]
@@ -138,10 +135,10 @@ def intrude( request, username ):
 def display_students( request ):
     
     return render_to_response( "dialog.html", {
-        "title": "All registered students",
-        "message": "Listing %d students" % (Student.objects.count()),
-        "set": Student.objects.all()
-    },
+            "title": "All registered students",
+            "message": "Listing %d students" % ( Student.objects.count() ),
+            "set": Student.objects.all()
+        },
         context_instance = RequestContext( request )
     )
 
@@ -150,10 +147,10 @@ def display_tags( request ):
     output = []
 
     return render_to_response( "dialog.html", {
-        "title": "All registered tags",
-        "message": "Listing %d tags" % (Tag.objects.count()),
-        "set": Tag.objects.all()
-    },
+            "title": "All registered tags",
+            "message": "Listing %d tags" % ( Tag.objects.count() ),
+            "set": Tag.objects.all()
+        },
         context_instance = RequestContext( request )
     ) 
     
@@ -163,13 +160,13 @@ def display_wishes( request ):
     output = []
     for w in wishes:
         output.append(
-            (w.student.username, w.tags.all())
+            ( w.student.username, w.tags.all() )
         )
 
     return render_to_response( "wishlist.html", {
-        "title": "Wish register",
-        "message": "Following wishes were captured in the database",
-        "wishlist": output
-    },
+            "title": "Wish register",
+            "message": "Following wishes were captured in the database",
+            "wishlist": output
+        },
         context_instance = RequestContext( request )
     )

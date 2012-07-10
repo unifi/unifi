@@ -3,9 +3,7 @@ from prototype import views
 from util import get_project_models
 
 urlpatterns = patterns( '',
-
-    url( r'intrude/([a-z]{1,10})$',   views.intrude ),
-
+    
     url(
         r'intrude/([a-z]{1,10})$',
         views.intrude
