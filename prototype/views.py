@@ -9,7 +9,6 @@ from django.contrib import auth
 from tag.models import Tag
 from student.models import Student, Wish
 
-
 from unifi.management import *
 from util import get_project_models, get_project_models_dict
 
@@ -88,7 +87,6 @@ def populate( request, profile=None ):
             if "Student" in data.keys():
                 for student in data["Student"]:
                     ( UserManagement() ).addStudent( student )
-                    
             
 
     return redirect( "." )
