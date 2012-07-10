@@ -4,7 +4,6 @@ from util import get_project_models
 
 urlpatterns = patterns( '',
 
-    url( r'tagittest$',               views.tagittest),
     url( r'intrude/([a-z]{1,10})$',   views.intrude ),
     url( r'students/$',               views.display_students ),
     url( r'wishes/$',                 views.display_wishes ),
