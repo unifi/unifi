@@ -1,6 +1,6 @@
+#!/usr/bin/env python2.7
+
 from getpass import getpass
-
-
 
 engine_choice = raw_input(
 """Choose database type from the list:

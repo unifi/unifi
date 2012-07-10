@@ -5,7 +5,29 @@ from django.core.context_processors import csrf
 from django.template.context import RequestContext
 from django.views.decorators.csrf import csrf_protect
 from django.contrib import auth
-from student.models import Wish
+# Model imports
+# from django.db.models import get_models
+
+
+
+
+@csrf_protect
+def flush( request ):
+
+    # print get_models()
+
+    #tables = [Tag, Student, Wish]
+
+    #map( lambda x: x.objects.all().delete(), tables )
+    #table_names = ", ".join([ table.__name__ for table in tables ])
+
+    return render_to_response( "dialog.html", {
+            "title": "Flush entries",
+            "message": "The tables for ... has been flushed"
+        },
+        context_instance = RequestContext( request )
+    )
+
 
 
 # Temporary test-specific views
@@ -27,10 +49,10 @@ def intrude( request, username ):
         )
 
     else:
-        out = render_to_response( "dialog.html", {
-            "title": "Fast intrusion failed",
-            "message": "You are still logged in as: %s, user %s was not authenticated" % (previous_username, username)
-        },
+    out = render_to_response( "dialog.html", {
+        "title": "Fast intrusion failed",
+        "message": "You are still logged in as: %s, user %s was not authenticated" % (previous_username, username)
+    },
             context_instance = RequestContext( request )
         )
 
@@ -38,7 +60,7 @@ def intrude( request, username ):
 
 
 @csrf_protect
-def flush( request ):
+def flush2( request ):
 
     tables = [Tag, Student, Wish]
 

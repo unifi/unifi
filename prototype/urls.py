@@ -8,4 +8,5 @@ urlpatterns = patterns( '',
     url( r'wishes/$',                 views.display_wishes ),
     url( r'wishes/populate/$',        views.populate_wishes ),
     url( r'wishes/flush/$',           views.flush_wishes ),
+    url( r'flush/$',                  views.flush ),
 )
