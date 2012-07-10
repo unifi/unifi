@@ -5,9 +5,6 @@ from util import get_project_models
 urlpatterns = patterns( '',
 
     url( r'intrude/([a-z]{1,10})$',   views.intrude ),
-    url( r'students/$',               views.display_students ),
-    url( r'wishes/$',                 views.display_wishes ),
-    url( r'wishes/flush/$',           views.flush_wishes ),
 
     url(
         r'intrude/([a-z]{1,10})$',
@@ -23,6 +20,11 @@ urlpatterns = patterns( '',
         r'wishes/$',
         views.display_wishes 
     ),
+    
+    url(
+        r'tags/$',
+        views.display_tags
+    ),    
 
     url( 
         r'flush/$',                  

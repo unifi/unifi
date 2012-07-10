@@ -78,19 +78,19 @@ def populate( request, profile=None ):
                 
             models = get_project_models_dict()
             
-            try:
-                for k,v in data.items():
-                    print models[k]
-            except Exception:
-                pass
+            # try:
+                # for k,v in data.items():
+                    # print models[k]
+            # except Exception:
+                # pass
                 
             if "Tag" in data.keys():
                 for tag in data["Tag"]:
-                    (TagManagement()).addTag( tag )
+                    ( TagManagement() ).addTag( tag )
                     
             if "Student" in data.keys():
                 for student in data["Student"]:
-                    (UserManagement()).addStudent( student )
+                    ( UserManagement() ).addStudent( student )
                     
             
 
@@ -105,7 +105,10 @@ def intrude( request, username ):
 
     default_password = "123"
 
-    user = auth.authenticate( username=username, password=default_password )
+    user = auth.authenticate( 
+        username=username, 
+        password=default_password 
+    )
 
     if user != None:
         auth.login( request, user )
@@ -133,17 +136,27 @@ def intrude( request, username ):
 
 
 def display_students( request ):
-    users = Student.objects.all()
-    output = [u.username for u in users]
-
+    
     return render_to_response( "dialog.html", {
         "title": "All registered students",
-        "message": "Listing %d students" % (len(output)),
-        "set": output
+        "message": "Listing %d students" % (Student.objects.count()),
+        "set": Student.objects.all()
     },
         context_instance = RequestContext( request )
     )
 
+def display_tags( request ):
+    tags = Tag.objects.all()
+    output = []
+
+    return render_to_response( "dialog.html", {
+        "title": "All registered tags",
+        "message": "Listing %d tags" % (Tag.objects.count()),
+        "set": Tag.objects.all()
+    },
+        context_instance = RequestContext( request )
+    ) 
+    
 def display_wishes( request ):
     wishes = Wish.objects.all()
 
@@ -158,15 +171,5 @@ def display_wishes( request ):
         "message": "Following wishes were captured in the database",
         "wishlist": output
     },
-        context_instance = RequestContext( request )
-    )
-
-def flush_wishes( request ):
-    Wish.objects.all().delete()
-
-    return render_to_response( "dialog.html", {
-        "title": "All wishes were deleted",
-        "message": "All wishes were removed from the databased.",
-        },
         context_instance = RequestContext( request )
     )
