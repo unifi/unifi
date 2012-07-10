@@ -6,27 +6,58 @@ from django.template.context import RequestContext
 from django.views.decorators.csrf import csrf_protect
 from django.contrib import auth
 # Model imports
-# from django.db.models import get_models
+from tag.models import Tag
+from student.models import Student, Wish
+
+from util import get_project_models
+
 
 
 
 
 @csrf_protect
-def flush( request ):
+def flush( request, target_model = None ):
 
-    # print get_models()
+    """
+    Convenience method to flush all model-tables in the database
+    except the ones by django and south
+    """
 
-    #tables = [Tag, Student, Wish]
+    model_names = []
+    project_models = []
 
-    #map( lambda x: x.objects.all().delete(), tables )
-    #table_names = ", ".join([ table.__name__ for table in tables ])
+    if target_model:
+        for m in get_project_models():
+            if target_model == m.__name__:
+                project_models.append( m )
+    else:
+        project_models = get_project_models()
+
+
+    for model in project_models:
+        model.objects.all().delete()
+        model_names.append( model.__name__ )
 
     return render_to_response( "dialog.html", {
             "title": "Flush entries",
-            "message": "The tables for ... has been flushed"
+            "message": "Following tables have been flushed: (%s)" \
+                % len( model_names ),
+            "set": model_names
         },
         context_instance = RequestContext( request )
     )
+
+
+@csrf_protect
+def populate( request ):
+
+    from data.generator import TestDataGenerator
+
+    tdg = TestDataGenerator()
+
+    return redirect( "." )
+
+
 
 
 
@@ -41,43 +72,34 @@ def intrude( request, username ):
 
     previous_username = request.user
     auth.logout( request )
-    user = auth.authenticate( username=username, password="123" )
+
+    default_password = "123"
+
+    user = auth.authenticate( username=username, password=default_password )
 
     if user != None:
         auth.login( request, user )
 
         out = render_to_response( "dialog.html", {
-            "title": "Fast intrusion",
-            "message": "You were logged in as: %s, and now you are logged in as %s" % (previous_username, username),
+                "title": "Fast intrusion",
+                "message": \
+                    "You were logged in as: %s, and now you are logged in as %s" \
+                    % (previous_username, username),
             },
             context_instance = RequestContext( request )
         )
 
     else:
-    out = render_to_response( "dialog.html", {
-        "title": "Fast intrusion failed",
-        "message": "You are still logged in as: %s, user %s was not authenticated" % (previous_username, username)
-    },
+        out = render_to_response( "dialog.html", {
+                "title": "Fast intrusion failed",
+                "message": \
+                    "You are still logged in as: %s, user %s was not authenticated" \
+                    % (previous_username, username)
+            },
             context_instance = RequestContext( request )
         )
 
-    return out;
-
-
-@csrf_protect
-def flush2( request ):
-
-    tables = [Tag, Student, Wish]
-
-    map( lambda x: x.objects.all().delete(), tables )
-    table_names = ", ".join([ table.__name__ for table in tables ])
-
-    return render_to_response( "dialog.html", {
-        "title": "Flush entries",
-        "message": "The tables for %s has been flushed" % ( table_names )
-    },
-        context_instance = RequestContext( request )
-    )
+    return out
 
 
 def display_students( request ):
@@ -91,33 +113,6 @@ def display_students( request ):
     },
         context_instance = RequestContext( request )
     )
-
-
-def populate_students( request ):
-    data = open( "./gen/test/users.dat", "r" ).readlines();
-
-    from management.usermanagement import UserManagement
-    manager = UserManagement()
-
-    for line in data:
-        manager.addUser( line )
-        manager.updateUser( line, arg="s" )
-
-    return redirect( "/test/students/" )
-
-
-def populate_wishes( request ):
-    SEPARATOR = " "
-    data = open( "./gen/test/wishes.dat", "r" ).readlines();
-
-    from management.wishmanagement import WishManagement
-    manager = WishManagement()
-
-    for line in data:
-        candidate = line.split( SEPARATOR )
-        manager.addWish( candidate[0], candidate[1:] )
-
-    return redirect( "/test/wishes/" )
 
 def display_wishes( request ):
     wishes = Wish.objects.all()
