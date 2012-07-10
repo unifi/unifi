@@ -9,6 +9,11 @@ from student.models import Wish
 
 
 # Temporary test-specific views
+def tagittest (request):
+    return render_to_response("add.html", context_instance = RequestContext(request))
+
+
+
 @csrf_protect
 def intrude( request, username ):
 

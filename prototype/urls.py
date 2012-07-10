@@ -2,6 +2,8 @@ from django.conf.urls import patterns, include, url
 from prototype import views
 
 urlpatterns = patterns( '',
+
+    url( r'tagittest$',               views.tagittest),
     url( r'intrude/([a-z]{1,10})$',   views.intrude ),
     url( r'students/$',               views.display_students ),
     url( r'students/populate/$',      views.populate_students ),

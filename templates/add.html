@@ -1,28 +1,17 @@
 {% include "header.html" %}
 
-<!-- <form class="wish_form" method="post" action="/add/">{% csrf_token %} -->
-    <div class="tagger" id="tagger">
-        <span id="tag_set">
-            <span class="tag">
-                <span class="key">INF1010</span>
-                <span class="remove">x</span>
-            </span>
-            <span class="tag">
-                <span class="key">INF1060</span>
-                <span class="remove">x</span>
-            </span>
-            <span class="tag">
-                <span class="key">INF1500</span>
-                <span class="remove">x</span>
-            </span>
-            <span class="tag">
-                <span class="key">INF3490</span>
-                <span class="remove">x</span>
-            </span>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#mytags").tagit({
+    availableTags: ["c++", "java", "php", "javascript", "ruby", "python", "c"],
+    allowSpaces: true
+    })});
+</script>
 
-        </span>
-        <input id="tag_input" class="tag_input" type="text" />
-    </div>
-<!-- </form> -->
+<ul id="mytags" class="tagit ui-widget ui-widget-content ui-corner-all">
+    <!-- Existing list items will be pre-added to the tags. -->
+    <li class="tagit-new">
+    </li>
+</ul>
 
 {% include "footer.html" %}
