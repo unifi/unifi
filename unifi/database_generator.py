@@ -48,7 +48,7 @@ PROJECT_ROOT = os.path.dirname(
 DATABASES = {
     '%s': {
         'ENGINE':   '%s',
-        'NAME':     '%s',
+        'NAME':     %s,
         'USER':     '%s',
         'PASSWORD': '%s',
         'HOST':     '%s',
@@ -58,7 +58,7 @@ DATABASES = {
 """ % (
         "default",
         engine,
-        "PROJECT_ROOT + '/sqlite.db',",
+        "PROJECT_ROOT + '/sqlite.db'",
         "",
         "",
         "",
