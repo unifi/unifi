@@ -45,7 +45,7 @@ class WishManagement:
         for t in tags:
             try:
                 t = self.tag_management.addTag(t)
-                w.tags.add(t)
+                w.tags.add(t[0])
             except Tag.DoesNotExist:
                 print "Tag %s does not exist" % t
 
