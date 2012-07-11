@@ -18,7 +18,7 @@ class TestDataGenerator:
         self.path = path
         self.subject_number_max_length = 4
 
-    def generate_users(self, quantity):
+    def generate_students(self, quantity):
         output = []
         minimum_length_factor = 0.7
 
@@ -60,8 +60,8 @@ class TestDataGenerator:
         return output
 
     def generate_tags(self, quantity):
-        subject_prefixes = ["INF"]
-        subject_prefixes = [prefix.upper() for prefix in subject_prefixes]
+        subject_prefixes = [ "INF" ]
+        subject_prefixes = [ prefix.upper() for prefix in subject_prefixes ]
 
         def make_subject_code():
             number = "".join([ str(random.randint(0,9))
@@ -71,10 +71,19 @@ class TestDataGenerator:
         return [make_subject_code() for i in range(quantity)]
 
 
-    def generate_wishes(self, users, tags, max_tag_quantity=6, min_tag_quantity=1):
-        for u in users:
+    def generate_wishes(self, users, tags, quantity=None, max_tag_quantity=6, min_tag_quantity=1):
+        output = []
+        if quantity is None:
+            quantity = len(users)
+
+        for c in xrange(0, quantity):
+            user = random.choice( users )
             quantity = random.randint( min_tag_quantity, max_tag_quantity )
-            yield (u, random.sample(tags, quantity))
+            output.append(
+                ( user, random.sample(tags, quantity) )
+            )
+
+        return output
 
 
 

@@ -14,7 +14,7 @@ def match( request ):
 
     wishes = Wish.objects.all()
     pool = Pool( wishes )
-    pairs = sorted( list(pool.pair() ), key=lambda x: x[0] )
+    pairs = sorted( list(pool.pair()), key=lambda x: x[0], reverse=True )
 
     return render_to_response( "match.html", {
             "title":    "Matching",
