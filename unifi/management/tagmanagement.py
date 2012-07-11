@@ -19,7 +19,7 @@ class TagManagement:
             @param usr: the user to be added
         """
         tag = tag.strip() #remove whitespace
-        t = Tag.objects.get_or_create(name_of_tag=tag)
+        t = Tag.objects.get_or_create(name_of_tag=tag)[0]
         print "tag '%s' added!" % tag
         return t
 
