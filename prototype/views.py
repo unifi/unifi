@@ -89,6 +89,8 @@ def populate( request, profile=None ):
 @csrf_protect
 def generate( request, profile=None ):
 
+    # [!] not working
+
     MIN_TAG_QUANTITY = 1
     MAX_TAG_QUANTITY = 5
     WISH_SEPARATOR = " "

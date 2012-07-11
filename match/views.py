@@ -13,8 +13,8 @@ from util import *
 def match( request ):
 
     all_tags = []
-    for tag in Wish.objects.all():
-        all_tags.append( tag )
+    for wish in Wish.objects.all():
+        all_tags += list(wish.tags.all())
 
     unique_tags = set( all_tags )
 
@@ -22,6 +22,7 @@ def match( request ):
     for tag in unique_tags:
         if all_tags.count( tag ) == 1:
             lonely_tags.append( tag )
+            print "lonely: %s" % tag
 
 
 

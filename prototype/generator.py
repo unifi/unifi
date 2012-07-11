@@ -22,12 +22,6 @@ class TestDataGenerator:
         output = []
         minimum_length_factor = 0.7
 
-        #def make_username(length):
-        #    # [+] make each odd letter a vowel for better readability
-        #    n = len(ascii_lowercase)
-        #    return [ ascii_lowercase[random.randint(0,n-1)]
-        #            for x in range(length) ]
-
         def make_username(length):
             output = ""
 
