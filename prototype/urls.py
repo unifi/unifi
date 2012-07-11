@@ -40,4 +40,11 @@ urlpatterns = patterns( '',
         r'populate/(\w{1,32})$',
         views.populate
     ),
+
+    # generates a profile with a set of given specifications
+    url(
+        r'generate/(\w{1,32})$',
+        views.generate
+    ),
+
 )

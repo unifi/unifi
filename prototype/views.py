@@ -5,16 +5,15 @@ from django.core.context_processors import csrf
 from django.template.context import RequestContext
 from django.views.decorators.csrf import csrf_protect
 from django.contrib import auth
-# Model imports
+from os import listdir, mkdir
 from tag.models import Tag
 from student.models import Student, Wish
-
 from unifi.management import *
 from util import get_project_models, get_project_models_dict
 
 
 
-
+PROFILES_PATH = "/".join( [".", __package__, "data", "profiles"] )
 
 @csrf_protect
 def flush( request, target_model=None ):
@@ -52,15 +51,12 @@ def flush( request, target_model=None ):
 @csrf_protect
 def populate( request, profile=None ):
 
-    from os import listdir
-
     if profile:
-        profile_location = "/".join( [".", __package__, "data", "profile"] )
                 
-        if profile in listdir( profile_location ):
+        if profile in listdir( PROFILES_PATH ):
             
             # gets the current directory
-            file_location = "/".join([ profile_location, profile ])
+            file_location = "/".join([ PROFILES_PATH, profile ])
             # removes the extension
             file_names = [ f.split(".")[0] for f in listdir(file_location) ]
             
@@ -71,26 +67,34 @@ def populate( request, profile=None ):
                 target = "/".join( [file_location, f] )
                 with open( target, "r" ) as source:
                     data[f] = [ line.strip() for line in source.readlines() ]
-            
-                
-            # models = get_project_models_dict()
-            # try:
-                # for k,v in data.items():
-                    # print models[k]
-            # except Exception:
-                # pass
-                
+
             if "Tag" in data.keys():
                 for tag in data["Tag"]:
-                    ( TagManagement() ).addTag( tag )
+                    TagManager.addTag( tag )
                     
             if "Student" in data.keys():
                 for student in data["Student"]:
-                    ( UserManagement() ).addStudent( student )
+                    UserManager.addStudent( student )
+
+            if "Wish" in data.keys():
+                separator = " "
+                for wish in data["Wish"]:
+                    wish = wish.split( separator )
+                    WishManager.addWish( wish[0], wish[1:] )
             
 
     return redirect( "." )
 
+
+@csrf_protect
+def generate( request, profile=None ):
+
+    if profile:
+        profile_location = mkdir( "/".join([ PROFILES_PATH, profile]))
+        print profile_location
+
+
+    return redirect( "." )
 
 @csrf_protect
 def intrude( request, username ):
