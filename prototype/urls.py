@@ -47,4 +47,6 @@ urlpatterns = patterns( '',
         views.generate
     ),
 
+    # generates wishes based on a set of Tags and Users
+    # ...
 )

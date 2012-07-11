@@ -12,9 +12,25 @@ from util import *
 
 def match( request ):
 
-    wishes = Wish.objects.all()
+    all_tags = []
+    for tag in Wish.objects.all():
+        all_tags.append( tag )
+
+    unique_tags = set( all_tags )
+
+    lonely_tags = []
+    for tag in unique_tags:
+        if all_tags.count( tag ) == 1:
+            lonely_tags.append( tag )
+
+
+
+    wishes = Wish.objects.exclude( tags__in=lonely_tags )
+
+    print wishes.count()
+
     pool = Pool( wishes )
-    pairs = sorted( list(pool.pair() ), key=lambda x: x[0] )
+    pairs = sorted( list(pool.pair()), key=lambda x: x[0], reverse=True )
 
     return render_to_response( "match.html", {
             "title":    "Matching",
