@@ -1,0 +1,20 @@
+{% include "header.html" %}
+
+<h2> Wishes registered for {{ user }} </h2>
+
+<ul>
+    {% for w in wishes %}
+    <li>
+    <div> Wish number {{ w.pk }} </div>
+        <div class="tag_container">
+            <div> Tags: </div>
+            {% for t in w.tags.all %}
+                <div class="tag"> {{ t }} </div>
+            {% endfor %}
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+
+
+{% include "footer.html" %}

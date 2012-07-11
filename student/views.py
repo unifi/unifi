@@ -12,7 +12,7 @@ from unifi.management import *
 
 # Temporary test-specific views
 def tagittest (request):
-    return render_to_response("tagittest.html", {"mesg" : "Register a wish"},
+    return render_to_response("tagittest.html", {"title" : "Tagit test", "mesg" : "Register a wish"},
             context_instance = RequestContext(request))
 
 @csrf_protect
@@ -24,14 +24,21 @@ def submitwish(request):
     tag_list = [t.lower() for t in tag_list]
 
     if len(filter(lambda tag: tag.startswith(("inf", "mat", "fys")), tag_list)) > 1:
-        return render_to_response("tagittest.html", {"mesg" : "Please specify one course only"}, context_instance =
-            RequestContext(request))
+        return render_to_response("tagittest.html", {"title" : "Tagit test", "mesg" : "Please specify one course only"},
+                context_instance = RequestContext(request))
 
 
     usr = UserManager.getStudent(request.user.username)
 
-    #For testing
     w = WishManager.addWish(usr, tag_list)
 
-    return render_to_response("submitwish.html", {"wish" : w},
+    return render_to_response("submitwish.html", {"title" : "Submit Wish", "wish" : w},
+            context_instance = RequestContext(request))
+
+def mywishes(request):
+
+    usr = UserManager.getStudent(request.user.username)
+    wishes = WishManager.getAStudentWishes(usr)
+
+    return render_to_response("mywishes.html", {"title" : "My little wishes", "wishes" : wishes },
             context_instance = RequestContext(request))
