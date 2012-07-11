@@ -1,6 +1,18 @@
 {% include "header.html" %}
 
 
+<div> Wish registered! </div>
+<ul>
+    <div> Tags: </div>
+    <div class="tag_container">
+    {% for t in wish.tags.all %}
+    <li>
+        <div class="tag"> {{ t }} </div>
+    </li>
+    {% endfor %}
+    </div>
+</ul>
+
 
 
 

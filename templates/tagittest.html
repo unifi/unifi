@@ -15,8 +15,7 @@
 
 </script>
 
-{{ error }}
-<div> Register a wish </div>
+<div> {{ mesg }}</div>
 
 <form action="/student/submitwish" method="POST"> {% csrf_token %}
 <ul id="mytags" class="tagit ui-widget ui-widget-content ui-corner-all">
