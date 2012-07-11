@@ -89,71 +89,71 @@ def populate( request, profile=None ):
 @csrf_protect
 def generate( request, profile=None ):
 
-#    MIN_TAG_QUANTITY = 1
-#    MAX_TAG_QUANTITY = 5
-#    WISH_SEPARATOR = " "
-#
-#    if profile:
-#        profile_location = "/".join([ PROFILES_PATH, profile ])
-#        try:
-#            mkdir( profile_location )
-#        except OSError:
-#            pass
-#
-#
-#        wish_quantity, tag_quantity, student_quantity = 0, 0, 0
-#
-#        from generator import TestDataGenerator
-#        generator = TestDataGenerator()
-#
-#        try:
-#            student_quantity = int( request.GET.get( 'student' ) )
-#
-#            if student_quantity > 0:
-#                students = generator.generate_students( student_quantity )
-#                with open( "/".join([ profile_location, "Student" ]), "w" ) as output:
-#                    output.write( "\n".join( students ) )
-#            else:
-#                students = open(
-#                    "/".join([ profile_location, "Student" ]), "r"
-#                ).readlines()
-#        except TypeError:
-#            pass
-#
-#        try:
-#            tag_quantity = int( request.GET.get( 'tag' ) )
-#            if tag_quantity > 0:
-#                tags = generator.generate_tags( tag_quantity )
-#                with open( "/".join([ profile_location, "Tag" ]), "w" ) as output:
-#                    output.write( "\n".join( tags ) )
-#            else:
-#                tags = open(
-#                    "/".join([ profile_location, "Tag" ]), "r"
-#                ).readlines()
-#        except TypeError:
-#            pass
-#
-#        try:
-#            wish_quantity = int( request.GET.get( 'wish' ) )
-#            if wish_quantity > 0:
-#                wishes = generator.generate_wishes(
-#                    students,
-#                    tags,
-#                    wish_quantity,
-#                    min_tag_quantity=MIN_TAG_QUANTITY,
-#                    max_tag_quantity=MAX_TAG_QUANTITY
-#                )
-#                wishes = [ "%s %s" % ( w[0], WISH_SEPARATOR.join( w[1] )) for w in wishes ]
-#                with open( "/".join([ profile_location, "Wish" ]), "w" ) as output:
-#                    output.write( "\n".join( wishes ) )
-#        except TypeError:
-#            pass
-#        except UnboundLocalError:
-#            wishes = open(
-#                "/".join([ profile_location, "Wish" ]), "w"
-#            ).readlines()
-#            with open( "/".join([ profile_location, "Wish" ]), "r" ) as output:
-#                output.write( "\n".join( wishes ) )
+    MIN_TAG_QUANTITY = 1
+    MAX_TAG_QUANTITY = 5
+    WISH_SEPARATOR = " "
+
+    if profile:
+        profile_location = "/".join([ PROFILES_PATH, profile ])
+        try:
+            mkdir( profile_location )
+        except OSError:
+            pass
+
+
+        wish_quantity, tag_quantity, student_quantity = 0, 0, 0
+
+        from generator import TestDataGenerator
+        generator = TestDataGenerator()
+
+        try:
+            student_quantity = int( request.GET.get( 'student' ) )
+
+            if student_quantity > 0:
+                students = generator.generate_students( student_quantity )
+                with open( "/".join([ profile_location, "Student" ]), "w" ) as output:
+                    output.write( "\n".join( students ) )
+            else:
+                students = open(
+                    "/".join([ profile_location, "Student" ]), "r"
+                ).readlines()
+        except TypeError:
+            pass
+
+        try:
+            tag_quantity = int( request.GET.get( 'tag' ) )
+            if tag_quantity > 0:
+                tags = generator.generate_tags( tag_quantity )
+                with open( "/".join([ profile_location, "Tag" ]), "w" ) as output:
+                    output.write( "\n".join( tags ) )
+            else:
+                tags = open(
+                    "/".join([ profile_location, "Tag" ]), "r"
+                ).readlines()
+        except TypeError:
+            pass
+
+        try:
+            wish_quantity = int( request.GET.get( 'wish' ) )
+            if wish_quantity > 0:
+                wishes = generator.generate_wishes(
+                    students,
+                    tags,
+                    wish_quantity,
+                    min_tag_quantity=MIN_TAG_QUANTITY,
+                    max_tag_quantity=MAX_TAG_QUANTITY
+                )
+                wishes = [ "%s %s" % ( w[0], WISH_SEPARATOR.join( w[1] )) for w in wishes ]
+                with open( "/".join([ profile_location, "Wish" ]), "w" ) as output:
+                    output.write( "\n".join( wishes ) )
+        except TypeError:
+            pass
+        except UnboundLocalError:
+            wishes = open(
+                "/".join([ profile_location, "Wish" ]), "w"
+            ).readlines()
+            with open( "/".join([ profile_location, "Wish" ]), "r" ) as output:
+                output.write( "\n".join( wishes ) )
 
 
     return redirect( "." )
