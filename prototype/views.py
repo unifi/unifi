@@ -167,11 +167,18 @@ def generate( request, profile=None ):
             wishes = open( location["wish"], "r" ).readlines()
             wishes = [w.strip() for w in wishes]
 
+        all = \
+            [ "Student: " + s for s in students ] + \
+            [ "Tag: " + s for s in tags ] + \
+            [ s for s in wishes ]
 
-
-
-
-    return redirect( "." )
+    return render_to_response( "dialog.html", {
+            "title": "Generated objects",
+            "message": "",
+            "set": all
+        },
+        context_instance = RequestContext( request )
+    )
 
 @csrf_protect
 def intrude( request, username ):
