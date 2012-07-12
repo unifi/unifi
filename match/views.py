@@ -31,7 +31,7 @@ def match( request ):
     print wishes.count()
 
     pool = Pool( wishes )
-    pairs = sorted( list(pool.pair()), key=lambda x: x[0], reverse=True )
+    pairs = sorted( list(pool.pair() ), key=lambda x: x[0], reverse=True )
 
     return render_to_response( "match.html", {
             "title":    "Matching",

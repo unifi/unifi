@@ -2,7 +2,8 @@
 
 from __future__ import division
 from itertools import combinations
-from math import sqrt
+
+
 
 from unifi.management import \
     tagmanagement, wishmanagement, usermanagement, groupmanagement
