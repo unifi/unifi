@@ -134,6 +134,7 @@ INSTALLED_APPS = (
     'util',
     'wish',
     'communication',
+    'my'
 )
 
 DEBUG_TOOLBAR_PANELS = (
