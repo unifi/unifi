@@ -65,13 +65,19 @@ class TestDataGenerator:
         return [make_subject_code() for i in range(quantity)]
 
 
-    def generate_wishes(self, users, tags, quantity=None, max_tag_quantity=6, min_tag_quantity=1):
+    def generate_wishes(self, students, tags, quantity=None, max_tag_quantity=6, min_tag_quantity=1):
+
+        if min_tag_quantity > max_tag_quantity:
+            temp = min_tag_quantity
+            min_tag_quantity = max_tag_quantity
+            max_tag_quantity = temp
+
         output = []
         if quantity is None:
-            quantity = len(users)
+            quantity = len(students)
 
         for c in xrange(0, quantity):
-            user = random.choice( users )
+            user = random.choice( students )
             quantity = random.randint( min_tag_quantity, max_tag_quantity )
             output.append(
                 ( user, random.sample(tags, quantity) )
@@ -85,11 +91,11 @@ class TestDataGenerator:
 if __name__ == "__main__":
 
     generator = TestDataGenerator( raw_input("Username length: ") )
-    users = generator.generate_users( int(raw_input( "User quantity: " )) )
+    students = generator.generate_students( int(raw_input( "User quantity: " )) )
 
     if "y" in raw_input("Save USERS to file? (y/n): "):
         with open( "./" + generator.path + "users.dat", "w" ) as out:
-            out.write( "\n".join(users) )
+            out.write( "\n".join(students) )
 
     tags = generator.generate_tags( int(raw_input( "Tag quantity: " )) )
 
@@ -103,9 +109,9 @@ if __name__ == "__main__":
 
     # [!] FIX: defaults only when both are empty
     if min_tag_n != "" and max_tag_n != "":
-        wishes = generator.generate_wishes( users, tags, int(max_tag_n), int(min_tag_n) )
+        wishes = generator.generate_wishes( students, tags, int(max_tag_n), int(min_tag_n) )
     else:
-        wishes = generator.generate_wishes( users, tags )
+        wishes = generator.generate_wishes( students, tags )
 
     if "y" in raw_input("Save WISHES to file? (y/n): "):
         with open( "./" + generator.path + "wishes.dat", "w" ) as out:

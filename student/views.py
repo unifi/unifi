@@ -30,6 +30,8 @@ def submitwish(request):
 
     usr = UserManager.getStudent(request.user.username)
 
+    print request.user.username
+
     w = WishManager.addWish(usr, tag_list)
 
     return render_to_response("submitwish.html", {"title" : "Submit Wish", "wish" : w},

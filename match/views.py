@@ -14,7 +14,7 @@ def match( request ):
 
     all_tags = []
     for wish in Wish.objects.all():
-        all_tags += list(wish.tags.all())
+        all_tags += list( wish.tags.all() )
 
     unique_tags = set( all_tags )
 
