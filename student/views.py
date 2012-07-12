@@ -23,6 +23,12 @@ def submitwish(request):
     #to lower case
     tag_list = [t.lower() for t in tag_list]
 
+    if len(tag_list) > 5:
+        return render_to_response("tagittest.html", {"title" : "Tagit test", "mesg" : "Max num of tags is 5"},
+                context_instance = RequestContext(request))
+
+        
+
     if len(filter(lambda tag: tag.startswith(("inf", "mat", "fys")), tag_list)) > 1:
         return render_to_response("tagittest.html", {"title" : "Tagit test", "mesg" : "Please specify one course only"},
                 context_instance = RequestContext(request))
