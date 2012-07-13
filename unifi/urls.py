@@ -10,10 +10,8 @@ urlpatterns = patterns('',
     url( r'^admin/',                include(admin.site.urls)),
 
     # root application
-#    url( r'^$',                     'unifi.views.main' ),
-#    url( r'^add/$',                 'unifi.views.add' ),
-#    url( r'^display/$',             'unifi.views.display' ),
-#    url( r'^flush/$',               'unifi.views.flush' ),
+    ## main page
+    url( r'^$',                       'my.views.index' ),
 
     # inclusive applications
     # url( r'^communication/',       include('communication.urls')),
@@ -21,12 +19,12 @@ urlpatterns = patterns('',
     # url( r'^login/',               include('login.urls')),
     # url( r'^oracle/',              include('oracle.urls')),
     # url( r'^prototype/',           include('prototype.urls')),
-     url( r'^student/',             include('student.urls')),
+    url( r'^student/',               include('student.urls')),
     # url( r'^tag/',                 include('tag.urls')),
     # url( r'^unifi/',               include('unifi.urls')),
     # url( r'^util/',                include('util.urls')),
     url( r'^prototype/',             include('prototype.urls')),
     url( r'^match/',                 include('match.urls')),
     url( r'^group/',                 include('group.urls')),
-
+    url( r'^my/',                    include('my.urls')),
 )
