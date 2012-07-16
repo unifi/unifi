@@ -1,9 +1,27 @@
 {% include "header.html" %}
 
-<div class="counter">
-    <div class="days">
-        n
-        <div class="label"></div>
+<div class="column_container">
+    <div class="title">UNIFI</div>
+    <div class="greeting">{{ greeting }}</div>
+    <div class="column">
+        <h2>Dine ønsker</h2>
+        <ul>
+            {% for wish in wishes %}
+            <li>
+            {% for tag in wish.tags.all %}
+            <div class="tag">{{ tag }}</div>
+            {% endfor %}
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="column">
+        <h2>Dine grupper</h2>
+        <ul>
+            {% for group in groups %}
+            <li>{{ group }}</li>
+            {% endfor %}
+        </ul>
     </div>
 </div>
 

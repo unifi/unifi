@@ -30,6 +30,7 @@ def flush( request, target_model=None ):
     else:
         project_models = get_project_models()
 
+    project_models.append( User )
 
     for model in project_models:
         model.objects.all().delete()
@@ -88,25 +89,24 @@ def populate( request, profile=None ):
         context_instance = RequestContext( request )
     )
 
-
-@csrf_protect
 def generate( request, profile=None ):
-
-    # [!] not working
 
     MIN_TAG_QUANTITY = 1
     MAX_TAG_QUANTITY = 5
+    SINGLE_WISH_PER_USER = False
     WISH_TAG_SEPARATOR = " "
 
+    all = []
 
-    def to_int( parameter ):
+    def to_int( parameter, default=0 ):
         try:
             return int( parameter )
         except TypeError:
-            return 0
+            return default
 
     if profile:
 
+        # make a profile-folder if none is found
         profile_location = "/".join([ PROFILES_PATH, profile ])
         try:
             mkdir( profile_location )
@@ -114,24 +114,34 @@ def generate( request, profile=None ):
             pass # the profile was not present and had to be created
 
 
-        from generator import TestDataGenerator
-        generator = TestDataGenerator()
+        from generators import \
+            StudentGenerator, \
+            WordTagGenerator, \
+            WishGenerator
 
-        quantity, location = {}, {}
+        quantity, location, options = {}, {}, {}
+        options['wish'] = {}
 
-        # these model-objects are independently generated
-        # and do not depend on any other non-null predefined models
-        students = []
-        tags = []
-        quantity['student'] = to_int( request.GET.get('student') )
-        quantity['tag'] = to_int( request.GET.get('tag') )
 
-        location['student'] = "/".join( [profile_location, "Student"] )
-        location['tag'] = "/".join( [profile_location, "Tag"])
+        quantity['student']     = to_int( request.GET.get('Student') )
+        quantity['tag']         = to_int( request.GET.get('Tag') )
+        quantity['wish']        = to_int( request.GET.get('Wish') )
 
+        options['wish']['min_tag_quantity'] = \
+            to_int( request.GET.get('min_tag_quantity'), 1 )
+        options['wish']['max_tag_quantity'] = \
+            to_int( request.GET.get('max_tag_quantity'), 5 )
+
+        location['student']     = "/".join( [profile_location, "Student"] )
+        location['tag']         = "/".join( [profile_location, "Tag"])
+        location['wish']        = "/".join( [profile_location, "Wish"] )
+
+        students, tags, wishes = [], [], []
+
+        print options["wish"]["min_tag_quantity"], options["wish"]["max_tag_quantity"]
 
         if quantity['student'] > 0:
-            students = generator.generate_students( quantity['student'] )
+            students = ( StudentGenerator() ).generate( quantity['student'] )
             with open( location['student'], "w" ) as output:
                 output.write( "\n".join(students) )
 
@@ -140,7 +150,7 @@ def generate( request, profile=None ):
             students = [s.strip() for s in students]
 
         if quantity['tag'] > 0:
-            tags = generator.generate_tags( quantity['tag'] )
+            tags = ( WordTagGenerator() ).generate( quantity['tag'] )
             with open( location['tag'], "w" ) as output:
                 output.write( "\n".join(tags) )
         else:
@@ -152,12 +162,14 @@ def generate( request, profile=None ):
         # their count can be defined, but cannot
         wishes = []
 
-        quantity['wish'] = to_int( request.GET.get('wish') )
-        location['wish'] = "/".join( [profile_location, "Wish"] )
+        print quantity['wish'], len(tags), len(students)
 
         if quantity['wish'] > 0 and len(tags) > 0 and len(students) > 0:
-            wishes = generator.generate_wishes(
-                students, tags, quantity['wish'], MAX_TAG_QUANTITY, MIN_TAG_QUANTITY,
+            wishes = ( WishGenerator( students, tags ) ).generate(
+                quantity['wish'],
+                options['wish']['min_tag_quantity'],
+                options['wish']['max_tag_quantity'],
+                SINGLE_WISH_PER_USER
             )
             with open( location['wish'], "w" ) as output:
                 buffer = []
@@ -166,9 +178,6 @@ def generate( request, profile=None ):
                         "%s %s" % ( w[0], WISH_TAG_SEPARATOR.join( w[1] ) )
                     )
                 output.write( "\n".join(buffer) )
-        else:
-            wishes = open( location["wish"], "r" ).readlines()
-            wishes = [w.strip() for w in wishes]
 
         all = \
             [ "Student: " + s for s in students ] + \
@@ -220,6 +229,10 @@ def intrude( request, username ):
 
     return out
 
+
+def leave( request ):
+    auth.logout( request )
+    return redirect( "/" )
 
 def display_students( request ):
     

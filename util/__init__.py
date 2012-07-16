@@ -37,6 +37,4 @@ def get_project_models_dict():
 
 
 
-
-
 models = get_project_models_dict()

@@ -7,7 +7,7 @@ body {
 
 .content {
     width: 60%;
-    padding: 0.5em 3em 2em 2em;
+    padding: 2em 3em 2em 2em;
     text-align: left;
     border: 0.5em solid rgba( 0, 0, 0, 0.25 );
     background-color: rgba( 255, 255, 255, 0.75 );
@@ -36,6 +36,17 @@ body {
         -moz-border-radius: 0.2em;
         cursor: pointer;
     }
+}
+
+.tag {
+    display: inline-block;
+    padding: 0.4em 0.4em 0.4em 0.4em;
+    margin: 0.3em 0em 0.3em 0em;
+    border: none;
+    background-color: rgba(200, 100, 50, 0.25);
+    border-radius: 0.2em;
+    -moz-border-radius: 0.2em;
+    cursor: pointer;
 }
 
 .student_container {
@@ -176,22 +187,37 @@ body {
 }
 
 
-
-.counter {
-    background-color: rgba( 0, 0, 0, 0.1 );
-    width: 30%;
-    text-align: center;
-    margin: 4em;
-    padding: 1em 1em 4em 1em;
-    border-radius: 0.5em;
-    -moz-border-radius: 0.5em;
-
-
-    .days {
-        font-size: 10em;
-    }
-
-    .label {
-        font-size: 0.1em;
-    }
+.greeting {
+    padding: 1em;
 }
+
+.column_container {
+
+    overflow: auto;
+
+    .title {
+        font-size: 4em;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    .column {
+        text-align: left;
+        min-width: 35%;
+        float: left;
+        border: 0.2em solid rgba( 0, 0, 0, 0.1 );
+        padding: 1em;
+        margin: 1em;
+        background-color: rgba( 0, 0, 0, 0.05 );
+        border-radius: 0.2em;
+        -moz-border-radius: 0.2em;
+    }
+
+    li {
+        border-radius: 0.2em;
+        -moz-border-radius: 0.2em;
+        padding: 1em;
+    }
+
+}
+

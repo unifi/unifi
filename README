@@ -30,7 +30,7 @@ corresponding with the desired quantity of objects.
 
 Ignoring one of these values will force the script to assume that there is
 an existing file in the profile directory that has the necessary data that
-may be used in the generation of the dependant objects.
+may be used in the generation of the dependent objects.
 
 generate/profile/TestProfile?tag=10&wish=50&student=100
 - will generate 10 tags, 50 wishes and 100 students.

@@ -9,6 +9,12 @@ urlpatterns = patterns( '',
         views.intrude
     ),
 
+    # logout
+    url(
+        r'leave/',
+        views.leave
+    ),
+
     url(
         r'students/$',
         views.display_students
@@ -48,5 +54,5 @@ urlpatterns = patterns( '',
     ),
 
     # generates wishes based on a set of Tags and Users
-    # ...
+
 )

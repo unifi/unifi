@@ -11,7 +11,7 @@ urlpatterns = patterns('',
 
     # root application
     ## main page
-    url( r'^$',                       'my.views.index' ),
+    url( r'^$',                      'login.views.gateway' ),
 
     # inclusive applications
     # url( r'^communication/',       include('communication.urls')),
