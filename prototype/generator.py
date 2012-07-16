@@ -63,7 +63,7 @@ class TestDataGenerator:
         return [make_subject_code() for i in range(quantity)]
 
 
-    def generate_wishes(self, students, tags, quantity=None, max_tag_quantity=6, min_tag_quantity=1):
+    def generate_wishes(self, students, tags, quantity=None, max_tag_quantity=6, min_tag_quantity=3):
 
         if min_tag_quantity > max_tag_quantity:
             temp = min_tag_quantity
@@ -76,9 +76,9 @@ class TestDataGenerator:
 
         for c in xrange(0, quantity):
             user = random.choice( students )
-            quantity = random.randint( min_tag_quantity, max_tag_quantity )
+            tag_quantity = random.randint( 3, max_tag_quantity )
             output.append(
-                ( user, random.sample(tags, quantity) )
+                ( user, random.sample(tags, tag_quantity) )
             )
 
         return output
