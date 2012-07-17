@@ -6,7 +6,7 @@
         <div class="group"> Group number {{ g.pk }} </div>
             <div class="tag_container">
                 <div> Tags: </div>
-                {% for t in g.tags.all %}
+                {% for t in g.tags %}
                     <div class="tag"> {{ t }} </div>
                 {% endfor %}
             </div>

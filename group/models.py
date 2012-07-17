@@ -21,4 +21,4 @@ class Group(models.Model):
         Return group tags
         """
 
-        return set([t for w in wishes for t in w.tags.all()])
+        return set([t for w in self.wishes.all() for t in w.tags.all()])
