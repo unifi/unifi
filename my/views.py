@@ -1,11 +1,12 @@
 # -*- coding: utf8 -*-
+from django.core.exceptions import ObjectDoesNotExist
 
 from django.shortcuts import render_to_response, redirect
 from django.template.context import RequestContext
 
 from group.models import Group
 from student.models import *
-from unifi.management import UserManager
+from unifi.management import UserManager, WishManager
 
 
 
@@ -15,8 +16,7 @@ def index( request ):
     Presents an authenticated user's state in the system: the related objects.
     """
 
-    user = request.user
-    candidates = Student.objects.filter( user=user )
+    candidates = Student.objects.filter( user=request.user )
 
     if len(candidates) == 0:
         student = None
@@ -38,5 +38,19 @@ def index( request ):
         )
 
     else:
-
         return redirect( "/" )
+
+
+def group_delete( request, pk ):
+
+    if request.user.is_authenticated:
+        student = UserManager.getStudent( request.user.username )
+
+        try:
+            print Wish.objects.get( pk=pk ).delete()
+        except ObjectDoesNotExist, ValueError:
+            print "-> Client attempted deleting a non-existing record"
+
+
+
+    return redirect( "/" )

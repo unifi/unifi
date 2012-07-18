@@ -3,7 +3,7 @@
 <div class="column_container">
     <div class="title">UNIFI</div>
     <div class="greeting">
-        Velkommen tilbake, {{ user.username }}! Hva har du lyst å samarbeide om?
+        Velkommen tilbake, <span style="font-style: italic;">{{ user.username }}</span>! Hva har du lyst å samarbeide om?
     </div>
     <div class="column" id="tagit">
         <h2>Nytt ønske</h2>
@@ -29,13 +29,20 @@
         <!-- -->
     </div>
     <div class="column">
+
         <h2>Dine ønsker</h2>
         <ul>
             {% for wish in wishes %}
-            <li>
+            <li class="wish">
             {% for tag in wish.tags.all %}
             <div class="tag">{{ tag }}</div>
             {% endfor %}
+            <div class="wish_delete">
+                <a href="./wishes/delete/{{ wish.pk }}">
+                    <div class="ui-icon ui-icon-circle-minus" style="display: inline-block; overflow: auto;">x</div>
+                </a>
+            </div>
+
             </li>
             {% endfor %}
         </ul>

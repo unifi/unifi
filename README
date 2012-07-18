@@ -17,10 +17,12 @@ you want to flush.
 
 == generate/[profile_name] ==
 
+Mind the upper-case naming
+
 ```generate/profile/[profile_name]?
-    tag     =   [tag_quantity]&
-    wish    =   [wish_quantity]&
-    student =   [student_quantity]
+    Tag     =   [tag_quantity]&
+    Wish    =   [wish_quantity]&
+    Student =   [student_quantity]
 ``
 
 profile_name = name of the profile that is about to be generated
@@ -32,10 +34,10 @@ Ignoring one of these values will force the script to assume that there is
 an existing file in the profile directory that has the necessary data that
 may be used in the generation of the dependent objects.
 
-generate/profile/TestProfile?tag=10&wish=50&student=100
+generate/profile/TestProfile?Tag=10&Wish=50&Student=100
 - will generate 10 tags, 50 wishes and 100 students.
 
-generate/profile/TestProfile?wish=100
+generate/profile/TestProfile?Wish=100
 - will extend the wish set to 100 Wish-objects reusing the previously generated
 tag and student-files
 
