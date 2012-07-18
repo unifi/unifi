@@ -9,8 +9,8 @@ class HeapGraphMatcher(Matcher):
     A group matching algorithm using a priority queue to make groups
     """
 
-    def __init__(self, group_size, min_score, scoring_function):
-        Matcher.__init__(self, group_size, min_score, scoring_function)
+    def __init__(self, group_size, min_score, scoring_function, name):
+        Matcher.__init__(self, group_size, min_score, scoring_function, name)
 
     def check_for_group(self, wish):
         neighbors = self.graph.adj[wish]
