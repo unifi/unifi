@@ -46,16 +46,7 @@ class HeapGraphMatcher(Matcher):
 
         h = self.check_for_group(wish)
 
+        #A group is found
         if h is not None:
-            print "A group is found \n(%d) Members: " % (len(h)+1),
-            print wish, 
-            print ":", 
-
-            for item in h:
-                print item[1],
-                self.graph.remove_node(item[1])
-
-            self.graph.remove_node(wish)
-
-            print "\n"
+            return self.make_group(wish, h)
 
