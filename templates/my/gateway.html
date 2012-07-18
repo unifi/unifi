@@ -18,8 +18,8 @@
                 For de andre fag setter du bare opp <b>flere nye ønsker</b>.</li>
                 <li>Mens du skriver, <b>foreslår</b> systemet de taggene som andre er interessert i. Husk, at du kan godt lage
                 <b>dine egne</b> selv om de ikke er farget.</li>
-                <li><b>Fargen</b> på forslagene indikerer <b>hvor populære</b> disse taggene er, og hvor sannsynlig
-                og hvor snart du får en gruppe. Hvilke farger?</li>
+                <li><b>Fargen</b> på forslagene indikerer <b>hvor populære</b> disse taggene er, hvor sannsynlig
+                og hvor snart du får en gruppe hvis du velger de. Hvilke farger bruker vi på taggene?</li>
                 <li>I følge paragraf 3. avsnitt 4, er det forbudt å overbelaste brukeren med en så stor mengde pissprat,
                 så lenge den ikke begynner med ordene Lorem Ipsum.</li>
             </ul>
@@ -38,7 +38,13 @@
 
     </div>
     <div class="column">
-        <h2>Dine ønsker</h2>
+        <h2>Dine ønsker
+            {% if wishes.count == 0 %}
+            <span class="count">ingen</span>
+            {% else %}
+            <span class="count">{{ wishes.count }}</span>
+            {% endif %}
+        </h2>
         <ul>
             {% for wish in wishes %}
             <li class="wish">
@@ -55,7 +61,13 @@
         </ul>
     </div>
     <div class="column">
-        <h2>Dine grupper</h2>
+        <h2>Dine grupper
+            {% if groups.count == 0 %}
+            <span class="count">ingen</span>
+            {% else %}
+            <span class="count">{{ wishes.count }}</span>
+            {% endif %}
+        </h2>
         <ul>
             {% for group in groups %}
             <li>{{ group }}</li>
