@@ -149,6 +149,9 @@ DEBUG_TOOLBAR_PANELS = (
      'debug_toolbar.panels.logger.LoggingPanel',
  )
 
+DEBUG_TOOLBAR_CONFIG = {
+    "INTERCEPT_REDIRECTS": False
+}
 
 INTERNAL_IPS = (
     '127.0.0.1',

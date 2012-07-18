@@ -1,0 +1,20 @@
+{%  block tagger %}
+<div class="new_wish">
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#mytags").tagit( {
+                availableTags: ["c++", "java", "php", "javascript", "ruby", "python", "c"],
+                allowSpaces: true,
+                fieldName: "tags",
+                itemName: "user"
+            })
+        });
+    </script>
+    <form action="/student/submitwish" method="POST" class="tagit_form"> {% csrf_token %}
+        <ul id="mytags" class="tagit ui-widget ui-widget-content ui-corner-all">
+            <li class="tagit-new"></li>
+        </ul>
+        <input type="submit" value="Legg til" />
+    </form>
+</div>
+{% endblock %}

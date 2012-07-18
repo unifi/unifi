@@ -192,6 +192,20 @@ def generate( request, profile=None ):
         context_instance = RequestContext( request )
     )
 
+
+def intrude_fork( request ):
+
+
+
+    return render_to_response( "prototype/intrudefork.html", {
+            "title": "Generated objects",
+            "students": Student.objects.all()
+        },
+        context_instance = RequestContext( request )
+    )
+
+
+
 @csrf_protect
 def intrude( request, username ):
 

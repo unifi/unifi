@@ -47,7 +47,7 @@ def group_delete( request, pk ):
         student = UserManager.getStudent( request.user.username )
 
         try:
-            print Wish.objects.get( pk=pk ).delete()
+            Wish.objects.get( pk=pk ).delete()
         except ObjectDoesNotExist, ValueError:
             print "-> Client attempted deleting a non-existing record"
 

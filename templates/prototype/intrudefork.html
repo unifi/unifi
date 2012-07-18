@@ -1,0 +1,12 @@
+{% include "header.html" %}
+
+<ul>
+    <h1>Choose your destiny</h1>
+    {% for student in students %}
+    <li>
+        <a href="./{{ student.user.username }}">{{ student.user.username }}</a>
+    </li>
+    {% endfor %}
+</ul>
+
+{% include "footer.html" %} 

@@ -1,48 +1,42 @@
 {% include "header.html" %}
 
 <div class="column_container">
-    <div class="title">UNIFI</div>
+    <div class="title"><span style="color: rgba(255, 0, 0, 0.5);">UN</span>IFI</div>
     <div class="greeting">
-        Velkommen tilbake, <span style="font-style: italic;">{{ user.username }}</span>! Hva har du lyst å samarbeide om?
+        Velkommen tilbake,
+        <span style="font-style: italic;">{{ user.username }}</span>!
+        Hva har du lyst å samarbeide om?
     </div>
     <div class="column" id="tagit">
         <h2>Nytt ønske</h2>
-        <!-- [/] extract as a template block -->
-        <div class="new_wish">
-            <script type="text/javascript">
-                $(document).ready(function() {
-                    $("#mytags").tagit( {
-                        availableTags: ["c++", "java", "php", "javascript", "ruby", "python", "c"],
-                        allowSpaces: true,
-                        fieldName: "tags",
-                        itemName: "user"
-                    })
-                });
-            </script>
-            <form action="/student/submitwish" method="POST" class="tagit_form"> {% csrf_token %}
-                <ul id="mytags" class="tagit ui-widget ui-widget-content ui-corner-all">
-                    <li class="tagit-new"></li>
-                </ul>
-                <input type="submit" value="Legg til" />
-            </form>
+        <div class="help">
+            <ul>
+                <li><b>Beskriv</b> det du har lyst å arbeide med andre om <b>ved hjelp av nøkkelord</b>.</li>
+                <li>Hvert nøkkelord skal bestå av <b>kun ett ord</b> (duh). Om du er nødt til å skrive inn et
+                uttrykk bestående av to ord som henger veldig godt sammen, setter du en <b>bindestrek</b> imellom.</li>
+                <li>Prøv å ha <b>kun ett fagkode per ønske</b>, hvis du vil samarbeide om forskjellige fag.
+                For de andre fag setter du bare opp <b>flere nye ønsker</b>.</li>
+                <li>Mens du skriver, vil systemet foreslå taggene som andre er interessert i. Husk, at du kan godt lage
+                dine egne.</li>
+                <li><b>Fargen</b> på forslagene indikerer <b>hvor populære</b> disse taggene er, og hvor sannsynlig
+                at du får et match om de med andre. Hvilke farger?</li>
+            </ul>
         </div>
-        <!-- -->
+        {% include "tag/tagger.html" %}
     </div>
     <div class="column">
-
         <h2>Dine ønsker</h2>
         <ul>
             {% for wish in wishes %}
             <li class="wish">
             {% for tag in wish.tags.all %}
-            <div class="tag">{{ tag }}</div>
+                <div class="tag">{{ tag }}</div>
             {% endfor %}
-            <div class="wish_delete">
-                <a href="./wishes/delete/{{ wish.pk }}">
-                    <div class="ui-icon ui-icon-circle-minus" style="display: inline-block; overflow: auto;">x</div>
-                </a>
-            </div>
-
+                <div class="wish_delete">
+                    <a href="./wishes/delete/{{ wish.pk }}">
+                        <div class="ui-icon ui-icon-circle-minus" style="display: inline-block; overflow: auto;">x</div>
+                    </a>
+                </div>
             </li>
             {% endfor %}
         </ul>

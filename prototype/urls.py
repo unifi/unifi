@@ -9,6 +9,12 @@ urlpatterns = patterns( '',
         views.intrude
     ),
 
+    # allows developer to choose which user to login as
+    url(
+        r'intrude/$',
+        views.intrude_fork
+    ),
+
     # logout
     url(
         r'leave/',
