@@ -13,18 +13,8 @@ urlpatterns = patterns( '',
     # - accept a match: lets user to accept a match and enter a group
     #       match -> group process
     # - link to add wishes: allows user to procede to wish
-<<<<<<< HEAD
     # url( r'^wishes/$', views.wishes ),
 
     # a list of groups the user is in
     # url( r'^groups/$', views.groups ),
 )
-=======
-
-#    url( r'^wishes/$', views.wishes ),
-
-    # a list of groups the user is in
-#    url( r'^groups/$', views.groups ),
-
-)
->>>>>>> 39d1d9c081ac4854d1589223983d15c78d5a4e0f
