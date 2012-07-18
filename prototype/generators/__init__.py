@@ -18,7 +18,6 @@ class SubjectTagGenerator(TagGenerator):
     def __init__( self, subject_number_length = 4 ):
         self.subject_number_length = subject_number_length
         self.prefixes = [ "INF", "MAT", "MAT-INF", "STK" ]
-        pass
 
     def generate( self, quantity ):
         self.prefixes = [ prefix.upper() for prefix in self.prefixes ]

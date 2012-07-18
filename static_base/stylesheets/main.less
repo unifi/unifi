@@ -203,7 +203,6 @@ body {
 
     .column {
         text-align: left;
-        min-width: 35%;
         float: left;
         border: 0.2em solid rgba( 0, 0, 0, 0.1 );
         padding: 1em;
@@ -211,13 +210,23 @@ body {
         background-color: rgba( 0, 0, 0, 0.05 );
         border-radius: 0.2em;
         -moz-border-radius: 0.2em;
+        max-width: 90%;
+
+        li {
+            border-radius: 0.2em;
+            -moz-border-radius: 0.2em;
+            padding: 1em;
+        }
+
     }
 
-    li {
-        border-radius: 0.2em;
-        -moz-border-radius: 0.2em;
-        padding: 1em;
+    .column#tagit {
+        width: 100%;
     }
-
 }
 
+.tagit_form {
+    input {
+        font-size: 3em;
+    }
+}
