@@ -3,24 +3,25 @@ import networkx as nx
 import time
 from unifi.management import *
 
-
 class Matcher:
     """
     A base class that matching algorithms can derive.
     Supports basic operations
+    Also serves as bucket for courses with same tag
     """
 
-    def __init__(self, group_size, min_score, scoring_function):
+    def __init__(self, group_size, min_score, scoring_function, name):
         """
         @param group_size: the number of students on a group
         @param min_score: the minimum score for two wishes to be considered "good match"
         @param scoring_function: the function used to score match between wishes
+        @param name: the bucket name
         """
         self.group_size = group_size
         self.min_score = min_score
         self.scoring_function = scoring_function
         self.graph = nx.Graph()
-
+        self.bucket_name = name
 
     def make_group(self, wish, heap):
         """
@@ -41,7 +42,6 @@ class Matcher:
             self.graph.remove_node(item[1])
 
         self.graph.remove_node(wish)
-
 
     def draw_graph(self):
         """

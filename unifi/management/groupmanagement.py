@@ -16,7 +16,7 @@ class GroupManagement:
     def __init__(self):
         self.user_management = UserManagement()
 
-    def addGroup(self, tags=[], students=[], oracle=None):
+    def addGroup(self, wishes=[], students=[], oracle=None):
         """
             Create a new group
             @param tags: the group tags
@@ -26,8 +26,8 @@ class GroupManagement:
         group = Group()
         group.save()
 
-        for tag in tags:
-            group.tags.add(tag)
+        for wish in wishes:
+            group.wishes.add(wish)
 
         for student in students:
             if not student == None:
