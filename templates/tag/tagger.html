@@ -3,7 +3,10 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $("#mytags").tagit( {
-                availableTags: ["c++", "java", "php", "javascript", "ruby", "python", "c"],
+                availableTags: [
+                    /* [/] rewrite with AJAX */
+                    {% for tag in autocomplete_tags %}'{{ tag }}',{% endfor %}
+                ],
                 allowSpaces: true,
                 fieldName: "tags",
                 itemName: "user"

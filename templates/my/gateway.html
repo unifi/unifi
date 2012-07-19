@@ -13,7 +13,7 @@
             <ul>
                 <li><b>Beskriv</b> det du har lyst å arbeide med andre om <b>ved hjelp av nøkkelord</b>.</li>
                 <li>Hvert nøkkelord skal bestå av <b>kun ett ord</b> (duh). Om du er nødt til å skrive inn et
-                uttrykk bestående av to ord som henger veldig godt sammen, setter du en <b>bindestrek</b> imellom.</li>
+                uttrykk bestående av to ord som henger veldig godt sammen, sett en <b>bindestrek</b> imellom.</li>
                 <li>Prøv å ha <b>kun ett fagkode per ønske</b>, hvis du planlegger å samarbeide om forskjellige fag.
                 For de andre fag setter du bare opp <b>flere nye ønsker</b>.</li>
                 <li>Mens du skriver, <b>foreslår</b> systemet de taggene som andre er interessert i. Husk, at du kan godt lage
@@ -27,8 +27,10 @@
                 i stedet for "regulære uttrykk". Er det lurt?</li>
             </ul>
         </div>
-        <div style="text-align: center;">
-            <img src="http://home.comcast.net/~ron.crouse07/images/arrow_transparent_down.png" alt="" />
+        <div style="text-align: center;"><!--
+            <img src="http://home.comcast.net/~ron.crouse07/images/arrow_transparent_down.png" alt="" /><br />
+            <img src="http://www.pimp-text.com/temp-images/7/887/pimp-pimp-134269697413209.gif" alt="" />
+            -->
         </div>
         {% include "tag/tagger.html" %}
         <div class="help">
@@ -40,8 +42,6 @@
                 for deg.</li>
             </ul>
         </div>
-
-
     </div>
     <div class="column">
         <h2>Dine ønsker
@@ -58,15 +58,15 @@
                 <div class="tag">{{ tag }}</div>
             {% endfor %}
                 <div class="wish_delete">
-                    <a href="./wishes/delete/{{ wish.pk }}" alt="Slett dette ønsket">
-                        <div class="ui-icon ui-icon-circle-close" style="display: inline-block; overflow: auto;">x</div>
+                    <a href="./wishes/delete/{{ wish.pk }}" title="Slett dette ønsket">
+                        <div class="ui-icon ui-icon-trash" style="display: inline-block; overflow: auto;">x</div>
                     </a>
                 </div>
             </li>
             {% endfor %}
         </ul>
     </div>
-    <div class="column">
+    <div class="column" id="group">
         <h2>Dine grupper
             {% if groups.count == 0 %}
             <span class="count">ingen</span>
@@ -81,7 +81,7 @@
         </ul>
         <!-- graph drawing -->
         {% for group in groups %}
-        <div id="canvas-{{ group.pk }}">
+        <div class="graph" id="canvas-{{ group.pk }}">
             <script>
                 var g = new Graph();
                 {% for student in group.students.all %}
@@ -95,10 +95,21 @@
                 renderer.draw();
 
             </script>
+            <div class="description">{{ group }}</div>
         </div>
         {% endfor %}
         <!-- ... -->
 
+    </div>
+
+    <div class="column" id="oracle">
+        <h2>Gruppene som trenger hjelp</h2>
+        <h4>Her bør vi ha et søke/filtreringsfelt for gruppetaggene.</h4>
+        <ul>
+        {% for wish in assistance %}
+            <li>{{ wish }}</li>
+        {% endfor %}
+        </ul>
     </div>
 </div>
 

@@ -28,11 +28,14 @@ def index( request ):
 
         wishes = Wish.objects.filter( student=student )
         groups = Group.objects.filter( students__in=[student] )
+        autocomplete_tags = Tag.objects.all()
 
         return render_to_response( "my/gateway.html", {
-                "title":    "UNIFI",
-                "groups":   groups,
-                "wishes":   wishes
+                "title":                "UNIFI",
+                "groups":               groups,
+                "wishes":               wishes,
+                # "assistance_wishes":    Wish.objects.filter( needs_assistance=True ),
+                "autocomplete_tags":    autocomplete_tags,
             },
             context_instance = RequestContext( request )
         )
