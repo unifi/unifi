@@ -29,6 +29,8 @@ if choice is "0":
 
     for name in names:
 
+        system( "./manage.py sqlreset %s" % name )
+
         # remove the folder containing migrations
         system( "rm -r ./%s/migrations/" % name )
 
