@@ -57,3 +57,12 @@ class Matcher:
 
     def gettime(self):
         return time.time()
+
+
+    def delete_wish_from_graph(self, wish):
+        """
+        Delete a wish from the graph
+        @param wish: the wish to delete
+
+        """
+        self.graph.remove_node(wish)
