@@ -37,7 +37,8 @@ class apidraft:
                     "addwish=",
                     "flushwishes",
                     "populate",
-                    "test"
+                    "test",
+                    "flushgroups"
                 ]
             )
         except getopt.GetoptError, err:
@@ -74,7 +75,8 @@ class apidraft:
                 self.addwish(a, args)
             elif o in ("--flushwishes"):
                 self.wish_management.flush()
-
+            elif o in ("--flushgroups"):
+                self.group_management.flushGroups()
             else:
                 assert False, "unhandled option"
 
@@ -193,7 +195,8 @@ class apidraft:
         print "\t--flushwishes\tflush wish table\n"
 
         print "[Group]"
-        print "Group management not yet implemented"
+        print "Group management"
+        print "\t--flushgroups \tflush group table\n"
 
 
 

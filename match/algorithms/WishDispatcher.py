@@ -3,6 +3,7 @@ from HeapGraphMatcher import *
 from match.rating import jaccard
 from tag.models import Tag
 from student.models import Wish
+import networkx as nx
 
 class WishDispatcher(object):
 
@@ -28,7 +29,7 @@ class WishDispatcher(object):
             if len(courses) >= 1:
                 self.add_wish_to_bucket(w, courses[0])
             else:
-                print "no course, default bucket"
+                self.add_wish_to_bucket(w, "default")
 
 
     def extract_course_tag(self, tags):
@@ -66,10 +67,13 @@ class WishDispatcher(object):
         @param: tha wish
         """
 
-        tags = self.extract_course_tag([t.name_of_tag for t in wish.tags.all()])
-##        self.bucket_dicts[tags[0]].draw_graph()
-        print tags
-        print self.bucket_dicts
-#        self.bucket_dicts[tags[0]].delete_wish_from_graph(wish)
-#        self.bucket_dicts[tags[0]].draw_graph()
+        try:
+            tags = self.extract_course_tag([t.name_of_tag for t in wish.tags.all()])
+            if len(tags) == 0:
+                self.bucket_dicts["default"].delete_wish_from_graph(wish)
+            else:
+                self.bucket_dicts[tags[0]].delete_wish_from_graph(wish)
+        except:
+            print "not in graph"
+
 

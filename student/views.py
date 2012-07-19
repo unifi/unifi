@@ -1,4 +1,4 @@
-# Create your views here.
+# Create your views here.#No course - "default" bucket
 from django.contrib.auth.models import User
 from django.db.utils import IntegrityError
 from django.shortcuts import render_to_response, redirect
@@ -43,7 +43,12 @@ def submitwish(request):
     print request.user.username
 
     w = WishManager.addWish(usr, tag_list)
-    WishDispatcher.add_wish_to_bucket(w, courses[0])
+
+    #No course - "default" bucket
+    if len(courses) == 0:
+        WishDispatcher.add_wish_to_bucket(w, "default")
+    else:
+        WishDispatcher.add_wish_to_bucket(w, courses[0])
 
     return render_to_response("submitwish.html", {"title" : "Submit Wish", "wish" : w},
             context_instance = RequestContext(request))

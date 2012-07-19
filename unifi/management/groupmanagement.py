@@ -96,4 +96,5 @@ class GroupManagement:
             Delete all group objects
         """
         Group.objects.all().delete()
+        print "Group table flushed"
 
