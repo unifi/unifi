@@ -84,15 +84,11 @@
         <div id="canvas-{{ group.pk }}">
             <script>
                 var g = new Graph();
-
                 {% for student in group.students.all %}
                 g.addEdge( "{{ group.students.all.0 }}", "{{ student }}" );
                 {% endfor %}
-
-
                 var layouter = new Graph.Layout.Spring(g);
                 layouter.layout();
-
                 var renderer = new Graph.Renderer.Raphael(
                         'canvas-{{ group.pk }}', g, 300, 250
                 );
