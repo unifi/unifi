@@ -22,7 +22,13 @@
                 og hvor snart du får en gruppe hvis du velger de. Hvilke farger bruker vi på taggene?</li>
                 <li>I følge paragraf 3. avsnitt 4, er det forbudt å overbelaste brukeren med en så stor mengde pissprat,
                 så lenge den ikke begynner med ordene Lorem Ipsum.</li>
+                <li>Forsøk å formulere alle ord og uttrykk i entall, for eksempel
+                <a href="http://no.wikipedia.org/wiki/Regul%C3%A6rt_uttrykk">"regulært uttrykk"</a>
+                i stedet for "regulære uttrykk". Er det lurt?</li>
             </ul>
+        </div>
+        <div style="text-align: center;">
+            <img src="http://home.comcast.net/~ron.crouse07/images/arrow_transparent_down.png" alt="" />
         </div>
         {% include "tag/tagger.html" %}
         <div class="help">
@@ -65,7 +71,7 @@
             {% if groups.count == 0 %}
             <span class="count">ingen</span>
             {% else %}
-            <span class="count">{{ wishes.count }}</span>
+            <span class="count">{{ groups.count }}</span>
             {% endif %}
         </h2>
         <ul>
@@ -73,27 +79,29 @@
             <li>{{ group }}</li>
             {% endfor %}
         </ul>
-        <div id="canvas">
+        <!-- graph drawing -->
+        {% for group in groups %}
+        <div id="canvas-{{ group.pk }}">
             <script>
                 var g = new Graph();
 
-                g.addEdge("strawberry", "cherry");
-                g.addEdge("strawberry", "apple");
-                g.addEdge("strawberry", "tomato");
+                {% for student in group.students.all %}
+                g.addEdge( "{{ group.students.all.0 }}", "{{ student }}" );
+                {% endfor %}
 
-                g.addEdge("tomato", "apple");
-                g.addEdge("tomato", "kiwi");
-
-                g.addEdge("cherry", "apple");
-                g.addEdge("cherry", "kiwi");
 
                 var layouter = new Graph.Layout.Spring(g);
                 layouter.layout();
 
-                var renderer = new Graph.Renderer.Raphael('canvas', g, 400, 300);
+                var renderer = new Graph.Renderer.Raphael(
+                        'canvas-{{ group.pk }}', g, 300, 250
+                );
                 renderer.draw();
+
             </script>
         </div>
+        {% endfor %}
+        <!-- ... -->
 
     </div>
 </div>

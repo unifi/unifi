@@ -1,7 +1,8 @@
 {% block status %}
 <div class="bar">
-<div class="status">
-    <div>You are logged in as <span class="student">{{ user }}</span></div> <!-- escape -->
-</div>
+    <div class="status">
+        <div>You are logged in as <span class="student">{{ user }}</span></div>
+        <img src="/static/images/users/{{ user.pk }}.png" alt="" />
+    </div>
 </div>
 {% endblock %}
