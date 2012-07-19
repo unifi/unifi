@@ -7,6 +7,7 @@ from django.template.context import RequestContext
 from group.models import Group
 from student.models import *
 from unifi.management import UserManager, WishManager
+from match.algorithms import *
 
 
 
@@ -47,10 +48,10 @@ def group_delete( request, pk ):
         student = UserManager.getStudent( request.user.username )
 
         try:
+            w = Wish.objects.get(pk=pk)
+            WishDispatcher.delete_wish_from_graph(w)
             Wish.objects.get( pk=pk ).delete()
         except ObjectDoesNotExist, ValueError:
             print "-> Client attempted deleting a non-existing record"
-
-
 
     return redirect( "/" )

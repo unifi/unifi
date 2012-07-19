@@ -20,6 +20,10 @@ def submitwish(request):
 
     tag_list =  request.POST.getlist('user[tags][]')
 
+    if len(tag_list) == 0:
+        return render_to_response("tagittest.html", {"title" : "Tagit test", "mesg" : "lol gife me tags plz"},
+                context_instance = RequestContext(request))
+
     #to lower case
     tag_list = [t.lower() for t in tag_list]
 
