@@ -52,8 +52,8 @@
                 <div class="tag">{{ tag }}</div>
             {% endfor %}
                 <div class="wish_delete">
-                    <a href="./wishes/delete/{{ wish.pk }}">
-                        <div class="ui-icon ui-icon-circle-minus" style="display: inline-block; overflow: auto;">x</div>
+                    <a href="./wishes/delete/{{ wish.pk }}" alt="Slett dette ønsket">
+                        <div class="ui-icon ui-icon-circle-close" style="display: inline-block; overflow: auto;">x</div>
                     </a>
                 </div>
             </li>
@@ -73,6 +73,28 @@
             <li>{{ group }}</li>
             {% endfor %}
         </ul>
+        <div id="canvas">
+            <script>
+                var g = new Graph();
+
+                g.addEdge("strawberry", "cherry");
+                g.addEdge("strawberry", "apple");
+                g.addEdge("strawberry", "tomato");
+
+                g.addEdge("tomato", "apple");
+                g.addEdge("tomato", "kiwi");
+
+                g.addEdge("cherry", "apple");
+                g.addEdge("cherry", "kiwi");
+
+                var layouter = new Graph.Layout.Spring(g);
+                layouter.layout();
+
+                var renderer = new Graph.Renderer.Raphael('canvas', g, 400, 300);
+                renderer.draw();
+            </script>
+        </div>
+
     </div>
 </div>
 

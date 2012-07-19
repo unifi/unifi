@@ -198,7 +198,7 @@ def intrude_fork( request ):
 
 
     return render_to_response( "prototype/intrudefork.html", {
-            "title": "Generated objects",
+            "title": "Intrude as a Student",
             "students": Student.objects.all()
         },
         context_instance = RequestContext( request )
