@@ -96,6 +96,11 @@
 
             </script>
             <div class="description">{{ group }}</div>
+            <div class="tag_field">
+                {% for tag in group.tags %}
+                    <span class="tag">{{ tag }}</span>
+                {% endfor %}
+            </div>
         </div>
         {% endfor %}
         <!-- ... -->
