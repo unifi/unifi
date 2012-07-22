@@ -40,6 +40,7 @@ class Matcher:
             group.wishes.add(item[1])
             group.students.add(item[1].student)
             self.graph.remove_node(item[1])
+            item[1].is_active = False #Set wish to inactive
 
         self.graph.remove_node(wish)
 
