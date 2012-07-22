@@ -83,16 +83,24 @@ body {
         top: 1em;
         right: 1em;
         float: right;
+        text-align: center;
 
         img {
-            width: 100%;
+            width: 10em;
+            padding: 1em;
         }
     }
 
     .navigator {
+        position: fixed;
         bottom: 1em;
         right: 1em;
+        display: inline;
         float: right;
+        border-radius: 0.5em;
+        -moz-border-radius: 0.5em;
+        padding: 0.5em;
+        background-color: #111;
 
         a {
             text-decoration: none;
@@ -100,25 +108,15 @@ body {
             margin-right: 2em;
         }
     }
-}
 
-.navigator {
-    position: fixed;
-    bottom: 1em;
-    right: 1em;
-    display: inline;
-    float: right;
-    border-radius: 0.5em;
-    -moz-border-radius: 0.5em;
-    padding: 0.5em;
-    background-color: #111;
 
-    a {
-        text-decoration: none;
-        color: #CCC;
-        margin-right: 2em;
+    img {
+        resize: none;
     }
+
 }
+
+
 
 .status {
     position: fixed;
@@ -299,6 +297,7 @@ body {
     margin: 0.2em;
     text-align: center;
     position: relative;
+    overflow: hidden;
 
     .description {
         text-align: right;

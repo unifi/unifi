@@ -1,7 +1,7 @@
 {% include "header.html" %}
 
 <div class="column_container">
-    <div class="title"><span style="color: rgba(255, 0, 0, 0.5);">UN</span>IFI</div>
+    <div class="title"><span style="color: rgba(192, 0, 0, 0.75);">UN</span>IFI</div>
     <div class="greeting">
         Velkommen tilbake,
         <span style="font-style: italic;">{{ user.username }}</span>!
@@ -25,12 +25,8 @@
                 <li>Forsøk å formulere alle ord og uttrykk i entall, for eksempel
                 <a href="http://no.wikipedia.org/wiki/Regul%C3%A6rt_uttrykk">"regulært uttrykk"</a>
                 i stedet for "regulære uttrykk". Er det lurt?</li>
+                <li>Alle som oppgir mer enn 5 tagger i samme ønske mister studierett og blir anmeldt.</li>
             </ul>
-        </div>
-        <div style="text-align: center;"><!--
-            <img src="http://home.comcast.net/~ron.crouse07/images/arrow_transparent_down.png" alt="" /><br />
-            <img src="http://www.pimp-text.com/temp-images/7/887/pimp-pimp-134269697413209.gif" alt="" />
-            -->
         </div>
         {% include "tag/tagger.html" %}
         <div class="help">
@@ -104,7 +100,6 @@
         </div>
         {% endfor %}
         <!-- ... -->
-
     </div>
 
     <div class="column" id="oracle">

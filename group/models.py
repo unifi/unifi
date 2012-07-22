@@ -11,8 +11,8 @@ class Group(models.Model):
     """
     wishes  = models.ManyToManyField( Wish )
     students = models.ManyToManyField( Student, null=True )
-    oracle = models.OneToOneField( Oracle, null=True ) # !
-#    needs_assitance = models.BooleanField()
+    # oracle = models.OneToOneField( Oracle, null=True )
+    # needs_assitance = models.BooleanField()
 
     def __unicode__(self):
         return "Group " + str(self.pk)
@@ -21,5 +21,6 @@ class Group(models.Model):
         """
         Return group tags
         """
-
-        return set([t for w in self.wishes.all() for t in w.tags.all()])
+        return set(
+            [ t for w in self.wishes.all() for t in w.tags.all() ]
+        )

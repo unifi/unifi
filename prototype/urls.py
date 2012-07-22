@@ -21,6 +21,12 @@ urlpatterns = patterns( '',
         views.leave
     ),
 
+    # views
+    url(
+        r'wishes/graph/$',
+        views.graph
+    ),
+
     url(
         r'students/$',
         views.display_students

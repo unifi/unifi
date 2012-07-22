@@ -12,7 +12,6 @@ from util import get_project_models, get_project_models_dict
 
 PROFILES_PATH = "/".join( [".", __package__, "data", "profiles"] )
 
-@csrf_protect
 def flush( request, target_model=None ):
 
     """
@@ -36,13 +35,13 @@ def flush( request, target_model=None ):
         model.objects.all().delete()
         model_names.append( model.__name__ )
 
+
     return render_to_response( "dialog.html", {
             "title": "Flush entries",
             "message": "Following tables have been flushed: (%s)" \
                 % len( model_names ),
             "set": model_names
         },
-        context_instance = RequestContext( request )
     )
 
 
@@ -195,11 +194,11 @@ def generate( request, profile=None ):
 
 def intrude_fork( request ):
 
-
+    students = Student.objects.all()
 
     return render_to_response( "prototype/intrudefork.html", {
             "title": "Intrude as a Student",
-            "students": Student.objects.all()
+            "students": sorted( students, key=lambda x: x.username() )
         },
         context_instance = RequestContext( request )
     )
@@ -285,4 +284,21 @@ def display_wishes( request ):
             "wishlist": output
         },
         context_instance = RequestContext( request )
+    )
+
+
+def graph( request ):
+
+    edges = []
+
+    for group in Group.objects.all():
+        students = group.students.all()
+        for student in students:
+            edges.append(
+                ( students[0],student )
+            )
+
+    return render_to_response( "prototype/graph.html", {
+            "edges": edges,
+        }
     )

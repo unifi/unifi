@@ -1,12 +1,13 @@
 {% include "header.html" %}
 
-<ul>
-    <h1>Choose your destiny</h1>
+<h1>Choose your destiny</h1>
+<div style="overflow: auto;">
     {% for student in students %}
-    <li>
+    <div style="overflow: auto">
+        <div><img src="/static/images/users/{{ student.pk }}.png" alt=""/></div>
         <a href="./{{ student.user.username }}">{{ student.user.username }}</a>
-    </li>
+    </div>
     {% endfor %}
-</ul>
+</div>
 
 {% include "footer.html" %} 

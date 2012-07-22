@@ -9,7 +9,7 @@ from os import system, getcwdu
 names = get_project_models_dict().keys()
 names = set([ n.lower() for n in names ])
 
-DEBUG = False
+DEBUG = True
 
 print names
 print "Working in %s" % getcwdu()
@@ -21,22 +21,18 @@ choice = raw_input( "0: initial \n1: auto \n:" )
 
 if choice is "0":
 
-    print "Remember to DROP all tables in the database prior to running this script"
+    print "Dropping all tables"
+    system( "./manage.py reset %s" )
+
     if DEBUG:
         raw_input( "<press enter to continue>" )
 
-    system( "./manage.py syncdb" )
+    # system( "./manage.py syncdb" )
 
     for name in names:
 
-#        system( "./manage.py sqlreset %s" % name )
-        system( "./manage.py reset %s" % name )
-
         # remove the folder containing migrations
         system( "rm -r ./%s/migrations/" % name )
-
-        if DEBUG:
-            raw_input( "<press enter to continue>" )
 
         # perform the initial migration
         system( "./manage.py schemamigration %s --initial" % name )
@@ -48,8 +44,6 @@ if choice is "0":
 elif choice is "1":
 
     for name in names:
-        if DEBUG:
-            raw_input( "<press enter to continue>" )
 
         # perform the initial migration
         system( "./manage.py schemamigration %s --auto" % name )
@@ -57,6 +51,7 @@ elif choice is "1":
 
         if DEBUG:
             raw_input( "<press enter to continue>" )
+
 
 else:
     sys.exit(0)

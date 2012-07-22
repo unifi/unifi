@@ -1,0 +1,23 @@
+{% include "header.html" %}
+
+<!-- graph drawing -->
+
+<h1>Group View</h1>
+
+<div class="graph" id="canvas">
+    <script>
+        var g = new Graph();
+        {% for edge in edges %}
+        g.addEdge( "{{ edge.0 }}", "{{ edge.1 }}" );
+        {% endfor %}
+        var layouter = new Graph.Layout.Spring(g);
+        layouter.layout();
+        var renderer = new Graph.Renderer.Raphael(
+                'canvas', g, 800, 750
+        );
+        renderer.draw();
+    </script>
+</div>
+<!-- ... -->
+
+{% include "footer.html" %} 
