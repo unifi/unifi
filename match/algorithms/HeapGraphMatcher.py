@@ -4,6 +4,7 @@ import networkx as nx
 import heapq as heap
 from MatchBase import Matcher
 from unifi.management import *
+from communication.emailemulating import EmailEmulating
 
 class HeapGraphMatcher(Matcher):
     """
@@ -12,6 +13,7 @@ class HeapGraphMatcher(Matcher):
 
     def __init__(self, group_size, min_score, scoring_function, name):
         Matcher.__init__(self, group_size, min_score, scoring_function, name)
+        self.mail = EmailEmulating()
 
     def check_for_group(self, wish):
         neighbors = self.graph.adj[wish]
@@ -63,11 +65,15 @@ class HeapGraphMatcher(Matcher):
         group.wishes.add(wish)
         group.students.add(wish.student)
 
+
         for item in heap:
             #Add the wish to the group and remove it from the graph
             group.wishes.add(item[1])
             group.students.add(item[1].student)
             self.graph.remove_node(item[1])
             item[1].is_active = False #Set wish to inactive
+            item[1].save()
 
+
+        self.mail.toEmail("You got a group!", "Unifi",  group.students.all())
         self.graph.remove_node(wish)
