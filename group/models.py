@@ -5,17 +5,16 @@ from tag.models import Tag
 from student.models import Wish
 
 class Group(models.Model):
-    """ Group
-    Student container.
-    Requires assistance from an Oracle.
     """
-    wishes  = models.ManyToManyField( Wish )
-    students = models.ManyToManyField( Student, null=True )
+    Group
+    Student container.
+    """
+
+    wishes      = models.ManyToManyField( Wish )
+    students    = models.ManyToManyField( Student, null=True )
+
     # oracle = models.OneToOneField( Oracle, null=True )
     # needs_assitance = models.BooleanField()
-
-    def __unicode__(self):
-        return "Group " + str(self.pk)
 
     def tags(self):
         """
@@ -24,3 +23,6 @@ class Group(models.Model):
         return set(
             [ t for w in self.wishes.all() for t in w.tags.all() ]
         )
+
+    def __unicode__(self):
+        return "Group " + str(self.pk)

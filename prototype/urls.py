@@ -23,7 +23,7 @@ urlpatterns = patterns( '',
 
     # views
     url(
-        r'wishes/graph/$',
+        r'/graph/$',
         views.graph
     ),
 

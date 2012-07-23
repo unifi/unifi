@@ -290,6 +290,13 @@ def display_wishes( request ):
 def graph( request ):
 
     edges = []
+    data = {
+        'students':     Student.objects.count(),
+        'tags':         Tag.objects.count(),
+        'wishes':       Wish.objects.count(),
+    }
+
+
 
     for group in Group.objects.all():
         students = group.students.all()
@@ -300,5 +307,6 @@ def graph( request ):
 
     return render_to_response( "prototype/graph.html", {
             "edges": edges,
+            "data": data,
         }
     )

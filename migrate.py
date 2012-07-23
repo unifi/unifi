@@ -2,12 +2,19 @@
 # -*- coding: utf8 -*-
 from django.core.exceptions import ImproperlyConfigured
 import sys
-from util import get_project_models_dict
 from os import system, getcwdu
 
+from util import get_project_models_dict
+from unifi.settings import INSTALLED_APPS
 
-names = get_project_models_dict().keys()
-names = set([ n.lower() for n in names ])
+
+# names = get_project_models_dict().keys()
+# names = set([ n.lower() for n in names ])
+
+names = [
+    n for n in INSTALLED_APPS
+    if not n.startswith("django")
+]
 
 DEBUG = True
 
@@ -23,6 +30,8 @@ if choice is "0":
 
     print "Dropping all tables"
     system( "./manage.py reset %s" )
+
+    system( "./manage.py syncdb" )
 
     if DEBUG:
         raw_input( "<press enter to continue>" )

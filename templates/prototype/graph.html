@@ -8,16 +8,22 @@
     <script>
         var g = new Graph();
         {% for edge in edges %}
+        {% if edge.0 != edge.1 %}
         g.addEdge( "{{ edge.0 }}", "{{ edge.1 }}" );
+        {% endif %}
         {% endfor %}
         var layouter = new Graph.Layout.Spring(g);
         layouter.layout();
         var renderer = new Graph.Renderer.Raphael(
-                'canvas', g, 800, 750
+            'canvas', g, 800, 750
         );
         renderer.draw();
     </script>
 </div>
 <!-- ... -->
+
+{% for element in data %}
+{{ element }}
+{% endfor %}
 
 {% include "footer.html" %} 
