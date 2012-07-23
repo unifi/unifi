@@ -296,8 +296,6 @@ def graph( request ):
         'wishes':       Wish.objects.count(),
     }
 
-
-
     for group in Group.objects.all():
         students = group.students.all()
         for student in students:

@@ -22,6 +22,10 @@ class WishDispatcher(object):
 
         self.bucket_dicts = {}
 
+
+        # [-]
+        print "The WishDispatcher was initiated"
+
         #Restoring buckets from database
         for w in Wish.objects.all():
             tags = [t.name_of_tag for t in w.tags.all()]

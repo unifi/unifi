@@ -1,68 +1,75 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf8 -*-
-from django.core.exceptions import ImproperlyConfigured
-import sys
-from os import system, getcwdu
 
-from util import get_project_models_dict
+import sys
+from os import system, getcwdu, environ
 from unifi.settings import INSTALLED_APPS
 
 
-# names = get_project_models_dict().keys()
-# names = set([ n.lower() for n in names ])
 
-names = [
-    n for n in INSTALLED_APPS
-    if not n.startswith("django")
-]
+def get_applications( installed_apps, exclude=[], include=[] ):
+    application_names = include
+    for app_name in installed_apps:
+        is_excluded = False
+        for e in exclude:
+            if e in app_name:
+                is_excluded = True
 
-DEBUG = True
+        if ( app_name not in exclude ) and not is_excluded:
+            application_names.append( app_name )
 
-print names
-print "Working in %s" % getcwdu()
-print "This script should be ran only from the root directory" + \
-        "of a django project that has South-application enabled"
+    return application_names
 
-print "What sort of migration do you want to perform?"
-choice = raw_input( "0: initial \n1: auto \n:" )
-
-if choice is "0":
-
-    print "Dropping all tables"
-    system( "./manage.py reset %s" )
-
-    system( "./manage.py syncdb" )
-
+def breakpoint( message="<press enter to continue>" ):
     if DEBUG:
-        raw_input( "<press enter to continue>" )
-
-    # system( "./manage.py syncdb" )
-
-    for name in names:
-
-        # remove the folder containing migrations
-        system( "rm -r ./%s/migrations/" % name )
-
-        # perform the initial migration
-        system( "./manage.py schemamigration %s --initial" % name )
-        system( "./manage.py migrate %s --delete-ghost-migrations" % name )
-
-        if DEBUG:
-            raw_input( "<press enter to continue>" )
-
-elif choice is "1":
-
-    for name in names:
-
-        # perform the initial migration
-        system( "./manage.py schemamigration %s --auto" % name )
-        system( "./manage.py migrate %s" % name )
-
-        if DEBUG:
-            raw_input( "<press enter to continue>" )
+        raw_input(message)
 
 
-else:
-    sys.exit(0)
+def choice_prompt( choices ):
+    sorted_choices = sorted( choices.items(), key=lambda x: x[1] )
+    for id,description in sorted_choices:
+        print "%s: %s" % (description, id)
 
 
+if __name__ == "__main__":
+
+    DEBUG = True
+
+    choices = {
+        'initial': "1",
+        'auto'   : "2",
+        'reset'  : "3",
+    }
+
+    names = get_applications(
+        INSTALLED_APPS,
+        exclude=[ "django", "debug", "south" ]
+    )
+    
+    choice_prompt( choices )
+    choice = raw_input()
+
+    if choice is choices['initial']:
+
+        system( "./manage.py reset %s" )
+        system( "./manage.py syncdb" )
+        breakpoint()
+
+        for name in names:
+            system( "rm -r ./%s/migrations/" % name )
+            system( "./manage.py schemamigration %s --initial" % name )
+            system( "./manage.py migrate %s --delete-ghost-migrations" % name )
+            breakpoint()
+
+    elif choice is choices['auto']:
+        for name in names:
+            system( "./manage.py schemamigration %s --auto" % name )
+            system( "./manage.py migrate %s" % name )
+            breakpoint()
+
+    elif choice is choices['reset']:
+        system( "./manage.py reset %s" )
+        breakpoint()
+
+    else:
+        sys.exit(0)
