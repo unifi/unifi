@@ -4,6 +4,7 @@ from match.rating import jaccard
 from tag.models import Tag
 from student.models import Wish
 import networkx as nx
+from unifi.project import MAX_GROUP_SIZE, MIN_SCORE
 
 class WishDispatcher(object):
 
@@ -15,18 +16,22 @@ class WishDispatcher(object):
                                 cls, *args, **kwargs)
         return cls._instance
 
-    GROUP_SIZE = 2
-    MIN_SCORE = 0.3
+    # [->] Moved these settings into unifi/project.py
+    # GROUP_SIZE = 3
+    # MIN_SCORE = 0.2
 
-    def __init__(self):
+    def __init__(self, GROUP_SIZE=5, MIN_SCORE=0.6):
 
         self.bucket_dicts = {}
 
+        # [+] wasn't used while instantiating the HeapGraphMatcher
+        self.GROUP_SIZE = GROUP_SIZE 
+        self.MIN_SCORE = MIN_SCORE
 
-        # [-]
+        # [-] debug
         print "The WishDispatcher was initiated"
 
-        #Restoring buckets from database
+        # Restoring buckets from database
         print "lol"
         for w in Wish.objects.filter(is_active=True):
             tags = [t.name_of_tag for t in w.tags.all()]
@@ -53,7 +58,9 @@ class WishDispatcher(object):
 
         #Create new bucket if neccessary
         if not tag in self.bucket_dicts:
-            self.bucket_dicts[tag] = HeapGraphMatcher(2, 0.3, jaccard, tag)
+            self.bucket_dicts[tag] = HeapGraphMatcher( 
+                self.GROUP_SIZE, self.MIN_SCORE, jaccard, tag 
+            )
 
         self.bucket_dicts[tag].add_wish_to_graph(wish)
 

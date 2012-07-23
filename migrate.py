@@ -3,6 +3,7 @@
 
 import sys
 from os import system, getcwdu, environ
+from shutil import rmtree
 from unifi.settings import INSTALLED_APPS
 
 
@@ -56,22 +57,22 @@ if __name__ == "__main__":
     if choice is choices['initial']:
 
         drop_database()
-        system( "./manage.py syncdb --all" )
+        system( "python manage.py syncdb --all" )
 
         breakpoint()
 
         for name in names:
-            system( "rm -r ./%s/migrations/" % name )
-            system( "./manage.py schemamigration %s --initial" % name )
+            rmtree( "./%s/migrations/" % name )
+            system( "python manage.py schemamigration %s --initial" % name )
             breakpoint()
 
-        system( "./manage.py migrate" )
+        system( "python manage.py migrate" )
 
     elif choice is choices['auto']:
         for name in names:
-            system( "./manage.py schemamigration %s --auto" % name )
+            system( "python manage.py schemamigration %s --auto" % name )
             breakpoint()
-        system( "./manage.py migrate" )
+        system( "python manage.py migrate" )
 
     else:
         sys.exit(0)
