@@ -6,6 +6,13 @@ from os import system, getcwdu, environ
 from unifi.settings import INSTALLED_APPS
 
 
+DEBUG = True
+environ['DJANGO_SETTINGS_MODULE'] = 'unifi.settings'
+
+def drop_database( username="unifi"):
+    system( "psql -U postgres -c 'DROP DATABASE IF EXISTS \'unifi\';'" )
+    system( "psql -U postgres -c 'CREATE DATABASE \'unifi\' OWNER \'unifi\';'" )
+
 
 def get_applications( installed_apps, exclude=[], include=[] ):
     application_names = include
@@ -33,43 +40,39 @@ def choice_prompt( choices ):
 
 if __name__ == "__main__":
 
-    DEBUG = True
-
     choices = {
         'initial': "1",
         'auto'   : "2",
-        'reset'  : "3",
     }
 
     names = get_applications(
         INSTALLED_APPS,
         exclude=[ "django", "debug", "south" ]
     )
-    
+
     choice_prompt( choices )
     choice = raw_input()
 
     if choice is choices['initial']:
 
-        system( "./manage.py reset %s" )
+        drop_database()
         system( "./manage.py syncdb" )
+
         breakpoint()
 
+
         for name in names:
+
             system( "rm -r ./%s/migrations/" % name )
-            system( "./manage.py schemamigration %s --initial" % name )
-            system( "./manage.py migrate %s --delete-ghost-migrations" % name )
+            # system( "./manage.py schemamigration %s --initial" % name )
+            # system( "./manage.py migrate %s --delete-ghost-migrations --fake" % name )
             breakpoint()
 
     elif choice is choices['auto']:
         for name in names:
-            system( "./manage.py schemamigration %s --auto" % name )
-            system( "./manage.py migrate %s" % name )
+            # system( "./manage.py schemamigration %s --auto" % name )
+            # system( "./manage.py migrate %s" % name )
             breakpoint()
-
-    elif choice is choices['reset']:
-        system( "./manage.py reset %s" )
-        breakpoint()
 
     else:
         sys.exit(0)

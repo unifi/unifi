@@ -4,7 +4,6 @@
 <div style="overflow: auto;">
     {% for student in students %}
     <div style="overflow: auto">
-        <div><img src="/static/images/users/{{ student.pk }}.png" alt=""/></div>
         <a href="./{{ student.user.username }}">{{ student.user.username }}</a>
     </div>
     {% endfor %}

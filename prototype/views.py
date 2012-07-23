@@ -298,10 +298,12 @@ def graph( request ):
 
     for group in Group.objects.all():
         students = group.students.all()
+
         for student in students:
-            edges.append(
-                ( students[0],student )
-            )
+            if students[0].pk != student.pk:
+                edges.append(
+                    (group.pk, students[0], student)
+                )
 
     return render_to_response( "prototype/graph.html", {
             "edges": edges,
