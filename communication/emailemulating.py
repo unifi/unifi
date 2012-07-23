@@ -7,7 +7,6 @@ class EmailEmulating():
     def __init__(self):
         pass
 
-
     def toDatabase(self, sender, receiver, message):
         """
             Emulates email sending

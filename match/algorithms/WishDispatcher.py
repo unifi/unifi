@@ -79,5 +79,3 @@ class WishDispatcher(object):
                 self.bucket_dicts[tags[0]].delete_wish_from_graph(wish)
         except:
             print "not in graph"
-
-

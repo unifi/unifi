@@ -3,6 +3,7 @@
 import networkx as nx
 import heapq as heap
 from MatchBase import Matcher
+from unifi.management import *
 
 class HeapGraphMatcher(Matcher):
     """
@@ -50,3 +51,23 @@ class HeapGraphMatcher(Matcher):
         if h is not None:
             return self.make_group(wish, h)
 
+    def make_group(self, wish, heap):
+        """
+        Create a group
+        @param wish - the wish that was added (group member)
+        @param heap - the list with group members found in the graph
+        """
+
+        group = Group()
+        group.save()
+        group.wishes.add(wish)
+        group.students.add(wish.student)
+
+        for item in heap:
+            #Add the wish to the group and remove it from the graph
+            group.wishes.add(item[1])
+            group.students.add(item[1].student)
+            self.graph.remove_node(item[1])
+            item[1].is_active = False #Set wish to inactive
+
+        self.graph.remove_node(wish)
