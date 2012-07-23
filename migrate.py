@@ -41,8 +41,8 @@ def choice_prompt( choices ):
 if __name__ == "__main__":
 
     choices = {
-        'initial': "1",
-        'auto'   : "2",
+        'initial': "0",
+        'auto'   : "1",
     }
 
     names = get_applications(
@@ -56,23 +56,22 @@ if __name__ == "__main__":
     if choice is choices['initial']:
 
         drop_database()
-        system( "./manage.py syncdb" )
+        system( "./manage.py syncdb --all" )
 
         breakpoint()
 
-
         for name in names:
-
             system( "rm -r ./%s/migrations/" % name )
-            # system( "./manage.py schemamigration %s --initial" % name )
-            # system( "./manage.py migrate %s --delete-ghost-migrations --fake" % name )
+            system( "./manage.py schemamigration %s --initial" % name )
             breakpoint()
+
+        system( "./manage.py migrate" )
 
     elif choice is choices['auto']:
         for name in names:
-            # system( "./manage.py schemamigration %s --auto" % name )
-            # system( "./manage.py migrate %s" % name )
+            system( "./manage.py schemamigration %s --auto" % name )
             breakpoint()
+        system( "./manage.py migrate" )
 
     else:
         sys.exit(0)
