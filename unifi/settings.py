@@ -132,7 +132,6 @@ INSTALLED_APPS = (
     'student',
     'tag',
     'util',
-    'wish',
     'communication',
     'my',
 )

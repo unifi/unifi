@@ -8,7 +8,6 @@ from itertools import combinations
 from unifi.management import \
     tagmanagement, wishmanagement, usermanagement, groupmanagement
 
-from wish.models import *
 
 class Pool:
     """
