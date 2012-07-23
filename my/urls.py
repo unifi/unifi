@@ -20,7 +20,7 @@ urlpatterns = patterns( '',
 
     url(
         r'^wishes/delete/(\d*)$',
-        views.group_delete
+        views.wish_delete
     )
 
 

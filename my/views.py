@@ -45,7 +45,7 @@ def index( request ):
         return redirect( "/" )
 
 
-def group_delete( request, pk ):
+def wish_delete( request, pk ):
 
     if request.user.is_authenticated:
         student = UserManager.getStudent( request.user.username )

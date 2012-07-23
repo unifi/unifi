@@ -27,7 +27,7 @@ class WishDispatcher(object):
         print "The WishDispatcher was initiated"
 
         #Restoring buckets from database
-        for w in Wish.objects.all():
+        for w in Wish.objects.filter(is_active=True):
             tags = [t.name_of_tag for t in w.tags.all()]
             courses = self.extract_course_tag(tags)
             if len(courses) >= 1:

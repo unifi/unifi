@@ -20,7 +20,7 @@ class Wish(models.Model):
     student = models.ForeignKey(Student)
     tags = models.ManyToManyField(Tag)
     wish_date = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField()
+    is_active = models.BooleanField(default=True)
 
     def __unicode__(self):
         return "Wish: " + self.student.__unicode__()
