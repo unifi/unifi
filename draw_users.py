@@ -11,7 +11,6 @@ from django.contrib.auth.models import User
 
 
 
-
 if __name__ == "__main__":
 
     URI_PATTERN = "http://un.ifi.uio.no/users/{0}"

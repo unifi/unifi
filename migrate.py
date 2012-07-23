@@ -7,7 +7,7 @@ from shutil import rmtree
 from unifi.settings import INSTALLED_APPS
 
 
-DEBUG = True
+DEBUG = False
 environ['DJANGO_SETTINGS_MODULE'] = 'unifi.settings'
 
 def drop_database( username="unifi"):
@@ -69,6 +69,9 @@ if __name__ == "__main__":
         system( "python manage.py migrate" )
 
     elif choice is choices['auto']:
+    
+        system( "python manage.py syncdb --all" )
+    
         for name in names:
             system( "python manage.py schemamigration %s --auto" % name )
             breakpoint()

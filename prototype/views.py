@@ -288,7 +288,7 @@ def display_wishes( request ):
 
 
 def graph( request ):
-
+    
     edges = []
     data = {
         'students':     Student.objects.count(),
