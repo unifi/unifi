@@ -4,7 +4,12 @@
 <div style="overflow: auto;">
     {% for student in students %}
     <div style="overflow: auto">
-        <a href="./{{ student.user.username }}">{{ student.user.username }}</a>
+        <a class="student" href="./{{ student.user.username }}">
+            {{ student.user.username }}
+        </a>
+        {% if student.user.username in oracles %}
+        <span>oracle</span>
+        {% endif %}
     </div>
     {% endfor %}
 </div>

@@ -1,8 +1,5 @@
 from django.db import models
-from student.models import Student
-from oracle.models import Oracle
-from tag.models import Tag
-from student.models import Wish
+from student.models import Wish, Student
 
 class Group(models.Model):
     """

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from tag.models import Tag
+
 class Student(models.Model):
     """ Student
     Participates in group collaboration.
