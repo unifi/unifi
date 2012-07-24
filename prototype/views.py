@@ -309,15 +309,28 @@ def graph( request ):
     the first user to each user of the group.
     """
 
+    # [+] implement as a separate function
+    def mean_group_size():
+        group_count = 0
+        student_count = 0
+        for g in Group.objects.all():
+            group_count += 1
+            student_count += g.students.count()
+        return float(student_count) / group_count
+
+
+
     edges = []
+    groups = []
     data = {
-        'students':     Student.objects.count(),
-        'tags':         Tag.objects.count(),
-        'wishes':       Wish.objects.count(),
-        'groups':       Group.objects.count(),
+        'students':             Student.objects.count(),
+        'tags':                 Tag.objects.count(),
+        'wishes':               Wish.objects.count(),
+        'groups':               Group.objects.count(),
     }
 
     for group in Group.objects.all():
+        groups.append( group )
         students = group.students.all()
 
         for student in students:
@@ -328,6 +341,7 @@ def graph( request ):
 
     return render_to_response( "prototype/graph.html", {
             "edges": edges,
+            "groups": groups,
             "data": data,
         }
     )

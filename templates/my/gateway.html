@@ -106,8 +106,19 @@
         <h2>Gruppene som trenger hjelp</h2>
         <h4>Her bør vi ha et søke/filtreringsfelt for gruppetaggene.</h4>
         <ul>
-        {% for wish in assistance %}
-            <li>{{ wish }}</li>
+        {% for group in assistance_groups %}
+            <li><h3>{{ group }}:</h3>
+            <div class="student_container">
+            {% for student in group.students.all %}
+            <span class="student">{{ student }}</span>
+            {% endfor %}
+            </div>
+            <div class="tag_container">
+            {% for tag in group.tags %}
+            <span class="tag">{{ tag }}</span>
+            {% endfor %}
+            </div>
+            </li>
         {% endfor %}
         </ul>
     </div>
