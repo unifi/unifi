@@ -20,6 +20,10 @@ class WishDispatcher(object):
     # GROUP_SIZE = 3
     # MIN_SCORE = 0.2
 
+    GROUP_SIZE = 4
+    MIN_SCORE = 0.3
+
+
     def __init__(self, GROUP_SIZE=5, MIN_SCORE=0.6):
 
         self.bucket_dicts = {}
