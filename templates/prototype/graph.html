@@ -7,20 +7,46 @@
 <div class="graph" id="canvas">
     <script>
         var g = new Graph();
-        {% for edge in edges %}
-            {% if edge.0 != edge.1 %}
-            g.addEdge(
-                "{{ edge.1 }}", "{{ edge.2 }}",
-                { label: "{{ edge.0 }}", directed: true, stroke: "black" }
-            );
-            {% endif %}
+
+        {% for group in groups %}
+
+        var render = function(r, n) {
+            var set = r.set()
+                .push(
+                    r.rect(
+                        n.point[0]-30, n.point[1]-13, 60, 44)
+                            .attr( {
+                                "fill":         "#DDCCAA",
+                                r:              "5px",
+                                "stroke-width": "2px",
+                                "stroke-color": "#BBAA33"
+                            } )
+                    )
+                    .push(
+                        r.text( n.point[0], n.point[1] + 10, (n.label || n.id) + "\n(" + "{{ group.students.count }}" + ")"
+                    )
+                );
+            return set;
+        };
+
+        g.addNode( "{{ group.pk }}",
+            { label: "<G-{{ group.pk }}>", render: render }
+        );
+            {% for student in group.students.all %}
+                g.addEdge( "{{ student.username }}", "{{ group.pk }}",
+                    { label: "{{ group.pk }}" }
+                );
+            {% endfor %}
         {% endfor %}
+
         var layouter = new Graph.Layout.Spring(g);
         layouter.layout();
         var renderer = new Graph.Renderer.Raphael(
-            'canvas', g, 800, ({{ data.groups }} * 37)
+            'canvas', g, 800, ({{ data.groups }} * 55)
         );
+
         renderer.draw();
+
     </script>
 </div>
 <!-- ... -->

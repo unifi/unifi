@@ -310,6 +310,7 @@ def graph( request ):
     """
 
     edges = []
+    groups = []
     data = {
         'students':     Student.objects.count(),
         'tags':         Tag.objects.count(),
@@ -318,6 +319,7 @@ def graph( request ):
     }
 
     for group in Group.objects.all():
+        groups.append( group )
         students = group.students.all()
 
         for student in students:
@@ -328,6 +330,7 @@ def graph( request ):
 
     return render_to_response( "prototype/graph.html", {
             "edges": edges,
+            "groups": groups,
             "data": data,
         }
     )
