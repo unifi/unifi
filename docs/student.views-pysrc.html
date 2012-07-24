@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>student.views</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="student-module.html">Package&nbsp;student</a> ::
+        Module&nbsp;views
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="student.views-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="student.views-module.html">Module student.views</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-comment"># Create your views here.#No course - "default" bucket</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt class="py-name">contrib</tt><tt class="py-op">.</tt><tt class="py-name">auth</tt><tt class="py-op">.</tt><tt id="link-0" class="py-name" targets="Module communication.models=communication.models-module.html,Module group.models=group.models-module.html,Module login.models=login.models-module.html,Module match.models=match.models-module.html,Module my.models=my.models-module.html,Module oracle.models=oracle.models-module.html,Module prototype.models=prototype.models-module.html,Module student.models=student.models-module.html,Module tag.models=tag.models-module.html,Module util.models=util.models-module.html"><a title="communication.models
+group.models
+login.models
+match.models
+my.models
+oracle.models
+prototype.models
+student.models
+tag.models
+util.models" class="py-name" href="#" onclick="return doclink('link-0', 'models', 'link-0');">models</a></tt> <tt class="py-keyword">import</tt> <tt class="py-name">User</tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt class="py-name">db</tt><tt class="py-op">.</tt><tt class="py-name">utils</tt> <tt class="py-keyword">import</tt> <tt class="py-name">IntegrityError</tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt class="py-name">shortcuts</tt> <tt class="py-keyword">import</tt> <tt class="py-name">render_to_response</tt><tt class="py-op">,</tt> <tt class="py-name">redirect</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt class="py-name">core</tt><tt class="py-op">.</tt><tt class="py-name">context_processors</tt> <tt class="py-keyword">import</tt> <tt class="py-name">csrf</tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt id="link-1" class="py-name" targets="Variable unifi.database_generator.template=unifi.database_generator-module.html#template"><a title="unifi.database_generator.template" class="py-name" href="#" onclick="return doclink('link-1', 'template', 'link-1');">template</a></tt><tt class="py-op">.</tt><tt class="py-name">context</tt> <tt class="py-keyword">import</tt> <tt class="py-name">RequestContext</tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt id="link-2" class="py-name" targets="Module communication.views=communication.views-module.html,Module group.views=group.views-module.html,Module login.views=login.views-module.html,Module match.views=match.views-module.html,Module my.views=my.views-module.html,Module oracle.views=oracle.views-module.html,Module prototype.views=prototype.views-module.html,Module student.views=student.views-module.html,Module tag.views=tag.views-module.html,Module util.views=util.views-module.html"><a title="communication.views
+group.views
+login.views
+match.views
+my.views
+oracle.views
+prototype.views
+student.views
+tag.views
+util.views" class="py-name" href="#" onclick="return doclink('link-2', 'views', 'link-2');">views</a></tt><tt class="py-op">.</tt><tt class="py-name">decorators</tt><tt class="py-op">.</tt><tt class="py-name">csrf</tt> <tt class="py-keyword">import</tt> <tt class="py-name">csrf_protect</tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt class="py-name">contrib</tt> <tt class="py-keyword">import</tt> <tt class="py-name">auth</tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-3" class="py-name" targets="Package student=student-module.html,Variable student.models.Wish.student=student.models.Wish-class.html#student"><a title="student
+student.models.Wish.student" class="py-name" href="#" onclick="return doclink('link-3', 'student', 'link-3');">student</a></tt><tt class="py-op">.</tt><tt id="link-4" class="py-name"><a title="communication.models
+group.models
+login.models
+match.models
+my.models
+oracle.models
+prototype.models
+student.models
+tag.models
+util.models" class="py-name" href="#" onclick="return doclink('link-4', 'models', 'link-0');">models</a></tt> <tt class="py-keyword">import</tt> <tt id="link-5" class="py-name" targets="Class student.models.Wish=student.models.Wish-class.html"><a title="student.models.Wish" class="py-name" href="#" onclick="return doclink('link-5', 'Wish', 'link-5');">Wish</a></tt><tt class="py-op">,</tt> <tt id="link-6" class="py-name" targets="Class student.models.Student=student.models.Student-class.html"><a title="student.models.Student" class="py-name" href="#" onclick="return doclink('link-6', 'Student', 'link-6');">Student</a></tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-7" class="py-name" targets="Package match=match-module.html,Function match.views.match()=match.views-module.html#match,Method unificmd.apidraft.match()=unificmd.apidraft-class.html#match"><a title="match
+match.views.match
+unificmd.apidraft.match" class="py-name" href="#" onclick="return doclink('link-7', 'match', 'link-7');">match</a></tt><tt class="py-op">.</tt><tt id="link-8" class="py-name" targets="Package match.algorithms=match.algorithms-module.html"><a title="match.algorithms" class="py-name" href="#" onclick="return doclink('link-8', 'algorithms', 'link-8');">algorithms</a></tt> <tt class="py-keyword">import</tt> <tt class="py-op">*</tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-9" class="py-name" targets="Package unifi=unifi-module.html"><a title="unifi" class="py-name" href="#" onclick="return doclink('link-9', 'unifi', 'link-9');">unifi</a></tt><tt class="py-op">.</tt><tt id="link-10" class="py-name" targets="Package unifi.management=unifi.management-module.html"><a title="unifi.management" class="py-name" href="#" onclick="return doclink('link-10', 'management', 'link-10');">management</a></tt> <tt class="py-keyword">import</tt> <tt class="py-op">*</tt> </tt>
+<a name="tagittest"></a><div id="tagittest-def"><a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"><tt class="py-comment"># Temporary test-specific views</tt> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt> <a class="py-toggle" href="#" id="tagittest-toggle" onclick="return toggle('tagittest');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="student.views-module.html#tagittest">tagittest</a> <tt class="py-op">(</tt><tt class="py-param">request</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="tagittest-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="tagittest-expanded"><a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">render_to_response</tt><tt class="py-op">(</tt><tt class="py-string">"tagittest.html"</tt><tt class="py-op">,</tt> <tt class="py-op">{</tt><tt class="py-string">"title"</tt> <tt class="py-op">:</tt> <tt class="py-string">"Tagit test"</tt><tt class="py-op">,</tt> <tt class="py-string">"mesg"</tt> <tt class="py-op">:</tt> <tt class="py-string">"Register a wish"</tt><tt class="py-op">}</tt><tt class="py-op">,</tt> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line">            <tt class="py-name">context_instance</tt> <tt class="py-op">=</tt> <tt class="py-name">RequestContext</tt><tt class="py-op">(</tt><tt class="py-name">request</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"> </tt>
+<a name="submitwish"></a><div id="submitwish-def"><a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"><tt class="py-decorator">@</tt><tt class="py-decorator">csrf_protect</tt> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt> <a class="py-toggle" href="#" id="submitwish-toggle" onclick="return toggle('submitwish');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="student.views-module.html#submitwish">submitwish</a><tt class="py-op">(</tt><tt class="py-param">request</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="submitwish-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="submitwish-expanded"><a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line"> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line">    <tt class="py-name">tag_list</tt> <tt class="py-op">=</tt>  <tt class="py-name">request</tt><tt class="py-op">.</tt><tt class="py-name">POST</tt><tt class="py-op">.</tt><tt class="py-name">getlist</tt><tt class="py-op">(</tt><tt class="py-string">'user[tags][]'</tt><tt class="py-op">)</tt> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line"> </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">tag_list</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">render_to_response</tt><tt class="py-op">(</tt><tt class="py-string">"tagittest.html"</tt><tt class="py-op">,</tt> <tt class="py-op">{</tt><tt class="py-string">"title"</tt> <tt class="py-op">:</tt> <tt class="py-string">"Tagit test"</tt><tt class="py-op">,</tt> <tt class="py-string">"mesg"</tt> <tt class="py-op">:</tt> <tt class="py-string">"lol gife me tags plz"</tt><tt class="py-op">}</tt><tt class="py-op">,</tt> </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line">                <tt class="py-name">context_instance</tt> <tt class="py-op">=</tt> <tt class="py-name">RequestContext</tt><tt class="py-op">(</tt><tt class="py-name">request</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line"> </tt>
+<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line">    <tt class="py-comment">#to lower case</tt> </tt>
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line">    <tt class="py-name">tag_list</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-name">t</tt><tt class="py-op">.</tt><tt class="py-name">lower</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-keyword">for</tt> <tt class="py-name">t</tt> <tt class="py-keyword">in</tt> <tt class="py-name">tag_list</tt><tt class="py-op">]</tt> </tt>
+<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line"> </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">tag_list</tt><tt class="py-op">)</tt> <tt class="py-op">&gt;</tt> <tt class="py-number">5</tt><tt class="py-op">:</tt> </tt>
+<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">render_to_response</tt><tt class="py-op">(</tt><tt class="py-string">"tagittest.html"</tt><tt class="py-op">,</tt> <tt class="py-op">{</tt><tt class="py-string">"title"</tt> <tt class="py-op">:</tt> <tt class="py-string">"Tagit test"</tt><tt class="py-op">,</tt> <tt class="py-string">"mesg"</tt> <tt class="py-op">:</tt> <tt class="py-string">"Max num of tags is 5"</tt><tt class="py-op">}</tt><tt class="py-op">,</tt> </tt>
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line">                <tt class="py-name">context_instance</tt> <tt class="py-op">=</tt> <tt class="py-name">RequestContext</tt><tt class="py-op">(</tt><tt class="py-name">request</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line"> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line">    <tt class="py-name">courses</tt> <tt class="py-op">=</tt> <tt id="link-11" class="py-name" targets="Variable match.algorithms.WishDispatcher=match.algorithms-module.html#WishDispatcher,Class match.algorithms.WishDispatcher'.WishDispatcher=match.algorithms.WishDispatcher%27.WishDispatcher-class.html"><a title="match.algorithms.WishDispatcher
+match.algorithms.WishDispatcher'.WishDispatcher" class="py-name" href="#" onclick="return doclink('link-11', 'WishDispatcher', 'link-11');">WishDispatcher</a></tt><tt class="py-op">.</tt><tt id="link-12" class="py-name" targets="Method match.algorithms.WishDispatcher'.WishDispatcher.extract_course_tag()=match.algorithms.WishDispatcher%27.WishDispatcher-class.html#extract_course_tag"><a title="match.algorithms.WishDispatcher'.WishDispatcher.extract_course_tag" class="py-name" href="#" onclick="return doclink('link-12', 'extract_course_tag', 'link-12');">extract_course_tag</a></tt><tt class="py-op">(</tt><tt class="py-name">tag_list</tt><tt class="py-op">)</tt> </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">courses</tt><tt class="py-op">)</tt> <tt class="py-op">&gt;</tt> <tt class="py-number">1</tt><tt class="py-op">:</tt> </tt>
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">render_to_response</tt><tt class="py-op">(</tt><tt class="py-string">"tagittest.html"</tt><tt class="py-op">,</tt> <tt class="py-op">{</tt><tt class="py-string">"title"</tt> <tt class="py-op">:</tt> <tt class="py-string">"Tagit test"</tt><tt class="py-op">,</tt> <tt class="py-string">"mesg"</tt> <tt class="py-op">:</tt> <tt class="py-string">"Please specify one course only"</tt><tt class="py-op">}</tt><tt class="py-op">,</tt> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line">                <tt class="py-name">context_instance</tt> <tt class="py-op">=</tt> <tt class="py-name">RequestContext</tt><tt class="py-op">(</tt><tt class="py-name">request</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line"> </tt>
+<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line"> </tt>
+<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line">    <tt class="py-name">usr</tt> <tt class="py-op">=</tt> <tt id="link-13" class="py-name" targets="Variable match.algorithms.HeapGraphMatcher'.UserManager=match.algorithms.HeapGraphMatcher%27-module.html#UserManager,Variable match.algorithms.WishDispatcher'.UserManager=match.algorithms.WishDispatcher%27-module.html#UserManager,Variable unifi.management.UserManager=unifi.management-module.html#UserManager"><a title="match.algorithms.HeapGraphMatcher'.UserManager
+match.algorithms.WishDispatcher'.UserManager
+unifi.management.UserManager" class="py-name" href="#" onclick="return doclink('link-13', 'UserManager', 'link-13');">UserManager</a></tt><tt class="py-op">.</tt><tt id="link-14" class="py-name" targets="Method unifi.management.usermanagement.UserManagement.getStudent()=unifi.management.usermanagement.UserManagement-class.html#getStudent"><a title="unifi.management.usermanagement.UserManagement.getStudent" class="py-name" href="#" onclick="return doclink('link-14', 'getStudent', 'link-14');">getStudent</a></tt><tt class="py-op">(</tt><tt class="py-name">request</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name" targets="Variable student.models.Student.user=student.models.Student-class.html#user"><a title="student.models.Student.user" class="py-name" href="#" onclick="return doclink('link-15', 'user', 'link-15');">user</a></tt><tt class="py-op">.</tt><tt id="link-16" class="py-name" targets="Method student.models.Student.username()=student.models.Student-class.html#username"><a title="student.models.Student.username" class="py-name" href="#" onclick="return doclink('link-16', 'username', 'link-16');">username</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line"> </tt>
+<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">    <tt class="py-comment">#debug</tt> </tt>
+<a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line">    <tt class="py-keyword">print</tt> <tt class="py-name">request</tt><tt class="py-op">.</tt><tt id="link-17" class="py-name"><a title="student.models.Student.user" class="py-name" href="#" onclick="return doclink('link-17', 'user', 'link-15');">user</a></tt><tt class="py-op">.</tt><tt id="link-18" class="py-name"><a title="student.models.Student.username" class="py-name" href="#" onclick="return doclink('link-18', 'username', 'link-16');">username</a></tt> </tt>
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line"> </tt>
+<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line">    <tt class="py-name">w</tt> <tt class="py-op">=</tt> <tt id="link-19" class="py-name" targets="Variable match.algorithms.HeapGraphMatcher'.WishManager=match.algorithms.HeapGraphMatcher%27-module.html#WishManager,Variable match.algorithms.WishDispatcher'.WishManager=match.algorithms.WishDispatcher%27-module.html#WishManager,Variable unifi.management.WishManager=unifi.management-module.html#WishManager"><a title="match.algorithms.HeapGraphMatcher'.WishManager
+match.algorithms.WishDispatcher'.WishManager
+unifi.management.WishManager" class="py-name" href="#" onclick="return doclink('link-19', 'WishManager', 'link-19');">WishManager</a></tt><tt class="py-op">.</tt><tt id="link-20" class="py-name" targets="Method unifi.management.wishmanagement.WishManagement.addWish()=unifi.management.wishmanagement.WishManagement-class.html#addWish"><a title="unifi.management.wishmanagement.WishManagement.addWish" class="py-name" href="#" onclick="return doclink('link-20', 'addWish', 'link-20');">addWish</a></tt><tt class="py-op">(</tt><tt class="py-name">usr</tt><tt class="py-op">,</tt> <tt class="py-name">tag_list</tt><tt class="py-op">)</tt> </tt>
+<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line"> </tt>
+<a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line">    <tt class="py-comment">#No course - "default" bucket</tt> </tt>
+<a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">courses</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line">        <tt id="link-21" class="py-name"><a title="match.algorithms.WishDispatcher
+match.algorithms.WishDispatcher'.WishDispatcher" class="py-name" href="#" onclick="return doclink('link-21', 'WishDispatcher', 'link-11');">WishDispatcher</a></tt><tt class="py-op">.</tt><tt id="link-22" class="py-name" targets="Method match.algorithms.WishDispatcher'.WishDispatcher.add_wish_to_bucket()=match.algorithms.WishDispatcher%27.WishDispatcher-class.html#add_wish_to_bucket"><a title="match.algorithms.WishDispatcher'.WishDispatcher.add_wish_to_bucket" class="py-name" href="#" onclick="return doclink('link-22', 'add_wish_to_bucket', 'link-22');">add_wish_to_bucket</a></tt><tt class="py-op">(</tt><tt class="py-name">w</tt><tt class="py-op">,</tt> <tt class="py-string">"default"</tt><tt class="py-op">)</tt> </tt>
+<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line">    <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line">        <tt id="link-23" class="py-name"><a title="match.algorithms.WishDispatcher
+match.algorithms.WishDispatcher'.WishDispatcher" class="py-name" href="#" onclick="return doclink('link-23', 'WishDispatcher', 'link-11');">WishDispatcher</a></tt><tt class="py-op">.</tt><tt id="link-24" class="py-name"><a title="match.algorithms.WishDispatcher'.WishDispatcher.add_wish_to_bucket" class="py-name" href="#" onclick="return doclink('link-24', 'add_wish_to_bucket', 'link-22');">add_wish_to_bucket</a></tt><tt class="py-op">(</tt><tt class="py-name">w</tt><tt class="py-op">,</tt> <tt class="py-name">courses</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line"> </tt>
+<a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">render_to_response</tt><tt class="py-op">(</tt><tt class="py-string">"submitwish.html"</tt><tt class="py-op">,</tt> <tt class="py-op">{</tt><tt class="py-string">"title"</tt> <tt class="py-op">:</tt> <tt class="py-string">"Submit Wish"</tt><tt class="py-op">,</tt> <tt class="py-string">"wish"</tt> <tt class="py-op">:</tt> <tt class="py-name">w</tt><tt class="py-op">}</tt><tt class="py-op">,</tt> </tt>
+<a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line">            <tt class="py-name">context_instance</tt> <tt class="py-op">=</tt> <tt class="py-name">RequestContext</tt><tt class="py-op">(</tt><tt class="py-name">request</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line"> </tt>
+<a name="mywishes"></a><div id="mywishes-def"><a name="L56"></a><tt class="py-lineno">56</tt> <a class="py-toggle" href="#" id="mywishes-toggle" onclick="return toggle('mywishes');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="student.views-module.html#mywishes">mywishes</a><tt class="py-op">(</tt><tt class="py-param">request</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="mywishes-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="mywishes-expanded"><a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line"> </tt>
+<a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line">    <tt class="py-name">usr</tt> <tt class="py-op">=</tt> <tt id="link-25" class="py-name"><a title="match.algorithms.HeapGraphMatcher'.UserManager
+match.algorithms.WishDispatcher'.UserManager
+unifi.management.UserManager" class="py-name" href="#" onclick="return doclink('link-25', 'UserManager', 'link-13');">UserManager</a></tt><tt class="py-op">.</tt><tt id="link-26" class="py-name"><a title="unifi.management.usermanagement.UserManagement.getStudent" class="py-name" href="#" onclick="return doclink('link-26', 'getStudent', 'link-14');">getStudent</a></tt><tt class="py-op">(</tt><tt class="py-name">request</tt><tt class="py-op">.</tt><tt id="link-27" class="py-name"><a title="student.models.Student.user" class="py-name" href="#" onclick="return doclink('link-27', 'user', 'link-15');">user</a></tt><tt class="py-op">.</tt><tt id="link-28" class="py-name"><a title="student.models.Student.username" class="py-name" href="#" onclick="return doclink('link-28', 'username', 'link-16');">username</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line">    <tt id="link-29" class="py-name" targets="Variable group.models.Group.wishes=group.models.Group-class.html#wishes"><a title="group.models.Group.wishes" class="py-name" href="#" onclick="return doclink('link-29', 'wishes', 'link-29');">wishes</a></tt> <tt class="py-op">=</tt> <tt id="link-30" class="py-name"><a title="match.algorithms.HeapGraphMatcher'.WishManager
+match.algorithms.WishDispatcher'.WishManager
+unifi.management.WishManager" class="py-name" href="#" onclick="return doclink('link-30', 'WishManager', 'link-19');">WishManager</a></tt><tt class="py-op">.</tt><tt id="link-31" class="py-name" targets="Method unifi.management.wishmanagement.WishManagement.getAStudentWishes()=unifi.management.wishmanagement.WishManagement-class.html#getAStudentWishes"><a title="unifi.management.wishmanagement.WishManagement.getAStudentWishes" class="py-name" href="#" onclick="return doclink('link-31', 'getAStudentWishes', 'link-31');">getAStudentWishes</a></tt><tt class="py-op">(</tt><tt class="py-name">usr</tt><tt class="py-op">)</tt> </tt>
+<a name="L60"></a><tt class="py-lineno">60</tt>  <tt class="py-line"> </tt>
+<a name="L61"></a><tt class="py-lineno">61</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">render_to_response</tt><tt class="py-op">(</tt><tt class="py-string">"mywishes.html"</tt><tt class="py-op">,</tt> <tt class="py-op">{</tt><tt class="py-string">"title"</tt> <tt class="py-op">:</tt> <tt class="py-string">"My little wishes"</tt><tt class="py-op">,</tt> <tt class="py-string">"wishes"</tt> <tt class="py-op">:</tt> <tt id="link-32" class="py-name"><a title="group.models.Group.wishes" class="py-name" href="#" onclick="return doclink('link-32', 'wishes', 'link-29');">wishes</a></tt> <tt class="py-op">}</tt><tt class="py-op">,</tt> </tt>
+<a name="L62"></a><tt class="py-lineno">62</tt>  <tt class="py-line">            <tt class="py-name">context_instance</tt> <tt class="py-op">=</tt> <tt class="py-name">RequestContext</tt><tt class="py-op">(</tt><tt class="py-name">request</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L63"></a><tt class="py-lineno">63</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Tue Jul 24 13:22:11 2012
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

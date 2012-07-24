@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>match.algorithms.HeapGraphMatcher'</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="match-module.html">Package&nbsp;match</a> ::
+        <a href="match.algorithms-module.html">Package&nbsp;algorithms</a> ::
+        Module&nbsp;HeapGraphMatcher'
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="match.algorithms.HeapGraphMatcher%27-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="match.algorithms.HeapGraphMatcher%27-module.html">Module match.algorithms.HeapGraphMatcher'</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/env python2.7</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">networkx</tt> <tt class="py-keyword">as</tt> <tt class="py-name">nx</tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">heapq</tt> <tt class="py-keyword">as</tt> <tt class="py-name">heap</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Module match.algorithms.MatchBase=match.algorithms.MatchBase-module.html"><a title="match.algorithms.MatchBase" class="py-name" href="#" onclick="return doclink('link-0', 'MatchBase', 'link-0');">MatchBase</a></tt> <tt class="py-keyword">import</tt> <tt id="link-1" class="py-name" targets="Class match.algorithms.MatchBase.Matcher=match.algorithms.MatchBase.Matcher-class.html"><a title="match.algorithms.MatchBase.Matcher" class="py-name" href="#" onclick="return doclink('link-1', 'Matcher', 'link-1');">Matcher</a></tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-2" class="py-name" targets="Package unifi=unifi-module.html"><a title="unifi" class="py-name" href="#" onclick="return doclink('link-2', 'unifi', 'link-2');">unifi</a></tt><tt class="py-op">.</tt><tt id="link-3" class="py-name" targets="Package unifi.management=unifi.management-module.html"><a title="unifi.management" class="py-name" href="#" onclick="return doclink('link-3', 'management', 'link-3');">management</a></tt> <tt class="py-keyword">import</tt> <tt class="py-op">*</tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-4" class="py-name" targets="Package communication=communication-module.html"><a title="communication" class="py-name" href="#" onclick="return doclink('link-4', 'communication', 'link-4');">communication</a></tt><tt class="py-op">.</tt><tt id="link-5" class="py-name" targets="Module communication.emailemulating=communication.emailemulating-module.html"><a title="communication.emailemulating" class="py-name" href="#" onclick="return doclink('link-5', 'emailemulating', 'link-5');">emailemulating</a></tt> <tt class="py-keyword">import</tt> <tt id="link-6" class="py-name" targets="Class communication.emailemulating.EmailEmulating=communication.emailemulating.EmailEmulating-class.html"><a title="communication.emailemulating.EmailEmulating" class="py-name" href="#" onclick="return doclink('link-6', 'EmailEmulating', 'link-6');">EmailEmulating</a></tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"> </tt>
+<a name="HeapGraphMatcher"></a><div id="HeapGraphMatcher-def"><a name="L9"></a><tt class="py-lineno"> 9</tt> <a class="py-toggle" href="#" id="HeapGraphMatcher-toggle" onclick="return toggle('HeapGraphMatcher');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="match.algorithms.HeapGraphMatcher'.HeapGraphMatcher-class.html">HeapGraphMatcher</a><tt class="py-op">(</tt><tt class="py-base-class">Matcher</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="HeapGraphMatcher-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="HeapGraphMatcher-expanded"><a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-docstring">    A group matching algorithm using a priority queue to make groups</tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"> </tt>
+<a name="HeapGraphMatcher.__init__"></a><div id="HeapGraphMatcher.__init__-def"><a name="L14"></a><tt class="py-lineno">14</tt> <a class="py-toggle" href="#" id="HeapGraphMatcher.__init__-toggle" onclick="return toggle('HeapGraphMatcher.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="match.algorithms.HeapGraphMatcher'.HeapGraphMatcher-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">group_size</tt><tt class="py-op">,</tt> <tt class="py-param">min_score</tt><tt class="py-op">,</tt> <tt class="py-param">scoring_function</tt><tt class="py-op">,</tt> <tt class="py-param">name</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="HeapGraphMatcher.__init__-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="HeapGraphMatcher.__init__-expanded"><a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line">        <tt id="link-7" class="py-name"><a title="match.algorithms.MatchBase.Matcher" class="py-name" href="#" onclick="return doclink('link-7', 'Matcher', 'link-1');">Matcher</a></tt><tt class="py-op">.</tt><tt id="link-8" class="py-name" targets="Method communication.emailemulating.EmailEmulating.__init__()=communication.emailemulating.EmailEmulating-class.html#__init__,Method match.algorithms.HeapGraphMatcher'.HeapGraphMatcher.__init__()=match.algorithms.HeapGraphMatcher%27.HeapGraphMatcher-class.html#__init__,Method match.algorithms.MatchBase.Matcher.__init__()=match.algorithms.MatchBase.Matcher-class.html#__init__,Method match.algorithms.WishDispatcher'.WishDispatcher.__init__()=match.algorithms.WishDispatcher%27.WishDispatcher-class.html#__init__,Method match.algorithms.test.A.__init__()=match.algorithms.test.A-class.html#__init__,Method match.util.Pair.Sample.__init__()=match.util.Pair.Sample-class.html#__init__,Method match.util.Pair.__init__()=match.util.Pair-class.html#__init__,Method match.util.Pool.__init__()=match.util.Pool-class.html#__init__,Method prototype.generator.TestDataGenerator.__init__()=prototype.generator.TestDataGenerator-class.html#__init__,Method prototype.generators.Generator.__init__()=prototype.generators.Generator-class.html#__init__,Method prototype.generators.StudentGenerator.__init__()=prototype.generators.StudentGenerator-class.html#__init__,Method prototype.generators.SubjectTagGenerator.__init__()=prototype.generators.SubjectTagGenerator-class.html#__init__,Method prototype.generators.TagGenerator.__init__()=prototype.generators.TagGenerator-class.html#__init__,Method prototype.generators.WishGenerator.__init__()=prototype.generators.WishGenerator-class.html#__init__,Method unifi.management.groupmanagement.GroupManagement.__init__()=unifi.management.groupmanagement.GroupManagement-class.html#__init__,Method unifi.management.tagmanagement.TagManagement.__init__()=unifi.management.tagmanagement.TagManagement-class.html#__init__,Method unifi.management.usermanagement.UserManagement.__init__()=unifi.management.usermanagement.UserManagement-class.html#__init__,Method unifi.management.wishmanagement.WishManagement.__init__()=unifi.management.wishmanagement.WishManagement-class.html#__init__,Method unificmd.apidraft.__init__()=unificmd.apidraft-class.html#__init__"><a title="communication.emailemulating.EmailEmulating.__init__
+match.algorithms.HeapGraphMatcher'.HeapGraphMatcher.__init__
+match.algorithms.MatchBase.Matcher.__init__
+match.algorithms.WishDispatcher'.WishDispatcher.__init__
+match.algorithms.test.A.__init__
+match.util.Pair.Sample.__init__
+match.util.Pair.__init__
+match.util.Pool.__init__
+prototype.generator.TestDataGenerator.__init__
+prototype.generators.Generator.__init__
+prototype.generators.StudentGenerator.__init__
+prototype.generators.SubjectTagGenerator.__init__
+prototype.generators.TagGenerator.__init__
+prototype.generators.WishGenerator.__init__
+unifi.management.groupmanagement.GroupManagement.__init__
+unifi.management.tagmanagement.TagManagement.__init__
+unifi.management.usermanagement.UserManagement.__init__
+unifi.management.wishmanagement.WishManagement.__init__
+unificmd.apidraft.__init__" class="py-name" href="#" onclick="return doclink('link-8', '__init__', 'link-8');">__init__</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">group_size</tt><tt class="py-op">,</tt> <tt class="py-name">min_score</tt><tt class="py-op">,</tt> <tt class="py-name">scoring_function</tt><tt class="py-op">,</tt> <tt class="py-name">name</tt><tt class="py-op">)</tt> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">mail</tt> <tt class="py-op">=</tt> <tt id="link-9" class="py-name"><a title="communication.emailemulating.EmailEmulating" class="py-name" href="#" onclick="return doclink('link-9', 'EmailEmulating', 'link-6');">EmailEmulating</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"> </tt>
+<a name="HeapGraphMatcher.check_for_group"></a><div id="HeapGraphMatcher.check_for_group-def"><a name="L18"></a><tt class="py-lineno">18</tt> <a class="py-toggle" href="#" id="HeapGraphMatcher.check_for_group-toggle" onclick="return toggle('HeapGraphMatcher.check_for_group');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="match.algorithms.HeapGraphMatcher'.HeapGraphMatcher-class.html#check_for_group">check_for_group</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">wish</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="HeapGraphMatcher.check_for_group-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="HeapGraphMatcher.check_for_group-expanded"><a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line">        <tt class="py-name">neighbors</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-10" class="py-name" targets="Function prototype.views.graph()=prototype.views-module.html#graph"><a title="prototype.views.graph" class="py-name" href="#" onclick="return doclink('link-10', 'graph', 'link-10');">graph</a></tt><tt class="py-op">.</tt><tt class="py-name">adj</tt><tt class="py-op">[</tt><tt class="py-name">wish</tt><tt class="py-op">]</tt> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line">        <tt class="py-name">h</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> <tt class="py-comment"># Tha heapzor</tt> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line"> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line">        <tt class="py-comment"># Add nodes to minheap based on edge-weight (score)</tt> </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">n</tt> <tt class="py-keyword">in</tt> <tt class="py-name">neighbors</tt><tt class="py-op">.</tt><tt class="py-name">viewitems</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line">            <tt class="py-name">heap</tt><tt class="py-op">.</tt><tt class="py-name">heappush</tt><tt class="py-op">(</tt><tt class="py-name">h</tt><tt class="py-op">,</tt> <tt class="py-op">(</tt><tt class="py-name">n</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">n</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line"> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line">        <tt class="py-comment"># A group is found (add 1 for the current wish itself)</tt> </tt>
+<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">h</tt><tt class="py-op">)</tt> <tt class="py-op">+</tt> <tt class="py-number">1</tt> <tt class="py-op">&gt;=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">group_size</tt><tt class="py-op">:</tt> </tt>
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-op">[</tt> <tt class="py-name">heap</tt><tt class="py-op">.</tt><tt class="py-name">heappop</tt><tt class="py-op">(</tt><tt class="py-name">h</tt><tt class="py-op">)</tt> <tt class="py-keyword">for</tt> <tt class="py-name">x</tt> <tt class="py-keyword">in</tt> <tt class="py-name">range</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">group_size</tt><tt class="py-op">-</tt><tt class="py-number">1</tt><tt class="py-op">)</tt><tt class="py-op">]</tt> </tt>
+</div><a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line"> </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line"> </tt>
+<a name="HeapGraphMatcher.add_wish_to_graph"></a><div id="HeapGraphMatcher.add_wish_to_graph-def"><a name="L31"></a><tt class="py-lineno">31</tt> <a class="py-toggle" href="#" id="HeapGraphMatcher.add_wish_to_graph-toggle" onclick="return toggle('HeapGraphMatcher.add_wish_to_graph');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="match.algorithms.HeapGraphMatcher'.HeapGraphMatcher-class.html#add_wish_to_graph">add_wish_to_graph</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">wish</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="HeapGraphMatcher.add_wish_to_graph-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="HeapGraphMatcher.add_wish_to_graph-expanded"><a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line"><tt class="py-docstring">        When a student registers a wish, it is added to the graph</tt> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line"><tt class="py-docstring">        @param wish: the registered wish</tt> </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line"> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-11" class="py-name"><a title="prototype.views.graph" class="py-name" href="#" onclick="return doclink('link-11', 'graph', 'link-10');">graph</a></tt><tt class="py-op">.</tt><tt class="py-name">add_node</tt><tt class="py-op">(</tt><tt class="py-name">wish</tt><tt class="py-op">)</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line"> </tt>
+<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line">        <tt class="py-comment"># For each existing node, calculate the score between the new wish and the node</tt> </tt>
+<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line">        <tt class="py-comment"># 0.0 - Perfect match (all tags are the same), 1.0 - No match at all (disjoint tag sets)</tt> </tt>
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">node</tt> <tt class="py-keyword">in</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-12" class="py-name"><a title="prototype.views.graph" class="py-name" href="#" onclick="return doclink('link-12', 'graph', 'link-10');">graph</a></tt><tt class="py-op">.</tt><tt class="py-name">nodes</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">wish</tt><tt class="py-op">.</tt><tt id="link-13" class="py-name" targets="Package student=student-module.html,Variable student.models.Wish.student=student.models.Wish-class.html#student"><a title="student
+student.models.Wish.student" class="py-name" href="#" onclick="return doclink('link-13', 'student', 'link-13');">student</a></tt> <tt class="py-op">==</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name"><a title="student
+student.models.Wish.student" class="py-name" href="#" onclick="return doclink('link-14', 'student', 'link-13');">student</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line">                <tt class="py-keyword">continue</tt> </tt>
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line"> </tt>
+<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line">            <tt class="py-name">score</tt> <tt class="py-op">=</tt> <tt class="py-number">1</tt> <tt class="py-op">-</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">scoring_function</tt><tt class="py-op">(</tt><tt class="py-name">wish</tt><tt class="py-op">.</tt><tt id="link-15" class="py-name" targets="Method group.models.Group.tags()=group.models.Group-class.html#tags,Variable student.models.Wish.tags=student.models.Wish-class.html#tags"><a title="group.models.Group.tags
+student.models.Wish.tags" class="py-name" href="#" onclick="return doclink('link-15', 'tags', 'link-15');">tags</a></tt><tt class="py-op">.</tt><tt id="link-16" class="py-name" targets="Method match.util.Pair.all()=match.util.Pair-class.html#all"><a title="match.util.Pair.all" class="py-name" href="#" onclick="return doclink('link-16', 'all', 'link-16');">all</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">node</tt><tt class="py-op">.</tt><tt id="link-17" class="py-name"><a title="group.models.Group.tags
+student.models.Wish.tags" class="py-name" href="#" onclick="return doclink('link-17', 'tags', 'link-15');">tags</a></tt><tt class="py-op">.</tt><tt id="link-18" class="py-name"><a title="match.util.Pair.all" class="py-name" href="#" onclick="return doclink('link-18', 'all', 'link-16');">all</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line"> </tt>
+<a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">score</tt> <tt class="py-op">&lt;=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">min_score</tt><tt class="py-op">:</tt> </tt>
+<a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-19" class="py-name"><a title="prototype.views.graph" class="py-name" href="#" onclick="return doclink('link-19', 'graph', 'link-10');">graph</a></tt><tt class="py-op">.</tt><tt class="py-name">add_edge</tt><tt class="py-op">(</tt><tt class="py-name">wish</tt><tt class="py-op">,</tt> <tt class="py-name">node</tt><tt class="py-op">,</tt> <tt class="py-name">weight</tt><tt class="py-op">=</tt><tt class="py-name">score</tt><tt class="py-op">)</tt> </tt>
+<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line"> </tt>
+<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line">        <tt class="py-name">h</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-20" class="py-name" targets="Method match.algorithms.HeapGraphMatcher'.HeapGraphMatcher.check_for_group()=match.algorithms.HeapGraphMatcher%27.HeapGraphMatcher-class.html#check_for_group"><a title="match.algorithms.HeapGraphMatcher'.HeapGraphMatcher.check_for_group" class="py-name" href="#" onclick="return doclink('link-20', 'check_for_group', 'link-20');">check_for_group</a></tt><tt class="py-op">(</tt><tt class="py-name">wish</tt><tt class="py-op">)</tt> </tt>
+<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line"> </tt>
+<a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line">        <tt class="py-comment">#A group is found</tt> </tt>
+<a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">h</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-21" class="py-name" targets="Method match.algorithms.HeapGraphMatcher'.HeapGraphMatcher.make_group()=match.algorithms.HeapGraphMatcher%27.HeapGraphMatcher-class.html#make_group"><a title="match.algorithms.HeapGraphMatcher'.HeapGraphMatcher.make_group" class="py-name" href="#" onclick="return doclink('link-21', 'make_group', 'link-21');">make_group</a></tt><tt class="py-op">(</tt><tt class="py-name">wish</tt><tt class="py-op">,</tt> <tt class="py-name">h</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line"> </tt>
+<a name="HeapGraphMatcher.make_group"></a><div id="HeapGraphMatcher.make_group-def"><a name="L56"></a><tt class="py-lineno">56</tt> <a class="py-toggle" href="#" id="HeapGraphMatcher.make_group-toggle" onclick="return toggle('HeapGraphMatcher.make_group');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="match.algorithms.HeapGraphMatcher'.HeapGraphMatcher-class.html#make_group">make_group</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">wish</tt><tt class="py-op">,</tt> <tt class="py-param">heap</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="HeapGraphMatcher.make_group-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="HeapGraphMatcher.make_group-expanded"><a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line"><tt class="py-docstring">        Create a group</tt> </tt>
+<a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line"><tt class="py-docstring">        @param wish - the wish that was added (group member)</tt> </tt>
+<a name="L60"></a><tt class="py-lineno">60</tt>  <tt class="py-line"><tt class="py-docstring">        @param heap - the list with group members found in the graph</tt> </tt>
+<a name="L61"></a><tt class="py-lineno">61</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L62"></a><tt class="py-lineno">62</tt>  <tt class="py-line"> </tt>
+<a name="L63"></a><tt class="py-lineno">63</tt>  <tt class="py-line">        <tt id="link-22" class="py-name" targets="Package group=group-module.html"><a title="group" class="py-name" href="#" onclick="return doclink('link-22', 'group', 'link-22');">group</a></tt> <tt class="py-op">=</tt> <tt id="link-23" class="py-name" targets="Class group.models.Group=group.models.Group-class.html"><a title="group.models.Group" class="py-name" href="#" onclick="return doclink('link-23', 'Group', 'link-23');">Group</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L64"></a><tt class="py-lineno">64</tt>  <tt class="py-line">        <tt id="link-24" class="py-name"><a title="group" class="py-name" href="#" onclick="return doclink('link-24', 'group', 'link-22');">group</a></tt><tt class="py-op">.</tt><tt class="py-name">save</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L65"></a><tt class="py-lineno">65</tt>  <tt class="py-line">        <tt id="link-25" class="py-name"><a title="group" class="py-name" href="#" onclick="return doclink('link-25', 'group', 'link-22');">group</a></tt><tt class="py-op">.</tt><tt id="link-26" class="py-name" targets="Variable group.models.Group.wishes=group.models.Group-class.html#wishes"><a title="group.models.Group.wishes" class="py-name" href="#" onclick="return doclink('link-26', 'wishes', 'link-26');">wishes</a></tt><tt class="py-op">.</tt><tt class="py-name">add</tt><tt class="py-op">(</tt><tt class="py-name">wish</tt><tt class="py-op">)</tt> </tt>
+<a name="L66"></a><tt class="py-lineno">66</tt>  <tt class="py-line">        <tt id="link-27" class="py-name"><a title="group" class="py-name" href="#" onclick="return doclink('link-27', 'group', 'link-22');">group</a></tt><tt class="py-op">.</tt><tt id="link-28" class="py-name" targets="Variable group.models.Group.students=group.models.Group-class.html#students"><a title="group.models.Group.students" class="py-name" href="#" onclick="return doclink('link-28', 'students', 'link-28');">students</a></tt><tt class="py-op">.</tt><tt class="py-name">add</tt><tt class="py-op">(</tt><tt class="py-name">wish</tt><tt class="py-op">.</tt><tt id="link-29" class="py-name"><a title="student
+student.models.Wish.student" class="py-name" href="#" onclick="return doclink('link-29', 'student', 'link-13');">student</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L67"></a><tt class="py-lineno">67</tt>  <tt class="py-line"> </tt>
+<a name="L68"></a><tt class="py-lineno">68</tt>  <tt class="py-line"> </tt>
+<a name="L69"></a><tt class="py-lineno">69</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">item</tt> <tt class="py-keyword">in</tt> <tt class="py-name">heap</tt><tt class="py-op">:</tt> </tt>
+<a name="L70"></a><tt class="py-lineno">70</tt>  <tt class="py-line">            <tt class="py-comment">#Add the wish to the group and remove it from the graph</tt> </tt>
+<a name="L71"></a><tt class="py-lineno">71</tt>  <tt class="py-line">            <tt id="link-30" class="py-name"><a title="group" class="py-name" href="#" onclick="return doclink('link-30', 'group', 'link-22');">group</a></tt><tt class="py-op">.</tt><tt id="link-31" class="py-name"><a title="group.models.Group.wishes" class="py-name" href="#" onclick="return doclink('link-31', 'wishes', 'link-26');">wishes</a></tt><tt class="py-op">.</tt><tt class="py-name">add</tt><tt class="py-op">(</tt><tt class="py-name">item</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L72"></a><tt class="py-lineno">72</tt>  <tt class="py-line">            <tt id="link-32" class="py-name"><a title="group" class="py-name" href="#" onclick="return doclink('link-32', 'group', 'link-22');">group</a></tt><tt class="py-op">.</tt><tt id="link-33" class="py-name"><a title="group.models.Group.students" class="py-name" href="#" onclick="return doclink('link-33', 'students', 'link-28');">students</a></tt><tt class="py-op">.</tt><tt class="py-name">add</tt><tt class="py-op">(</tt><tt class="py-name">item</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-34" class="py-name"><a title="student
+student.models.Wish.student" class="py-name" href="#" onclick="return doclink('link-34', 'student', 'link-13');">student</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L73"></a><tt class="py-lineno">73</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-35" class="py-name"><a title="prototype.views.graph" class="py-name" href="#" onclick="return doclink('link-35', 'graph', 'link-10');">graph</a></tt><tt class="py-op">.</tt><tt class="py-name">remove_node</tt><tt class="py-op">(</tt><tt class="py-name">item</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt><tt class="py-op">)</tt> </tt>
+<a name="L74"></a><tt class="py-lineno">74</tt>  <tt class="py-line">            <tt class="py-name">item</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt id="link-36" class="py-name" targets="Variable student.models.Wish.is_active=student.models.Wish-class.html#is_active"><a title="student.models.Wish.is_active" class="py-name" href="#" onclick="return doclink('link-36', 'is_active', 'link-36');">is_active</a></tt> <tt class="py-op">=</tt> <tt class="py-name">False</tt> <tt class="py-comment">#Set wish to inactive</tt> </tt>
+<a name="L75"></a><tt class="py-lineno">75</tt>  <tt class="py-line">            <tt class="py-name">item</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt><tt class="py-op">.</tt><tt class="py-name">save</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L76"></a><tt class="py-lineno">76</tt>  <tt class="py-line"> </tt>
+<a name="L77"></a><tt class="py-lineno">77</tt>  <tt class="py-line"> </tt>
+<a name="L78"></a><tt class="py-lineno">78</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">mail</tt><tt class="py-op">.</tt><tt id="link-37" class="py-name" targets="Method communication.emailemulating.EmailEmulating.toEmail()=communication.emailemulating.EmailEmulating-class.html#toEmail"><a title="communication.emailemulating.EmailEmulating.toEmail" class="py-name" href="#" onclick="return doclink('link-37', 'toEmail', 'link-37');">toEmail</a></tt><tt class="py-op">(</tt><tt class="py-string">"You got a group!"</tt><tt class="py-op">,</tt> <tt class="py-string">"Unifi"</tt><tt class="py-op">,</tt>  <tt id="link-38" class="py-name"><a title="group" class="py-name" href="#" onclick="return doclink('link-38', 'group', 'link-22');">group</a></tt><tt class="py-op">.</tt><tt id="link-39" class="py-name"><a title="group.models.Group.students" class="py-name" href="#" onclick="return doclink('link-39', 'students', 'link-28');">students</a></tt><tt class="py-op">.</tt><tt id="link-40" class="py-name"><a title="match.util.Pair.all" class="py-name" href="#" onclick="return doclink('link-40', 'all', 'link-16');">all</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L79"></a><tt class="py-lineno">79</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-41" class="py-name"><a title="prototype.views.graph" class="py-name" href="#" onclick="return doclink('link-41', 'graph', 'link-10');">graph</a></tt><tt class="py-op">.</tt><tt class="py-name">remove_node</tt><tt class="py-op">(</tt><tt class="py-name">wish</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L80"></a><tt class="py-lineno">80</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Tue Jul 24 13:22:11 2012
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

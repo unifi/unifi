@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>group.views</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="group-module.html">Package&nbsp;group</a> ::
+        Module&nbsp;views
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="group.views-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="group.views-module.html">Module group.views</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-comment"># Create your views here.</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package group=group-module.html"><a title="group" class="py-name" href="#" onclick="return doclink('link-0', 'group', 'link-0');">group</a></tt><tt class="py-op">.</tt><tt id="link-1" class="py-name" targets="Module communication.models=communication.models-module.html,Module group.models=group.models-module.html,Module login.models=login.models-module.html,Module match.models=match.models-module.html,Module my.models=my.models-module.html,Module oracle.models=oracle.models-module.html,Module prototype.models=prototype.models-module.html,Module student.models=student.models-module.html,Module tag.models=tag.models-module.html,Module util.models=util.models-module.html"><a title="communication.models
+group.models
+login.models
+match.models
+my.models
+oracle.models
+prototype.models
+student.models
+tag.models
+util.models" class="py-name" href="#" onclick="return doclink('link-1', 'models', 'link-1');">models</a></tt> <tt class="py-keyword">import</tt> <tt id="link-2" class="py-name" targets="Class group.models.Group=group.models.Group-class.html"><a title="group.models.Group" class="py-name" href="#" onclick="return doclink('link-2', 'Group', 'link-2');">Group</a></tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt class="py-name">shortcuts</tt> <tt class="py-keyword">import</tt> <tt class="py-name">render_to_response</tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt id="link-3" class="py-name" targets="Variable unifi.database_generator.template=unifi.database_generator-module.html#template"><a title="unifi.database_generator.template" class="py-name" href="#" onclick="return doclink('link-3', 'template', 'link-3');">template</a></tt><tt class="py-op">.</tt><tt class="py-name">context</tt> <tt class="py-keyword">import</tt> <tt class="py-name">RequestContext</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"> </tt>
+<a name="allgroups"></a><div id="allgroups-def"><a name="L6"></a><tt class="py-lineno"> 6</tt> <a class="py-toggle" href="#" id="allgroups-toggle" onclick="return toggle('allgroups');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="group.views-module.html#allgroups">allgroups</a><tt class="py-op">(</tt><tt class="py-param">request</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="allgroups-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="allgroups-expanded"><a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line">    <tt class="py-name">g</tt> <tt class="py-op">=</tt> <tt id="link-4" class="py-name"><a title="group.models.Group" class="py-name" href="#" onclick="return doclink('link-4', 'Group', 'link-2');">Group</a></tt><tt class="py-op">.</tt><tt id="link-5" class="py-name" targets="Method communication.models.Message.objects()=communication.models.Message-class.html#objects,Method group.models.Group.objects()=group.models.Group-class.html#objects,Method oracle.models.Oracle.objects()=oracle.models.Oracle-class.html#objects,Method student.models.Student.objects()=student.models.Student-class.html#objects,Method student.models.Wish.objects()=student.models.Wish-class.html#objects,Method tag.models.Tag.objects()=tag.models.Tag-class.html#objects"><a title="communication.models.Message.objects
+group.models.Group.objects
+oracle.models.Oracle.objects
+student.models.Student.objects
+student.models.Wish.objects
+tag.models.Tag.objects" class="py-name" href="#" onclick="return doclink('link-5', 'objects', 'link-5');">objects</a></tt><tt class="py-op">.</tt><tt id="link-6" class="py-name" targets="Method match.util.Pair.all()=match.util.Pair-class.html#all"><a title="match.util.Pair.all" class="py-name" href="#" onclick="return doclink('link-6', 'all', 'link-6');">all</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">render_to_response</tt><tt class="py-op">(</tt><tt class="py-string">"groups.html"</tt><tt class="py-op">,</tt> <tt class="py-op">{</tt><tt class="py-string">"title"</tt><tt class="py-op">:</tt> <tt class="py-string">"All available groups"</tt><tt class="py-op">,</tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line">            <tt class="py-string">"groups"</tt><tt class="py-op">:</tt> <tt class="py-name">g</tt><tt class="py-op">}</tt><tt class="py-op">,</tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line">            <tt class="py-name">context_instance</tt> <tt class="py-op">=</tt> <tt class="py-name">RequestContext</tt><tt class="py-op">(</tt><tt class="py-name">request</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Tue Jul 24 13:22:11 2012
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

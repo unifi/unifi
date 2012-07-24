@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>match.views</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="match-module.html">Package&nbsp;match</a> ::
+        Module&nbsp;views
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="match.views-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="match.views-module.html">Module match.views</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt class="py-name">contrib</tt><tt class="py-op">.</tt><tt class="py-name">auth</tt><tt class="py-op">.</tt><tt id="link-0" class="py-name" targets="Module communication.models=communication.models-module.html,Module group.models=group.models-module.html,Module login.models=login.models-module.html,Module match.models=match.models-module.html,Module my.models=my.models-module.html,Module oracle.models=oracle.models-module.html,Module prototype.models=prototype.models-module.html,Module student.models=student.models-module.html,Module tag.models=tag.models-module.html,Module util.models=util.models-module.html"><a title="communication.models
+group.models
+login.models
+match.models
+my.models
+oracle.models
+prototype.models
+student.models
+tag.models
+util.models" class="py-name" href="#" onclick="return doclink('link-0', 'models', 'link-0');">models</a></tt> <tt class="py-keyword">import</tt> <tt class="py-name">User</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt class="py-name">db</tt><tt class="py-op">.</tt><tt class="py-name">utils</tt> <tt class="py-keyword">import</tt> <tt class="py-name">IntegrityError</tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt class="py-name">shortcuts</tt> <tt class="py-keyword">import</tt> <tt class="py-name">render_to_response</tt><tt class="py-op">,</tt> <tt class="py-name">redirect</tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt class="py-name">core</tt><tt class="py-op">.</tt><tt class="py-name">context_processors</tt> <tt class="py-keyword">import</tt> <tt class="py-name">csrf</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt id="link-1" class="py-name" targets="Variable unifi.database_generator.template=unifi.database_generator-module.html#template"><a title="unifi.database_generator.template" class="py-name" href="#" onclick="return doclink('link-1', 'template', 'link-1');">template</a></tt><tt class="py-op">.</tt><tt class="py-name">context</tt> <tt class="py-keyword">import</tt> <tt class="py-name">RequestContext</tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt id="link-2" class="py-name" targets="Module communication.views=communication.views-module.html,Module group.views=group.views-module.html,Module login.views=login.views-module.html,Module match.views=match.views-module.html,Module my.views=my.views-module.html,Module oracle.views=oracle.views-module.html,Module prototype.views=prototype.views-module.html,Module student.views=student.views-module.html,Module tag.views=tag.views-module.html,Module util.views=util.views-module.html"><a title="communication.views
+group.views
+login.views
+match.views
+my.views
+oracle.views
+prototype.views
+student.views
+tag.views
+util.views" class="py-name" href="#" onclick="return doclink('link-2', 'views', 'link-2');">views</a></tt><tt class="py-op">.</tt><tt class="py-name">decorators</tt><tt class="py-op">.</tt><tt class="py-name">csrf</tt> <tt class="py-keyword">import</tt> <tt class="py-name">csrf_protect</tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt class="py-name">contrib</tt> <tt class="py-keyword">import</tt> <tt class="py-name">auth</tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-3" class="py-name" targets="Package student=student-module.html,Variable student.models.Wish.student=student.models.Wish-class.html#student"><a title="student
+student.models.Wish.student" class="py-name" href="#" onclick="return doclink('link-3', 'student', 'link-3');">student</a></tt><tt class="py-op">.</tt><tt id="link-4" class="py-name"><a title="communication.models
+group.models
+login.models
+match.models
+my.models
+oracle.models
+prototype.models
+student.models
+tag.models
+util.models" class="py-name" href="#" onclick="return doclink('link-4', 'models', 'link-0');">models</a></tt> <tt class="py-keyword">import</tt> <tt id="link-5" class="py-name" targets="Class student.models.Wish=student.models.Wish-class.html"><a title="student.models.Wish" class="py-name" href="#" onclick="return doclink('link-5', 'Wish', 'link-5');">Wish</a></tt><tt class="py-op">,</tt> <tt id="link-6" class="py-name" targets="Class student.models.Student=student.models.Student-class.html"><a title="student.models.Student" class="py-name" href="#" onclick="return doclink('link-6', 'Student', 'link-6');">Student</a></tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-7" class="py-name" targets="Package tag=tag-module.html"><a title="tag" class="py-name" href="#" onclick="return doclink('link-7', 'tag', 'link-7');">tag</a></tt><tt class="py-op">.</tt><tt id="link-8" class="py-name"><a title="communication.models
+group.models
+login.models
+match.models
+my.models
+oracle.models
+prototype.models
+student.models
+tag.models
+util.models" class="py-name" href="#" onclick="return doclink('link-8', 'models', 'link-0');">models</a></tt> <tt class="py-keyword">import</tt> <tt id="link-9" class="py-name" targets="Class tag.models.Tag=tag.models.Tag-class.html"><a title="tag.models.Tag" class="py-name" href="#" onclick="return doclink('link-9', 'Tag', 'link-9');">Tag</a></tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-10" class="py-name" targets="Module match.util=match.util-module.html,Package util=util-module.html"><a title="match.util
+util" class="py-name" href="#" onclick="return doclink('link-10', 'util', 'link-10');">util</a></tt> <tt class="py-keyword">import</tt> <tt class="py-op">*</tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"> </tt>
+<a name="match"></a><div id="match-def"><a name="L13"></a><tt class="py-lineno">13</tt> <a class="py-toggle" href="#" id="match-toggle" onclick="return toggle('match');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="match.views-module.html#match">match</a><tt class="py-op">(</tt> <tt class="py-param">request</tt> <tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="match-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="match-expanded"><a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line"> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line">    <tt class="py-name">all_tags</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">wish</tt> <tt class="py-keyword">in</tt> <tt id="link-11" class="py-name"><a title="student.models.Wish" class="py-name" href="#" onclick="return doclink('link-11', 'Wish', 'link-5');">Wish</a></tt><tt class="py-op">.</tt><tt id="link-12" class="py-name" targets="Method communication.models.Message.objects()=communication.models.Message-class.html#objects,Method group.models.Group.objects()=group.models.Group-class.html#objects,Method oracle.models.Oracle.objects()=oracle.models.Oracle-class.html#objects,Method student.models.Student.objects()=student.models.Student-class.html#objects,Method student.models.Wish.objects()=student.models.Wish-class.html#objects,Method tag.models.Tag.objects()=tag.models.Tag-class.html#objects"><a title="communication.models.Message.objects
+group.models.Group.objects
+oracle.models.Oracle.objects
+student.models.Student.objects
+student.models.Wish.objects
+tag.models.Tag.objects" class="py-name" href="#" onclick="return doclink('link-12', 'objects', 'link-12');">objects</a></tt><tt class="py-op">.</tt><tt id="link-13" class="py-name" targets="Method match.util.Pair.all()=match.util.Pair-class.html#all"><a title="match.util.Pair.all" class="py-name" href="#" onclick="return doclink('link-13', 'all', 'link-13');">all</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line">        <tt class="py-name">all_tags</tt> <tt class="py-op">+=</tt> <tt class="py-name">list</tt><tt class="py-op">(</tt> <tt class="py-name">wish</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name" targets="Method group.models.Group.tags()=group.models.Group-class.html#tags,Variable student.models.Wish.tags=student.models.Wish-class.html#tags"><a title="group.models.Group.tags
+student.models.Wish.tags" class="py-name" href="#" onclick="return doclink('link-14', 'tags', 'link-14');">tags</a></tt><tt class="py-op">.</tt><tt id="link-15" class="py-name"><a title="match.util.Pair.all" class="py-name" href="#" onclick="return doclink('link-15', 'all', 'link-13');">all</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-op">)</tt> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line">    <tt class="py-name">unique_tags</tt> <tt class="py-op">=</tt> <tt class="py-name">set</tt><tt class="py-op">(</tt> <tt class="py-name">all_tags</tt> <tt class="py-op">)</tt> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line"> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line">    <tt class="py-name">lonely_tags</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt id="link-16" class="py-name"><a title="tag" class="py-name" href="#" onclick="return doclink('link-16', 'tag', 'link-7');">tag</a></tt> <tt class="py-keyword">in</tt> <tt class="py-name">unique_tags</tt><tt class="py-op">:</tt> </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">all_tags</tt><tt class="py-op">.</tt><tt class="py-name">count</tt><tt class="py-op">(</tt> <tt id="link-17" class="py-name"><a title="tag" class="py-name" href="#" onclick="return doclink('link-17', 'tag', 'link-7');">tag</a></tt> <tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt class="py-number">1</tt><tt class="py-op">:</tt> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line">            <tt class="py-name">lonely_tags</tt><tt class="py-op">.</tt><tt class="py-name">append</tt><tt class="py-op">(</tt> <tt id="link-18" class="py-name"><a title="tag" class="py-name" href="#" onclick="return doclink('link-18', 'tag', 'link-7');">tag</a></tt> <tt class="py-op">)</tt> </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line">            <tt class="py-keyword">print</tt> <tt class="py-string">"lonely: %s"</tt> <tt class="py-op">%</tt> <tt id="link-19" class="py-name"><a title="tag" class="py-name" href="#" onclick="return doclink('link-19', 'tag', 'link-7');">tag</a></tt> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line"> </tt>
+<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line"> </tt>
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line"> </tt>
+<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line">    <tt id="link-20" class="py-name" targets="Variable group.models.Group.wishes=group.models.Group-class.html#wishes"><a title="group.models.Group.wishes" class="py-name" href="#" onclick="return doclink('link-20', 'wishes', 'link-20');">wishes</a></tt> <tt class="py-op">=</tt> <tt id="link-21" class="py-name"><a title="student.models.Wish" class="py-name" href="#" onclick="return doclink('link-21', 'Wish', 'link-5');">Wish</a></tt><tt class="py-op">.</tt><tt id="link-22" class="py-name"><a title="communication.models.Message.objects
+group.models.Group.objects
+oracle.models.Oracle.objects
+student.models.Student.objects
+student.models.Wish.objects
+tag.models.Tag.objects" class="py-name" href="#" onclick="return doclink('link-22', 'objects', 'link-12');">objects</a></tt><tt class="py-op">.</tt><tt class="py-name">exclude</tt><tt class="py-op">(</tt> <tt class="py-name">tags__in</tt><tt class="py-op">=</tt><tt class="py-name">lonely_tags</tt> <tt class="py-op">)</tt> </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line"> </tt>
+<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line">    <tt class="py-keyword">print</tt> <tt id="link-23" class="py-name"><a title="group.models.Group.wishes" class="py-name" href="#" onclick="return doclink('link-23', 'wishes', 'link-20');">wishes</a></tt><tt class="py-op">.</tt><tt class="py-name">count</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line"> </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line">    <tt class="py-name">pool</tt> <tt class="py-op">=</tt> <tt id="link-24" class="py-name" targets="Class match.util.Pool=match.util.Pool-class.html"><a title="match.util.Pool" class="py-name" href="#" onclick="return doclink('link-24', 'Pool', 'link-24');">Pool</a></tt><tt class="py-op">(</tt> <tt id="link-25" class="py-name"><a title="group.models.Group.wishes" class="py-name" href="#" onclick="return doclink('link-25', 'wishes', 'link-20');">wishes</a></tt> <tt class="py-op">)</tt> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line">    <tt class="py-name">pairs</tt> <tt class="py-op">=</tt> <tt class="py-name">sorted</tt><tt class="py-op">(</tt> <tt class="py-name">list</tt><tt class="py-op">(</tt><tt class="py-name">pool</tt><tt class="py-op">.</tt><tt id="link-26" class="py-name" targets="Method match.util.Pool.pair()=match.util.Pool-class.html#pair"><a title="match.util.Pool.pair" class="py-name" href="#" onclick="return doclink('link-26', 'pair', 'link-26');">pair</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">key</tt><tt class="py-op">=</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">x</tt><tt class="py-op">:</tt> <tt class="py-name">x</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">reverse</tt><tt class="py-op">=</tt><tt class="py-name">True</tt> <tt class="py-op">)</tt> </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line"> </tt>
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">render_to_response</tt><tt class="py-op">(</tt> <tt class="py-string">"match.html"</tt><tt class="py-op">,</tt> <tt class="py-op">{</tt> </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line">            <tt class="py-string">"title"</tt><tt class="py-op">:</tt>    <tt class="py-string">"Matching"</tt><tt class="py-op">,</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line">            <tt class="py-string">"message"</tt><tt class="py-op">:</tt>  <tt class="py-string">"Displaying %d pairs"</tt> <tt class="py-op">%</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">pairs</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line">            <tt class="py-string">"matches"</tt><tt class="py-op">:</tt>  <tt class="py-name">pairs</tt> </tt>
+<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line">        <tt class="py-op">}</tt><tt class="py-op">,</tt> </tt>
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line">        <tt class="py-name">context_instance</tt> <tt class="py-op">=</tt> <tt class="py-name">RequestContext</tt><tt class="py-op">(</tt> <tt class="py-name">request</tt> <tt class="py-op">)</tt> </tt>
+<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">    <tt class="py-op">)</tt> </tt>
+</div><a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line"> </tt>
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line"> </tt>
+<a name="default_match"></a><div id="default_match-def"><a name="L45"></a><tt class="py-lineno">45</tt> <a class="py-toggle" href="#" id="default_match-toggle" onclick="return toggle('default_match');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="match.views-module.html#default_match">default_match</a><tt class="py-op">(</tt> <tt class="py-param">request</tt> <tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="default_match-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="default_match-expanded"><a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line"> </tt>
+<a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line">    <tt class="py-name">all_tags</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">wish</tt> <tt class="py-keyword">in</tt> <tt id="link-27" class="py-name"><a title="student.models.Wish" class="py-name" href="#" onclick="return doclink('link-27', 'Wish', 'link-5');">Wish</a></tt><tt class="py-op">.</tt><tt id="link-28" class="py-name"><a title="communication.models.Message.objects
+group.models.Group.objects
+oracle.models.Oracle.objects
+student.models.Student.objects
+student.models.Wish.objects
+tag.models.Tag.objects" class="py-name" href="#" onclick="return doclink('link-28', 'objects', 'link-12');">objects</a></tt><tt class="py-op">.</tt><tt id="link-29" class="py-name"><a title="match.util.Pair.all" class="py-name" href="#" onclick="return doclink('link-29', 'all', 'link-13');">all</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line">        <tt class="py-name">all_tags</tt> <tt class="py-op">+=</tt> <tt class="py-name">list</tt><tt class="py-op">(</tt> <tt class="py-name">wish</tt><tt class="py-op">.</tt><tt id="link-30" class="py-name"><a title="group.models.Group.tags
+student.models.Wish.tags" class="py-name" href="#" onclick="return doclink('link-30', 'tags', 'link-14');">tags</a></tt><tt class="py-op">.</tt><tt id="link-31" class="py-name"><a title="match.util.Pair.all" class="py-name" href="#" onclick="return doclink('link-31', 'all', 'link-13');">all</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-op">)</tt> </tt>
+<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line"> </tt>
+<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line">    <tt class="py-name">unique_tags</tt> <tt class="py-op">=</tt> <tt class="py-name">set</tt><tt class="py-op">(</tt> <tt class="py-name">all_tags</tt> <tt class="py-op">)</tt> </tt>
+<a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line"> </tt>
+<a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line">    <tt class="py-name">lonely_tags</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt id="link-32" class="py-name"><a title="tag" class="py-name" href="#" onclick="return doclink('link-32', 'tag', 'link-7');">tag</a></tt> <tt class="py-keyword">in</tt> <tt class="py-name">unique_tags</tt><tt class="py-op">:</tt> </tt>
+<a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">all_tags</tt><tt class="py-op">.</tt><tt class="py-name">count</tt><tt class="py-op">(</tt> <tt id="link-33" class="py-name"><a title="tag" class="py-name" href="#" onclick="return doclink('link-33', 'tag', 'link-7');">tag</a></tt> <tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt class="py-number">1</tt><tt class="py-op">:</tt> </tt>
+<a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line">            <tt class="py-name">lonely_tags</tt><tt class="py-op">.</tt><tt class="py-name">append</tt><tt class="py-op">(</tt> <tt id="link-34" class="py-name"><a title="tag" class="py-name" href="#" onclick="return doclink('link-34', 'tag', 'link-7');">tag</a></tt> <tt class="py-op">)</tt> </tt>
+<a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line">            <tt class="py-keyword">print</tt> <tt class="py-string">"lonely: %s"</tt> <tt class="py-op">%</tt> <tt id="link-35" class="py-name"><a title="tag" class="py-name" href="#" onclick="return doclink('link-35', 'tag', 'link-7');">tag</a></tt> </tt>
+<a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line"> </tt>
+<a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line"> </tt>
+<a name="L60"></a><tt class="py-lineno">60</tt>  <tt class="py-line"> </tt>
+<a name="L61"></a><tt class="py-lineno">61</tt>  <tt class="py-line">    <tt id="link-36" class="py-name"><a title="group.models.Group.wishes" class="py-name" href="#" onclick="return doclink('link-36', 'wishes', 'link-20');">wishes</a></tt> <tt class="py-op">=</tt> <tt id="link-37" class="py-name"><a title="student.models.Wish" class="py-name" href="#" onclick="return doclink('link-37', 'Wish', 'link-5');">Wish</a></tt><tt class="py-op">.</tt><tt id="link-38" class="py-name"><a title="communication.models.Message.objects
+group.models.Group.objects
+oracle.models.Oracle.objects
+student.models.Student.objects
+student.models.Wish.objects
+tag.models.Tag.objects" class="py-name" href="#" onclick="return doclink('link-38', 'objects', 'link-12');">objects</a></tt><tt class="py-op">.</tt><tt class="py-name">exclude</tt><tt class="py-op">(</tt> <tt class="py-name">tags__in</tt><tt class="py-op">=</tt><tt class="py-name">lonely_tags</tt> <tt class="py-op">)</tt> </tt>
+<a name="L62"></a><tt class="py-lineno">62</tt>  <tt class="py-line"> </tt>
+<a name="L63"></a><tt class="py-lineno">63</tt>  <tt class="py-line">    <tt class="py-keyword">print</tt> <tt id="link-39" class="py-name"><a title="group.models.Group.wishes" class="py-name" href="#" onclick="return doclink('link-39', 'wishes', 'link-20');">wishes</a></tt><tt class="py-op">.</tt><tt class="py-name">count</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L64"></a><tt class="py-lineno">64</tt>  <tt class="py-line"> </tt>
+<a name="L65"></a><tt class="py-lineno">65</tt>  <tt class="py-line">    <tt class="py-name">pool</tt> <tt class="py-op">=</tt> <tt id="link-40" class="py-name"><a title="match.util.Pool" class="py-name" href="#" onclick="return doclink('link-40', 'Pool', 'link-24');">Pool</a></tt><tt class="py-op">(</tt> <tt id="link-41" class="py-name"><a title="group.models.Group.wishes" class="py-name" href="#" onclick="return doclink('link-41', 'wishes', 'link-20');">wishes</a></tt> <tt class="py-op">)</tt> </tt>
+<a name="L66"></a><tt class="py-lineno">66</tt>  <tt class="py-line">    <tt class="py-name">pairs</tt> <tt class="py-op">=</tt> <tt class="py-name">sorted</tt><tt class="py-op">(</tt> <tt class="py-name">list</tt><tt class="py-op">(</tt><tt class="py-name">pool</tt><tt class="py-op">.</tt><tt id="link-42" class="py-name"><a title="match.util.Pool.pair" class="py-name" href="#" onclick="return doclink('link-42', 'pair', 'link-26');">pair</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">key</tt><tt class="py-op">=</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">x</tt><tt class="py-op">:</tt> <tt class="py-name">x</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-name">reverse</tt><tt class="py-op">=</tt><tt class="py-name">True</tt> <tt class="py-op">)</tt> </tt>
+<a name="L67"></a><tt class="py-lineno">67</tt>  <tt class="py-line"> </tt>
+<a name="L68"></a><tt class="py-lineno">68</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">render_to_response</tt><tt class="py-op">(</tt> <tt class="py-string">"match.html"</tt><tt class="py-op">,</tt> <tt class="py-op">{</tt> </tt>
+<a name="L69"></a><tt class="py-lineno">69</tt>  <tt class="py-line">            <tt class="py-string">"title"</tt><tt class="py-op">:</tt>    <tt class="py-string">"Matching"</tt><tt class="py-op">,</tt> </tt>
+<a name="L70"></a><tt class="py-lineno">70</tt>  <tt class="py-line">            <tt class="py-string">"message"</tt><tt class="py-op">:</tt>  <tt class="py-string">"Displaying %d pairs"</tt> <tt class="py-op">%</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">pairs</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L71"></a><tt class="py-lineno">71</tt>  <tt class="py-line">            <tt class="py-string">"matches"</tt><tt class="py-op">:</tt>  <tt class="py-name">pairs</tt> </tt>
+<a name="L72"></a><tt class="py-lineno">72</tt>  <tt class="py-line">        <tt class="py-op">}</tt><tt class="py-op">,</tt> </tt>
+<a name="L73"></a><tt class="py-lineno">73</tt>  <tt class="py-line">        <tt class="py-name">context_instance</tt> <tt class="py-op">=</tt> <tt class="py-name">RequestContext</tt><tt class="py-op">(</tt> <tt class="py-name">request</tt> <tt class="py-op">)</tt> </tt>
+<a name="L74"></a><tt class="py-lineno">74</tt>  <tt class="py-line">    <tt class="py-op">)</tt> </tt>
+</div><a name="L75"></a><tt class="py-lineno">75</tt>  <tt class="py-line"> </tt>
+<a name="graph_match"></a><div id="graph_match-def"><a name="L76"></a><tt class="py-lineno">76</tt> <a class="py-toggle" href="#" id="graph_match-toggle" onclick="return toggle('graph_match');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="match.views-module.html#graph_match">graph_match</a><tt class="py-op">(</tt> <tt class="py-param">request</tt> <tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="graph_match-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="graph_match-expanded"><a name="L77"></a><tt class="py-lineno">77</tt>  <tt class="py-line"> </tt>
+<a name="L78"></a><tt class="py-lineno">78</tt>  <tt class="py-line">    <tt class="py-comment"># [+] add graph based matching and remap the urls.py to it</tt> </tt>
+<a name="L79"></a><tt class="py-lineno">79</tt>  <tt class="py-line"> </tt>
+<a name="L80"></a><tt class="py-lineno">80</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">redirect</tt><tt class="py-op">(</tt> <tt class="py-string">"."</tt> <tt class="py-op">)</tt> </tt>
+</div><a name="L81"></a><tt class="py-lineno">81</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Tue Jul 24 13:22:11 2012
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>migrate</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        Module&nbsp;migrate
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="migrate-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="migrate-module.html">Module migrate</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/env python2.7</tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-comment"># -*- coding: utf8 -*-</tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">sys</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">os</tt> <tt class="py-keyword">import</tt> <tt class="py-name">system</tt><tt class="py-op">,</tt> <tt class="py-name">getcwdu</tt><tt class="py-op">,</tt> <tt class="py-name">environ</tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">shutil</tt> <tt class="py-keyword">import</tt> <tt class="py-name">rmtree</tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package unifi=unifi-module.html"><a title="unifi" class="py-name" href="#" onclick="return doclink('link-0', 'unifi', 'link-0');">unifi</a></tt><tt class="py-op">.</tt><tt id="link-1" class="py-name" targets="Module unifi.settings=unifi.settings-module.html"><a title="unifi.settings" class="py-name" href="#" onclick="return doclink('link-1', 'settings', 'link-1');">settings</a></tt> <tt class="py-keyword">import</tt> <tt id="link-2" class="py-name" targets="Variable unifi.settings.INSTALLED_APPS=unifi.settings-module.html#INSTALLED_APPS"><a title="unifi.settings.INSTALLED_APPS" class="py-name" href="#" onclick="return doclink('link-2', 'INSTALLED_APPS', 'link-2');">INSTALLED_APPS</a></tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line"> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt id="link-3" class="py-name" targets="Variable migrate.DEBUG=migrate-module.html#DEBUG,Variable unifi.settings.DEBUG=unifi.settings-module.html#DEBUG"><a title="migrate.DEBUG
+unifi.settings.DEBUG" class="py-name" href="#" onclick="return doclink('link-3', 'DEBUG', 'link-3');">DEBUG</a></tt> <tt class="py-op">=</tt> <tt class="py-name">False</tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-name">environ</tt><tt class="py-op">[</tt><tt class="py-string">'DJANGO_SETTINGS_MODULE'</tt><tt class="py-op">]</tt> <tt class="py-op">=</tt> <tt class="py-string">'unifi.settings'</tt> </tt>
+<a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"> </tt>
+<a name="drop_database"></a><div id="drop_database-def"><a name="L13"></a><tt class="py-lineno">13</tt> <a class="py-toggle" href="#" id="drop_database-toggle" onclick="return toggle('drop_database');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="migrate-module.html#drop_database">drop_database</a><tt class="py-op">(</tt> <tt class="py-param">username</tt><tt class="py-op">=</tt><tt class="py-string">"unifi"</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="drop_database-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="drop_database-expanded"><a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line">    <tt class="py-name">system</tt><tt class="py-op">(</tt> <tt class="py-string">"psql -U postgres -c 'DROP DATABASE IF EXISTS \'unifi\';'"</tt> <tt class="py-op">)</tt> </tt>
+<a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line">    <tt class="py-name">system</tt><tt class="py-op">(</tt> <tt class="py-string">"psql -U postgres -c 'CREATE DATABASE \'unifi\' OWNER \'unifi\';'"</tt> <tt class="py-op">)</tt> </tt>
+</div><a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"> </tt>
+<a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line"> </tt>
+<a name="get_applications"></a><div id="get_applications-def"><a name="L18"></a><tt class="py-lineno">18</tt> <a class="py-toggle" href="#" id="get_applications-toggle" onclick="return toggle('get_applications');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="migrate-module.html#get_applications">get_applications</a><tt class="py-op">(</tt> <tt class="py-param">installed_apps</tt><tt class="py-op">,</tt> <tt class="py-param">exclude</tt><tt class="py-op">=</tt><tt class="py-op">[</tt><tt class="py-op">]</tt><tt class="py-op">,</tt> <tt class="py-param">include</tt><tt class="py-op">=</tt><tt class="py-op">[</tt><tt class="py-op">]</tt> <tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="get_applications-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="get_applications-expanded"><a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line">    <tt class="py-name">application_names</tt> <tt class="py-op">=</tt> <tt class="py-name">include</tt> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">app_name</tt> <tt class="py-keyword">in</tt> <tt class="py-name">installed_apps</tt><tt class="py-op">:</tt> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line">        <tt class="py-name">is_excluded</tt> <tt class="py-op">=</tt> <tt class="py-name">False</tt> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">e</tt> <tt class="py-keyword">in</tt> <tt class="py-name">exclude</tt><tt class="py-op">:</tt> </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">e</tt> <tt class="py-keyword">in</tt> <tt class="py-name">app_name</tt><tt class="py-op">:</tt> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line">                <tt class="py-name">is_excluded</tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt> </tt>
+<a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line"> </tt>
+<a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-op">(</tt> <tt class="py-name">app_name</tt> <tt class="py-keyword">not</tt> <tt class="py-keyword">in</tt> <tt class="py-name">exclude</tt> <tt class="py-op">)</tt> <tt class="py-keyword">and</tt> <tt class="py-keyword">not</tt> <tt class="py-name">is_excluded</tt><tt class="py-op">:</tt> </tt>
+<a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line">            <tt class="py-name">application_names</tt><tt class="py-op">.</tt><tt class="py-name">append</tt><tt class="py-op">(</tt> <tt class="py-name">app_name</tt> <tt class="py-op">)</tt> </tt>
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line"> </tt>
+<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line">    <tt class="py-keyword">return</tt> <tt class="py-name">application_names</tt> </tt>
+</div><a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line"> </tt>
+<a name="breakpoint"></a><div id="breakpoint-def"><a name="L31"></a><tt class="py-lineno">31</tt> <a class="py-toggle" href="#" id="breakpoint-toggle" onclick="return toggle('breakpoint');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="migrate-module.html#breakpoint">breakpoint</a><tt class="py-op">(</tt> <tt class="py-param">message</tt><tt class="py-op">=</tt><tt class="py-string">"&lt;press enter to continue&gt;"</tt> <tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="breakpoint-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="breakpoint-expanded"><a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt id="link-4" class="py-name"><a title="migrate.DEBUG
+unifi.settings.DEBUG" class="py-name" href="#" onclick="return doclink('link-4', 'DEBUG', 'link-3');">DEBUG</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line">        <tt class="py-name">raw_input</tt><tt class="py-op">(</tt><tt id="link-5" class="py-name" targets="Variable communication.models.Message.message=communication.models.Message-class.html#message"><a title="communication.models.Message.message" class="py-name" href="#" onclick="return doclink('link-5', 'message', 'link-5');">message</a></tt><tt class="py-op">)</tt> </tt>
+</div><a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line"> </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line"> </tt>
+<a name="choice_prompt"></a><div id="choice_prompt-def"><a name="L36"></a><tt class="py-lineno">36</tt> <a class="py-toggle" href="#" id="choice_prompt-toggle" onclick="return toggle('choice_prompt');">-</a><tt class="py-line"><tt class="py-keyword">def</tt> <a class="py-def-name" href="migrate-module.html#choice_prompt">choice_prompt</a><tt class="py-op">(</tt> <tt class="py-param">choices</tt> <tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="choice_prompt-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="choice_prompt-expanded"><a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line">    <tt class="py-name">sorted_choices</tt> <tt class="py-op">=</tt> <tt class="py-name">sorted</tt><tt class="py-op">(</tt> <tt class="py-name">choices</tt><tt class="py-op">.</tt><tt class="py-name">items</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt class="py-name">key</tt><tt class="py-op">=</tt><tt class="py-keyword">lambda</tt> <tt class="py-name">x</tt><tt class="py-op">:</tt> <tt class="py-name">x</tt><tt class="py-op">[</tt><tt class="py-number">1</tt><tt class="py-op">]</tt> <tt class="py-op">)</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line">    <tt class="py-keyword">for</tt> <tt class="py-name">id</tt><tt class="py-op">,</tt><tt class="py-name">description</tt> <tt class="py-keyword">in</tt> <tt class="py-name">sorted_choices</tt><tt class="py-op">:</tt> </tt>
+<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"%s: %s"</tt> <tt class="py-op">%</tt> <tt class="py-op">(</tt><tt class="py-name">description</tt><tt class="py-op">,</tt> <tt class="py-name">id</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line"> </tt>
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line"> </tt>
+<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line"><tt class="py-keyword">if</tt> <tt class="py-name">__name__</tt> <tt class="py-op">==</tt> <tt class="py-string">"__main__"</tt><tt class="py-op">:</tt> </tt>
+<a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line"> </tt>
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line">    <tt class="py-name">choices</tt> <tt class="py-op">=</tt> <tt class="py-op">{</tt> </tt>
+<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line">        <tt class="py-string">'initial'</tt><tt class="py-op">:</tt> <tt class="py-string">"0"</tt><tt class="py-op">,</tt> </tt>
+<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line">        <tt class="py-string">'auto'</tt>   <tt class="py-op">:</tt> <tt class="py-string">"1"</tt><tt class="py-op">,</tt> </tt>
+<a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line">        <tt class="py-string">'syncdb'</tt> <tt class="py-op">:</tt> <tt class="py-string">"2"</tt><tt class="py-op">,</tt> </tt>
+<a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line">    <tt class="py-op">}</tt> </tt>
+<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line"> </tt>
+<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line">    <tt class="py-name">names</tt> <tt class="py-op">=</tt> <tt id="link-6" class="py-name" targets="Function migrate.get_applications()=migrate-module.html#get_applications"><a title="migrate.get_applications" class="py-name" href="#" onclick="return doclink('link-6', 'get_applications', 'link-6');">get_applications</a></tt><tt class="py-op">(</tt> </tt>
+<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line">        <tt id="link-7" class="py-name"><a title="unifi.settings.INSTALLED_APPS" class="py-name" href="#" onclick="return doclink('link-7', 'INSTALLED_APPS', 'link-2');">INSTALLED_APPS</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line">        <tt class="py-name">exclude</tt><tt class="py-op">=</tt><tt class="py-op">[</tt> <tt class="py-string">"django"</tt><tt class="py-op">,</tt> <tt class="py-string">"debug"</tt><tt class="py-op">,</tt> <tt class="py-string">"south"</tt> <tt class="py-op">]</tt> </tt>
+<a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line">    <tt class="py-op">)</tt> </tt>
+<a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line"> </tt>
+<a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line">    <tt id="link-8" class="py-name" targets="Function migrate.choice_prompt()=migrate-module.html#choice_prompt"><a title="migrate.choice_prompt" class="py-name" href="#" onclick="return doclink('link-8', 'choice_prompt', 'link-8');">choice_prompt</a></tt><tt class="py-op">(</tt> <tt class="py-name">choices</tt> <tt class="py-op">)</tt> </tt>
+<a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line">    <tt class="py-name">choice</tt> <tt class="py-op">=</tt> <tt class="py-name">raw_input</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line"> </tt>
+<a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line">    <tt class="py-keyword">if</tt> <tt class="py-name">choice</tt> <tt class="py-keyword">is</tt> <tt class="py-name">choices</tt><tt class="py-op">[</tt><tt class="py-string">'initial'</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line"> </tt>
+<a name="L60"></a><tt class="py-lineno">60</tt>  <tt class="py-line">        <tt id="link-9" class="py-name" targets="Function migrate.drop_database()=migrate-module.html#drop_database"><a title="migrate.drop_database" class="py-name" href="#" onclick="return doclink('link-9', 'drop_database', 'link-9');">drop_database</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L61"></a><tt class="py-lineno">61</tt>  <tt class="py-line">        <tt class="py-name">system</tt><tt class="py-op">(</tt> <tt class="py-string">"python manage.py syncdb --all"</tt> <tt class="py-op">)</tt> </tt>
+<a name="L62"></a><tt class="py-lineno">62</tt>  <tt class="py-line"> </tt>
+<a name="L63"></a><tt class="py-lineno">63</tt>  <tt class="py-line">        <tt id="link-10" class="py-name" targets="Function migrate.breakpoint()=migrate-module.html#breakpoint"><a title="migrate.breakpoint" class="py-name" href="#" onclick="return doclink('link-10', 'breakpoint', 'link-10');">breakpoint</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L64"></a><tt class="py-lineno">64</tt>  <tt class="py-line"> </tt>
+<a name="L65"></a><tt class="py-lineno">65</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">name</tt> <tt class="py-keyword">in</tt> <tt class="py-name">names</tt><tt class="py-op">:</tt> </tt>
+<a name="L66"></a><tt class="py-lineno">66</tt>  <tt class="py-line">            <tt class="py-name">rmtree</tt><tt class="py-op">(</tt> <tt class="py-string">"./%s/migrations/"</tt> <tt class="py-op">%</tt> <tt class="py-name">name</tt> <tt class="py-op">)</tt> </tt>
+<a name="L67"></a><tt class="py-lineno">67</tt>  <tt class="py-line">            <tt class="py-name">system</tt><tt class="py-op">(</tt> <tt class="py-string">"python manage.py schemamigration %s --initial"</tt> <tt class="py-op">%</tt> <tt class="py-name">name</tt> <tt class="py-op">)</tt> </tt>
+<a name="L68"></a><tt class="py-lineno">68</tt>  <tt class="py-line">            <tt id="link-11" class="py-name"><a title="migrate.breakpoint" class="py-name" href="#" onclick="return doclink('link-11', 'breakpoint', 'link-10');">breakpoint</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L69"></a><tt class="py-lineno">69</tt>  <tt class="py-line"> </tt>
+<a name="L70"></a><tt class="py-lineno">70</tt>  <tt class="py-line">        <tt class="py-name">system</tt><tt class="py-op">(</tt> <tt class="py-string">"python manage.py migrate"</tt> <tt class="py-op">)</tt> </tt>
+<a name="L71"></a><tt class="py-lineno">71</tt>  <tt class="py-line"> </tt>
+<a name="L72"></a><tt class="py-lineno">72</tt>  <tt class="py-line">    <tt class="py-keyword">elif</tt> <tt class="py-name">choice</tt> <tt class="py-keyword">is</tt> <tt class="py-name">choices</tt><tt class="py-op">[</tt><tt class="py-string">'auto'</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L73"></a><tt class="py-lineno">73</tt>  <tt class="py-line">     </tt>
+<a name="L74"></a><tt class="py-lineno">74</tt>  <tt class="py-line">        <tt class="py-comment"># system( "python manage.py syncdb --all" )</tt> </tt>
+<a name="L75"></a><tt class="py-lineno">75</tt>  <tt class="py-line">     </tt>
+<a name="L76"></a><tt class="py-lineno">76</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">name</tt> <tt class="py-keyword">in</tt> <tt class="py-name">names</tt><tt class="py-op">:</tt> </tt>
+<a name="L77"></a><tt class="py-lineno">77</tt>  <tt class="py-line">            <tt class="py-name">system</tt><tt class="py-op">(</tt> <tt class="py-string">"python manage.py schemamigration %s --auto"</tt> <tt class="py-op">%</tt> <tt class="py-name">name</tt> <tt class="py-op">)</tt> </tt>
+<a name="L78"></a><tt class="py-lineno">78</tt>  <tt class="py-line">            <tt id="link-12" class="py-name"><a title="migrate.breakpoint" class="py-name" href="#" onclick="return doclink('link-12', 'breakpoint', 'link-10');">breakpoint</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L79"></a><tt class="py-lineno">79</tt>  <tt class="py-line">        <tt class="py-name">system</tt><tt class="py-op">(</tt> <tt class="py-string">"python manage.py migrate --fake"</tt> <tt class="py-op">)</tt> </tt>
+<a name="L80"></a><tt class="py-lineno">80</tt>  <tt class="py-line"> </tt>
+<a name="L81"></a><tt class="py-lineno">81</tt>  <tt class="py-line">    <tt class="py-keyword">elif</tt> <tt class="py-name">choice</tt> <tt class="py-keyword">is</tt> <tt class="py-name">choices</tt><tt class="py-op">[</tt><tt class="py-string">'syncdb --all'</tt><tt class="py-op">]</tt><tt class="py-op">:</tt> </tt>
+<a name="L82"></a><tt class="py-lineno">82</tt>  <tt class="py-line">         </tt>
+<a name="L83"></a><tt class="py-lineno">83</tt>  <tt class="py-line">        <tt class="py-name">system</tt><tt class="py-op">(</tt> <tt class="py-string">"python manage.py syncdb --all"</tt> <tt class="py-op">)</tt> </tt>
+<a name="L84"></a><tt class="py-lineno">84</tt>  <tt class="py-line">         </tt>
+<a name="L85"></a><tt class="py-lineno">85</tt>  <tt class="py-line">    <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L86"></a><tt class="py-lineno">86</tt>  <tt class="py-line">        <tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">exit</tt><tt class="py-op">(</tt><tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
+<a name="L87"></a><tt class="py-lineno">87</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Tue Jul 24 13:22:10 2012
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

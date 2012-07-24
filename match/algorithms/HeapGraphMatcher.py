@@ -20,10 +20,7 @@ class HeapGraphMatcher(Matcher):
         h = [] # Tha heapzor
 
         # Add nodes to minheap based on edge-weight (score)
-        
-        # [/] altered this from viewitems() to items() due to an unknown error
-        # for n in neighbors.viewitems():
-        for n in neighbors.items():
+        for n in neighbors.viewitems():
             heap.heappush(h, (n[1], n[0]))
 
         # A group is found (add 1 for the current wish itself)

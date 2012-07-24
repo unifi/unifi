@@ -90,11 +90,11 @@ class WordTagGenerator(TagGenerator):
     """
     def generate( self, quantity,
                   uri="http://www.desiquintans.com/downloads/nounlist.txt",
-                  separator="\n" ):
+                  separator="\\n" ):
+
         """
-        @param uri:         the location of the dictionary
-        @param separator:   the separator of the dictionary, defaults to "\n"
-                            (a tag per line)
+        @param uri: the location of the dictionary
+        @param separator: the separator of the dictionary, defaults to "\\n" (a tag per line)
         """
 
         from urllib import urlopen
@@ -158,10 +158,10 @@ class WishGenerator(Generator):
                   unique=True ):
 
         """
-        @param quantity:             the number of wishes to be generated
-        @param min_tag_quantity:     the minimal number of tags per wish
-        @param max_tag_quantity:     the maximal number of tags per wish
-        @param unique:               'True' if there's only one wish per user
+        @param quantity: the number of wishes to be generated
+        @param min_tag_quantity: the minimal number of tags per wish
+        @param max_tag_quantity: the maximal number of tags per wish
+        @param unique: 'True' if there's only one wish per user
         """
 
         if min_tag_quantity > max_tag_quantity:
