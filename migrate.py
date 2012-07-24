@@ -77,5 +77,9 @@ if __name__ == "__main__":
             breakpoint()
         system( "python manage.py migrate" )
 
+    elif choice is choices['syncdb --all']:
+        
+        system( "python manage.py syncdb --all" )
+        
     else:
         sys.exit(0)

@@ -294,6 +294,7 @@ def graph( request ):
         'students':     Student.objects.count(),
         'tags':         Tag.objects.count(),
         'wishes':       Wish.objects.count(),
+        'groups':       Group.objects.count(),
     }
 
     for group in Group.objects.all():
@@ -302,7 +303,7 @@ def graph( request ):
         for student in students:
             if students[0].pk != student.pk:
                 edges.append(
-                    (group.pk, students[0], student)
+                    ( group.pk, students[0], student )
                 )
 
     return render_to_response( "prototype/graph.html", {
