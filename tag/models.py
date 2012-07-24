@@ -3,9 +3,9 @@ from django.db import models
 # Create your models here.
 
 class Tag(models.Model):
-    """ Tag
-    A keyword that describes a certain expertise,
-    either possessed by an Oracle or required by a Student.
+    """
+    A tag describes something a student is interested to work with, e.g "interface",
+    "linked_list", or subject code, e.g "inf1010"
     """
     name_of_tag = models.CharField( max_length=50, unique=True )
 

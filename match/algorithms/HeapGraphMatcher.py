@@ -8,7 +8,7 @@ from communication.emailemulating import EmailEmulating
 
 class HeapGraphMatcher(Matcher):
     """
-    A group matching algorithm using a priority queue to make groups
+    A dynamic group matching algorithm using a priority queue to make groups
     """
 
     def __init__(self, group_size, min_score, scoring_function, name):
@@ -20,16 +20,12 @@ class HeapGraphMatcher(Matcher):
         h = [] # Tha heapzor
 
         # Add nodes to minheap based on edge-weight (score)
-        
-        # [/] altered this from viewitems() to items() due to an unknown error
-        # for n in neighbors.viewitems():
-        for n in neighbors.items():
+        for n in neighbors.viewitems():
             heap.heappush(h, (n[1], n[0]))
 
         # A group is found (add 1 for the current wish itself)
         if len(h) + 1 >= self.group_size:
             return [ heap.heappop(h) for x in range(self.group_size-1)]
-
 
     def add_wish_to_graph(self, wish):
         """
@@ -68,7 +64,6 @@ class HeapGraphMatcher(Matcher):
         group.wishes.add(wish)
         group.students.add(wish.student)
 
-
         for item in heap:
             #Add the wish to the group and remove it from the graph
             group.wishes.add(item[1])
@@ -77,6 +72,6 @@ class HeapGraphMatcher(Matcher):
             item[1].is_active = False #Set wish to inactive
             item[1].save()
 
-
+        #Send email to group members
         self.mail.toEmail("You got a group!", "Unifi",  group.students.all())
         self.graph.remove_node(wish)

@@ -16,15 +16,7 @@ class WishDispatcher(object):
                                 cls, *args, **kwargs)
         return cls._instance
 
-    # [->] Moved these settings into unifi/project.py
-    # GROUP_SIZE = 3
-    # MIN_SCORE = 0.2
-
-    GROUP_SIZE = 4
-    MIN_SCORE = 0.3
-
-
-    def __init__(self, GROUP_SIZE=5, MIN_SCORE=0.6):
+    def __init__(self, GROUP_SIZE=3, MIN_SCORE=0.6):
 
         self.bucket_dicts = {}
 
@@ -36,7 +28,6 @@ class WishDispatcher(object):
         print "The WishDispatcher was initiated"
 
         # Restoring buckets from database
-        print "lol"
         for w in Wish.objects.filter(is_active=True):
             tags = [t.name_of_tag for t in w.tags.all()]
             courses = self.extract_course_tag(tags)
@@ -44,8 +35,6 @@ class WishDispatcher(object):
                 self.add_wish_to_bucket(w, courses[0])
             else:
                 self.add_wish_to_bucket(w, "default")
-
-        print "lolol"
 
     def extract_course_tag(self, tags):
         """
@@ -62,7 +51,7 @@ class WishDispatcher(object):
 
         #Create new bucket if neccessary
         if not tag in self.bucket_dicts:
-            self.bucket_dicts[tag] = HeapGraphMatcher( 
+            self.bucket_dicts[tag] = HeapGraphMatcher(
                 self.GROUP_SIZE, self.MIN_SCORE, jaccard, tag 
             )
 
@@ -81,7 +70,7 @@ class WishDispatcher(object):
     def delete_wish_from_graph(self, wish):
         """
         Delete a wish from the graph
-        @param: tha wish
+        @param: the wish to delete
         """
 
         try:

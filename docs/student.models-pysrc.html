@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>student.models</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="student-module.html">Package&nbsp;student</a> ::
+        Module&nbsp;models
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="student.models-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="student.models-module.html">Module student.models</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt class="py-name">db</tt> <tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module communication.models=communication.models-module.html,Module group.models=group.models-module.html,Module login.models=login.models-module.html,Module match.models=match.models-module.html,Module my.models=my.models-module.html,Module oracle.models=oracle.models-module.html,Module prototype.models=prototype.models-module.html,Module student.models=student.models-module.html,Module tag.models=tag.models-module.html,Module util.models=util.models-module.html"><a title="communication.models
+group.models
+login.models
+match.models
+my.models
+oracle.models
+prototype.models
+student.models
+tag.models
+util.models" class="py-name" href="#" onclick="return doclink('link-0', 'models', 'link-0');">models</a></tt> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt class="py-name">contrib</tt><tt class="py-op">.</tt><tt class="py-name">auth</tt><tt class="py-op">.</tt><tt id="link-1" class="py-name"><a title="communication.models
+group.models
+login.models
+match.models
+my.models
+oracle.models
+prototype.models
+student.models
+tag.models
+util.models" class="py-name" href="#" onclick="return doclink('link-1', 'models', 'link-0');">models</a></tt> <tt class="py-keyword">import</tt> <tt class="py-name">User</tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-2" class="py-name" targets="Package tag=tag-module.html"><a title="tag" class="py-name" href="#" onclick="return doclink('link-2', 'tag', 'link-2');">tag</a></tt><tt class="py-op">.</tt><tt id="link-3" class="py-name"><a title="communication.models
+group.models
+login.models
+match.models
+my.models
+oracle.models
+prototype.models
+student.models
+tag.models
+util.models" class="py-name" href="#" onclick="return doclink('link-3', 'models', 'link-0');">models</a></tt> <tt class="py-keyword">import</tt> <tt id="link-4" class="py-name" targets="Class tag.models.Tag=tag.models.Tag-class.html"><a title="tag.models.Tag" class="py-name" href="#" onclick="return doclink('link-4', 'Tag', 'link-4');">Tag</a></tt> </tt>
+<a name="Student"></a><div id="Student-def"><a name="L4"></a><tt class="py-lineno"> 4</tt> <a class="py-toggle" href="#" id="Student-toggle" onclick="return toggle('Student');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="student.models.Student-class.html">Student</a><tt class="py-op">(</tt><tt class="py-base-class">models</tt><tt class="py-op">.</tt><tt class="py-base-class">Model</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Student-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="Student-expanded"><a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line">    <tt class="py-docstring">""" Student</tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"><tt class="py-docstring">    Participates in group collaboration.</tt> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L8"></a><tt class="py-lineno"> 8</tt>  <tt class="py-line">    <tt id="link-5" class="py-name" targets="Variable student.models.Student.user=student.models.Student-class.html#user"><a title="student.models.Student.user" class="py-name" href="#" onclick="return doclink('link-5', 'user', 'link-5');">user</a></tt> <tt class="py-op">=</tt> <tt id="link-6" class="py-name"><a title="communication.models
+group.models
+login.models
+match.models
+my.models
+oracle.models
+prototype.models
+student.models
+tag.models
+util.models" class="py-name" href="#" onclick="return doclink('link-6', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">ForeignKey</tt><tt class="py-op">(</tt><tt class="py-name">User</tt><tt class="py-op">,</tt> <tt class="py-name">unique</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line"> </tt>
+<a name="Student.username"></a><div id="Student.username-def"><a name="L10"></a><tt class="py-lineno">10</tt> <a class="py-toggle" href="#" id="Student.username-toggle" onclick="return toggle('Student.username');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="student.models.Student-class.html#username">username</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Student.username-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="Student.username-expanded"><a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-7" class="py-name"><a title="student.models.Student.user" class="py-name" href="#" onclick="return doclink('link-7', 'user', 'link-5');">user</a></tt><tt class="py-op">.</tt><tt id="link-8" class="py-name" targets="Method student.models.Student.username()=student.models.Student-class.html#username"><a title="student.models.Student.username" class="py-name" href="#" onclick="return doclink('link-8', 'username', 'link-8');">username</a></tt> </tt>
+</div><a name="L12"></a><tt class="py-lineno">12</tt>  <tt class="py-line"> </tt>
+<a name="Student.__unicode__"></a><div id="Student.__unicode__-def"><a name="L13"></a><tt class="py-lineno">13</tt> <a class="py-toggle" href="#" id="Student.__unicode__-toggle" onclick="return toggle('Student.__unicode__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="student.models.Student-class.html#__unicode__">__unicode__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Student.__unicode__-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="Student.__unicode__-expanded"><a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-9" class="py-name"><a title="student.models.Student.user" class="py-name" href="#" onclick="return doclink('link-9', 'user', 'link-5');">user</a></tt><tt class="py-op">.</tt><tt id="link-10" class="py-name"><a title="student.models.Student.username" class="py-name" href="#" onclick="return doclink('link-10', 'username', 'link-8');">username</a></tt> </tt>
+</div></div><a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"> </tt>
+<a name="L16"></a><tt class="py-lineno">16</tt>  <tt class="py-line"> </tt>
+<a name="Wish"></a><div id="Wish-def"><a name="L17"></a><tt class="py-lineno">17</tt> <a class="py-toggle" href="#" id="Wish-toggle" onclick="return toggle('Wish');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="student.models.Wish-class.html">Wish</a><tt class="py-op">(</tt><tt class="py-base-class">models</tt><tt class="py-op">.</tt><tt class="py-base-class">Model</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Wish-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="Wish-expanded"><a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line">    <tt id="link-11" class="py-name" targets="Package student=student-module.html,Variable student.models.Wish.student=student.models.Wish-class.html#student"><a title="student
+student.models.Wish.student" class="py-name" href="#" onclick="return doclink('link-11', 'student', 'link-11');">student</a></tt> <tt class="py-op">=</tt> <tt id="link-12" class="py-name"><a title="communication.models
+group.models
+login.models
+match.models
+my.models
+oracle.models
+prototype.models
+student.models
+tag.models
+util.models" class="py-name" href="#" onclick="return doclink('link-12', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">ForeignKey</tt><tt class="py-op">(</tt><tt id="link-13" class="py-name" targets="Class student.models.Student=student.models.Student-class.html"><a title="student.models.Student" class="py-name" href="#" onclick="return doclink('link-13', 'Student', 'link-13');">Student</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line">    <tt id="link-14" class="py-name" targets="Method group.models.Group.tags()=group.models.Group-class.html#tags,Variable student.models.Wish.tags=student.models.Wish-class.html#tags"><a title="group.models.Group.tags
+student.models.Wish.tags" class="py-name" href="#" onclick="return doclink('link-14', 'tags', 'link-14');">tags</a></tt> <tt class="py-op">=</tt> <tt id="link-15" class="py-name"><a title="communication.models
+group.models
+login.models
+match.models
+my.models
+oracle.models
+prototype.models
+student.models
+tag.models
+util.models" class="py-name" href="#" onclick="return doclink('link-15', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">ManyToManyField</tt><tt class="py-op">(</tt><tt id="link-16" class="py-name"><a title="tag.models.Tag" class="py-name" href="#" onclick="return doclink('link-16', 'Tag', 'link-4');">Tag</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line">    <tt id="link-17" class="py-name" targets="Variable student.models.Wish.wish_date=student.models.Wish-class.html#wish_date"><a title="student.models.Wish.wish_date" class="py-name" href="#" onclick="return doclink('link-17', 'wish_date', 'link-17');">wish_date</a></tt> <tt class="py-op">=</tt> <tt id="link-18" class="py-name"><a title="communication.models
+group.models
+login.models
+match.models
+my.models
+oracle.models
+prototype.models
+student.models
+tag.models
+util.models" class="py-name" href="#" onclick="return doclink('link-18', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">DateTimeField</tt><tt class="py-op">(</tt><tt class="py-name">auto_now</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line">    <tt id="link-19" class="py-name" targets="Variable student.models.Wish.is_active=student.models.Wish-class.html#is_active"><a title="student.models.Wish.is_active" class="py-name" href="#" onclick="return doclink('link-19', 'is_active', 'link-19');">is_active</a></tt> <tt class="py-op">=</tt> <tt id="link-20" class="py-name"><a title="communication.models
+group.models
+login.models
+match.models
+my.models
+oracle.models
+prototype.models
+student.models
+tag.models
+util.models" class="py-name" href="#" onclick="return doclink('link-20', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">BooleanField</tt><tt class="py-op">(</tt><tt class="py-name">default</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line">     </tt>
+<a name="Wish.__unicode__"></a><div id="Wish.__unicode__-def"><a name="L25"></a><tt class="py-lineno">25</tt> <a class="py-toggle" href="#" id="Wish.__unicode__-toggle" onclick="return toggle('Wish.__unicode__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="student.models.Wish-class.html#__unicode__">__unicode__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Wish.__unicode__-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="Wish.__unicode__-expanded"><a name="L26"></a><tt class="py-lineno">26</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-string">"Wish: "</tt> <tt class="py-op">+</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-21" class="py-name"><a title="student
+student.models.Wish.student" class="py-name" href="#" onclick="return doclink('link-21', 'student', 'link-11');">student</a></tt><tt class="py-op">.</tt><tt id="link-22" class="py-name" targets="Method communication.models.Message.__unicode__()=communication.models.Message-class.html#__unicode__,Method group.models.Group.__unicode__()=group.models.Group-class.html#__unicode__,Method student.models.Student.__unicode__()=student.models.Student-class.html#__unicode__,Method student.models.Wish.__unicode__()=student.models.Wish-class.html#__unicode__,Method tag.models.Tag.__unicode__()=tag.models.Tag-class.html#__unicode__"><a title="communication.models.Message.__unicode__
+group.models.Group.__unicode__
+student.models.Student.__unicode__
+student.models.Wish.__unicode__
+tag.models.Tag.__unicode__" class="py-name" href="#" onclick="return doclink('link-22', '__unicode__', 'link-22');">__unicode__</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line"> </tt>
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line"> </tt>
+<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line"><tt class="py-comment"># class Proposal( models.Model ):</tt> </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line">    <tt class="py-comment"># """</tt> </tt>
+<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line">    <tt class="py-comment"># A group membership suggestion sent to a user by the system.</tt> </tt>
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line">     </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line">    <tt class="py-comment"># The user chooses either to accept or to withdraw from a Proposal.</tt> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line">    <tt class="py-comment"># The withdrawal results in return of his associated Wish back into </tt> </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line">    <tt class="py-comment"># the graph.</tt> </tt>
+<a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line">     </tt>
+<a name="L37"></a><tt class="py-lineno">37</tt>  <tt class="py-line">    <tt class="py-comment"># This operation is equal to the Wish-reactivation from the earlier</tt> </tt>
+<a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line">    <tt class="py-comment"># version.</tt> </tt>
+<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line">     </tt>
+<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line">    <tt class="py-comment"># Possible extensions:</tt> </tt>
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line">    <tt class="py-comment"># * Can be garbage-collected by a specific timeout based upon tag popularity.</tt> </tt>
+<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line">    <tt class="py-comment"># * Can be coupled with the communication framework</tt> </tt>
+<a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line">    <tt class="py-comment"># """</tt> </tt>
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line">     </tt>
+<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line">    <tt class="py-comment"># students = models.ManyToManyField( Student )</tt> </tt>
+<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line">    <tt class="py-comment"># wishes = models.ManyToManyField( Wish )</tt> </tt>
+<a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line">     </tt>
+<a name="L48"></a><tt class="py-lineno">48</tt>  <tt class="py-line">    <tt class="py-comment"># def tags( self ):</tt> </tt>
+<a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line">        <tt class="py-comment"># """</tt> </tt>
+<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line">        <tt class="py-comment"># @return     a set of all tags in all wishes of a given proposal</tt> </tt>
+<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line">        <tt class="py-comment"># """</tt> </tt>
+<a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line">        <tt class="py-comment"># return set(</tt> </tt>
+<a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line">            <tt class="py-comment"># [   </tt> </tt>
+<a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line">                <tt class="py-comment"># tag </tt> </tt>
+<a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line">                <tt class="py-comment"># for wish in self.wishes.all() </tt> </tt>
+<a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line">                <tt class="py-comment"># for tag in wish.tags.all() </tt> </tt>
+<a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line">            <tt class="py-comment"># ]</tt> </tt>
+<a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line">        <tt class="py-comment"># )</tt> </tt>
+<a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Tue Jul 24 13:22:10 2012
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

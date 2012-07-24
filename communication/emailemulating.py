@@ -9,7 +9,12 @@ class EmailEmulating():
 
     def toDatabase(self, sender, receiver, message):
         """
-            Emulates email sending
+        Emulates email sending. "Emails" are just stored as a database record
+        @param sender: the sender
+        @type sender: User object
+        @param receiver: the receiver
+        @type receiver: User object
+        @param message: the message
         """
         m = Message(sender=sender, receiver=receiver, message=message)
         m.save()
@@ -21,7 +26,6 @@ class EmailEmulating():
             @param sender: the sender
             @param receivers: a list with receivers
         """
-        print "lolmail"
 
         sender = sender + '@example.com'
         recv = [r.username() + '@example.com' for r in receivers]

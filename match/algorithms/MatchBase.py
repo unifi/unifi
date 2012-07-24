@@ -1,7 +1,6 @@
 import pylab
 import networkx as nx
 import time
-from unifi.management import *
 
 class Matcher:
     """
@@ -23,8 +22,6 @@ class Matcher:
         self.graph = nx.Graph()
         self.bucket_name = name
 
-
-
     def draw_graph(self):
         """
         Draw a "nice" visualization of a graph with matplotlib
@@ -38,13 +35,16 @@ class Matcher:
         pylab.show()
 
     def gettime(self):
-        return time.time()
+        """
+        Get the current time. Useful for measuring algorithm speed.
+        """
 
+        return time.time()
 
     def delete_wish_from_graph(self, wish):
         """
         Delete a wish from the graph
         @param wish: the wish to delete
-
         """
+
         self.graph.remove_node(wish)

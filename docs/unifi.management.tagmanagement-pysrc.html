@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>unifi.management.tagmanagement</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="unifi-module.html">Package&nbsp;unifi</a> ::
+        <a href="unifi.management-module.html">Package&nbsp;management</a> ::
+        Module&nbsp;tagmanagement
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="unifi.management.tagmanagement-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="unifi.management.tagmanagement-module.html">Module unifi.management.tagmanagement</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno"> 1</tt>  <tt class="py-line"> </tt>
+<a name="L2"></a><tt class="py-lineno"> 2</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L3"></a><tt class="py-lineno"> 3</tt>  <tt class="py-line"><tt class="py-docstring">    The unifi API</tt> </tt>
+<a name="L4"></a><tt class="py-lineno"> 4</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L5"></a><tt class="py-lineno"> 5</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-0" class="py-name" targets="Package tag=tag-module.html"><a title="tag" class="py-name" href="#" onclick="return doclink('link-0', 'tag', 'link-0');">tag</a></tt><tt class="py-op">.</tt><tt id="link-1" class="py-name" targets="Module communication.models=communication.models-module.html,Module group.models=group.models-module.html,Module login.models=login.models-module.html,Module match.models=match.models-module.html,Module my.models=my.models-module.html,Module oracle.models=oracle.models-module.html,Module prototype.models=prototype.models-module.html,Module student.models=student.models-module.html,Module tag.models=tag.models-module.html,Module util.models=util.models-module.html"><a title="communication.models
+group.models
+login.models
+match.models
+my.models
+oracle.models
+prototype.models
+student.models
+tag.models
+util.models" class="py-name" href="#" onclick="return doclink('link-1', 'models', 'link-1');">models</a></tt> <tt class="py-keyword">import</tt> <tt id="link-2" class="py-name" targets="Class tag.models.Tag=tag.models.Tag-class.html"><a title="tag.models.Tag" class="py-name" href="#" onclick="return doclink('link-2', 'Tag', 'link-2');">Tag</a></tt> </tt>
+<a name="L6"></a><tt class="py-lineno"> 6</tt>  <tt class="py-line"> </tt>
+<a name="L7"></a><tt class="py-lineno"> 7</tt>  <tt class="py-line"> </tt>
+<a name="TagManagement"></a><div id="TagManagement-def"><a name="L8"></a><tt class="py-lineno"> 8</tt> <a class="py-toggle" href="#" id="TagManagement-toggle" onclick="return toggle('TagManagement');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="unifi.management.tagmanagement.TagManagement-class.html">TagManagement</a><tt class="py-op">:</tt> </tt>
+</div><div id="TagManagement-collapsed" style="display:none;" pad="++" indent="++++"></div><div id="TagManagement-expanded"><a name="L9"></a><tt class="py-lineno"> 9</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L10"></a><tt class="py-lineno">10</tt>  <tt class="py-line"><tt class="py-docstring">        Takes care of tag management (adding, removing, getting ...)</tt> </tt>
+<a name="L11"></a><tt class="py-lineno">11</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="TagManagement.__init__"></a><div id="TagManagement.__init__-def"><a name="L12"></a><tt class="py-lineno">12</tt> <a class="py-toggle" href="#" id="TagManagement.__init__-toggle" onclick="return toggle('TagManagement.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="unifi.management.tagmanagement.TagManagement-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="TagManagement.__init__-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="TagManagement.__init__-expanded"><a name="L13"></a><tt class="py-lineno">13</tt>  <tt class="py-line"> </tt>
+<a name="L14"></a><tt class="py-lineno">14</tt>  <tt class="py-line">        <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L15"></a><tt class="py-lineno">15</tt>  <tt class="py-line"> </tt>
+<a name="TagManagement.addTag"></a><div id="TagManagement.addTag-def"><a name="L16"></a><tt class="py-lineno">16</tt> <a class="py-toggle" href="#" id="TagManagement.addTag-toggle" onclick="return toggle('TagManagement.addTag');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="unifi.management.tagmanagement.TagManagement-class.html#addTag">addTag</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">tag</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="TagManagement.addTag-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="TagManagement.addTag-expanded"><a name="L17"></a><tt class="py-lineno">17</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L18"></a><tt class="py-lineno">18</tt>  <tt class="py-line"><tt class="py-docstring">            Add a user</tt> </tt>
+<a name="L19"></a><tt class="py-lineno">19</tt>  <tt class="py-line"><tt class="py-docstring">            @param usr: the user to be added</tt> </tt>
+<a name="L20"></a><tt class="py-lineno">20</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L21"></a><tt class="py-lineno">21</tt>  <tt class="py-line">        <tt id="link-3" class="py-name"><a title="tag" class="py-name" href="#" onclick="return doclink('link-3', 'tag', 'link-0');">tag</a></tt> <tt class="py-op">=</tt> <tt id="link-4" class="py-name"><a title="tag" class="py-name" href="#" onclick="return doclink('link-4', 'tag', 'link-0');">tag</a></tt><tt class="py-op">.</tt><tt class="py-name">strip</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> <tt class="py-comment">#remove whitespace</tt> </tt>
+<a name="L22"></a><tt class="py-lineno">22</tt>  <tt class="py-line">        <tt class="py-name">t</tt> <tt class="py-op">=</tt> <tt id="link-5" class="py-name"><a title="tag.models.Tag" class="py-name" href="#" onclick="return doclink('link-5', 'Tag', 'link-2');">Tag</a></tt><tt class="py-op">.</tt><tt id="link-6" class="py-name" targets="Method communication.models.Message.objects()=communication.models.Message-class.html#objects,Method group.models.Group.objects()=group.models.Group-class.html#objects,Method oracle.models.Oracle.objects()=oracle.models.Oracle-class.html#objects,Method student.models.Student.objects()=student.models.Student-class.html#objects,Method student.models.Wish.objects()=student.models.Wish-class.html#objects,Method tag.models.Tag.objects()=tag.models.Tag-class.html#objects"><a title="communication.models.Message.objects
+group.models.Group.objects
+oracle.models.Oracle.objects
+student.models.Student.objects
+student.models.Wish.objects
+tag.models.Tag.objects" class="py-name" href="#" onclick="return doclink('link-6', 'objects', 'link-6');">objects</a></tt><tt class="py-op">.</tt><tt class="py-name">get_or_create</tt><tt class="py-op">(</tt><tt id="link-7" class="py-name" targets="Variable tag.models.Tag.name_of_tag=tag.models.Tag-class.html#name_of_tag"><a title="tag.models.Tag.name_of_tag" class="py-name" href="#" onclick="return doclink('link-7', 'name_of_tag', 'link-7');">name_of_tag</a></tt><tt class="py-op">=</tt><tt id="link-8" class="py-name"><a title="tag" class="py-name" href="#" onclick="return doclink('link-8', 'tag', 'link-0');">tag</a></tt><tt class="py-op">)</tt><tt class="py-op">[</tt><tt class="py-number">0</tt><tt class="py-op">]</tt> </tt>
+<a name="L23"></a><tt class="py-lineno">23</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"tag '%s' added!"</tt> <tt class="py-op">%</tt> <tt id="link-9" class="py-name"><a title="tag" class="py-name" href="#" onclick="return doclink('link-9', 'tag', 'link-0');">tag</a></tt> </tt>
+<a name="L24"></a><tt class="py-lineno">24</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">t</tt> </tt>
+</div><a name="L25"></a><tt class="py-lineno">25</tt>  <tt class="py-line"> </tt>
+<a name="TagManagement.deleteTag"></a><div id="TagManagement.deleteTag-def"><a name="L26"></a><tt class="py-lineno">26</tt> <a class="py-toggle" href="#" id="TagManagement.deleteTag-toggle" onclick="return toggle('TagManagement.deleteTag');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="unifi.management.tagmanagement.TagManagement-class.html#deleteTag">deleteTag</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">tag</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="TagManagement.deleteTag-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="TagManagement.deleteTag-expanded"><a name="L27"></a><tt class="py-lineno">27</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L28"></a><tt class="py-lineno">28</tt>  <tt class="py-line"><tt class="py-docstring">            Delete a tag (or rather, set the is_active flag to False so</tt> </tt>
+<a name="L29"></a><tt class="py-lineno">29</tt>  <tt class="py-line"><tt class="py-docstring">            any foreign keys to users won't break</tt> </tt>
+<a name="L30"></a><tt class="py-lineno">30</tt>  <tt class="py-line"><tt class="py-docstring">            @param usr: the user to remove</tt> </tt>
+<a name="L31"></a><tt class="py-lineno">31</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L32"></a><tt class="py-lineno">32</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L33"></a><tt class="py-lineno">33</tt>  <tt class="py-line">            <tt id="link-10" class="py-name"><a title="tag.models.Tag" class="py-name" href="#" onclick="return doclink('link-10', 'Tag', 'link-2');">Tag</a></tt><tt class="py-op">.</tt><tt id="link-11" class="py-name"><a title="communication.models.Message.objects
+group.models.Group.objects
+oracle.models.Oracle.objects
+student.models.Student.objects
+student.models.Wish.objects
+tag.models.Tag.objects" class="py-name" href="#" onclick="return doclink('link-11', 'objects', 'link-6');">objects</a></tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt id="link-12" class="py-name"><a title="tag.models.Tag.name_of_tag" class="py-name" href="#" onclick="return doclink('link-12', 'name_of_tag', 'link-7');">name_of_tag</a></tt><tt class="py-op">=</tt><tt class="py-name">name</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">delete</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L34"></a><tt class="py-lineno">34</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt> <tt id="link-13" class="py-name"><a title="tag.models.Tag" class="py-name" href="#" onclick="return doclink('link-13', 'Tag', 'link-2');">Tag</a></tt><tt class="py-op">.</tt><tt id="link-14" class="py-name" targets="Class communication.models.Message.DoesNotExist=communication.models.Message.DoesNotExist-class.html,Class group.models.Group.DoesNotExist=group.models.Group.DoesNotExist-class.html,Class oracle.models.Oracle.DoesNotExist=oracle.models.Oracle.DoesNotExist-class.html,Class student.models.Student.DoesNotExist=student.models.Student.DoesNotExist-class.html,Class student.models.Wish.DoesNotExist=student.models.Wish.DoesNotExist-class.html,Class tag.models.Tag.DoesNotExist=tag.models.Tag.DoesNotExist-class.html"><a title="communication.models.Message.DoesNotExist
+group.models.Group.DoesNotExist
+oracle.models.Oracle.DoesNotExist
+student.models.Student.DoesNotExist
+student.models.Wish.DoesNotExist
+tag.models.Tag.DoesNotExist" class="py-name" href="#" onclick="return doclink('link-14', 'DoesNotExist', 'link-14');">DoesNotExist</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L35"></a><tt class="py-lineno">35</tt>  <tt class="py-line">            <tt class="py-keyword">pass</tt> </tt>
+</div><a name="L36"></a><tt class="py-lineno">36</tt>  <tt class="py-line"> </tt>
+<a name="TagManagement.getTag"></a><div id="TagManagement.getTag-def"><a name="L37"></a><tt class="py-lineno">37</tt> <a class="py-toggle" href="#" id="TagManagement.getTag-toggle" onclick="return toggle('TagManagement.getTag');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="unifi.management.tagmanagement.TagManagement-class.html#getTag">getTag</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">name</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="TagManagement.getTag-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="TagManagement.getTag-expanded"><a name="L38"></a><tt class="py-lineno">38</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L39"></a><tt class="py-lineno">39</tt>  <tt class="py-line"><tt class="py-docstring">            Return a tag</tt> </tt>
+<a name="L40"></a><tt class="py-lineno">40</tt>  <tt class="py-line"><tt class="py-docstring">            @param name: the name of the tag</tt> </tt>
+<a name="L41"></a><tt class="py-lineno">41</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L42"></a><tt class="py-lineno">42</tt>  <tt class="py-line"> </tt>
+<a name="L43"></a><tt class="py-lineno">43</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L44"></a><tt class="py-lineno">44</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt id="link-15" class="py-name"><a title="tag.models.Tag" class="py-name" href="#" onclick="return doclink('link-15', 'Tag', 'link-2');">Tag</a></tt><tt class="py-op">.</tt><tt id="link-16" class="py-name"><a title="communication.models.Message.objects
+group.models.Group.objects
+oracle.models.Oracle.objects
+student.models.Student.objects
+student.models.Wish.objects
+tag.models.Tag.objects" class="py-name" href="#" onclick="return doclink('link-16', 'objects', 'link-6');">objects</a></tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt id="link-17" class="py-name"><a title="tag.models.Tag.name_of_tag" class="py-name" href="#" onclick="return doclink('link-17', 'name_of_tag', 'link-7');">name_of_tag</a></tt><tt class="py-op">=</tt><tt class="py-name">name</tt><tt class="py-op">)</tt> </tt>
+<a name="L45"></a><tt class="py-lineno">45</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt> <tt id="link-18" class="py-name"><a title="tag.models.Tag" class="py-name" href="#" onclick="return doclink('link-18', 'Tag', 'link-2');">Tag</a></tt><tt class="py-op">.</tt><tt id="link-19" class="py-name"><a title="communication.models.Message.DoesNotExist
+group.models.Group.DoesNotExist
+oracle.models.Oracle.DoesNotExist
+student.models.Student.DoesNotExist
+student.models.Wish.DoesNotExist
+tag.models.Tag.DoesNotExist" class="py-name" href="#" onclick="return doclink('link-19', 'DoesNotExist', 'link-14');">DoesNotExist</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L46"></a><tt class="py-lineno">46</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
+</div><a name="L47"></a><tt class="py-lineno">47</tt>  <tt class="py-line"> </tt>
+<a name="TagManagement.getStudentsWithTag"></a><div id="TagManagement.getStudentsWithTag-def"><a name="L48"></a><tt class="py-lineno">48</tt> <a class="py-toggle" href="#" id="TagManagement.getStudentsWithTag-toggle" onclick="return toggle('TagManagement.getStudentsWithTag');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="unifi.management.tagmanagement.TagManagement-class.html#getStudentsWithTag">getStudentsWithTag</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">tag</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="TagManagement.getStudentsWithTag-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="TagManagement.getStudentsWithTag-expanded"><a name="L49"></a><tt class="py-lineno">49</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L50"></a><tt class="py-lineno">50</tt>  <tt class="py-line"><tt class="py-docstring">            TODO</tt> </tt>
+<a name="L51"></a><tt class="py-lineno">51</tt>  <tt class="py-line"><tt class="py-docstring">            Get all students with a given tag</tt> </tt>
+<a name="L52"></a><tt class="py-lineno">52</tt>  <tt class="py-line"><tt class="py-docstring">            @param tag: the tag</tt> </tt>
+<a name="L53"></a><tt class="py-lineno">53</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L54"></a><tt class="py-lineno">54</tt>  <tt class="py-line">        <tt class="py-keyword">from</tt> <tt id="link-20" class="py-name" targets="Package unifi=unifi-module.html"><a title="unifi" class="py-name" href="#" onclick="return doclink('link-20', 'unifi', 'link-20');">unifi</a></tt><tt class="py-op">.</tt><tt id="link-21" class="py-name" targets="Package unifi.management=unifi.management-module.html"><a title="unifi.management" class="py-name" href="#" onclick="return doclink('link-21', 'management', 'link-21');">management</a></tt><tt class="py-op">.</tt><tt id="link-22" class="py-name" targets="Module unifi.management.wishmanagement=unifi.management.wishmanagement-module.html"><a title="unifi.management.wishmanagement" class="py-name" href="#" onclick="return doclink('link-22', 'wishmanagement', 'link-22');">wishmanagement</a></tt> <tt class="py-keyword">import</tt> <tt id="link-23" class="py-name" targets="Class unifi.management.wishmanagement.WishManagement=unifi.management.wishmanagement.WishManagement-class.html"><a title="unifi.management.wishmanagement.WishManagement" class="py-name" href="#" onclick="return doclink('link-23', 'WishManagement', 'link-23');">WishManagement</a></tt> </tt>
+<a name="L55"></a><tt class="py-lineno">55</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">wish_management</tt> <tt class="py-op">=</tt> <tt id="link-24" class="py-name"><a title="unifi.management.wishmanagement.WishManagement" class="py-name" href="#" onclick="return doclink('link-24', 'WishManagement', 'link-23');">WishManagement</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L56"></a><tt class="py-lineno">56</tt>  <tt class="py-line"> </tt>
+<a name="L57"></a><tt class="py-lineno">57</tt>  <tt class="py-line">        <tt id="link-25" class="py-name" targets="Variable group.models.Group.wishes=group.models.Group-class.html#wishes"><a title="group.models.Group.wishes" class="py-name" href="#" onclick="return doclink('link-25', 'wishes', 'link-25');">wishes</a></tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">wish_management</tt><tt class="py-op">.</tt><tt id="link-26" class="py-name" targets="Method unifi.management.wishmanagement.WishManagement.getAllWishesWithTag()=unifi.management.wishmanagement.WishManagement-class.html#getAllWishesWithTag"><a title="unifi.management.wishmanagement.WishManagement.getAllWishesWithTag" class="py-name" href="#" onclick="return doclink('link-26', 'getAllWishesWithTag', 'link-26');">getAllWishesWithTag</a></tt><tt class="py-op">(</tt><tt id="link-27" class="py-name"><a title="tag" class="py-name" href="#" onclick="return doclink('link-27', 'tag', 'link-0');">tag</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L58"></a><tt class="py-lineno">58</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-op">[</tt><tt class="py-name">w</tt><tt class="py-op">.</tt><tt id="link-28" class="py-name" targets="Package student=student-module.html,Variable student.models.Wish.student=student.models.Wish-class.html#student"><a title="student
+student.models.Wish.student" class="py-name" href="#" onclick="return doclink('link-28', 'student', 'link-28');">student</a></tt> <tt class="py-keyword">for</tt> <tt class="py-name">w</tt> <tt class="py-keyword">in</tt> <tt id="link-29" class="py-name"><a title="group.models.Group.wishes" class="py-name" href="#" onclick="return doclink('link-29', 'wishes', 'link-25');">wishes</a></tt><tt class="py-op">]</tt> </tt>
+</div><a name="L59"></a><tt class="py-lineno">59</tt>  <tt class="py-line"> </tt>
+<a name="TagManagement.flush"></a><div id="TagManagement.flush-def"><a name="L60"></a><tt class="py-lineno">60</tt> <a class="py-toggle" href="#" id="TagManagement.flush-toggle" onclick="return toggle('TagManagement.flush');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="unifi.management.tagmanagement.TagManagement-class.html#flush">flush</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="TagManagement.flush-collapsed" style="display:none;" pad="++" indent="++++++++"></div><div id="TagManagement.flush-expanded"><a name="L61"></a><tt class="py-lineno">61</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L62"></a><tt class="py-lineno">62</tt>  <tt class="py-line"><tt class="py-docstring">            Removes all entries in the tag table (and not just is_active=False)</tt> </tt>
+<a name="L63"></a><tt class="py-lineno">63</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L64"></a><tt class="py-lineno">64</tt>  <tt class="py-line"> </tt>
+<a name="L65"></a><tt class="py-lineno">65</tt>  <tt class="py-line">        <tt id="link-30" class="py-name"><a title="tag.models.Tag" class="py-name" href="#" onclick="return doclink('link-30', 'Tag', 'link-2');">Tag</a></tt><tt class="py-op">.</tt><tt id="link-31" class="py-name"><a title="communication.models.Message.objects
+group.models.Group.objects
+oracle.models.Oracle.objects
+student.models.Student.objects
+student.models.Wish.objects
+tag.models.Tag.objects" class="py-name" href="#" onclick="return doclink('link-31', 'objects', 'link-6');">objects</a></tt><tt class="py-op">.</tt><tt id="link-32" class="py-name" targets="Method match.util.Pair.all()=match.util.Pair-class.html#all"><a title="match.util.Pair.all" class="py-name" href="#" onclick="return doclink('link-32', 'all', 'link-32');">all</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">delete</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L66"></a><tt class="py-lineno">66</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt> <tt class="py-string">"Tag table flushed"</tt> </tt>
+</div></div><a name="L67"></a><tt class="py-lineno">67</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Tue Jul 24 13:22:11 2012
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

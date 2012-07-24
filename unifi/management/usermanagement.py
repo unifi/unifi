@@ -10,6 +10,7 @@ class UserManagement:
     """
         Takes care of user management (adding, removing, updating ...)
     """
+
     def __init__(self):
         pass
 
@@ -36,8 +37,8 @@ class UserManagement:
     def addStudent(self, usr):
         self.addUser(usr)
         self.updateUser(usr, "s")
-        
-        
+
+
     def getUser(self, usr):
         """
             Get the user with username usr
