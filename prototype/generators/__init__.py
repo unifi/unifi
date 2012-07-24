@@ -4,25 +4,58 @@ import random
 from string import ascii_lowercase
 
 class Generator:
-    def __init__(self):
+    """
+    A default abstract data generator. Generates raw text blueprints for object
+    instantiation. Can be perceived as serialization data generator.
+    """
+    def __init__( self ):
         self.path = ""
+
+    def generate( self, quantity ):
+        """
+        Must be implemented by every non-abstract subclass.
+
+        @param quantity:    number of instance blueprints to generate
+        """
 
 
 
 class TagGenerator(Generator):
+    """
+    An abstract tag generator.
+    """
     def __init__(self):
         pass
 
 
 class SubjectTagGenerator(TagGenerator):
-    def __init__( self, subject_number_length = 4 ):
+    """
+    A tag generator that mocks the subject codes in University of Oslo.
+    """
+    def __init__( self,
+                  subject_number_length = 4,
+                  prefixes = [ "INF", "MAT", "MAT-INF", "STK" ]):
+        """
+        @param subject_number_length:   the length of the numeric-part of the
+                                        mocked subject code.
+                                        <i>ex. a INF1001 numeric part is 4
+                                        characters long.</i>
+
+        @param prefixes:                a list of prefixes that prepend the
+                                        subject codes
+        @type prefixes:                 iterable
+        """
         self.subject_number_length = subject_number_length
-        self.prefixes = [ "INF", "MAT", "MAT-INF", "STK" ]
+        self.prefixes = prefixes;
 
     def generate( self, quantity ):
+
         self.prefixes = [ prefix.upper() for prefix in self.prefixes ]
 
         def make_subject_code():
+            """
+            Creates a random subject code by combining a prefix (INF, MAT)
+            """
             number = "".join(
                 [ str(random.randint(0,9))
                     for i in range(self.subject_number_length) ]
@@ -33,6 +66,12 @@ class SubjectTagGenerator(TagGenerator):
 
 
 class LetterTagGenerator(TagGenerator):
+    """
+    Generates minimal possible length letter tags.
+
+    A tagset containing less than 9 tags will have 1 character,
+    while 10 tags will increase the tag length to 2 etc.
+    """
     def generate( self, quantity ):
         output = []
 
@@ -46,11 +85,20 @@ class LetterTagGenerator(TagGenerator):
         return output
 
 class WordTagGenerator(TagGenerator):
+    """
+    Fetches a random sample of tags from an external dictionary.
+    """
     def generate( self, quantity,
-                  uri="http://www.desiquintans.com/downloads/nounlist.txt" ):
+                  uri="http://www.desiquintans.com/downloads/nounlist.txt",
+                  separator="\n" ):
+        """
+        @param uri:         the location of the dictionary
+        @param separator:   the separator of the dictionary, defaults to "\n"
+                            (a tag per line)
+        """
 
         from urllib import urlopen
-        data = urlopen( uri ).read().split("\n")
+        data = urlopen( uri ).read().split( separator )
 
         return random.sample( data, quantity )
 
@@ -110,9 +158,10 @@ class WishGenerator(Generator):
                   unique=True ):
 
         """
-        @param quantity             the number of wishes to be generated
-        @param unique               'True' if there's only one wish per user
-
+        @param quantity:             the number of wishes to be generated
+        @param min_tag_quantity:     the minimal number of tags per wish
+        @param max_tag_quantity:     the maximal number of tags per wish
+        @param unique:               'True' if there's only one wish per user
         """
 
         if min_tag_quantity > max_tag_quantity:

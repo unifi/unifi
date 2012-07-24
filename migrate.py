@@ -44,6 +44,7 @@ if __name__ == "__main__":
     choices = {
         'initial': "0",
         'auto'   : "1",
+        'syncdb' : "2",
     }
 
     names = get_applications(
@@ -70,12 +71,12 @@ if __name__ == "__main__":
 
     elif choice is choices['auto']:
     
-        system( "python manage.py syncdb --all" )
+        # system( "python manage.py syncdb --all" )
     
         for name in names:
             system( "python manage.py schemamigration %s --auto" % name )
             breakpoint()
-        system( "python manage.py migrate" )
+        system( "python manage.py migrate --fake" )
 
     elif choice is choices['syncdb --all']:
         

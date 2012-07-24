@@ -89,6 +89,9 @@ def populate( request, profile=None ):
     )
 
 def generate( request, profile=None ):
+    """
+    This view is acts as an interface to generators package.
+    """
 
     MIN_TAG_QUANTITY = 1
     MAX_TAG_QUANTITY = 5
@@ -207,6 +210,15 @@ def intrude_fork( request ):
 
 @csrf_protect
 def intrude( request, username ):
+    """
+    Allows a developer switch the associated user records quickly.
+    This gives any user public access to any account and must therefore
+    be disabled in production mode.
+
+    @param username:  the username of the user to log in as
+
+    """
+
 
     previous_username = request.user
     auth.logout( request )
@@ -244,6 +256,10 @@ def intrude( request, username ):
 
 
 def leave( request ):
+    """
+    A silent logout routine
+    """
+
     auth.logout( request )
     return redirect( "/" )
 
@@ -288,7 +304,11 @@ def display_wishes( request ):
 
 
 def graph( request ):
-    
+    """
+    Composes a relation graph for each group. The edges are set up from
+    the first user to each user of the group.
+    """
+
     edges = []
     data = {
         'students':     Student.objects.count(),

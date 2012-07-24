@@ -46,6 +46,10 @@ def index( request ):
 
 
 def wish_delete( request, pk ):
+    """
+    Removes a wish from the database and the existing matching graph.
+    @pk:    public key of the wish to remove
+    """
 
     if request.user.is_authenticated:
         student = UserManager.getStudent( request.user.username )
