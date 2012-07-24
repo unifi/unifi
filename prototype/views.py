@@ -327,7 +327,6 @@ def graph( request ):
         'tags':                 Tag.objects.count(),
         'wishes':               Wish.objects.count(),
         'groups':               Group.objects.count(),
-        '
     }
 
     for group in Group.objects.all():

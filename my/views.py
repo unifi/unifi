@@ -27,15 +27,30 @@ def index( request ):
 
     if request.user.is_authenticated():
 
+        from random import sample
+
+        assistance_groups = sample( list( Group.objects.all() ), 10 )
+
+        for g in assistance_groups:
+            g.needs_assistance = True
+            g.save()
+
         wishes = Wish.objects.filter( student=student )
         groups = Group.objects.filter( students__in=[student] )
         autocomplete_tags = Tag.objects.all()
+
+
+#        from unifi.management import UserManager
+#        is_oracle = False
+#        if UserManager.getOracle( request.user ):
+#            is_oracle = True
+
 
         return render_to_response( "my/gateway.html", {
                 "title":                "UNIFI",
                 "groups":               groups,
                 "wishes":               wishes,
-                # "assistance_wishes":    Wish.objects.filter( needs_assistance=True ),
+                "assistance_groups":    assistance_groups,
                 "autocomplete_tags":    autocomplete_tags,
             },
             context_instance = RequestContext( request )
@@ -48,7 +63,7 @@ def index( request ):
 def wish_delete( request, pk ):
     """
     Removes a wish from the database and the existing matching graph.
-    @pk:    public key of the wish to remove
+    @param pk:    public key of the wish to remove
     """
 
     if request.user.is_authenticated:
