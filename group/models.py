@@ -10,9 +10,9 @@ class Group(models.Model):
     Student container.
     """
 
-    wishes      = models.ManyToManyField( Wish )
-    students    = models.ManyToManyField( Student, null=True )
-    needs_assitance = models.BooleanField()
+    wishes           = models.ManyToManyField( Wish )
+    students         = models.ManyToManyField( Student, null=True )
+    needs_assistance = models.BooleanField()
 
     def tags(self):
         """
