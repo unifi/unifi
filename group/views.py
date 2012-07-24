@@ -1,4 +1,3 @@
-# Create your views here.
 from group.models import Group
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext

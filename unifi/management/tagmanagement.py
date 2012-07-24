@@ -47,13 +47,11 @@ class TagManagement:
 
     def getStudentsWithTag(self, tag):
         """
-            TODO
             Get all students with a given tag
             @param tag: the tag
         """
         from unifi.management.wishmanagement import WishManagement
         self.wish_management = WishManagement()
-
         wishes = self.wish_management.getAllWishesWithTag(tag)
         return [w.student for w in wishes]
 

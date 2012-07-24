@@ -1,6 +1,6 @@
 
 """
-    The unifi command line interface
+    The unifi API
 """
 from student.models import Wish, Student
 from tag.models import Tag
@@ -22,6 +22,7 @@ class WishManagement:
             Add a user
             @param student: the student's thats register a wish
             @param tags: wish tags
+            @return: the created wish
         """
 
         if not tags:
@@ -55,14 +56,15 @@ class WishManagement:
 
     def deleteWish(self, wish):
         """
-            Delete a wish
+            Delete a wish from the database
+            @param wish: the wish to remove
         """
 
         wish.delete()
 
     def getWish(self, student, tags):
         """
-            get a wish (and your dream will come true)
+            Return the wish (or None, if the wish doesnt exist) with the given student and tags
             @param student: the students username
             @param tags: a list with tag names
         """

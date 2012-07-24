@@ -46,7 +46,7 @@ class GroupManagement:
         """
         try:
             group.oracle = oracle
-        except:
+        except: #Pokemon exception handling!
             pass
 
     def getOracle(self, group):
@@ -90,11 +90,11 @@ class GroupManagement:
 
         return [group for group in Group.objects.all() if student in group.students.all()]
 
-
     def flushGroups(self):
         """
             Delete all group objects
         """
+
         Group.objects.all().delete()
         print "Group table flushed"
 
