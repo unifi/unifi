@@ -11,8 +11,8 @@ DEBUG = False
 environ['DJANGO_SETTINGS_MODULE'] = 'unifi.settings'
 
 def drop_database( username="unifi"):
-    system( "psql -U postgres -c 'DROP DATABASE IF EXISTS \'unifi\';'" )
-    system( "psql -U postgres -c 'CREATE DATABASE \'unifi\' OWNER \'unifi\';'" )
+    system( "psql -U postgres -c 'DROP DATABASE IF EXISTS \'unifibase\';'" )
+    system( "psql -U postgres -c 'CREATE DATABASE \'unifibase\' OWNER \'unifibase\';'" )
 
 
 def get_applications( installed_apps, exclude=[], include=[] ):

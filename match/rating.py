@@ -43,7 +43,7 @@ def mountford( A, B ):
 
 def sorensen( A, B ):
     """
-    banana banana banana
+    eple eple eple
     """
 
     A, B = set(A), set(B)

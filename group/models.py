@@ -12,9 +12,7 @@ class Group(models.Model):
 
     wishes      = models.ManyToManyField( Wish )
     students    = models.ManyToManyField( Student, null=True )
-
-    # oracle = models.OneToOneField( Oracle, null=True )
-    # needs_assitance = models.BooleanField()
+    needs_assitance = models.BooleanField()
 
     def tags(self):
         """
