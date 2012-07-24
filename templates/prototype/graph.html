@@ -8,8 +8,6 @@
     <script>
         var g = new Graph();
 
-        {% for group in groups %}
-
         var render = function(r, n) {
             var set = r.set()
                 .push(
@@ -19,18 +17,21 @@
                                 "fill":         "#DDCCAA",
                                 r:              "5px",
                                 "stroke-width": "2px",
-                                "stroke-color": "#BBAA33"
                             } )
                     )
                     .push(
-                        r.text( n.point[0], n.point[1] + 10, (n.label || n.id) + "\n(" + "{{ group.students.count }}" + ")"
-                    )
-                );
+                        r.text(
+                            n.point[0], n.point[1] + 10,
+                            (n.label || n.id) + "\n(" + n.quantity + ")"
+                        )
+                    );
             return set;
         };
 
+        {% for group in groups %}
+
         g.addNode( "{{ group.pk }}",
-            { label: "<G-{{ group.pk }}>", render: render }
+            { label: "{{ group.pk }}", quantity: {{ group.students.count }}, render: render }
         );
             {% for student in group.students.all %}
                 g.addEdge( "{{ student.username }}", "{{ group.pk }}",
