@@ -13,11 +13,15 @@ class Group(models.Model):
 
     def tags(self):
         """
-        Return group tags
+        Return group tags as a models.query.QuerySet
         """
-        return set(
-            [ t for w in self.wishes.all() for t in w.tags.all() ]
-        )
+
+        wishes = self.wishes.all()
+        tags = wishes[0].tags.all()
+        for w in wishes[1:]:
+            tags = tags | w.tags.all()
+
+        return tags.distinct()
 
     def __unicode__(self):
         return "Group " + str(self.pk)

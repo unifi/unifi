@@ -16,6 +16,7 @@ class EmailEmulating():
         @type receiver: User object
         @param message: the message
         """
+
         m = Message(sender=sender, receiver=receiver, message=message)
         m.save()
 

@@ -5,8 +5,9 @@ from threading import Thread
 from unifi.unifi_project_settings import MAX_GROUP_SIZE, MIN_SCORE
 
 WishDispatcher = WishDispatcher(MAX_GROUP_SIZE, MIN_SCORE)
-#if not WishDispatcher.has_restored:
-#    WishDispatcher.restore_buckets()
+
+if not WishDispatcher.has_restored: #Restore buckets if first time run
+    WishDispatcher.restore_buckets()
 
 
 # [/] temporary, threading in python is a myth
