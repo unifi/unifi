@@ -3,12 +3,10 @@ body {
     padding: 1.5em 3em 1.5em 10%;
     background-color: rgb( 212, 212, 212 );
     background-image: url("http://subtlepatterns.com/patterns/lghtmesh.png");
-
-
+    
     a {
-        color: rgb( 192, 128, 64 );
+        color: black;
     }
-
 }
 
 .content {
@@ -56,16 +54,12 @@ body {
 }
 
 .student_container {
-
     padding: 0.4em 0em 1em 0em;
+}
 
-    .stud {
-        display: inline-block;
-        padding: 0.4em 0.4em 0.4em 0.4em;
-        background-color: rgba(200, 100, 50, 0.25);
-        border-radius: 0.2em;
-        -moz-border-radius: 0.2em;
-    }
+.bubble {
+    float: left;
+    padding: 0.2em;
 }
 
 .bar {
@@ -132,10 +126,17 @@ body {
 }
 
 .student {
-    font-size: 1.5em;
+    font-size: 1.3em;
     font-style: italic;
     text-decoration: underline;
-    margin-right: 0.5em;
+    padding: 0.4em 0.75em 0.4em 0.75em;
+    margin: 0.3em 0em 0.3em 0em;
+    border: none;
+    background-color: rgba(50, 100, 200, 0.25);
+    display: inline-block;
+    border-radius: 0em 0.4em 0em 0.4em;
+    -moz-border-radius: 0em 0.4em 0em 0.4em;
+    cursor: pointer;    
 }
 
 .oracle {

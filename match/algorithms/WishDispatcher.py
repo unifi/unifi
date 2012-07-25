@@ -4,7 +4,7 @@ from match.rating import jaccard
 from tag.models import Tag
 from student.models import Wish
 import networkx as nx
-from unifi.project import MAX_GROUP_SIZE, MIN_SCORE
+
 
 class WishDispatcher(object):
 
@@ -36,6 +36,7 @@ class WishDispatcher(object):
             else:
                 self.add_wish_to_bucket(w, "default")
 
+    
     def extract_course_tag(self, tags):
         """
         Find the correct bucket/graph to put the wish in

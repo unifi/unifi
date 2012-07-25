@@ -2,26 +2,22 @@
 
 <ul>
 {% for g in groups %}
-    <li>
-        <div class="group"> Group number {{ g.pk }} </div>
-            <div class="tag_container">
-                <div> Tags: </div>
-                {% for t in g.tags %}
-                    <div class="tag"> {{ t }} </div>
-                {% endfor %}
-            </div>
-            <div class="student_container">
-                <div> Students: </div>
-                {% for s in g.students.all %}
-                <div class="stud"> {{ s }} </div>
-
-                {% endfor %}
-            </div>
-            <div> Oracle: </div>
-            <div class="oracle">
-                {{ g.oracle }}
-            </div>
-    </li>
+<li>
+    <div class="group"> Group #{{ g.pk }} </div>
+        <div class="tag_container">
+            <div> Tags: ({{ g.tags|length }})</div>
+            {% for t in g.tags %}
+                <div class="tag"> {{ t }} </div>
+            {% endfor %}
+        </div>
+        <div class="student_container">
+            <div> Students: ({{ g.students.count }})</div>
+            {% for s in g.students.all %}
+            <span class="student">{{ s }}</span>
+            {% endfor %}
+        </div>
+</li>
+<hr />
 {% endfor %}
 </ul>
 

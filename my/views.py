@@ -29,11 +29,11 @@ def index( request ):
 
         from random import sample
 
-        assistance_groups = sample( list( Group.objects.all() ), 10 )
+        # assistance_groups = sample( list( Group.objects.all() ), 10 )
 
-        for g in assistance_groups:
-            g.needs_assistance = True
-            g.save()
+        # for g in assistance_groups:
+            # g.needs_assistance = True
+            # g.save()
 
         assistance_groups = Group.objects.filter( needs_assistance=True )
 
@@ -44,8 +44,8 @@ def index( request ):
 
         from unifi.management import UserManager
 
-        for u in sample( list(Student.objects.all()), 10 ):
-            UserManager.updateUser( u.username(), "o" )
+        # for u in sample( list(Student.objects.all()), 10 ):
+            # UserManager.updateUser( u.username(), "o" )
 
         is_oracle = False
         if UserManager.getOracle( request.user.username ) != None:

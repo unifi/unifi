@@ -14,8 +14,7 @@ class Generator:
     def generate( self, quantity ):
         """
         Must be implemented by every non-abstract subclass.
-
-        @param quantity:    number of instance blueprints to generate
+        @param quantity:    number of instance blueprints tso generate
         """
 
 

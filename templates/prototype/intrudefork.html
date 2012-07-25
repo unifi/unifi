@@ -3,7 +3,7 @@
 <h1>Choose your destiny</h1>
 <div style="overflow: auto;">
     {% for student in students %}
-    <div style="overflow: auto">
+    <div class="bubble" style="overflow: auto">
         <a class="student" href="./{{ student.user.username }}">
             {{ student.user.username }}
         </a>

@@ -22,7 +22,7 @@
                     .push(
                         r.text(
                             n.point[0], n.point[1] + 10,
-                            (n.label || n.id) + "\n(" + n.quantity + ")"
+                            (n.label || n.id) + "\n(" + n.quantity + ")\n" + n.tags
                         )
                     );
             return set;
@@ -31,7 +31,12 @@
         {% for group in groups %}
 
         g.addNode( "{{ group.pk }}",
-            { label: "{{ group.pk }}", quantity: {{ group.students.count }}, render: render }
+            { 
+                label: "{{ group.pk }}", 
+                quantity: {{ group.students.count }},
+                tags: "",
+                render: render 
+            }
         );
             {% for student in group.students.all %}
                 g.addEdge( "{{ student.username }}", "{{ group.pk }}",
@@ -43,7 +48,7 @@
         var layouter = new Graph.Layout.Spring(g);
         layouter.layout();
         var renderer = new Graph.Renderer.Raphael(
-            'canvas', g, 800, {{ data.groups }} * 55
+            'canvas', g, 800, {{ data.groups }} * 55 + 100
         );
 
         renderer.draw();
