@@ -9,6 +9,7 @@ from django.contrib import auth
 from student.models import Wish, Student
 from match.algorithms import *
 from unifi.management import *
+from unifi.unifi_project_settings import MAX_NUMBER_OF_TAGS
 
 # Temporary test-specific views
 def tagittest (request):
@@ -27,7 +28,7 @@ def submitwish(request):
     #to lower case
     tag_list = [t.lower() for t in tag_list]
 
-    if len(tag_list) > 5:
+    if len(tag_list) > MAX_NUMBER_OF_TAGS:
         return render_to_response("tagittest.html", {"title" : "Tagit test", "mesg" : "Max num of tags is 5"},
                 context_instance = RequestContext(request))
 
@@ -42,13 +43,7 @@ def submitwish(request):
     #debug
     print request.user.username
 
-    w = WishManager.addWish(usr, tag_list)
-
-    #No course - "default" bucket
-    if len(courses) == 0:
-        WishDispatcher.add_wish_to_bucket(w, "default")
-    else:
-        WishDispatcher.add_wish_to_bucket(w, courses[0])
+    w = WishManager.addWish(usr, tag_list, courses)
 
     return render_to_response("submitwish.html", {"title" : "Submit Wish", "wish" : w},
             context_instance = RequestContext(request))

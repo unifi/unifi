@@ -26,7 +26,7 @@ class WishDispatcher(object):
 
     def restore_buckets(self):
         """
-        Call this method to restore the buckets.
+        Call this method to load wishes from the database and store them in buckets
         """
 
         print "Restoring" #debug

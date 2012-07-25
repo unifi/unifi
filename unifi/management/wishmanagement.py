@@ -17,16 +17,16 @@ class WishManagement:
         self.user_management = UserManagement()
         self.tag_management = TagManagement()
 
-    def addWish(self, student, tags):
+    def addWish(self, student, tags, courses = None):
         """
             Add a user
             @param student: the student's thats register a wish
             @param tags: wish tags
             @return: the created wish
         """
+        from match.algorithms import *
 
         if not tags:
-            print "Please specify at least one tag"
             return
 
         if student.__class__ == str:
@@ -51,6 +51,17 @@ class WishManagement:
                 print "Tag %s does not exist" % t
 
         print "Wish added for user %s" % student
+#        from match.algorithms import *
+
+        #add to correct bucket
+        if courses == None:
+            courses = WishDispatcher.extract_course_tag(tags)
+
+        #No course - "default" bucket
+        if len(courses) == 0:
+            WishDispatcher.add_wish_to_bucket(w, "default")
+        else:
+            WishDispatcher.add_wish_to_bucket(w, courses[0])
 
         return w
 
