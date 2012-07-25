@@ -38,6 +38,8 @@ def index( request ):
         assistance_groups = Group.objects.filter( needs_assistance=True )
 
         wishes = Wish.objects.filter( student=student )
+        wishes = [w for w in wishes if w.is_active]
+
         groups = Group.objects.filter( students__in=[student] )
         autocomplete_tags = Tag.objects.all()
 
@@ -52,7 +54,7 @@ def index( request ):
             is_oracle = True
 
 
-        return render_to_response( "my/gateway.html", {
+        return render_to_response( "my/index.html", {
                 "title":                "UNIFI",
                 "groups":               groups,
                 "wishes":               wishes,

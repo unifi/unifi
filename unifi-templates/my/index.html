@@ -1,0 +1,99 @@
+{% comment %}
+{% endcomment %}
+
+{% include "header.html" %}
+
+<div class="column_container">
+    <div class="title"><span style="color: rgba(192, 0, 0, 0.75);">UN</span>IFI</div>
+    <div class="greeting">
+        Velkommen tilbake,
+        <span style="font-style: italic;">{{ user.username }}</span>!
+        Hva har du lyst å samarbeide om?
+    </div>
+    <div class="column" id="tagit">
+        <h2>Nytt ønske</h2>
+        {% include "wish/new.html" %}
+    </div>
+
+
+    <!-- wishes -->
+    <div class="column">
+        <h2>Dine ønsker</h2>
+        <ul>
+            {% include "wish/wishes.html" with delete="True" %}
+        </ul>
+    </div>
+
+
+    <!-- groups -->
+    <div class="column" id="group">
+        <h2>Dine grupper
+            {% if groups.count == 0 %}
+            <span class="count">ingen</span>
+            {% else %}
+            <span class="count">{{ groups.count }}</span>
+            {% endif %}
+        </h2>
+        <ul>
+            {% for group in groups %}
+            <li>{{ group }}</li>
+            {% endfor %}
+        </ul>
+        <!-- graph drawing -->
+        {% for group in groups %}
+        <div class="graph" id="canvas-{{ group.pk }}">
+            <script>
+                var g = new Graph();
+                {% for student in group.students.all %}
+                g.addEdge( "{{ group.students.all.0 }}", "{{ student }}" );
+                {% endfor %}
+                var layouter = new Graph.Layout.Spring(g);
+                layouter.layout();
+                var renderer = new Graph.Renderer.Raphael(
+                    'canvas-{{ group.pk }}', g, 300, 250
+                );
+                renderer.draw();
+
+            </script>
+            <div class="description">{{ group }}</div>
+            <div class="tag_field">
+                {% for tag in group.tags %}
+                    <span class="tag">{{ tag }}</span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+        <!-- ... -->
+    </div>
+
+
+    <div class="column" id="oracle">
+    {% if is_oracle %}
+        <h2>Gruppene som trenger hjelp</h2>
+        <h4>Her bør vi ha et søke/filtreringsfelt for gruppetaggene.</h4>
+        <ul>
+        {% for group in assistance_groups %}
+            <li><h3>{{ group }}:</h3>
+            <div class="student_container">
+            {% for student in group.students.all %}
+            <span class="student">{{ student }}</span>
+            {% endfor %}
+            </div>
+            <div class="tag_container">
+            {% for tag in group.tags %}
+            <span class="tag">{{ tag }}</span>
+            {% endfor %}
+            </div>
+            </li>
+            <hr />
+        {% endfor %}
+        </ul>
+        </ul>
+    {% else %}
+        <h3>Du har ikke orakelstatus i systemet</h3>
+    {% endif %}
+    </div>
+
+</div>
+
+{% include "footer.html" %} 

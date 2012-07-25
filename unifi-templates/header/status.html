@@ -1,0 +1,13 @@
+{% comment %}
+{% endcomment %}
+
+{% block status %}
+    {% if user.is_authenticated %}
+    <div class="bar">
+        <div class="status">
+            <div>You are logged in as <span>{{ user }}</span></div>
+            <a href="/my"><img src="/static/images/users/{{ user.pk }}.png" alt="" /></a>
+        </div>
+    </div>
+    {% endif %}
+{% endblock %}

@@ -210,7 +210,7 @@ def intrude_fork( request ):
     students = Student.objects.all()
     oracles = [o.user.username for o in Oracle.objects.all() ]
 
-    return render_to_response( "prototype/intrudefork.html", {
+    return render_to_response( "prototype/intrude.html", {
             "title": "Intrude as a Student",
             "students": sorted( students, key=lambda x: x.username() ),
             "oracles": oracles

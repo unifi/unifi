@@ -1,0 +1,17 @@
+{% comment %}
+{% endcomment %}
+
+{% include "header.html" %}
+
+<h1>Introduce yourself</h1>
+<div style="overflow: auto;">
+    {% for student in students %}
+    <div class="bubble" style="overflow: auto;">
+        <a class="student" href="./{{ student.user.username }}">
+        {{ student.user.username }}
+        </a>
+    </div>
+    {% endfor %}
+</div>
+
+{% include "footer.html" %} 

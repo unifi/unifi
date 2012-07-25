@@ -10,7 +10,9 @@ PROJECT_ROOT = dirname(
     realpath( __file__ + "/../" )
 )
 
-TEMPLATE_DIRS = ( PROJECT_ROOT + '/templates', )
+# TEMPLATE_DIRS = ( PROJECT_ROOT + '/templates', )
+
+TEMPLATE_DIRS = ( PROJECT_ROOT + '/unifi-templates', )
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
@@ -28,8 +30,7 @@ STATICFILES_DIRS = (
     PROJECT_ROOT + "/static_base/",
 )
 
-# Test runtime reduction measure. 
-if DEBUG:
+if DEBUG: # Load reduction measure
     PASSWORD_HASHERS = (
         'django.contrib.auth.hashers.SHA1PasswordHasher',
         'django.contrib.auth.hashers.MD5PasswordHasher',
@@ -114,6 +115,7 @@ ROOT_URLCONF = 'unifi.urls'
 WSGI_APPLICATION = 'unifi.wsgi.application'
 
 INSTALLED_APPS = (
+    # third party applications
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -124,15 +126,19 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'debug_toolbar',
     'south',
+    # model-specific applications
+    'student', # contains 'wish'
     'group',
-    'login',
-    'match',
     'oracle',
-    'prototype',
-    'student',
     'tag',
+    # control-specific applications
+    'match',
+    'prototype',
     'util',
-    'communication',
+    # 'util' candidates
+        'login',
+        'communication',
+    # information aggregator applications
     'my',
 )
 

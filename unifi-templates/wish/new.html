@@ -1,0 +1,31 @@
+{% comment %}
+{% endcomment %}
+
+{% block new %}
+<div class="new_wish">
+
+    <script type="text/javascript">
+        $(document).ready(
+            function() {
+                $("#mytags").tagit( {
+                    availableTags: [
+                        /* [/] rewrite with AJAX */
+                        {% for tag in autocomplete_tags %}'{{ tag }}',{% endfor %}
+                    ],
+                    allowSpaces: true,
+                    fieldName: "tags",
+                    itemName: "user"
+                })
+            }
+        );
+    </script>
+
+    <form action="/student/wish/make" method="POST" class="tagit_form">{% csrf_token %}
+        <ul id="mytags" class="tagit ui-widget ui-widget-content ui-corner-all">
+            <li class="tagit-new"></li>
+        </ul>
+        <input type="submit" value="Legg til" />
+    </form>
+
+</div>
+{% endblock %}

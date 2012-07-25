@@ -1,0 +1,10 @@
+{% comment %}
+{% endcomment %}
+
+{% block group %}
+    <div class="group">
+        <div class="number">{{ group.pk }}</div>
+        {% include "student/students.html" with students=group.students.all %}
+        {% include "tag/tags.html" with tags=group.tags  %}
+    </div>
+{% endblock %}

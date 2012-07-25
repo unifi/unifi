@@ -1,0 +1,21 @@
+{% comment %}
+{% endcomment %}
+
+{% block wish %}
+<div class="wish">
+    <div class="tags">
+    {% include "tag/tags.html" with tags=wish.tags.all %}
+
+    {% if delete %}
+    <div class="delete">
+        <a href="./wishes/delete/{{ wish.pk }}" title="Slett dette ønsket">
+            <div class="ui-icon ui-icon-trash"
+                 style="display: inline-block; overflow: auto;">x
+            </div>
+        </a>
+    </div>
+    {% endif %}
+
+    </div>
+</div>
+{% endblock %}

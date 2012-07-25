@@ -1,0 +1,10 @@
+{% comment %}
+{% endcomment %}
+
+{% block students %}
+<div class="wishes">
+{% for wish in wishes %}
+    {% include "wish/wish.html" %}
+{% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% comment %}
+    Contains import statements for javascript, css, less.
+{% endcomment %}
+
+{% block import %}
+
+    <!-- less stylesheets (must be loaded prior to the script!) -->
+    <link href="/static/stylesheets/unifi.less" rel="stylesheet/less" type="text/css" />
+    <!-- other stylesheets -->
+    <link rel="stylesheet" type="text/css" href="/static/stylesheets/jquery-ui-1.8.21.custom.css">
+    <link href="/static/stylesheets/jquery.tagit.css" rel="stylesheet" type="text/css">
+
+    <!-- less.js scripts -->
+    <script src="/static/javascripts/less.min.js"></script>
+
+    <!-- other libraries -->
+    <script src="/static/javascripts/jquery.min.js"></script>
+    <script src="/static/javascripts/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/javascripts/tag-it.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static/javascripts/main.js"></script>
+
+
+    {% if graph %}
+    <!-- dracula dependencies -->
+    <script src="/static/javascripts/dracula/Curry-1.0.1.js"></script>
+    <script src="/static/javascripts/dracula/raphael-min.js"></script>
+    <script src="/static/javascripts/dracula/dracula_graffle.js"></script>
+    <script src="/static/javascripts/dracula/seedrandom.js"></script>
+    <script src="/static/javascripts/dracula/dracula_graph.js"></script>
+    <script src="/static/javascripts/dracula/dracula_algorithms.js"></script>
+    {% endif %}
+
+{% endblock %}

@@ -86,7 +86,7 @@
                 var layouter = new Graph.Layout.Spring(g);
                 layouter.layout();
                 var renderer = new Graph.Renderer.Raphael(
-                        'canvas-{{ group.pk }}', g, 300, 250
+                    'canvas-{{ group.pk }}', g, 300, 250
                 );
                 renderer.draw();
 

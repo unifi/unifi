@@ -1,11 +1,14 @@
-from group.models import Group
 from django.shortcuts import render_to_response
 from django.template.context import RequestContext
+from group.models import Group
 
-def allgroups(request):
+def all(request):
+    groups = Group.objects.all()
 
-    g = Group.objects.all()
-
-    return render_to_response("groups.html", {"title": "All available groups",
-            "groups": g},
-            context_instance = RequestContext(request))
+    return render_to_response( "group/all.html", {
+            "standalone": True,
+            "title": "All groups",
+            "groups": groups,
+        },
+        context_instance = RequestContext(request)
+    )
