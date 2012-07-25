@@ -36,7 +36,6 @@ class WishDispatcher(object):
             else:
                 self.add_wish_to_bucket(w, "default")
 
-    
     def extract_course_tag(self, tags):
         """
         Find the correct bucket/graph to put the wish in
