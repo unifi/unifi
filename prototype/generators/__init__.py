@@ -89,7 +89,7 @@ class WordTagGenerator(TagGenerator):
     """
     def generate( self, quantity,
                   uri="http://www.desiquintans.com/downloads/nounlist.txt",
-                  separator="\\n" ):
+                  separator="\n" ):
 
         """
         @param uri: the location of the dictionary

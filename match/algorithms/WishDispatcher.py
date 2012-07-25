@@ -5,7 +5,6 @@ from tag.models import Tag
 from student.models import Wish
 import networkx as nx
 
-
 class WishDispatcher(object):
 
     _instance = None
@@ -20,21 +19,29 @@ class WishDispatcher(object):
 
         self.bucket_dicts = {}
 
-        # [+] wasn't used while instantiating the HeapGraphMatcher
         self.GROUP_SIZE = GROUP_SIZE 
         self.MIN_SCORE = MIN_SCORE
-
-        # [-] debug
+        self.has_restored = False
         print "The WishDispatcher was initiated"
 
-        # Restoring buckets from database
-        for w in Wish.objects.filter(is_active=True):
-            tags = [t.name_of_tag for t in w.tags.all()]
-            courses = self.extract_course_tag(tags)
-            if len(courses) >= 1:
-                self.add_wish_to_bucket(w, courses[0])
-            else:
-                self.add_wish_to_bucket(w, "default")
+    def restore_buckets(self):
+        """
+        Call this method to restore the buckets.
+        """
+
+        print "Restoring" #debug
+
+        if not self.has_restored:
+            self.has_restored = True
+            for w in Wish.objects.filter(is_active=True):
+                tags = [t.name_of_tag for t in w.tags.all()]
+                courses = self.extract_course_tag(tags)
+                if len(courses) >= 1:
+                    self.add_wish_to_bucket(w, courses[0])
+                else:
+                    self.add_wish_to_bucket(w, "default")
+
+        print "done restoring" #debug
 
     def extract_course_tag(self, tags):
         """
