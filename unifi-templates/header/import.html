@@ -4,11 +4,13 @@
 
 {% block import %}
 
-    <!-- less stylesheets (must be loaded prior to the script!) -->
-    <link href="/static/stylesheets/unifi.less" rel="stylesheet/less" type="text/css" />
     <!-- other stylesheets -->
-    <link rel="stylesheet" type="text/css" href="/static/stylesheets/jquery-ui-1.8.21.custom.css">
-    <link href="/static/stylesheets/jquery.tagit.css" rel="stylesheet" type="text/css">
+    <link href="/static/stylesheets/jquery-ui.custom.css" type="text/css" rel="stylesheet" />
+    <link href="/static/stylesheets/tagit.css" type="text/css" rel="stylesheet" />
+
+    <!-- less stylesheets (must be loaded prior to the less.js script!) -->
+    <link href="/static/stylesheets/unifi.less" rel="stylesheet/less" type="text/css" />
+    <link href="/static/stylesheets/my.less" rel="stylesheet/less" type="text/css" />
 
     <!-- less.js scripts -->
     <script src="/static/javascripts/less.min.js"></script>

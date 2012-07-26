@@ -9,8 +9,20 @@
             function() {
                 $("#mytags").tagit( {
                     availableTags: [
-                        /* [/] rewrite with AJAX */
-                        {% for tag in autocomplete_tags %}'{{ tag }}',{% endfor %}
+                        /* [/] ajax */
+
+                        {% for tag in autocomplete %}
+                        {
+                            label: '{{ tag }} {{ tag.score }}',
+                            value: '{{ tag }}',
+                            score: '{{ tag.score }}'
+                        },
+                        {% endfor %}
+                        /*
+                        {% for tag in autocomplete_tags %}
+                        '{{ tag }}',
+                        {% endfor %}
+                        */
                     ],
                     allowSpaces: true,
                     fieldName: "tags",

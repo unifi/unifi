@@ -3,7 +3,8 @@
 
 {% block students %}
 <div class="wishes">
-{% for wish in wishes %}
+
+{% for wish in wishes|dictsortreversed:"wish_date" %}
     {% include "wish/wish.html" %}
 {% endfor %}
 </div>

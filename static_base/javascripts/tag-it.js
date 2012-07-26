@@ -72,7 +72,6 @@
             // created for tag-it.
             tabIndex: null,
 
-
             // Event callbacks.
             onTagAdded  : null,
             onTagRemoved: null,
@@ -107,10 +106,11 @@
 
             this.options.tagSource = this.options.tagSource || function(search, showChoices) {
                 var filter = search.term.toLowerCase();
-                var choices = $.grep(this.options.availableTags, function(element) {
+                var choices = $.grep( this.options.availableTags, function(element) {
                     // Only match autocomplete options that begin with the search term.
                     // (Case insensitive.)
-                    return (element.toLowerCase().indexOf(filter) === 0);
+                    console.info(element.value.toLowerCase().match(filter) + " : " + element + " : " + filter);
+                    return (element.value.toLowerCase().indexOf(filter) === 0);
                 });
                 showChoices(this._subtractArray(choices, this.assignedTags()));
             };
@@ -317,7 +317,7 @@
 
             // Create tag.
             var tag = $('<li></li>')
-                .addClass('tagit-choice ui-widget-content ui-state-default ui-corner-all')
+                .addClass('tagit-choice')
                 .addClass(additionalClass)
                 .append(label);
 

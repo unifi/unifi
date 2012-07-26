@@ -6,6 +6,7 @@
     <div class="tags">
     {% include "tag/tags.html" with tags=wish.tags.all %}
 
+    <!-- menu -->
     {% if delete %}
     <div class="delete">
         <a href="./wishes/delete/{{ wish.pk }}" title="Slett dette ønsket">
@@ -15,6 +16,7 @@
         </a>
     </div>
     {% endif %}
+    <!-- menu -->
 
     </div>
 </div>

@@ -3,7 +3,7 @@
 
 {% include "header.html" with graph="True" %}
 
-<h1>Group View</h1>
+<h1>Relasjonene</h1>
 
 <div class="graph" id="canvas">
     <script>
@@ -30,7 +30,6 @@
         };
 
         {% for group in groups %}
-
         g.addNode( "{{ group.pk }}",
             {
                 label: "{{ group.pk }}",
@@ -39,11 +38,11 @@
                 render: render
             }
         );
-            {% for student in group.students.all %}
-                g.addEdge( "{{ student.username }}", "{{ group.pk }}",
-                    { label: "{{ group.pk }}" }
-                );
-            {% endfor %}
+        {% for student in group.students.all %}
+            g.addEdge( "{{ student.username }}", "{{ group.pk }}",
+                { label: "{{ group.pk }}" }
+            );
+        {% endfor %}
         {% endfor %}
 
         var layouter = new Graph.Layout.Spring(g);
@@ -51,7 +50,6 @@
         var renderer = new Graph.Renderer.Raphael(
             'canvas', g, 800, {{ data.groups }} * 55 + 100
         );
-
         renderer.draw();
 
     </script>
