@@ -104,22 +104,54 @@
                 this._tagInput.attr('placeholder', this.options.placeholderText);
             }
 
+
+
+
+
+
+
+
+
+
+
             this.options.tagSource = this.options.tagSource || function(search, showChoices) {
+
                 var filter = search.term.toLowerCase();
+
                 var choices = $.grep( this.options.availableTags, function(element) {
                     // Only match autocomplete options that begin with the search term.
                     // (Case insensitive.)
-                    console.info(element.value.toLowerCase().indexOf(filter));
                     return (element.value.toLowerCase().indexOf(filter) === 0);
                 });
 
-                var valuesOfChoices = [];
+                // excludes the already assigned tags
+                var noDuplicateChoices = [];
                 for ( i=0; i<choices.length; i++ ) {
-                    valuesOfChoices[i] = choices[i].value;
+                    if ($.inArray( choices[i].value, this.assignedTags()) == -1) {
+                        noDuplicateChoices.push( choices[i] );
+                    }
                 }
 
-                showChoices(this._subtractArray(valuesOfChoices, this.assignedTags()));
+                showChoices( noDuplicateChoices );
             };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             // Bind tagSource callback functions to this context.
             if ($.isFunction(this.options.tagSource)) {

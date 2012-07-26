@@ -11,9 +11,8 @@
                     availableTags: [
                         {% for tag in autocomplete.items %}
                         {
-                            label: '{{ tag.0 }}',
                             value: '{{ tag.0 }}',
-                            score: '{{ tag.1 }}',
+                            label: '{{ tag.0 }} {{ tag.1 }}'
                         },
                         {% endfor %}
                     ],
