@@ -74,6 +74,7 @@ class HeapGraphMatcher(Matcher):
             item[1].save()
 
         #Send email to group members
-        self.mail.toEmail("You got a group!", "Unifi",  group.students.all())
+        message = self.mail.build_message(group)
+        self.mail.toEmail(message, "Unifi",  group.students.all())
         wish.is_active = False
         self.graph.remove_node(wish)

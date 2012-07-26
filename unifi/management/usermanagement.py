@@ -115,7 +115,6 @@ class UserManagement:
         elif arg[0] == 'o' or arg[0] == 'oracle':
             try:
                 s = Student.objects.get(user=u[0])
-                s.delete()
             except:
                 pass
 

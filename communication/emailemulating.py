@@ -34,3 +34,15 @@ class EmailEmulating():
         send_mail('Group found', message, sender,
             recv, fail_silently=False)
 
+    def build_message(self, group):
+        """
+        Build an email-message
+        @param group: the group that is created
+        """
+
+        message = "A group for has been found!\n" \
+                + "Group tags: " + ", ".join(group.tags().values_list("name_of_tag", flat=True)) \
+                + "\nGroup members: " + ", ".join(group.students.all().values_list("user__username", flat=True)) \
+                + "\nTa kontakt med dine gruppmedlemmer, hilsen Ilya og Martin <333 xoxo!!!!"
+
+        return message
