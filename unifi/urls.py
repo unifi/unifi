@@ -15,16 +15,41 @@ urlpatterns = patterns('',
 
     # inclusive applications
     # url( r'^communication/',       include('communication.urls')),
-    # url( r'^crap/',                include('match.urls')),
+
     # url( r'^login/',               include('login.urls')),
-    # url( r'^oracle/',              include('oracle.urls')),
-    # url( r'^prototype/',           include('prototype.urls')),
-    url( r'^student/',               include('student.urls')),
-    # url( r'^tag/',                 include('tag.urls')),
-    # url( r'^unifi/',               include('unifi.urls')),
-    # url( r'^util/',                include('util.urls')),
-    url( r'^prototype/',             include('prototype.urls')),
-    url( r'^match/',                 include('match.urls')),
-    url( r'^group/',                 include('group.urls')),
-    url( r'^my/',                    include('my.urls')),
+    # url(
+    #    r'^oracle/',
+    #    include('oracle.urls'),
+    #    name="oracle"
+    # ),
+    url(
+        r'^student/',
+        include('student.urls'),
+        name="student"
+    ),
+    # url(
+    #    r'^tag/',
+    #    include('tag.urls'),
+    #    name="tag"
+    # ),
+    url(
+        r'^prototype/',
+        include('prototype.urls'),
+        name="prototype"
+    ),
+    url(
+        r'^match/',
+        include('match.urls'),
+        name="match"
+    ),
+    url(
+        r'^group/',
+        include('group.urls'),
+        name="group"
+    ),
+    url(
+        r'^my/',
+        include('my.urls'),
+        name="my"
+    ),
 )

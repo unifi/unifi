@@ -19,9 +19,7 @@
     <!-- wishes -->
     <div class="column">
         <h2>Dine ønsker</h2>
-        <ul>
-            {% include "wish/wishes.html" with delete="True" %}
-        </ul>
+        {% include "wish/wishes.html" with delete="True" %}
     </div>
 
 
@@ -64,6 +62,7 @@
         </div>
         {% endfor %}
         <!-- ... -->
+        {% include "group/groups.html" with groups=assistance_groups %}
     </div>
 
 
@@ -88,7 +87,10 @@
             <hr />
         {% endfor %}
         </ul>
-        </ul>
+        {% include "group/groups.html" with groups=assistance_groups %}
+
+
+
     {% else %}
         <h3>Du har ikke orakelstatus i systemet</h3>
     {% endif %}
