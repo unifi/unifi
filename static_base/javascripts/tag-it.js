@@ -109,10 +109,16 @@
                 var choices = $.grep( this.options.availableTags, function(element) {
                     // Only match autocomplete options that begin with the search term.
                     // (Case insensitive.)
-                    console.info(element.value.toLowerCase().match(filter) + " : " + element + " : " + filter);
+                    console.info(element.value.toLowerCase().indexOf(filter));
                     return (element.value.toLowerCase().indexOf(filter) === 0);
                 });
-                showChoices(this._subtractArray(choices, this.assignedTags()));
+
+                var valuesOfChoices = [];
+                for ( i=0; i<choices.length; i++ ) {
+                    valuesOfChoices[i] = choices[i].value;
+                }
+
+                showChoices(this._subtractArray(valuesOfChoices, this.assignedTags()));
             };
 
             // Bind tagSource callback functions to this context.

@@ -42,41 +42,25 @@ def index( request ):
 
         groups = Group.objects.filter( students__in=[student] )
 
+        autocomplete = Tag.objects.all()
 
-        # [!] EXPENSIVE
-        def get_autocomplete_dictionary():
-            """
-            Crazy expensive function. Has to be cached.
-
-            @return     a distribution dictionary of tags in the database
-            """
-            tags = Tag.objects.all()
-            wishes = Wish.objects.all()
-            groups = Group.objects.all()
-
-            result = {
-                'total': tags.count(),
-                'in_wishes': 0,
-                'score': {}
+        def tag_distribution():
+            return {
+                "brick": 20,
+                "guatemalan": 30,
+                "replace": 40,
+                "chair": 30,
+                "estimate": 10,
+                "afternoon": 5,
+                "feature": 1,
+                "slope": 10,
+                "spider": 15,
+                "colt": 25,
+                "pediatrician": 37,
+                "mosquito": 14,
+                "asdfasfd": 12,
+                "masonry": 10,
             }
-
-            for t in tags:
-                sum = 0
-                for w in wishes:
-                    sum += w.tags.filter( pk=t.pk ).count()
-                result['in_wishes'] += sum
-                result['score'][t.name_of_tag] = sum
-
-            return result
-
-            
-
-        autocomplete = get_autocomplete_dictionary()
-        print autocomplete
-
-
-
-
 
         from unifi.management import UserManager
 
@@ -93,7 +77,7 @@ def index( request ):
                 "groups":               groups,
                 "wishes":               wishes,
                 "assistance_groups":    assistance_groups,
-                "autocomplete":         autocomplete,
+                "autocomplete":         tag_distribution(),
                 "is_oracle":            is_oracle,
             },
             context_instance = RequestContext( request )
