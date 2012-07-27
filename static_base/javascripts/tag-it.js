@@ -277,7 +277,7 @@
 			        return $( "<li></li>" )
 				        .data( "item.autocomplete", element )
 				        .append(
-                            "<a class=\"tag\" style=\"background-color: rgba( 255, 64, 64, " + element.score/50 + " );\">" + element.value + " " + element.label + "</a>"
+                            "<a class=\"tag\" style=\"opacity: " + (element.score + 0.5 ) + ";\">" + element.value + " " + element.score + "</a>"
                         )
 				        .appendTo( ul );
 		        };

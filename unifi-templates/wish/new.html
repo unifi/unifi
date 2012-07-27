@@ -6,29 +6,17 @@
 
     <script type="text/javascript">
         $(document).ready(
-            function() {
-                $("#mytags").tagit( {
 
+            $.get( url='/tag/distribution', dataType='json', success=function( distribution ) {
 
-                    availableTags: [
-                        {% for tag in autocomplete.items %}
-                        {
-                            value: '{{ tag.0 }}',
-                            label: '{{ tag.1 }}',
-                            score: '{{ tag.1 }}',
-
-                        },
-                        {% endfor %}
-                    ],
-
+                $( "#mytags" ).tagit( {
+                    availableTags: distribution,
                     allowSpaces: true,
                     fieldName: "tags",
                     itemName: "user"
-
-
                 })
-            }
-        );
+            })
+        , "json" );
     </script>
 
     <form action="/student/wish/make" method="POST" class="tagit_form">{% csrf_token %}

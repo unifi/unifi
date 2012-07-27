@@ -27,11 +27,11 @@ urlpatterns = patterns('',
         include('student.urls'),
         name="student"
     ),
-    # url(
-    #    r'^tag/',
-    #    include('tag.urls'),
-    #    name="tag"
-    # ),
+    url(
+        r'^tag/',
+        include('tag.urls'),
+        name="tag"
+    ),
     url(
         r'^prototype/',
         include('prototype.urls'),

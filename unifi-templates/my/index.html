@@ -4,14 +4,14 @@
 {% include "header.html" %}
 
 <div class="column_container">
-    <div class="title"><span style="color: rgba(192, 0, 0, 0.75);">UN</span>IFI</div>
+    <div class="logo"><span style="color: rgba(192, 0, 0, 0.75);">UN</span>IFI</div>
     <div class="greeting">
         Velkommen tilbake,
         <span style="font-style: italic;">{{ user.username }}</span>!
         Hva har du lyst å samarbeide om?
     </div>
     <div class="column" id="tagit">
-        <h2>Nytt ønske</h2>
+        <div class="title">Nytt ønske</div>
         {% include "wish/new.html" %}
     </div>
 
@@ -19,26 +19,26 @@
 
     <!-- wishes -->
     <div class="column" id="wish">
-        <h2>Dine ønsker
+        <div class="title">Dine ønsker
             {% if wishes|length == 0 %}
             <span class="count">ingen</span>
             {% else %}
             <span class="count">{{ wishes|length }}</span>
             {% endif %}
-        </h2>
+        </div>
         {% include "wish/wishes.html" with delete="True" %}
     </div>
     <!-- ... -->
 
     <!-- groups -->
     <div class="column" id="group">
-        <h2>Dine grupper
+        <div class="title">Dine grupper
             {% if groups|length == 0 %}
             <span class="count">ingen</span>
             {% else %}
             <span class="count">{{ groups|length }}</span>
             {% endif %}
-        </h2>
+        </div>
         <!-- graph drawing -->
         <!--
         {% for group in groups %}
