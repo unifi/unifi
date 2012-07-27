@@ -161,13 +161,6 @@ class apidraft:
             #Argument is a single user
             self.wish_management.addWish(student, tags)
 
-
-    def match(self):
-        pass
-
-    def populate(self):
-        pass
-
     def usage(self):
         """
         Print usage
