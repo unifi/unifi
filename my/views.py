@@ -49,7 +49,7 @@ def index( request ):
                 "brick": 20,
                 "guatemalan": 30,
                 "replace": 40,
-                "chair": 30,
+                "chair": 70,
                 "estimate": 10,
                 "afternoon": 5,
                 "feature": 1,

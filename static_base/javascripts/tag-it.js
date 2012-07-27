@@ -253,8 +253,11 @@
 
             // Autocomplete.
             if (this.options.availableTags || this.options.tagSource) {
+
                 this._tagInput.autocomplete({
+
                     source: this.options.tagSource,
+
                     select: function(event, ui) {
                         // Delete the last tag if we autocomplete something despite the input being empty
                         // This happens because the input's blur event causes the tag to be created when
@@ -269,7 +272,15 @@
                         // Preventing the tag input to be updated with the chosen value.
                         return false;
                     }
-                });
+
+                }).data( "autocomplete" )._renderItem = function( ul, element ) {
+			        return $( "<li></li>" )
+				        .data( "item.autocomplete", element )
+				        .append(
+                            "<a class=\"tag\" style=\"background-color: rgba( 255, 64, 64, " + element.score/50 + " );\">" + element.value + " " + element.label + "</a>"
+                        )
+				        .appendTo( ul );
+		        };
             }
         },
 

@@ -18,19 +18,20 @@ body {
     h1 {
         font-family: "Georgia", serif;
         font-style: italic;
+        padding: 0em 1em 1em 0em;
     }
 
     h2 {
         font-family: "Georgia", serif;
         font-style: italic;
-        padding: 0em 0em 1em 0em;
+        padding: 0em 1em 1em 0em;
         margin: 0em;
     }
 
     h3 {
         font-family: "Georgia", serif;
         font-style: italic;
-        padding: 0em 0em 1em 0em;
+        padding: 0em 1em 1em 0em;
         margin: 0em;
     }
 
@@ -246,17 +247,7 @@ body {
     float: left;
 }
 
-ul.ui-autocomplete {
-    background-color: rgba( 255, 255, 255, 0.75 );
-}
 
-.tagit#mytags {
-    border: 0.1em solid rgba( 255, 0, 0, 0.5 );
-    border-bottom: 0.25em solid rgba( 192, 0, 0, 1 );
-    background-image: url('http://subtlepatterns.com/patterns/light_noise_diagonal.png');
-
-    padding: 0.4em;
-}
 
 .bar {
     position: fixed;
@@ -323,8 +314,6 @@ ul.ui-autocomplete {
 
 .column_container {
 
-    overflow: hidden;
-
     .title {
         font-size: 4em;
         font-weight: bold;
@@ -332,7 +321,9 @@ ul.ui-autocomplete {
     }
 
     .column {
+        width: auto;
         text-align: left;
+        display: block;
         border: 0.2em solid rgba( 0, 0, 0, 0.1 );
         padding: 1em;
         margin: 0.75em;
@@ -343,26 +334,28 @@ ul.ui-autocomplete {
     }
 
     .column#tagit {
-        width: 92.5%;
+        ul.ui-autocomplete {
+            background-color: rgba( 255, 255, 255, 0.75 );
+        }
+
+        .tagit#mytags {
+            border: 0.1em solid rgba( 255, 0, 0, 0.5 );
+            border-bottom: 0.25em solid rgba( 192, 0, 0, 1 );
+            background-image: url( 'http://subtlepatterns.com/patterns/light_noise_diagonal.png' );
+            padding: 0.4em;
+        }
     }
 
     .column#group {
-        float: left;
-        position: relative;
-        width: 43%;
-        display: inline;
+
     }
 
     .column#wish {
-        float: left;
-        width: 43%;
-        display: inline;
+
     }
 
     .column#oracle {
-        width: 93%;
-        float: left;
-        display: block;
+        clear: both;
     }
 
     .help {

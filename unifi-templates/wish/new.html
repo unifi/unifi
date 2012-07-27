@@ -8,17 +8,24 @@
         $(document).ready(
             function() {
                 $("#mytags").tagit( {
+
+
                     availableTags: [
                         {% for tag in autocomplete.items %}
                         {
                             value: '{{ tag.0 }}',
-                            label: '{{ tag.0 }} {{ tag.1 }}'
+                            label: '{{ tag.1 }}',
+                            score: '{{ tag.1 }}',
+
                         },
                         {% endfor %}
                     ],
+
                     allowSpaces: true,
                     fieldName: "tags",
                     itemName: "user"
+
+
                 })
             }
         );

@@ -4,12 +4,12 @@
 
 
 {% block status %}
-    {% if user.is_authenticated %}
-    <div class="bar">
-        <div class="status">
-            <div><span class="student">{{ user }}</span></div>
-            <a href="/my"><img class="portrait" src="/static/images/users/{{ user.pk }}.png" alt="" /></a>
-        </div>
+<div class="bar">
+    <div class="status">
+        {% if user.is_authenticated %}
+        <div><span class="student">{{ user }}</span></div>
+        <a href="/my"><img class="portrait" src="/static/images/users/{{ user.pk }}.png" alt="" /></a>
+        {% endif %}
     </div>
-    {% endif %}
+</div>
 {% endblock %}

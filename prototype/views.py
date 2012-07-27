@@ -355,5 +355,6 @@ def graph( request ):
             "edges": edges,
             "groups": groups,
             "data": data,
-        }
+        },
+        context_instance = RequestContext( request )
     )

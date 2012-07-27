@@ -31,11 +31,11 @@
         {% for group in groups %}
 
         g.addNode( "{{ group.pk }}",
-            { 
-                label: "{{ group.pk }}", 
+            {
+                label: "{{ group.pk }}",
                 quantity: {{ group.students.count }},
                 tags: "",
-                render: render 
+                render: render
             }
         );
             {% for student in group.students.all %}
@@ -57,8 +57,10 @@
 </div>
 <!-- ... -->
 
+<table>
 {% for element in data.items %}
-{{ element }}
+<tr><td>{{ element.1 }}</td><td>{{ element.0 }}</td></tr>
 {% endfor %}
+</table>
 
 {% include "footer.html" %} 
