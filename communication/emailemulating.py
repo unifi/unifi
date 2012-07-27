@@ -43,6 +43,6 @@ class EmailEmulating():
         message = "A group for has been found!\n" \
                 + "Group tags: " + ", ".join(group.tags().values_list("name_of_tag", flat=True)) \
                 + "\nGroup members: " + ", ".join(group.students.all().values_list("user__username", flat=True)) \
-                + "\nTa kontakt med dine gruppmedlemmer, hilsen Ilya og Martin <333 xoxo!!!!"
+                + "\nTa kontakt med dine gruppmedlemmer og avtal tid og sted."
 
         return message

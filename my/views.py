@@ -8,9 +8,10 @@ from group.models import Group
 from student.models import *
 from unifi.management import UserManager, WishManager
 from match.algorithms import *
+from django.contrib.auth.decorators import login_required, user_passes_test
 
 
-
+@login_required
 def index( request ):
 
     """
@@ -66,21 +67,27 @@ def index( request ):
     else:
         return redirect( "/" )
 
-
+@login_required
 def wish_delete( request, pk ):
     """
     Removes a wish from the database and the existing matching graph.
     @param pk:    public key of the wish to remove
     """
 
-    if request.user.is_authenticated:
-        student = UserManager.getStudent( request.user.username )
-
+    def is_mine():
         try:
-            w = Wish.objects.get(pk=pk)
-            WishDispatcher.delete_wish_from_graph(w)
-            Wish.objects.get( pk=pk ).delete()
+            return Wish.objects.get(pk=pk).student.user == request.user
         except ObjectDoesNotExist, ValueError:
             print "-> Client attempted deleting a non-existing record"
+            return False
+
+    if is_mine():
+        w = Wish.objects.get(pk=pk)
+        WishDispatcher.delete_wish_from_graph(w)
+        w.delete()
+    else:
+        print "dont hack the site f00l!"
 
     return redirect( "/" )
+
+
