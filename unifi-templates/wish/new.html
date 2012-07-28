@@ -5,8 +5,8 @@
 <div class="new_wish">
 
     <script type="text/javascript">
+        
         $(document).ready(
-
             $.get( url='/tag/distribution', dataType='json', success=function( distribution ) {
 
                 $( "#mytags" ).tagit( {
@@ -23,7 +23,7 @@
         <ul id="mytags" class="tagit ui-widget ui-widget-content ui-corner-all">
             <li class="tagit-new"></li>
         </ul>
-        <input type="submit" value="Legg til" />
+        <input type="submit" value="↓" />
     </form>
 
 </div>
