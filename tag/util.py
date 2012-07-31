@@ -34,12 +34,14 @@ class TagDistribution():
 
     def json( self ):
         output = []
+        max_tag_score = max( self.tag_dict.values() )
         for k,v in self.tag_dict.items():
             key = k.name_of_tag
             output.append( {
                 'value': key,
                 'label': key,
-                'score': (float(v) / self.num_tags_wishes_distinct)
+                'score': (float(v) / self.num_tags_wishes_distinct) /\
+                         (float(max_tag_score) / self.num_tags_wishes_distinct)
             } )
 
         return json.dumps( output, sort_keys=True, indent=4 )

@@ -18,10 +18,5 @@ urlpatterns = patterns( '',
     # a list of groups the user is in
     # url( r'^groups/$', views.groups ),
 
-    url(
-        r'^wishes/delete/(\d*)$',
-        views.wish_delete
-    )
-
 
 )

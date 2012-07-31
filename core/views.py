@@ -12,9 +12,10 @@ class AccessRestrictedView( TemplateView ):
     def __call__( self, request, *args, **kwargs ):
 
         self.request = request
+        self.user = self.request.user
 
         if self.request.user.is_authenticated():
-            return self.authenticated()
+            return self.authenticated( *args, **kwargs )
         else:
             return self.not_authenticated()
 
@@ -22,7 +23,8 @@ class AccessRestrictedView( TemplateView ):
     def not_authenticated( self ):
         return render_to_response( "dialog.html", {
                 "title": "Not Authenticated",
-                "message": "This is a the default page for users without login record.",
+                "message": \
+                  "This is a the default page for users without login record.",
             },
             context_instance = RequestContext( self.request )
         )

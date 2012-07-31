@@ -7,6 +7,11 @@ urlpatterns = patterns( '',
         r'^wish/make$',
         views.make_wish
     ),
+    url(
+        # wish removal
+        r'^wish/delete/(\d*)$',
+        views.DeleteWish()
+    ),
 )
 
 

@@ -1,15 +1,33 @@
-# Create your views here.#No course - "default" bucket
-from django.contrib.auth.models import User
-from django.db.utils import IntegrityError
 from django.shortcuts import render_to_response, redirect
-from django.core.context_processors import csrf
 from django.template.context import RequestContext
 from django.views.decorators.csrf import csrf_protect
-from django.contrib import auth
-from student.models import Wish, Student
+from student.models import Wish
 from match.algorithms import *
-from unifi.management import *
+from core.views import AccessRestrictedView
 from unifi.unifi_project_settings import MAX_NUMBER_OF_TAGS
+from django.core.exceptions import ObjectDoesNotExist
+
+
+class DeleteWish( AccessRestrictedView ):
+    """
+    Removes a wish from the database and the existing matching graph.
+    @param pk:    public key of the wish to remove
+    """
+
+    def authenticated( self, pk ):
+        if self.request.user.is_authenticated:
+            student = UserManager.getStudent( self.request.user.username )
+
+            try:
+                w = Wish.objects.get(pk=pk)
+                WishDispatcher.delete_wish_from_graph(w)
+                Wish.objects.get( pk=pk ).delete()
+            except ObjectDoesNotExist, ValueError:
+                print "-> Client attempted deleting a non-existing record"
+
+        return redirect( "/" )
+
+
 
 @csrf_protect
 def make_wish(request):
