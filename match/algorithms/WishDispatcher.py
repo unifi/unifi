@@ -15,7 +15,7 @@ class WishDispatcher(object):
                                 cls, *args, **kwargs)
         return cls._instance
 
-    def __init__(self, GROUP_SIZE=3, MIN_SCORE=0.6):
+    def __init__(self, GROUP_SIZE=4, MIN_SCORE=0.2):
 
         self.bucket_dicts = {}
 

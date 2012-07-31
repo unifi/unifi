@@ -9,7 +9,16 @@ from student.models import *
 from unifi.management import UserManager, WishManager
 from match.algorithms import *
 
+from core.views import AccessRestrictedView
 
+class PersonalView( AccessRestrictedView ):
+    def is_authenticated( self ):
+        """
+        @return groups
+        @return wishes
+        @return
+        """
+        pass
 
 def index( request ):
 
@@ -44,24 +53,6 @@ def index( request ):
 
         autocomplete = Tag.objects.all()
 
-        def tag_distribution():
-            return {
-                "brick": 20,
-                "guatemalan": 30,
-                "replace": 40,
-                "chair": 70,
-                "estimate": 10,
-                "afternoon": 5,
-                "feature": 1,
-                "slope": 10,
-                "spider": 15,
-                "colt": 25,
-                "pediatrician": 37,
-                "mosquito": 14,
-                "asdfasfd": 12,
-                "masonry": 10,
-            }
-
         from unifi.management import UserManager
 
         # for u in sample( list(Student.objects.all()), 10 ):
@@ -77,7 +68,6 @@ def index( request ):
                 "groups":               groups,
                 "wishes":               wishes,
                 "assistance_groups":    assistance_groups,
-                "autocomplete":         tag_distribution(),
                 "is_oracle":            is_oracle,
             },
             context_instance = RequestContext( request )
