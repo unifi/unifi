@@ -42,7 +42,7 @@ class TagDistribution():
                 'score': (float(v) / self.num_tags_wishes_distinct)
             } )
 
-        return json.dumps( output )
+        return json.dumps( output, sort_keys=True, indent=4 )
 
 
     def wipe(self):

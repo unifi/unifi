@@ -11,7 +11,10 @@ urlpatterns = patterns('',
 
     # root application
     ## main page
-    url( r'^$',                      'login.views.gateway' ),
+    url(
+        r'^$',
+        'login.views.gateway'
+    ),
 
     # inclusive applications
     # url( r'^communication/',       include('communication.urls')),
@@ -21,7 +24,7 @@ urlpatterns = patterns('',
     #    r'^oracle/',
     #    include('oracle.urls'),
     #    name="oracle"
-    # ),
+
     url(
         r'^student/',
         include('student.urls'),

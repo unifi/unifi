@@ -7,25 +7,19 @@ from django.views.decorators.csrf import csrf_protect
 from django.contrib import auth
 from django.views.generic.base import TemplateView
 
-class UnifiView( TemplateView ):
-    def __call__( self, request, *args, *kwargs ):
-        self.user = request.user
-        self.get()
+class AccessRestrictedView( TemplateView ):
 
-
-class AccessRestrictedView( UnifiView ):
-    
     def __call__( self, request, *args, **kwargs ):
 
-        self.user = self.request.user
+        self.request = request
 
-        if self.user.is_authenticated():
-            return self.get()
+        if self.request.user.is_authenticated():
+            return self.authenticated()
         else:
-            return self.get_not_authenticated()
+            return self.not_authenticated()
 
 
-    def get_not_authenticated( self ):
+    def not_authenticated( self ):
         return render_to_response( "dialog.html", {
                 "title": "Not Authenticated",
                 "message": "This is a the default page for users without login record.",
@@ -34,8 +28,6 @@ class AccessRestrictedView( UnifiView ):
         )
 
 
-
-class DefaultUnifiView( AccessRestrictedView )
 
 
 if __name__ == "__main__":

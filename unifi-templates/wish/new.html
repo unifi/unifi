@@ -5,9 +5,11 @@
 <div class="new_wish">
 
     <script type="text/javascript">
-        
+
+
+
         $(document).ready(
-            $.get( url='/tag/distribution', dataType='json', success=function( distribution ) {
+            $.get( url='/tag/distribution/?format=json', dataType='json', success=function( distribution ) {
 
                 $( "#mytags" ).tagit( {
                     availableTags: distribution,

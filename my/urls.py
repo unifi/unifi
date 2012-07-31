@@ -4,7 +4,7 @@ from my import views
 urlpatterns = patterns( '',
 
     # a personal front page belonging to each user's account
-    url( r'^$', views.index ),
+    url( r'^$', views.MyView() ),
 
     # a list of wishes of the user
     # allows user to:

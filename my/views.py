@@ -1,24 +1,69 @@
 # -*- coding: utf8 -*-
 from django.core.exceptions import ObjectDoesNotExist
-
 from django.shortcuts import render_to_response, redirect
 from django.template.context import RequestContext
-
+from core.views import AccessRestrictedView
 from group.models import Group
 from student.models import *
-from unifi.management import UserManager, WishManager
+from unifi.management import UserManager
 from match.algorithms import *
 
-from core.views import AccessRestrictedView
 
-class PersonalView( AccessRestrictedView ):
-    def is_authenticated( self ):
-        """
-        @return groups
-        @return wishes
-        @return
-        """
-        pass
+
+class MyView( AccessRestrictedView ):
+    def authenticated( self ):
+
+        candidates = Student.objects.filter( user=self.request.user )
+
+        if len(candidates) == 0:
+            student = None
+        else:
+            student = candidates[0]
+
+
+        if self.request.user.is_authenticated():
+
+            from random import sample
+
+            # assistance_groups = sample( list( Group.objects.all() ), 10 )
+
+            # for g in assistance_groups:
+                # g.needs_assistance = True
+                # g.save()
+
+            assistance_groups = Group.objects.filter( needs_assistance=True )
+
+            wishes = Wish.objects.filter( student=student )
+            wishes = [w for w in wishes if w.is_active]
+
+            groups = Group.objects.filter( students__in=[student] )
+
+            autocomplete = Tag.objects.all()
+
+            from unifi.management import UserManager
+
+            # for u in sample( list(Student.objects.all()), 10 ):
+                # UserManager.updateUser( u.username(), "o" )
+
+            is_oracle = False
+            if UserManager.getOracle( self.request.user.username ) is not None:
+                is_oracle = True
+
+
+            return render_to_response( "my/index.html", {
+                    "title":                "UNIFI",
+                    "groups":               groups,
+                    "wishes":               wishes,
+                    "assistance_groups":    assistance_groups,
+                    "is_oracle":            is_oracle,
+                },
+                context_instance = RequestContext( self.request )
+            )
+
+        else:
+            return redirect( "/" )
+
+
 
 def index( request ):
 
