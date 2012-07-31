@@ -355,20 +355,36 @@ body {
     }
 
     .column#tagit {
-        ul.ui-autocomplete {
-            background-color: rgba( 255, 255, 255, 0.75 );
-        }
-
-        tagit-new {
-            background-color: rgba( 0, 0, 0, 0.0 )
-        }
-
+    
         .tagit#mytags {
+                        
             border: 0.1em solid rgba( 255, 0, 0, 0.5 );
             border-bottom: 0.25em solid rgba( 192, 0, 0, 1 );
             background-image: url( 'http://subtlepatterns.com/patterns/light_noise_diagonal.png' );
             padding: 0.4em;
+            cursor: text;
+            
+            ul.ui-autocomplete {
+                background-color: rgba( 255, 255, 255, 0.75 );
+            }
+
+            .tagit-input {
+                background-color: rgba( 0, 0, 0, 0.0 )
+            }            
+            
         }
+        
+        input[type=submit] {
+            font-size: 1.5em;
+            font-weigth: normal;
+            font-family: Arial, sans;
+            padding: 0.5em;
+            border: none;
+            border-radius: 0.5em;
+            -moz-border-radius: 0.5em;
+            background-color: rgba( 0, 0, 0, 0.1 );
+        }
+        
     }
 
     .column#group {
