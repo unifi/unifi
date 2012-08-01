@@ -3,29 +3,26 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render_to_response, redirect
 from django.template.context import RequestContext
 from core.views import AccessRestrictedView
+from unifi.management import UserManager
 from group.models import Group
 from student.models import *
-from unifi.management import UserManager
-from match.algorithms import *
-
-
-
-
+from random import sample
 
 class MyView( AccessRestrictedView ):
+
     def authenticated( self ):
 
-        candidates = Student.objects.filter( user=self.request.user )
+        candidates = Student.objects.filter(
+            user=self.request.user
+        )
 
-        if len(candidates) == 0:
-            student = None
-        else:
+        if len(candidates):
             student = candidates[0]
+        else:
+            student = None
 
 
         if self.request.user.is_authenticated():
-
-            from random import sample
 
             # assistance_groups = sample( list( Group.objects.all() ), 10 )
 
@@ -36,19 +33,20 @@ class MyView( AccessRestrictedView ):
             assistance_groups = Group.objects.filter( needs_assistance=True )
 
             wishes = Wish.objects.filter( student=student )
-            wishes = [w for w in wishes if w.is_active]
+            wishes = [ w for w in wishes if w.is_active ]
 
             groups = Group.objects.filter( students__in=[student] )
 
             autocomplete = Tag.objects.all()
 
-            from unifi.management import UserManager
-
             # for u in sample( list(Student.objects.all()), 10 ):
                 # UserManager.updateUser( u.username(), "o" )
 
             is_oracle = False
-            if UserManager.getOracle( self.request.user.username ) is not None:
+
+            oracle_role = UserManager.getOracle( self.request.user.username )
+
+            if oracle_role is not None:
                 is_oracle = True
 
 
@@ -64,80 +62,3 @@ class MyView( AccessRestrictedView ):
 
         else:
             return redirect( "/" )
-
-
-
-def index( request ):
-
-    """
-    Presents an authenticated user's state in the system: the related objects.
-    """
-
-    candidates = Student.objects.filter( user=request.user )
-
-    if len(candidates) == 0:
-        student = None
-    else:
-        student = candidates[0]
-
-
-    if request.user.is_authenticated():
-
-        from random import sample
-
-        # assistance_groups = sample( list( Group.objects.all() ), 10 )
-
-        # for g in assistance_groups:
-            # g.needs_assistance = True
-            # g.save()
-
-        assistance_groups = Group.objects.filter( needs_assistance=True )
-
-        wishes = Wish.objects.filter( student=student )
-        wishes = [w for w in wishes if w.is_active]
-
-        groups = Group.objects.filter( students__in=[student] )
-
-        autocomplete = Tag.objects.all()
-
-        from unifi.management import UserManager
-
-        # for u in sample( list(Student.objects.all()), 10 ):
-            # UserManager.updateUser( u.username(), "o" )
-
-        is_oracle = False
-        if UserManager.getOracle( request.user.username ) != None:
-            is_oracle = True
-
-
-        return render_to_response( "my/index.html", {
-                "title":                "UNIFI",
-                "groups":               groups,
-                "wishes":               wishes,
-                "assistance_groups":    assistance_groups,
-                "is_oracle":            is_oracle,
-            },
-            context_instance = RequestContext( request )
-        )
-
-    else:
-        return redirect( "/" )
-
-
-def wish_delete( request, pk ):
-    """
-    Removes a wish from the database and the existing matching graph.
-    @param pk:    public key of the wish to remove
-    """
-
-    if request.user.is_authenticated:
-        student = UserManager.getStudent( request.user.username )
-
-        try:
-            w = Wish.objects.get(pk=pk)
-            WishDispatcher.delete_wish_from_graph(w)
-            Wish.objects.get( pk=pk ).delete()
-        except ObjectDoesNotExist, ValueError:
-            print "-> Client attempted deleting a non-existing record"
-
-    return redirect( "/" )

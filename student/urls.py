@@ -5,7 +5,7 @@ urlpatterns = patterns( '',
     url(
         # wish creation from tagger
         r'^wish/make$',
-        views.make_wish
+        views.MakeWish()
     ),
     url(
         # wish removal

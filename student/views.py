@@ -1,6 +1,5 @@
 from django.shortcuts import render_to_response, redirect
 from django.template.context import RequestContext
-from django.views.decorators.csrf import csrf_protect
 from student.models import Wish
 from match.algorithms import *
 from core.views import AccessRestrictedView
@@ -29,47 +28,42 @@ class DeleteWish( AccessRestrictedView ):
 
 
 
-@csrf_protect
-def make_wish(request):
+class MakeWish( AccessRestrictedView ):
 
-    # [!]
-    tag_list =  request.POST.getlist('user[tags][]')
+    def authenticated( self, *args, **kwargs ):
 
-    if len(tag_list) == 0:
-        return render_to_response( "dialog.html", {
-                "title":    "Error",
-                "message":  "lol gife me tags plz"
-            },
-            context_instance = RequestContext(request)
-        )
+        # [!]
+        tag_list =  self.request.POST.getlist('user[tags][]')
 
-    #to lower case
-    #no shit!?
-    tag_list = [t.lower() for t in tag_list]
+        if not len(tag_list):
+            return render_to_response( "dialog.html", {
+                    "title":    "Error",
+                    "message":  "lol gife me tags plz"
+                },
+                context_instance = RequestContext(self.request)
+            )
 
-    if len(tag_list) > MAX_NUMBER_OF_TAGS:
-        return render_to_response( "dialog.html", {
-                "title":    "Error",
-                "message":  "Max num of tags is 5"
-            },
-            context_instance = RequestContext(request)
-        )
+        tag_list = [ t.lower() for t in tag_list ]
 
-    courses = WishDispatcher.extract_course_tag(tag_list)
-    if len(courses) > 1:
-        return render_to_response( "dialog.html", {
-                "title":    "Error",
-                "message":  "Please specify one course only"
-            },
-            context_instance = RequestContext(request)
-        )
+        if len(tag_list) > MAX_NUMBER_OF_TAGS:
+            return render_to_response( "dialog.html", {
+                    "title":    "Error",
+                    "message":  "Max num of tags is 5"
+                },
+                context_instance = RequestContext(self.request)
+            )
+
+        courses = WishDispatcher.extract_course_tag(tag_list)
+        if len(courses) > 1:
+            return render_to_response( "dialog.html", {
+                    "title":    "Error",
+                    "message":  "Please specify one course only"
+                },
+                context_instance = RequestContext(self.request)
+            )
 
 
-    usr = UserManager.getStudent(request.user.username)
+        user = UserManager.getStudent(self.request.user.username)
+        w = WishManager.addWish(user, tag_list, courses)
 
-    #debug
-    print request.user.username
-
-    w = WishManager.addWish(usr, tag_list, courses)
-
-    return redirect( "/" )
+        return redirect( "/" )

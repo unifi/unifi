@@ -1,5 +1,9 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import patterns, url
+from group import views
 
 urlpatterns = patterns( '',
-    url( r'all$', 'group.views.all' ),
+    url(
+        r'^all$',
+        views.All()
+    ),
 )

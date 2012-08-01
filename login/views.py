@@ -1,14 +1,9 @@
 # -*- coding: utf8 -*-
 
-from django.shortcuts import render_to_response, redirect
-from django.template.context import RequestContext
+from django.shortcuts import redirect
+from core.views import AccessRestrictedView
 
-from student.models import Student
-
-
-
-def gateway( request ):
-
+class Gateway( AccessRestrictedView ):
     """
     Redirects the user to different locations, depending on whether user
     is identified or not.
@@ -20,18 +15,5 @@ def gateway( request ):
 
     """
 
-    user = request.user
-
-    if user.is_authenticated():
-        return redirect( "/my/" )
-    else:
-        return render_to_response( "dialog.html", {
-                "title":    "UNIFI",
-                "message":  """Velkommen til UNIFI, du er ikke pålogget.
-                            For å logge deg på benytt universitetets
-                            innloggingsportal."""
-            },
-            context_instance = RequestContext( request )
-        )
-
-
+    def authenticated( self ):
+        return redirect( "/my" )

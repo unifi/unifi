@@ -122,7 +122,7 @@ class StudentGenerator(Generator):
             vowels = list(vowels)
             consonants = list(consonants)
 
-            while length != 0:
+            while length:
                 output += random.choice(consonants)
                 output += random.choice(vowels)
                 length -= 2
@@ -143,6 +143,25 @@ class StudentGenerator(Generator):
             )
 
         return output
+
+
+class RealNameStudentGenerator(StudentGenerator):
+    def __init__( self ):
+        pass
+
+    def generate( self, quantity,
+                  uri="http://heim.ifi.uio.no/inf1010/v11/oblig/oblig4/datafiler/names.txt",
+                  separator="\n" ):
+        """
+        @param uri: the location of the dictionary
+        @param separator: the separator of the dictionary, defaults to "\\n" (a tag per line)
+        """
+
+        from urllib import urlopen
+        data = urlopen( uri ).read().split( separator )
+        data = [ e.strip().lower() for e in data ]
+
+        return random.sample( data, quantity )
 
 
 class WishGenerator(Generator):

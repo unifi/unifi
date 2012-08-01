@@ -34,7 +34,10 @@ class TagDistribution():
 
     def json( self ):
         output = []
+
+        # normalizes the score
         max_tag_score = max( self.tag_dict.values() )
+
         for k,v in self.tag_dict.items():
             key = k.name_of_tag
             output.append( {
@@ -43,6 +46,9 @@ class TagDistribution():
                 'score': (float(v) / self.num_tags_wishes_distinct) /\
                          (float(max_tag_score) / self.num_tags_wishes_distinct)
             } )
+
+        # sorts the dictionary in score descending order
+        output = sorted( output, key=lambda e: e["score"], reverse=True )
 
         return json.dumps( output, sort_keys=True, indent=4 )
 
@@ -58,7 +64,9 @@ class TagDistribution():
 
     def gather_statistics(self):
         """
-        Run through the wishes and gather statistics
+        Run through the wishes and gather statistics.
+        Must be rewritten to account for the heavy load against the server
+        backend.
         """
         distinct_set = set()
         self.wipe()
@@ -74,6 +82,6 @@ class TagDistribution():
 
         self.num_tags_wishes_distinct = len(distinct_set)
 
-        #Total number of distinct tags in database.
+        #Total number of distinct tags in the database.
         for t in Tag.objects.all():
             self.num_tags_db_total += 1
