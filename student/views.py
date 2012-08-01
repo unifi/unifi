@@ -3,8 +3,8 @@ from django.template.context import RequestContext
 from student.models import Wish
 from match.algorithms import *
 from core.views import AccessRestrictedView
-from unifi.unifi_project_settings import MAX_NUMBER_OF_TAGS
 from django.core.exceptions import ObjectDoesNotExist
+from unifi.unifi_project_settings import MAX_NUMBER_OF_TAGS
 
 
 class DeleteWish( AccessRestrictedView ):

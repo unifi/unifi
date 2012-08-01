@@ -1,5 +1,8 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from login.views import Gateway
+
+
 
 admin.autodiscover()
 
@@ -13,7 +16,7 @@ urlpatterns = patterns('',
     ## main page
     url(
         r'^$',
-        'login.views.gateway'
+        Gateway()
     ),
 
     # inclusive applications

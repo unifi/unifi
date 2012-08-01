@@ -280,7 +280,10 @@ class Graph( DevelopmentOnlyView ):
             for g in Group.objects.all():
                 group_count += 1
                 student_count += g.students.count()
-            return float(student_count) / group_count
+            try:
+                return float(student_count) / group_count
+            except ZeroDivisionError:
+                return -999999999
 
 
 
