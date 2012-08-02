@@ -4,7 +4,7 @@ from student import views
 urlpatterns = patterns( '',
     url(
         # wish creation from tagger
-        r'^wish/(\d*)$',
+        r'^wish/(?P<pk>\d+)$',
         views.SelectWish()
     ),
     url(

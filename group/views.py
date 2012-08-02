@@ -16,6 +16,23 @@ class All( AccessRestrictedView ):
             },
             context_instance = RequestContext( self.request )
         )
+
+class Inspect( AccessRestrictedView ):
+    
+    def authenticated( self, pk ):
+        try:
+            group = Group.objects.get( pk=pk )
+        except ObjectDoesNotExist:
+            return self.dialog(
+                message = "No group with such id was found"
+            )
+        
+        return self.dialog(
+            title = group,
+            message = "The group has following members",
+            collection = group.students.all()
+        )
+        
         
 class Leave( AccessRestrictedView ):
     

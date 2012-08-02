@@ -8,6 +8,11 @@ urlpatterns = patterns( '',
     ),
     
     url(
+        r'^(\d+)',
+        views.Inspect()
+    ),
+    
+    url(
         r'^leave/(\d+)$',
         views.Leave()
     ),
