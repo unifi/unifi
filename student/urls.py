@@ -4,8 +4,13 @@ from student import views
 urlpatterns = patterns( '',
     url(
         # wish creation from tagger
-        r'^wish/make$',
-        views.MakeWish()
+        r'^wish/(\d*)$',
+        views.SelectWish()
+    ),
+    url(
+        # wish creation from tagger
+        r'^wish/create$',
+        views.CreateWish()
     ),
     url(
         # wish removal

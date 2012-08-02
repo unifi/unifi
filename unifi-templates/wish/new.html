@@ -7,20 +7,22 @@
     <script type="text/javascript">
 
         $(document).ready(
-            $.get( url='/tag/distribution/?format=json', dataType='json', success=function( distribution ) {
-
-                $( "#mytags" ).tagit( {
-                    availableTags: distribution,
-                    allowSpaces: true,
-                    fieldName: "tags",
-                    itemName: "user",
-                    tabIndex: 1
-                })
+            $.get( 
+                url='/tag/distribution/?format=json', 
+                dataType='json', 
+                success=function( distribution ) {
+                    $( "#mytags" ).tagit( {
+                        availableTags: distribution,
+                        allowSpaces: true,
+                        fieldName: "tags",
+                        itemName: "user",
+                        tabIndex: 1
+                    })
             })
         , "json" );
     </script>
 
-    <form action="/student/wish/make" method="POST" class="tagit_form">{% csrf_token %}
+    <form action="/student/wish/create" method="POST" class="tagit_form">{% csrf_token %}
         <ul id="mytags" class="tagit ui-widget ui-widget-content ui-corner-all">
             <li class="tagit-new"></li>
         </ul>

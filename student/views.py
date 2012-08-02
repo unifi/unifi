@@ -27,8 +27,20 @@ class DeleteWish( AccessRestrictedView ):
         return redirect( "/" )
 
 
+class SelectWish( AccessRestrictedView ):
+    
+    def authenticated( self, pk ):
+        
+        wish = Wish.objects.get( pk=pk )
+        
+        return self.dialog( 
+            title = "Displaying wish number %s" % pk,
+            message = "%s" % wish,
+            collection = wish.tags.all()
+        )
+        
 
-class MakeWish( AccessRestrictedView ):
+class CreateWish( AccessRestrictedView ):
 
     def authenticated( self, *args, **kwargs ):
 
@@ -40,7 +52,7 @@ class MakeWish( AccessRestrictedView ):
                     "title":    "Error",
                     "message":  "lol gife me tags plz"
                 },
-                context_instance = RequestContext(self.request)
+                context_instance = RequestContext( self.request )
             )
 
         tag_list = [ t.lower() for t in tag_list ]
@@ -50,20 +62,22 @@ class MakeWish( AccessRestrictedView ):
                     "title":    "Error",
                     "message":  "Max num of tags is 5"
                 },
-                context_instance = RequestContext(self.request)
+                context_instance = RequestContext( self.request )
             )
 
-        courses = WishDispatcher.extract_course_tag(tag_list)
+        courses = WishDispatcher.extract_course_tag( tag_list )
         if len(courses) > 1:
             return render_to_response( "dialog.html", {
                     "title":    "Error",
                     "message":  "Please specify one course only"
                 },
-                context_instance = RequestContext(self.request)
+                context_instance = RequestContext( self.request )
             )
 
 
-        user = UserManager.getStudent(self.request.user.username)
-        w = WishManager.addWish(user, tag_list, courses)
+        user = UserManager.getStudent( self.request.user.username )
+        w = WishManager.addWish( user, tag_list, courses )
 
         return redirect( "/" )
+
+        
