@@ -277,7 +277,14 @@
 			        return $( "<li></li>" )
 				        .data( "item.autocomplete", element )
 				        .append(
-                            "<a class=\"tag\" style=\"opacity: " + (element.score + 0.5 ) + ";\">" + element.value + " " + element.score + "</a>"
+                            "<a style=\"font-size: 0.9em; font-family: Arial, sans;\">" +
+                            "<span class=\"tag\" style=\"opacity: " + 
+                            ( 1.6*element.score ) + 
+                            ";\">" + 
+                            element.value + 
+                            "<span class=\"score\">" + 
+                            Math.round( (element.score * 100), 2 )/100 + 
+                            "</span></span></a>"
                         )
 				        .appendTo( ul );
 		        };

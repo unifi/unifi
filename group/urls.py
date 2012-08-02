@@ -3,7 +3,12 @@ from group import views
 
 urlpatterns = patterns( '',
     url(
-        r'^all$',
+        r'^all$', # inspect/all
         views.All()
+    ),
+    
+    url(
+        r'^leave/(\d+)$',
+        views.Leave()
     ),
 )

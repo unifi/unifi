@@ -62,12 +62,11 @@
         {% include "group/groups.html" with controls="True" %}
     </div>
     <!-- ... -->
-
-
-
+    
     <div class="column" id="oracle">
+    {% with is_oracle="1" %}
     {% if is_oracle %}
-        <h2>Gruppene som trenger hjelp</h2>
+        <div class="title">Gruppene som trenger hjelp</div>
         <h4>Her bør vi ha et søke/filtreringsfelt for gruppetaggene.</h4>
         <ul>
         {% for group in assistance_groups %}
@@ -90,6 +89,7 @@
     {% else %}
         <h3>Du har ikke orakelstatus i systemet</h3>
     {% endif %}
+    {% endwith %}
     </div>
 
 </div>

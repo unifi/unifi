@@ -1,4 +1,5 @@
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect
+from django.core.exceptions import ObjectDoesNotExist
 from django.template.context import RequestContext
 from core.views import AccessRestrictedView
 from group.models import Group
@@ -9,9 +10,44 @@ class All( AccessRestrictedView ):
         groups = Group.objects.all()
 
         return render_to_response( "group/all.html", {
-                "standalone": True,
-                "title": "All groups",
-                "groups": groups,
+                'standalone':   True,
+                'title':        "All groups",
+                'groups':       groups,
             },
             context_instance = RequestContext( self.request )
         )
+        
+class Leave( AccessRestrictedView ):
+    
+    def authenticated( self, pk ):
+        
+        # find out whether the group is there
+        try:
+            group = Group.objects.get( pk=pk )
+        except ObjectDoesNotExist:
+            return redirect( "/" )
+        
+        
+        # find the user
+        candidates = group.students.filter( 
+            user__pk=self.user.pk
+        )
+        
+        # if user is a member of the group
+        if len( candidates ) > 0:
+            group.students.remove( self.user )
+            group.save()
+        
+            return self.dialog( 
+                message = "User was removed from group",
+                set     = group.students.all()
+            )
+            
+        else:
+            return self.dialog( 
+                message = "User is not a member of the given group",
+                set     = group.students.all()
+            )        
+        
+        
+        

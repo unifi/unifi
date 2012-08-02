@@ -42,20 +42,11 @@ class MyView( AccessRestrictedView ):
             # for u in sample( list(Student.objects.all()), 10 ):
                 # UserManager.updateUser( u.username(), "o" )
 
-            is_oracle = False
-
-            oracle_role = UserManager.getOracle( self.request.user.username )
-
-            if oracle_role is not None:
-                is_oracle = True
-
-
             return render_to_response( "my/index.html", {
                     "title":                "UNIFI",
                     "groups":               groups,
                     "wishes":               wishes,
                     "assistance_groups":    assistance_groups,
-                    "is_oracle":            is_oracle,
                 },
                 context_instance = RequestContext( self.request )
             )

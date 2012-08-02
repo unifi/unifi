@@ -3,20 +3,29 @@
 
 from django.shortcuts import render_to_response, redirect
 from django.template.context import RequestContext
-from django.views.generic.base import TemplateView
 import unifi
 
 
-class AccessRestrictedView( TemplateView ):
+class UnifiView:
+
+    def dialog( self, title="", message="", set=None ):
+        return render_to_response( "dialog.html", {
+                'title':    title,
+                'message':  message,
+                'set':      set,
+            },
+            context_instance = RequestContext( self.request )
+        )
+
+class AccessRestrictedView( UnifiView ):
 
     def __call__( self, request, *args, **kwargs ):
-
+    
         self.request = request
         self.args = args
         self.kwargs = kwargs
         self.user = self.request.user
-
-
+        
         if self.request.user.is_authenticated():
             return self.authenticated( *args, **kwargs )
         else:
@@ -37,7 +46,7 @@ class AccessRestrictedView( TemplateView ):
 
 
 
-class DevelopmentOnlyView( TemplateView ):
+class DevelopmentOnlyView( UnifiView ):
 
     def __call__( self, request, *args, **kwargs ):
 
@@ -61,5 +70,3 @@ class DevelopmentOnlyView( TemplateView ):
             },
             context_instance = RequestContext( self.request )
         )
-
-
