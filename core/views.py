@@ -8,22 +8,23 @@ import unifi
 
 class UnifiView:
 
-    def dialog( self, title="", message="", set=None ):
+    def dialog( self, title="", message="", collection=None ):
         """ 
             A shorthand for the dialog template. 
             'dialog.html' is a generic template that displays various data
             and takes three agruments, just like this function.
             
-            @param title    the title to be placed in the title-tag.
-            @param message  the textual part of the dialog
-            @param set      a collection to be represented as a list in the
-                            dialog
+            @param title        the title to be placed in the title-tag of the 
+                                page
+            @param message      the contents of the textual part of the dialog
+            @param collection   a collection to be represented as a list in the
+                                dialog's unordered list part
         """
         
         return render_to_response( "dialog.html", {
                 'title':    title,
                 'message':  message,
-                'set':      set,
+                'set':      collection,
             },
             context_instance = RequestContext( self.request )
         )
