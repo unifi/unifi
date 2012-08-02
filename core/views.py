@@ -45,14 +45,13 @@ class AccessRestrictedView( UnifiView ):
 
 
     def not_authenticated( self ):
-        return render_to_response( "dialog.html", {
-                "title": "Not Authenticated",
-                "message": \
-                    "Velkommen til UNIFI, du er ikke pålogget. " + \
-                    "For å logge deg på benytt universitetets" + \
-                    "innloggingsportal."
-            },
-            context_instance = RequestContext( self.request )
+        return self.dialog(
+            
+            title       = "Not Authenticated",
+            message     = "Velkommen til UNIFI, du er ikke pålogget. " + \
+                          "For å logge deg på benytt universitetets " + \
+                          "innloggingsportal."
+                          
         )
 
 
@@ -76,13 +75,12 @@ class DevelopmentOnlyView( UnifiView ):
 
 
     def deny( self ):
-        return render_to_response( "dialog.html", {
-                "title": "Development is over",
-                "message": "This page is restricted to development phase."
-            },
-            context_instance = RequestContext( self.request )
-        )
+        return self.dialog(
         
+            title   = "Development is over. We're done. Everything is perfect.",
+            message = "This page was restricted to the development phase."
+            
+        )
         
     
         
