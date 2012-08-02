@@ -9,6 +9,17 @@ import unifi
 class UnifiView:
 
     def dialog( self, title="", message="", set=None ):
+        """ 
+            A shorthand for the dialog template. 
+            'dialog.html' is a generic template that displays various data
+            and takes three agruments, just like this function.
+            
+            @param title    the title to be placed in the title-tag.
+            @param message  the textual part of the dialog
+            @param set      a collection to be represented as a list in the
+                            dialog
+        """
+        
         return render_to_response( "dialog.html", {
                 'title':    title,
                 'message':  message,
@@ -70,3 +81,7 @@ class DevelopmentOnlyView( UnifiView ):
             },
             context_instance = RequestContext( self.request )
         )
+        
+        
+    
+        

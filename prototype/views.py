@@ -44,14 +44,12 @@ class Flush( DevelopmentOnlyView ):
             model.objects.all().delete()
             model_names.append( model.__name__ )
 
-
-        return render_to_response( "dialog.html", {
-                "title": "Flush entries",
-                "message": "Following tables have been flushed: (%s)" \
-                    % len( model_names ),
-                "set": model_names
-            },
-        )
+        
+        return self.dialog( 
+            title    =  "Flush entries", 
+            message  =  "Following tables have been flushed: (%s)" % len( model_names ),
+            set      =  model_names
+        );
 
 
 class Populate( DevelopmentOnlyView ):
