@@ -6,7 +6,7 @@ from core.views import AccessRestrictedView
 from unifi.management import UserManager
 from group.models import Group
 from student.models import *
-from random import sample
+
 
 class MyView( AccessRestrictedView ):
 

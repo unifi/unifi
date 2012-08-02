@@ -16,6 +16,7 @@ class EmailEmulating():
         @type receiver: User object
         @param message: the message
         """
+
         m = Message(sender=sender, receiver=receiver, message=message)
         m.save()
 
@@ -33,3 +34,15 @@ class EmailEmulating():
         send_mail('Group found', message, sender,
             recv, fail_silently=False)
 
+    def build_message(self, group):
+        """
+        Build an email-message
+        @param group: the group that is created
+        """
+
+        message = "A group for has been found!\n" \
+                + "Group tags: " + ", ".join(group.tags().values_list("name_of_tag", flat=True)) \
+                + "\nGroup members: " + ", ".join(group.students.all().values_list("user__username", flat=True)) \
+                + "\nTa kontakt med dine gruppmedlemmer og avtal tid og sted."
+
+        return message

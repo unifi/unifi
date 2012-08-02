@@ -41,7 +41,7 @@ class WishDispatcher(object):
                 else:
                     self.add_wish_to_bucket(w, "default")
 
-        print "done restoring" #debug
+        print "Done restoring" #debug
 
     def extract_course_tag(self, tags):
         """
