@@ -1,3 +1,4 @@
+# -*- coding: utf8 -*-
 
 """
     The unifi API
@@ -20,7 +21,7 @@ class TagManagement:
         """
         tag = tag.strip() #remove whitespace
         t = Tag.objects.get_or_create(name_of_tag=tag)[0]
-        print "tag '%s' added!" % tag
+        # print "tag '%s' added!" % tag
         return t
 
     def deleteTag(self, tag):

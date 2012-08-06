@@ -2,18 +2,15 @@
 {% endcomment %}
 
 {% block wish %}
+
 <div class="wish">
     <div class="tags">
     {% include "tag/tags.html" with tags=wish.tags.all %}
 
     <!-- menu -->
     {% if delete %}
-    <div class="delete">
-        <a href="/student/wish/delete/{{ wish.pk }}" title="Slett dette ønsket">
-            <div class="ui-icon ui-icon-trash"
-                 style="display: inline-block; overflow: auto;">x
-            </div>
-        </a>
+    <div class="delete" pk="{{ wish.pk }}">
+        <div class="ui-icon ui-icon-trash" style="display: inline-block; overflow: auto;">x</div>
     </div>
     {% endif %}
     <!-- menu -->

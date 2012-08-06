@@ -1,5 +1,7 @@
 {% comment %}
-    Contains import statements for javascript, css, less.
+    Contains import-statements for javascript, css, less.
+
+    @param  graph   imports graph-drawing facilities
 {% endcomment %}
 
 {% block import %}
@@ -19,16 +21,21 @@
     <script src="/static/javascripts/jquery.min.js"></script>
     <script src="/static/javascripts/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="/static/javascripts/tag-it.js" type="text/javascript" charset="utf-8"></script>
-    <script src="/static/javascripts/modal-popup.js" type="text/javascript" charset="utf-8"></script>
 
     {% if graph %}
-    <!-- dracula dependencies -->
-    <script src="/static/javascripts/dracula/Curry-1.0.1.js"></script>
-    <script src="/static/javascripts/dracula/raphael-min.js"></script>
-    <script src="/static/javascripts/dracula/dracula_graffle.js"></script>
-    <script src="/static/javascripts/dracula/seedrandom.js"></script>
-    <script src="/static/javascripts/dracula/dracula_graph.js"></script>
-    <script src="/static/javascripts/dracula/dracula_algorithms.js"></script>
+        <!-- dracula dependencies -->
+        <script src="/static/javascripts/dracula/Curry-1.0.1.js"></script>
+        <script src="/static/javascripts/dracula/raphael-min.js"></script>
+        <script src="/static/javascripts/dracula/dracula_graffle.js"></script>
+        <script src="/static/javascripts/dracula/seedrandom.js"></script>
+        <script src="/static/javascripts/dracula/dracula_graph.js"></script>
+        <script src="/static/javascripts/dracula/dracula_algorithms.js"></script>
     {% endif %}
+
+    <!-- project specific scripts -->
+    <script src="/static/javascripts/django-csrf.js"></script>
+    <script src="/static/javascripts/unifi.js"></script>
+
+
 
 {% endblock %}

@@ -1,3 +1,5 @@
+# -*- coding: utf8 -*-
+
 from django.shortcuts import render_to_response, redirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.template.context import RequestContext

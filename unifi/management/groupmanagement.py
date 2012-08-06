@@ -1,3 +1,4 @@
+# -*- coding: utf8 -*-
 
 """
     The unifi API
@@ -31,10 +32,10 @@ class GroupManagement:
             group.wishes.add(wish)
 
         for student in students:
-            if not student == None:
+            if student is not None:
                 group.students.add(student)
 
-        if not oracle == None:
+        if oracle is not None:
             group.oracle = oracle
 
         return group
