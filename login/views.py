@@ -15,5 +15,5 @@ class Gateway( AccessRestrictedView ):
 
     """
 
-    def authenticated( self ):
+    def allow( self ):
         return redirect( "/my" )

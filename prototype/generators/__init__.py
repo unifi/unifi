@@ -23,8 +23,7 @@ class TagGenerator(Generator):
     """
     An abstract tag generator.
     """
-    def __init__(self):
-        pass
+    pass
 
 
 class SubjectTagGenerator(TagGenerator):
@@ -34,6 +33,7 @@ class SubjectTagGenerator(TagGenerator):
     def __init__( self,
                   subject_number_length = 4,
                   prefixes = [ "INF", "MAT", "MAT-INF", "STK" ]):
+        # [-] remove mutable values
         """
         @param subject_number_length:   the length of the numeric-part of the
                                         mocked subject code.

@@ -46,9 +46,9 @@ class Flush( DevelopmentOnlyView ):
 
         
         return self.dialog( 
-            title    =  "Flush entries", 
-            message  =  "Following tables have been flushed: (%s)" % len( model_names ),
-            set      =  model_names
+            title       =  "Flush entries",
+            message     =  "Following tables have been flushed: (%s)" % len( model_names ),
+            collection  =  model_names
         );
 
 

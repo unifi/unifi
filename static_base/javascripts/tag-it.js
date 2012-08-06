@@ -277,7 +277,7 @@
 			        return $( "<li></li>" )
 				        .data( "item.autocomplete", element )
 				        .append(
-                            "<a style=\"font-size: 0.9em; font-family: Arial, sans;\">" +
+                            "<a style=\"font-size: 0.9em; font-family: 'Arial', sans;\">" +
                             "<span class=\"tag\" style=\"opacity: " + 
                             ( 1.6*element.score ) + 
                             ";\">" + 

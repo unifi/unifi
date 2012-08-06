@@ -7,7 +7,7 @@ from util import *
 
 class Match( AccessRestrictedView ):
 
-    def authenticated( self ):
+    def allow( self ):
 
         all_tags = []
         for wish in Wish.objects.all():

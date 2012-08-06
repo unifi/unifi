@@ -28,7 +28,7 @@ class EmailEmulating():
             @param receivers: a list with receivers
         """
 
-        sender = sender + '@example.com'
+        sender += '@example.com'
         recv = [r.username() + '@example.com' for r in receivers]
 
         send_mail('Group found', message, sender,

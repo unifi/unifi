@@ -29,9 +29,20 @@ class UnifiView:
             context_instance = RequestContext( self.request )
         )
 
+
+    def error( self ):
+        """
+        Not Implemented
+        """
+        pass
+
 class AccessRestrictedView( UnifiView ):
 
     def __call__( self, request, *args, **kwargs ):
+        """
+        Due to security concerns, do not overload this function or
+        any of its subclass overrides.
+        """
     
         self.request = request
         self.args = args
@@ -39,12 +50,13 @@ class AccessRestrictedView( UnifiView ):
         self.user = self.request.user
         
         if self.request.user.is_authenticated():
-            return self.authenticated( *args, **kwargs )
+            return self.allow( *args, **kwargs )
         else:
-            return self.not_authenticated()
+            return self.deny()
 
 
-    def not_authenticated( self ):
+    def deny( self ):
+        # [/] rename to 'deny'
         return self.dialog(
             
             title       = "Not Authenticated",

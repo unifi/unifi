@@ -13,7 +13,7 @@ class DeleteWish( AccessRestrictedView ):
     @param pk:    public key of the wish to remove
     """
 
-    def authenticated( self, pk ):
+    def allow( self, pk ):
         if self.request.user.is_authenticated:
             student = UserManager.getStudent( self.request.user.username )
 
@@ -29,7 +29,7 @@ class DeleteWish( AccessRestrictedView ):
 
 class SelectWish( AccessRestrictedView ):
     
-    def authenticated( self, pk ):
+    def allow( self, pk ):
         
         wish = Wish.objects.get( pk=pk )
         
@@ -42,42 +42,35 @@ class SelectWish( AccessRestrictedView ):
 
 class CreateWish( AccessRestrictedView ):
 
-    def authenticated( self, *args, **kwargs ):
+    def allow( self, *args, **kwargs ):
+        # default to a redirect back to the page
+        # [/] use self.error method
+        result = redirect( "/" )
 
-        # [!]
         tag_list =  self.request.POST.getlist('user[tags][]')
-
-        if not len(tag_list):
-            return render_to_response( "dialog.html", {
-                    "title":    "Error",
-                    "message":  "lol gife me tags plz"
-                },
-                context_instance = RequestContext( self.request )
-            )
-
         tag_list = [ t.lower() for t in tag_list ]
 
-        if len(tag_list) > MAX_NUMBER_OF_TAGS:
-            return render_to_response( "dialog.html", {
-                    "title":    "Error",
-                    "message":  "Max num of tags is 5"
-                },
-                context_instance = RequestContext( self.request )
+        if not len( tag_list ):
+            result =  self.dialog( "Error", "No tags given" )
+
+        elif len( tag_list ) > MAX_NUMBER_OF_TAGS:
+            result = self.dialog( "Error",
+                "Your wish contains too many tags"
             )
 
         courses = WishDispatcher.extract_course_tag( tag_list )
-        if len(courses) > 1:
-            return render_to_response( "dialog.html", {
-                    "title":    "Error",
-                    "message":  "Please specify one course only"
-                },
-                context_instance = RequestContext( self.request )
-            )
+
+        if len( courses ) > 1:
+            result = self.dialog( "Error", "Please specify a course" )
 
 
         user = UserManager.getStudent( self.request.user.username )
-        w = WishManager.addWish( user, tag_list, courses )
+        WishManager.addWish(
+            user,
+            tag_list,
+            courses
+        )
 
-        return redirect( "/" )
+        return result
 
         

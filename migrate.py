@@ -15,7 +15,9 @@ def drop_database( username="unifi"):
     system( "psql -U postgres -c 'CREATE DATABASE \'%s\' OWNER \'%s\';'" % (username, username) )
 
 
+
 def get_applications( installed_apps, exclude=[], include=[] ):
+    # [-] remove mutable values
     application_names = include
     for app_name in installed_apps:
         is_excluded = False

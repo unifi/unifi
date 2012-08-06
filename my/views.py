@@ -10,7 +10,7 @@ from student.models import *
 
 class MyView( AccessRestrictedView ):
 
-    def authenticated( self ):
+    def allow( self ):
 
         candidates = Student.objects.filter(
             user=self.request.user

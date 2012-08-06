@@ -40,6 +40,7 @@ class TagDistribution():
 
         for k,v in self.tag_dict.items():
             key = k.name_of_tag
+
             output.append( {
                 'value': key,
                 'label': key,
@@ -65,8 +66,8 @@ class TagDistribution():
     def gather_statistics(self):
         """
         Run through the wishes and gather statistics.
-        Must be rewritten to account for the heavy load against the server
-        backend.
+        Must be rewritten to account for the heavy load
+        against the server backend.
         """
         distinct_set = set()
         self.wipe()

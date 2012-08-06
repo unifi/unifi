@@ -88,10 +88,10 @@ class Pair:
             return self.__add__( other )
 
         def common( self ):
-            return ( self.this & self.other )
+            return self.this & self.other
 
         def uncommon( self ):
-            return ( self.this ^ self.other )
+            return self.this ^ self.other
 
         def complement(self):
             return self.other - self.this
@@ -109,13 +109,13 @@ class Pair:
         """
         @return     union
         """
-        return ( self.A() | self.B() )
+        return self.A() | self.B()
 
     def common( self ):
-        return ( self.A() & self.B() )
+        return self.A() & self.B()
 
     def uncommon( self ):
-        return ( self.A() ^ self.B() )
+        return self.A() ^ self.B()
 
     def distance( self, insertion_cost=1, deletion_cost=1 ):
         """

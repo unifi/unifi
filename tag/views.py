@@ -15,7 +15,7 @@ class GetTagDistribution( AccessRestrictedView ):
 
     """
 
-    def authenticated( self ):
+    def allow( self ):
 
         td = TagDistribution()
         response_format = self.request.GET.get('format')

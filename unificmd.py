@@ -5,11 +5,12 @@
 
 import getopt, sys
 
-"""
-    Unifi API
-"""
+
 
 class apidraft:
+    """
+        Unifi API
+    """
 
     def __init__(self):
         self.user_management = UserManagement()
@@ -47,7 +48,7 @@ class apidraft:
             print "%s --help for usage" % sys.argv[0]
             sys.exit(2)
 
-        if len(opts) == 0:
+        if not len(opts):
             print "Remember the '--' before command!"
             sys.exit(1)
 
@@ -194,9 +195,7 @@ class apidraft:
 
 
 if __name__ == "__main__":
-    """
-        If run as standalone program
-    """
+
     if len(sys.argv) <= 1:
         print "type 'python %s -h,  --help'" % sys.argv[0]
         sys.exit(1)

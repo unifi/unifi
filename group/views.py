@@ -6,7 +6,7 @@ from group.models import Group
 
 class All( AccessRestrictedView ):
 
-    def authenticated( self ):
+    def allow( self ):
         groups = Group.objects.all()
 
         return render_to_response( "group/all.html", {
@@ -19,7 +19,7 @@ class All( AccessRestrictedView ):
 
 class Inspect( AccessRestrictedView ):
     
-    def authenticated( self, pk ):
+    def allow( self, pk ):
         try:
             group = Group.objects.get( pk=pk )
         except ObjectDoesNotExist:
@@ -36,7 +36,7 @@ class Inspect( AccessRestrictedView ):
         
 class Leave( AccessRestrictedView ):
     
-    def authenticated( self, pk ):
+    def allow( self, pk ):
         
         # find out whether the group is there
         try:
@@ -56,14 +56,14 @@ class Leave( AccessRestrictedView ):
             group.save()
         
             return self.dialog( 
-                message = "User was removed from group",
-                set     = group.students.all()
+                message      = "User was removed from group",
+                collection   = group.students.all()
             )
             
         else:
             return self.dialog( 
-                message = "User is not a member of the given group",
-                set     = group.students.all()
+                message     = "User is not a member of the given group",
+                collectin   = group.students.all()
             )        
         
         

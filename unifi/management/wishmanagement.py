@@ -35,7 +35,7 @@ class WishManagement:
 
         w = self.getWish(student, tags)
 
-        if w != None:
+        if w is not None:
             print "Wish for: %s exist" % student
             return w
 
@@ -54,11 +54,11 @@ class WishManagement:
 #        from match.algorithms import *
 
         #add to correct bucket
-        if courses == None:
+        if courses is None:
             courses = WishDispatcher.extract_course_tag(tags)
 
         #No course - "default" bucket
-        if len(courses) == 0:
+        if not len(courses):
             WishDispatcher.add_wish_to_bucket(w, "default")
         else:
             WishDispatcher.add_wish_to_bucket(w, courses[0])
@@ -116,7 +116,7 @@ class WishManagement:
         if tag.__class__ == str:
             tag = self.tag_management.getTag(tag)
 
-        if tag == None:
+        if tag is None:
             return []
 
         return [wish for wish in Wish.objects.all() for t in wish.tags.all() if t == tag]

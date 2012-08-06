@@ -17,6 +17,7 @@ class GroupManagement:
         self.user_management = UserManagement()
 
     def addGroup(self, wishes=[], students=[], oracle=None):
+        # [-] remove mutable values
         """
             Create a new group
             @param tags: the group tags
@@ -46,7 +47,8 @@ class GroupManagement:
         """
         try:
             group.oracle = oracle
-        except: #Pokemon exception handling!
+        except: # Pokemon exception handling!
+            # It's super effective!
             pass
 
     def getOracle(self, group):
