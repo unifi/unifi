@@ -1,11 +1,12 @@
 # -*- coding: utf8 -*-
+from django.http import HttpResponse
 
-from django.shortcuts import render_to_response, redirect
-from django.template.context import RequestContext
-from student.models import Wish
 from match.algorithms import *
+from student.models import Wish
+from unifi.management import WishManager
 from core.views import AccessRestrictedView
 from django.core.exceptions import ObjectDoesNotExist
+from django.shortcuts import render_to_response, redirect
 from unifi.unifi_project_settings import MAX_NUMBER_OF_TAGS
 
 
@@ -16,28 +17,33 @@ class SelectWish( AccessRestrictedView ):
     
     def allow( self, pk ):
 
-        # [!] rewrite into a try
-        wish = Wish.objects.get( pk=pk )
-
-        if self.request.method == "DELETE":
-            # deletes the selected wish
-            self.delete( pk )
-        
-        return self.dialog( 
-            title = "Displaying wish number %s" % pk,
-            message = "%s" % wish,
-            collection = wish.tags.all()
-        )
-
-    def delete( self, pk ):
-        student = UserManager.getStudent( self.request.user.username )
+        response = HttpResponse( status = 200 )
 
         try:
-            w = Wish.objects.get(pk=pk)
-            WishDispatcher.delete_wish_from_graph(w)
-            Wish.objects.get( pk=pk ).delete()
+            wish = Wish.objects.get( pk=pk )
+
+            if self.request.method == "GET":
+                response = self.dialog(
+                    title = "Displaying wish number %s" % pk,
+                    message = "%s" % wish,
+                    collection = wish.tags.all()
+                )
+
+            elif self.request.method == "DELETE":
+
+                if wish.student.user == self.user:
+                    # the user owns the object
+                    WishManager.deleteWish( wish )
+                else:
+                    # the user does not own the object
+                    response = HttpResponse( status = 403 )
+
         except ObjectDoesNotExist, ValueError:
-            print "-> Client attempted deleting a non-existing record"
+            # the corresponding object with a given pk is not found
+            response = HttpResponse( status = 404 );
+
+        return response
+
 
 
 class CreateWish( AccessRestrictedView ):
@@ -55,7 +61,8 @@ class CreateWish( AccessRestrictedView ):
 
         elif len( tag_list ) > MAX_NUMBER_OF_TAGS:
             result = self.dialog( "Error",
-                "Your wish contains too many tags"
+                "Your wish contains too many tags. Specify max %d tags." % \
+                MAX_NUMBER_OF_TAGS
             )
 
         courses = WishDispatcher.extract_course_tag( tag_list )
@@ -72,23 +79,3 @@ class CreateWish( AccessRestrictedView ):
         )
 
         return result
-
-        
-class DeleteWish( AccessRestrictedView ):
-    """
-    Removes a wish from the database and the existing matching graph.
-    @param pk:    public key of the wish to remove
-    """
-
-    def allow( self, pk ):
-        if self.request.user.is_authenticated:
-            student = UserManager.getStudent( self.request.user.username )
-
-            try:
-                w = Wish.objects.get(pk=pk)
-                WishDispatcher.delete_wish_from_graph(w)
-                Wish.objects.get( pk=pk ).delete()
-            except ObjectDoesNotExist, ValueError:
-                print "-> Client attempted deleting a non-existing record"
-
-        return redirect( "/" )
