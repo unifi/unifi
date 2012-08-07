@@ -34,7 +34,7 @@ class WishDispatcher(object):
         if not self.has_restored:
             self.has_restored = True
             for w in Wish.objects.filter(is_active=True):
-                tags = [t.name_of_tag for t in w.tags.all()]
+                tags = [t.name for t in w.tags.all()]
                 courses = self.extract_course_tag(tags)
                 if len(courses) >= 1:
                     self.add_wish_to_bucket(w, courses[0])
@@ -81,7 +81,7 @@ class WishDispatcher(object):
         """
 
         try:
-            tags = self.extract_course_tag([t.name_of_tag for t in wish.tags.all()])
+            tags = self.extract_course_tag([t.name for t in wish.tags.all()])
             if len(tags) == 0:
                 self.bucket_dicts["default"].delete_wish_from_graph(wish)
             else:

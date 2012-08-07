@@ -39,7 +39,7 @@ class TagDistribution():
         max_tag_score = max( self.tag_dict.values() )
 
         for k,v in self.tag_dict.items():
-            key = k.name_of_tag
+            key = k.name
 
             output.append( {
                 'value': key,

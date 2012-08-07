@@ -87,7 +87,7 @@ class WishManagement:
         wishes = Wish.objects.filter(student=student)
 
         for w in wishes:
-            wishtags = [t.name_of_tag for t in w.tags.all()]
+            wishtags = [t.name for t in w.tags.all()]
 
             if set (wishtags) == set (tags):
                 return w

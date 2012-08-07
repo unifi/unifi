@@ -17,10 +17,10 @@ class TagManagement:
     def addTag(self, tag):
         """
             Add a user
-            @param usr: the user to be added
+            @param tag: the user to be added
         """
         tag = tag.strip() #remove whitespace
-        t = Tag.objects.get_or_create(name_of_tag=tag)[0]
+        t = Tag.objects.get_or_create(name=tag)[0]
         # print "tag '%s' added!" % tag
         return t
 
@@ -28,10 +28,10 @@ class TagManagement:
         """
             Delete a tag (or rather, set the is_active flag to False so
             any foreign keys to users won't break
-            @param usr: the user to remove
+            @param tag: the tag to remove
         """
         try:
-            Tag.objects.get(name_of_tag=name).delete()
+            Tag.objects.get(name=tag).delete()
         except Tag.DoesNotExist:
             pass
 
@@ -42,7 +42,7 @@ class TagManagement:
         """
 
         try:
-            return Tag.objects.get(name_of_tag=name)
+            return Tag.objects.get(name=name)
         except Tag.DoesNotExist:
             return None
 
