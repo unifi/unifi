@@ -3,13 +3,13 @@
 
 {% block wish %}
 
-<div class="wish">
+<div class="wish" model="Wish" pk="{{ wish.pk }}">
     <div class="tags">
     {% include "tag/tags.html" with tags=wish.tags.all %}
 
     <!-- menu -->
     {% if delete %}
-    <div class="delete" model="Wish" pk="{{ wish.pk }}">
+    <div class="delete" pk="{{ wish.pk }}">
         <div class="ui-icon ui-icon-trash" style="display: inline-block; overflow: auto;">x</div>
     </div>
     {% endif %}

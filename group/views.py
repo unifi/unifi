@@ -1,10 +1,39 @@
 # -*- coding: utf8 -*-
-
+from django.http import HttpResponse
+from unifi.management import GroupManager
 from django.shortcuts import render_to_response, redirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.template.context import RequestContext
 from core.views import AccessRestrictedView
 from group.models import Group
+
+class Select( AccessRestrictedView ):
+
+    def allow( self, pk ):
+        response = HttpResponse( status = 200 )
+
+        try:
+            group = Group.objects.all( pk=pk );
+
+            if self.request.method == "GET":
+                response = self.dialog(
+                    title = group,
+                    message = "The group has following members",
+                    collection = group.students.all()
+                )
+        except ObjectDoesNotExist, ValueError:
+            response = self.dialog(
+                message = "No group with such id was found"
+            )
+
+        return response
+
+
+class SelectMember( AccessRestrictedView ):
+    """
+    Selects a member of a group
+    """
+    pass
 
 class All( AccessRestrictedView ):
 

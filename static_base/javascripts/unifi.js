@@ -1,9 +1,11 @@
-$(document).ready(function() {
+$(document).ready( function() {
+
+
     $(".wish .delete").on( 'click', function( event ) {
 
         var pk = $(this).attr( "pk" );
         // saving the parent container element in the right scope
-        var container = $(this).parent().parent();
+        var container = $("div[pk=\"" + pk + "\"][model=\"Wish\"]");
 
         $.ajax({
             type: "DELETE",
@@ -16,4 +18,5 @@ $(document).ready(function() {
             }
         });
     });
+
 });
