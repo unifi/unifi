@@ -199,6 +199,8 @@ class Generate( DevelopmentOnlyView ):
 
 
 
+        # [+] add flush get parameter
+
         if self.request.GET.get('populate'):
             return redirect( "/prototype/populate/%s" % profile )
         else:

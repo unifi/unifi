@@ -8,3 +8,10 @@ GroupManager    =   GroupManagement()
 UserManager     =   UserManagement()
 TagManager      =   TagManagement()
 
+class Management:
+
+    VERBOSE = False
+
+    def out( self, message ):
+        if self.VERBOSE:
+            print message

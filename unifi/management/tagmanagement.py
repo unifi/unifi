@@ -5,7 +5,6 @@
 """
 from tag.models import Tag
 
-
 class TagManagement:
     """
         Takes care of tag management (adding, removing, getting ...)

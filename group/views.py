@@ -42,6 +42,7 @@ class SelectMember( AccessRestrictedView ):
             self.group = Group.objects.get( pk=group_pk )
 
             if member_pk == "":
+                # assumes that the user is the login record
                 self.member = UserManager.getStudent(
                     self.request.user.username
                 )
@@ -85,7 +86,7 @@ class SelectMember( AccessRestrictedView ):
             return HttpResponse( status=404 )
 
     def post( self ):
-        return HttpResponse( status=403 )
+        return HttpResponse( status=501 )
 
     def put( self ):
         self.group.students.add( self.member )

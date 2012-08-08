@@ -51,8 +51,11 @@ class WishManagement:
             except Tag.DoesNotExist:
                 print "Tag %s does not exist" % t
 
-        print "Wish added for user %s" % student
-#        from match.algorithms import *
+        print "Wish( student={0},\n\ttags=[{1}]\n)".format(
+            student,
+            ", ".join(tags)
+        )
+
 
         #add to correct bucket
         if courses is None:
