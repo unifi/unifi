@@ -1,6 +1,5 @@
 # -*- coding: utf8 -*-
 
-from unifi.management import GroupManager
 from django.http import HttpResponse
 from group.models import Group
 from core.views import *
@@ -70,10 +69,17 @@ class SelectMember( AccessRestrictedView ):
 
 
     def delete( self ):
-        print self.member, self.group.students.all()
-        if self.member in self.group.students.all():
-            self.group.students.remove( self.member )
-            self.group.save()
+        member = self.member
+        group = self.group
+
+        if member in group.students.all():
+            group.students.remove( member )
+
+            if not group.students.count():
+                group.delete()
+            else:
+                group.save()
+
             return HttpResponse( status=200 )
         else:
             return HttpResponse( status=404 )
@@ -116,39 +122,4 @@ class Inspect( AccessRestrictedView ):
             message = "The group has following members",
             collection = group.students.all()
         )
-        
-        
-class Leave( AccessRestrictedView ):
-    
-    def allow( self, pk ):
-        
-        # find out whether the group is there
-        try:
-            group = Group.objects.get( pk=pk )
-        except ObjectDoesNotExist:
-            return redirect( "/" )
-        
-        
-        # find the user
-        candidates = group.students.filter( 
-            user__pk=self.user.pk
-        )
-        
-        # if user is a member of the group
-        if len( candidates ) > 0:
-            group.students.remove( self.user )
-            group.save()
-        
-            return self.dialog( 
-                message      = "User was removed from group",
-                collection   = group.students.all()
-            )
-            
-        else:
-            return self.dialog( 
-                message     = "User is not a member of the given group",
-                collectin   = group.students.all()
-            )        
-        
-        
         

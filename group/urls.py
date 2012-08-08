@@ -23,9 +23,4 @@ urlpatterns = patterns( '',
         r'^(\d+)',
         views.Inspect()
     ),
-    
-    url(
-        r'^leave/(\d+)$',
-        views.Leave()
-    ),
 )

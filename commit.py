@@ -5,7 +5,7 @@ branch = "master"
 
 system( "git add -u ." )
 
-goals = raw_input( "What were your trying to add or fix? \n\n".upper() )
+goals = raw_input( "What functionality were you fixing/extending? \n\n".upper() )
 print "\n"
 results = raw_input( "What have you achieved? \n\n".upper() )
 print "\n"
@@ -19,6 +19,6 @@ for s in [goals, results, issues]:
     commit_call += ("-m \"%s\" " % s)
 
 
-system( commit_call );
+system( commit_call )
 
 system( "git push origin %s" % branch )

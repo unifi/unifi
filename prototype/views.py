@@ -1,3 +1,5 @@
+# -*- coding: utf8 -*-
+
 from core.views import AccessRestrictedView, DevelopmentOnlyView
 from prototype.generators import RealNameStudentGenerator
 from util import get_project_models, get_project_models_dict
@@ -194,13 +196,16 @@ class Generate( DevelopmentOnlyView ):
                 [ "Tag: " + s for s in tags ] + \
                 [ s for s in wishes ]
 
-        return render_to_response( "dialog.html", {
-                "title": "Generated objects",
-                "message": "",
-                "set": all
-            },
-            context_instance = RequestContext( self.request )
-        )
+
+
+
+        if self.request.GET.get('populate'):
+            return redirect( "/prototype/populate/%s" % profile )
+        else:
+            return self.dialog(
+                "Generated objects",
+                collection = all
+            )
 
 
 class Intrude( DevelopmentOnlyView ):

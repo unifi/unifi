@@ -11,7 +11,7 @@ $(document).ready( function() {
             type: "DELETE",
             url: "/student/wish/" + pk,
             success: function() {
-                container.css( "opacity", "0.1" );
+                container.fadeOut();
             },
             error: function() {
                 container.css( "border-color", "red" );
@@ -20,7 +20,7 @@ $(document).ready( function() {
     });
 
 
-    $(".group #leave").on( 'click', function( event ) {
+    $(".group .control#leave").on( 'click', function( event ) {
 
         // this allows a member to leave the group
         // the member is the user in the request
@@ -32,12 +32,13 @@ $(document).ready( function() {
             type: "DELETE",
             url: "/group/" + pk + "/member/",
             success: function() {
-                container.css( "opacity", "0.1" );
+                container.fadeOut();
             },
             error: function() {
                 container.css( "border-color", "red" );
             }
         });
     });
+    
 
 });
