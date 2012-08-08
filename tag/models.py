@@ -12,9 +12,9 @@ class Tag(models.Model):
     @param  name            the keyphrase or a keyword that constitutes this tag
     @param  score           a cached value that represents tag's popularity
                             just an attempt to oversaturate the model
-    @param  predefined      stands for tag's status: if False - the tag
+    @param  predefined      stands for tag's status, if False - the tag
                             was produced by a user, if True - the tag was
-                            predefined by the bucket administrator
+                            predefined by the administrator of the bucket
     """
     name = models.CharField( max_length=50, unique=True )
     score = models.DecimalField(

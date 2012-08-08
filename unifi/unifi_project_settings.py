@@ -1,7 +1,8 @@
 # UNIFI specific settings
 
-MAX_GROUP_SIZE = 6
-MIN_SCORE = 0.5 # (less == high likeness, more = low likeness)
+MAX_GROUP_SIZE = 3
+MAX_GROUP_SIZE = 3
+MIN_SCORE = 0.2 # (less == high likeness, more = low likeness)
 MAX_NUMBER_OF_TAGS = 5
 
 WHITESPACE_IN_TAG = True # [+] not integrated

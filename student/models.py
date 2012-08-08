@@ -2,6 +2,13 @@ from django.db import models
 from django.contrib.auth.models import User
 from tag.models import Tag
 
+# [/] for role integration
+# class Person(User):
+#     class Meta:
+#         proxy = True
+
+
+
 class Student(models.Model):
     """ Student
     Participates in group collaboration.

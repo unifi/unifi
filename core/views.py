@@ -1,5 +1,6 @@
 #!/usr/bin/env python2.7
-# -*- coding: utf8 -*- 
+# -*- coding: utf8 -*-
+from django.http import HttpResponse
 
 from django.shortcuts import render_to_response, redirect
 from django.template.context import RequestContext
@@ -7,6 +8,8 @@ from django.shortcuts import render_to_response, redirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.template.context import RequestContext
 import unifi
+
+
 
 
 class UnifiView:
@@ -23,7 +26,8 @@ class UnifiView:
             @param collection   a collection to be represented as a list in the
                                 dialog's unordered list part
         """
-        
+
+        # [!] try not to make any recursive calls here
         return render_to_response( "dialog.html", {
                 'title':    title,
                 'message':  message,
@@ -89,11 +93,27 @@ class DevelopmentOnlyView( UnifiView ):
 
     def deny( self ):
         return self.dialog(
-        
             title   = "Development is over. We're done. Everything is perfect.",
             message = "This page was restricted to the development phase."
-            
         )
-        
-    
+
+
+
+
+
+class ModelView( AccessRestrictedView ):
+    """
+    Please, don't use this.
+    """
+
+    def __init__( self, model=None ):
+        self.model = model
+
+    def allow( self, pk ):
+        if self.request.method == "DELETE":
+            try:
+                target = self.model.objects.get( pk=pk )
+                target.delete()
+            except ValueError, ObjectDoesNotExist:
+                return HttpResponse( status=404 )
 

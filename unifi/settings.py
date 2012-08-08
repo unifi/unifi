@@ -1,3 +1,5 @@
+# -*- coding: utf8 -*-
+
 from os.path import dirname, realpath, basename
 from database import DATABASES
 
@@ -127,6 +129,7 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'south',
     # model-specific applications
+    'actor',
     'student', # contains 'wish'
     'group',
     'oracle',
