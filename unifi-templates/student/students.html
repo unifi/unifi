@@ -3,7 +3,7 @@
 
 {% block students %}
 <div class="students">
-{% for student in students %}
+{% for student in students|dictsort:"username" %}
     {% include "student/student.html" %}
 {% endfor %}
 </div>

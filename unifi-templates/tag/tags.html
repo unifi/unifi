@@ -4,7 +4,7 @@
 
 {% block tags %}
 <div class="tags">
-{% for tag in tags %}
+{% for tag in tags|dictsort:"name" %}
     {% include "tag/tag.html" %}
 {% endfor %}
 </div>
