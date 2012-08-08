@@ -1,11 +1,10 @@
 # -*- coding: utf8 -*-
-from django.http import HttpResponse
+
 from unifi.management import GroupManager
-from django.shortcuts import render_to_response, redirect
-from django.core.exceptions import ObjectDoesNotExist
-from django.template.context import RequestContext
-from core.views import AccessRestrictedView
+from django.http import HttpResponse
 from group.models import Group
+from core.views import *
+from unifi.management import UserManager
 
 class Select( AccessRestrictedView ):
 
@@ -29,11 +28,65 @@ class Select( AccessRestrictedView ):
         return response
 
 
+
 class SelectMember( AccessRestrictedView ):
     """
-    Selects a member of a group
+    Selects a member of a group for operations.
+    Accessing the resource by this view allows you
+    to perform ReSTful-style like operations.
     """
-    pass
+    def allow( self, group_pk, member_pk ):
+
+        response = HttpResponse( status=200 )
+
+        try: # to find the objects
+            self.group = Group.objects.get( pk=group_pk )
+
+            if member_pk == "":
+                self.member = UserManager.getStudent(
+                    self.request.user.username
+                )
+            else:
+                self.member = self.group.students.get( pk=member_pk )
+
+            # considering the objects are found
+            if self.request.method == "GET":
+                response = self.get()
+            elif self.request.method == "DELETE":
+                response = self.delete()
+
+        except ObjectDoesNotExist, ValueError:
+            # objects not found, thus can be created
+            if self.request.method == "PUT":
+                response = self.put()
+            elif self.request.method == "POST":
+                response = self.post()
+
+        return response
+
+
+    def get( self ):
+        return HttpResponse( status=200 )
+
+
+    def delete( self ):
+        print self.member, self.group.students.all()
+        if self.member in self.group.students.all():
+            self.group.students.remove( self.member )
+            self.group.save()
+            return HttpResponse( status=200 )
+        else:
+            return HttpResponse( status=404 )
+
+    def post( self ):
+        return HttpResponse( status=403 )
+
+    def put( self ):
+        self.group.students.add( self.member )
+        self.group.save()
+        return HttpResponse( status=200 )
+
+
 
 class All( AccessRestrictedView ):
 

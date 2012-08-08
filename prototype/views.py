@@ -228,26 +228,15 @@ class Intrude( DevelopmentOnlyView ):
         if user is not None:
             auth.login( self.request, user )
 
-            out = render_to_response( "dialog.html", {
-                    "title": "Fast intrusion",
-                    "message": \
-                        "You were logged in as: %s, and now you are logged in as %s" \
-                        % (previous_username, username),
-                },
-                context_instance = RequestContext( self.request )
-            )
+            response = redirect( "/" )
 
         else:
-            out = render_to_response( "dialog.html", {
-                    "title": "Fast intrusion failed",
-                    "message": \
-                        "You are still logged in as: %s, user %s was not authenticated" \
-                        % (previous_username, username)
-                },
-                context_instance = RequestContext( self.request )
+            response = self.dialog( "Fast intrusion failed",
+                "You are still logged in as: %s, user %s was not authenticated" % \
+                    (previous_username, username)
             )
 
-        return out
+        return response
 
 class VisualIntrude( DevelopmentOnlyView ):
 
