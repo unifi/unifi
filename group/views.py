@@ -83,7 +83,7 @@ class SelectMember( AccessRestrictedView ):
 
             return HttpResponse( status=200 )
         else:
-            return HttpResponse( status=404 )
+            return HttpResponse( status=410 )
 
     def post( self ):
         return HttpResponse( status=501 )
