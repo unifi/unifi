@@ -1,5 +1,14 @@
 $(document).ready( function() {
 
+    $( ".float_menu").hide();
+
+    $( ".group").on( 'mouseenter', function( event ) {
+        $( "div.float_menu[pk=\"" + $(this).attr("pk") + "\"]").fadeIn();
+    });
+
+    $( ".group").on( 'mouseleave', function( event ) {
+        $( "div.float_menu[pk=\"" + $(this).attr("pk") + "\"]").fadeOut();
+    });
 
     $(".wish .control#delete").on( 'click', function( event ) {
 
@@ -25,7 +34,7 @@ $(document).ready( function() {
         // this allows a member to leave the group
         // the member is the user in the request
 
-        var pk = $(this).attr( "pk" );
+        var pk = $(this).parentNode.attr( "pk" );
         var container = $("div.group[pk=\"" + pk + "\"]");
 
         $.ajax({

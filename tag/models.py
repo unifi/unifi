@@ -23,9 +23,12 @@ class Tag(models.Model):
     predefined = models.BooleanField( default=False )
 
     def update_score( self ):
-        # [+] draft
         wish = student.models.Wish
-        self.score = wish.objects.filter( tags__in=[self] ).count()
+
+        count_in_wishes = wish.objects.filter( tags__in=[self] ).count()
+        count_total = Tag.objects.count()
+
+        self.score = count_in_wishes / float(count_total)
         self.save()
 
 
