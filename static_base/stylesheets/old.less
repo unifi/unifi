@@ -2,32 +2,19 @@
     Global style options
 */
 
-
-/* structural elements */
-@page-background-color:           white;
-@page-left-margin:                20%;
-
-@content-width:                   60%;
-@content-background-color:        white;
-@content-border-color:            rgba( 0, 0, 0, 0.5 );
-@content-border-thickness:        0.2em;
-
 @tag-background-color:            rgba(189, 47, 47, 1);
 @tag-font-color:                  white;
 @student-background-color:        rgba(50, 100, 200, 1);
 @student-font-color:              white;
-@group-background-color:          white;
-@group-font-color:                black;
 
 body {
     /* visuals */
     font-family: Arial, sans-serif;
-    background-color: @page-background-color;
+    background-color: rgb( 212, 212, 212 );
     background-image: url("http://subtlepatterns.com/patterns/lghtmesh.png");
 
     /* metrics */
-    padding: 1.5em 3em 1.5em 30%;
-    padding-left: @page-left-margin;
+    padding: 1.5em 3em 1.5em 10%;
 
     a {
         color: rgb( 192, 128, 64 );
@@ -62,16 +49,16 @@ body {
 
     .content {
         /* visuals */
-        border: @content-border-thickness solid @content-border-color;
-        background-color: @content-background-color;
-        /*-webkit-box-shadow: 0em 0.3em 0.3em 0.3em rgba( 0, 0, 0, 0.25 );*/
+        border: 0.5em solid rgba( 0, 0, 0, 0.25 );
+        background-color: rgba( 255, 255, 255, 0.75 );
+        -webkit-box-shadow: 0em 0.3em 0.3em 0.3em rgba( 0, 0, 0, 0.25 );
 
         /* metrics */
-        width: @content-width;
+        width: 60%;
         padding: 2em 3em 2em 2em;
         text-align: left;
-        -moz-border-radius: 0.2em;
-        border-radius: 0.2em;
+        -moz-border-radius: 0.3em;
+        border-radius: 0.3em;
     }
 }
 
@@ -423,6 +410,17 @@ body {
             cursor: pointer;
         }
 
+        .tag {
+            display: inline-block;
+            padding: 0.4em 0.4em 0.4em 0.4em;
+            margin: 0.15em;
+            border: none;
+            background-color: rgba(200, 100, 50, 1.0);
+            border-radius: 0.2em;
+            -moz-border-radius: 0.2em;
+            cursor: pointer;
+        }
+        
     }
 
     .column#group {

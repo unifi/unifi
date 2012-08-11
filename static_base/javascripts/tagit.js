@@ -374,6 +374,7 @@
             // Create tag.
             var tag = $('<li></li>')
                 .addClass('tagit-choice')
+                .addClass('tag')
                 .addClass(additionalClass)
                 .append(label);
 

@@ -7,6 +7,6 @@ urlpatterns = patterns( '',
     url( r'^$', views.MyView() ),
 
     # handlebars.js and RESTful-integration
-    url( r'^$', views.MyView() ),
+    url( r'^handlebars$', views.Handlebars() ),
 
 )

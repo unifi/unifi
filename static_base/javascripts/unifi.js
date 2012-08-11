@@ -1,10 +1,17 @@
 $(document).ready( function() {
 
-    $( ".float_menu").hide();
-
+    /* content view links */
     $(".tag").on( 'click', function( event ) {
         window.location.href = "/tag/" + $(this).attr("pk");
     });
+
+    $(".student").on( 'click', function( event ) {
+        window.location.href = "/student/" + $(this).attr("pk");
+    });
+
+
+
+    $( ".float_menu").hide();
 
     $( ".group").on( 'mouseenter', function( event ) {
         $( "div.float_menu[pk=\"" + $(this).attr("pk") + "\"]").fadeIn();

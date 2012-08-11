@@ -16,9 +16,7 @@ ul.tagit li.tagit-choice {
 
     /* custom */
     font-size: 1em;
-
     border: none;
-    background-color: rgba(200, 100, 50, 0.25);
     border-radius: 0.2em;
     -moz-border-radius: 0.2em;
     cursor: pointer;
