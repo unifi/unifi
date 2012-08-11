@@ -1,0 +1,33 @@
+{% comment %}
+{% endcomment %}
+
+{% include "header.html" %}
+
+<script>
+$(document).ready( function() {
+
+    $.get(
+        "/tag/?format=json",
+        function( context ) {
+            /* json dictionary is fetched */
+
+            context = { tags: context };
+
+            $.get(
+                "/static/javascripts/handlebars/templates/my/index.html",
+                function( source ) {
+                    /* template is fetched */
+                    var template = Handlebars.compile( source );
+                    var html = template( context );
+
+                    $(".content").append( html );
+                }
+            )
+        }
+    );
+});
+</script>
+
+
+
+{% include "footer.html" %} 

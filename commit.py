@@ -1,7 +1,7 @@
 from os import system, linesep
 
 # [+] add branch selection
-branch = "master"
+branch = "rest-framework-integration"
 
 system( "git add -u ." )
 

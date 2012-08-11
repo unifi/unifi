@@ -6,4 +6,7 @@ urlpatterns = patterns( '',
     # a personal front page belonging to each user's account
     url( r'^$', views.MyView() ),
 
+    # handlebars.js and RESTful-integration
+    url( r'^$', views.MyView() ),
+
 )

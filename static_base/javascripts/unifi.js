@@ -2,6 +2,10 @@ $(document).ready( function() {
 
     $( ".float_menu").hide();
 
+    $(".tag").on( 'click', function( event ) {
+        window.location.href = "/tag/" + $(this).attr("pk");
+    });
+
     $( ".group").on( 'mouseenter', function( event ) {
         $( "div.float_menu[pk=\"" + $(this).attr("pk") + "\"]").fadeIn();
     });

@@ -13,4 +13,3 @@ static/
 gen
 .vim
 *.db
-.pem

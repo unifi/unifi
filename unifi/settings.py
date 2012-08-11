@@ -128,6 +128,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'debug_toolbar',
     'south',
+    'djangorestframework',
     # model-specific applications
     'actor',
     'student', # contains 'wish'
