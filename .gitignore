@@ -1,4 +1,5 @@
 unifi/database.py
+unifi/security.py
 */migrations
 static/
 .DS_Store
@@ -12,3 +13,4 @@ static/
 gen
 .vim
 *.db
+.pem

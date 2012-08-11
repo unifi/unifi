@@ -33,7 +33,8 @@ class SelectWish( AccessRestrictedView ):
 
                 if wish.student.user == self.user:
                     # the user owns the object
-                    WishManager.deleteWish( wish )
+                    wish.is_active = False
+                    wish.save()
                 else:
                     # the user does not own the object
                     response = HttpResponse( status = 403 )

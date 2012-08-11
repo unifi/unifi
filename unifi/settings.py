@@ -14,7 +14,7 @@ PROJECT_ROOT = dirname(
 
 # TEMPLATE_DIRS = ( PROJECT_ROOT + '/templates', )
 
-TEMPLATE_DIRS = ( PROJECT_ROOT + '/unifi-templates', )
+TEMPLATE_DIRS = ( PROJECT_ROOT + '/templates/', )
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
