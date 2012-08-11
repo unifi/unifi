@@ -10,7 +10,7 @@ class TagResource(ModelResource):
         'id',
         'name',
         'score',
-        'predefined'
+        'is_predefined'
     )
     ordering = (
         'name',

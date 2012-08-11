@@ -23,7 +23,7 @@ class Tag( models.Model ):
         default="0.0"
     )
 
-    predefined = models.BooleanField( default=False )
+    is_predefined = models.BooleanField( default=False )
 
     def __unicode__(self):
         return self.name

@@ -29,7 +29,7 @@ class WishResource( ModelResource ):
             'student',
             StudentResource
         ),
-        'wish_date',
+        'since',
         'is_active',
         'tags',
     )

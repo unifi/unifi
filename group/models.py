@@ -13,7 +13,8 @@ class Group(models.Model):
     students         = models.ManyToManyField( Student, null=True )
     needs_assistance = models.BooleanField() # [/] rename
 
-    def tags(self):
+
+    def tags( self ):
         """
         Return group tags as a models.query.QuerySet
         """
