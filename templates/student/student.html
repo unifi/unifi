@@ -1,0 +1,10 @@
+{% comment %}
+{% endcomment %}
+
+{% block student %}
+ <div class="student" pk={{ student.pk }}>{{ student.username }}
+    {% if student.is_oracle %}
+    <span class="oracle_badge">O</span>
+    {% endif %}
+</div>
+{% endblock %}

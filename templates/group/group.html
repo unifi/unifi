@@ -1,0 +1,33 @@
+{% comment %}
+{% endcomment %}
+
+{% block group %}
+
+<div class="group" pk="{{ group.pk }}">
+    {% if controls %}
+    <!-- menu -->
+    <div class="controls">
+        <div class="control" id="inspect" pk="{{ group.pk }}">
+            <div class="ui-icon ui-icon-help" style="display: inline-block; overflow: auto;"></div>
+        </div>
+        <div class="control" id="leave" pk="{{ group.pk }}">
+            <div class="ui-icon ui-icon-close" style="display: inline-block; overflow: auto;"></div>
+        </div>
+    </div>
+    <!-- menu -->
+    <div class="menu" pk="{{ group.pk }}">
+        <span class="control" id="leave">Meld deg av</span>
+        <span class="control" id="inspect">Se på</span>
+        <span class="control" id="contact">Kontakt</span>
+        <span class="control" id="require_assistance">Be om hjelp</span>
+    </div>
+    {% endif %}
+
+    <div class="number">{{ group.pk }}</div>
+    <!-- users -->
+    {% include "student/students.html" with students=group.students.all %}
+    <!-- tags -->
+    {% include "tag/tags.html" with tags=group.tags  %}
+</div>
+
+{% endblock %}

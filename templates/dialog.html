@@ -1,0 +1,14 @@
+{% comment %}
+{% endcomment %}
+
+{% include "header.html" %}
+
+<h2>Response: {{ title }}</h2>
+{{ message }}
+<ul>
+{% for element in set %}
+    <li>{{ element }}</li>
+{% endfor %}
+</ul>
+
+{% include "footer.html" %}
