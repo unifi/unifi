@@ -5,8 +5,7 @@ from student.models import Wish, Student
 
 class Group(models.Model):
     """
-    Group
-    Student container.
+    Group. A student container.
     """
 
     wishes           = models.ManyToManyField( Wish )

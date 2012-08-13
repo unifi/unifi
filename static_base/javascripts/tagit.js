@@ -279,7 +279,7 @@
 				        .append(
                             "<a style=\"font-size: 0.9em; font-family: 'Arial', sans;\">" +
                             "<span class=\"tag\" style=\"opacity: " + 
-                            ( 1.6*element.score ) + 
+                            element.score +
                             ";\">" + 
                             element.value + 
                             "<span class=\"score\">" + 

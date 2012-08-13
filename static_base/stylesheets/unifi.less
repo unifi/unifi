@@ -5,9 +5,9 @@
 
 /* structural elements */
 @page-background-color:           white;
-@page-left-margin:                20%;
+@page-left-margin:                10%;
 
-@content-width:                   60%;
+@content-width:                   90%;
 @content-background-color:        white;
 @content-border-color:            rgba( 0, 0, 0, 0.5 );
 @content-border-thickness:        0.2em;
@@ -26,7 +26,7 @@ body {
     background-image: url("http://subtlepatterns.com/patterns/lghtmesh.png");
 
     /* metrics */
-    padding: 1.5em 3em 1.5em 30%;
+    padding: 1.5em 3em 1.5em @page-left-margin;
     padding-left: @page-left-margin;
 
     a {
@@ -122,6 +122,7 @@ body {
     padding: 0.4em 0.75em 0.4em 0.75em;
     border-radius: 0em 0.4em 0em 0.4em;
     -moz-border-radius: 0em 0.4em 0em 0.4em;
+    white-space: nowrap;
 }
 
 .wish {
@@ -131,6 +132,7 @@ body {
     margin: 0.5em;
     border: 0.08em dotted rgba( 0, 0, 0, 0.15 );
     position: relative;
+    background-color: white;
 
     .delete {
         width: 1.5em;
@@ -152,9 +154,12 @@ body {
     margin: 0.5em;
     padding: 0.75em 0.75em 0.75em 0.75em;
     padding-bottom: 4em;
-    border-radius: 0.2em;
-    -moz-border-radius: 0.2em;
-    border: 0.1em solid rgba( 0, 0, 0, 0.1 );
+    border-radius: 0.6em;
+    -moz-border-radius: 0.6em;
+    border: 0.08em solid rgba( 242,112,19, 0.5 );
+    border-left: 0.4em solid rgba( 242,112,19, 0.5 );
+    border-right: 0.4em solid rgba( 242,112,19, 0.5 );
+    background-color: white;
     position: relative;
     overflow: auto;
 
@@ -168,6 +173,45 @@ body {
         font-family: "Georgia", serif;
         font-weight: bold;
         color: rgba( 0, 0, 0, 0.1 );
+    }
+
+    .menu {
+        position: absolute;
+        bottom: 0em;
+        left: 0.75em;
+        background-color: rgba( 242,112,19, 0.5 );
+        color: white;
+        font-size: 1em;
+
+        border-radius: 0.5em 0.5em 0em 0em;
+        -moz-border-radius: 0.5em 0.5em 0em 0em;
+        padding: 0.8em;
+        width: 80%;
+        font-weight: bold;
+        white-space: nowrap;
+        cursor: pointer;
+
+        @distance-unit: 0.8em;
+
+        .control {
+
+            font-weight: normal;
+            border: 0.3em solid rgb( 242,112,19 );
+            border-radius: 0.5em;
+            -moz-border-radius: 0.5em;
+            font-size: 0.6em;
+            font-style: italic;
+            color: black;
+            background-color: white;
+            float: left;
+            padding: (@distance-unit / 2) @distance-unit (@distance-unit / 2) @distance-unit;
+            margin: 0.2em;
+        }
+
+        .control#leave {
+            float: right;
+        }
+
     }
 
 }
@@ -188,7 +232,7 @@ body {
     padding: 0.4em 0.4em 0.4em 0.4em;
     margin: 0.15em;
     border: none;
-
+    white-space: nowrap; /* important */
     background-color: @tag-background-color;
     color: @tag-font-color;
 
@@ -321,6 +365,7 @@ body {
     }
 
     .status {
+        width: 10em;
         position: fixed;
         text-align: center;
         top: 1em;
