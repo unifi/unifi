@@ -1,42 +1,66 @@
 $(document).ready( function() {
 
     $( ".menu" ).hide();
+    $( ".focus").hide();
 
     /* tag model */
     /* content view links */
     $(document).on( 'click', ".tag",  function( event ) {
-        window.location.href = "/tag/" + $(this).attr("pk");
+
     });
 
     /*
-        [!] fix the tag on-click, on-mouseover behavior for the elements inside
         the new-wish container: either by applying the handler just to elements
         outside, or by excluding the elements inside of the tagger
     */
 
+    var focusAnimationTime = 200;
+
+
+    function displayFocusProfile( target ) {
+        var model = target.attr( 'model' );
+        var pk = target.attr( 'pk' );
+        var uri = "/" + model + "/" + pk + "?format=json";
+
+        $.ajax({
+            type: "GET",
+            url: uri,
+            success: function() {},
+            error: function() {}
+        });
+    }
+
     /* highlighting */
-    $(document).on( 'mouseover', ".tag", function( event ) {
+    $(document).on( 'mouseover', ".tags .tag", function( event ) {
         $(this).fadeTo( 'slow', 0.75 );
+        /* element info via rest request */
+        $(".focus").html( $(this).clone() );
+        $(".focus").fadeIn( focusAnimationTime );
     });
 
-    $(document).on( 'mouseout', ".tag", function( event ) {
+    $(document).on( 'mouseout', ".tags .tag", function( event ) {
         $(this).fadeTo( 'fast', 1 );
+        /* reset focus state */
+        /* $(".focus").html( "" ); */
+        $(".focus").fadeOut( focusAnimationTime );
     });
 
 
     /* student model */
     /* content view links */
-    $(document).on( 'click', ".student", function( event ) {
-        window.location.href = "/student/" + $(this).attr("pk");
-    });
 
-    /* highlighting */
-    $(document).on( 'mouseover', ".student", function( event ) {
+    $(document).on( 'mouseover', ".students .student", function( event ) {
         $(this).fadeTo( 'slow', 0.75 );
+        /* element info via rest request */
+        $(".focus").html( $(this).clone() );
+        $(".focus").fadeIn( focusAnimationTime );
     });
 
-    $(document).on( 'mouseout', ".student", function( event ) {
+    $(document).on( 'mouseout', ".students .student", function( event ) {
         $(this).fadeTo( 'fast', 1 );
+        /* reset focus state */
+        /* $(".focus").html( "" ); */
+        $(".focus").fadeOut( focusAnimationTime );
     });
 
     $(document).on( 'mouseenter', ".group", function( event ) {
