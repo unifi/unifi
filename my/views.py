@@ -62,10 +62,10 @@ class Handlebars( AccessRestrictedView ):
 
     def allow( self ):
 
-                return render_to_response( "my/handlebars.html", {
-                        "title":                "UNIFI",
-                    },
-                    context_instance = RequestContext( self.request )
-                )
+        return render_to_response( "my/handlebars.html", {
+                "title":                "UNIFI",
+            },
+            context_instance = RequestContext( self.request )
+        )
 
 
