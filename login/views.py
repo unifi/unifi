@@ -2,6 +2,7 @@
 
 from django.shortcuts import redirect
 from core.views import AccessRestrictedView
+from django.contrib import auth
 
 class Gateway( AccessRestrictedView ):
     """
@@ -17,3 +18,13 @@ class Gateway( AccessRestrictedView ):
 
     def allow( self ):
         return redirect( "/my" )
+
+
+class Leave( AccessRestrictedView ):
+
+    def allow( self ):
+        """
+        A silent logout routine
+        """
+        auth.logout( self.request )
+        return redirect( "/" )

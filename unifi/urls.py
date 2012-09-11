@@ -2,8 +2,6 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from login.views import Gateway
 
-
-
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -22,7 +20,7 @@ urlpatterns = patterns('',
     # inclusive applications
     # url( r'^communication/',       include('communication.urls')),
 
-    # url( r'^login/',               include('login.urls')),
+    url( r'^login/',               include('login.urls')),
     # url(
     #    r'^oracle/',
     #    include('oracle.urls'),
@@ -38,11 +36,11 @@ urlpatterns = patterns('',
         include('tag.urls'),
         name="tag"
     ),
-    url(
-        r'^prototype/',
-        include('prototype.urls'),
-        name="prototype"
-    ),
+    # url(
+    #     r'^prototype/',
+    #     include('prototype.urls'),
+    #     name="prototype"
+    # ),
     url(
         r'^match/',
         include('match.urls'),

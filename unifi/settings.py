@@ -129,8 +129,6 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'south',
     'djangorestframework',
-    'registration',
-    'invitation',
     # model-specific applications
     'actor',
     'student', # contains 'wish'
@@ -139,7 +137,7 @@ INSTALLED_APPS = (
     'tag',
     # control-specific applications
     'match',
-    'prototype',
+    # 'prototype',
     'util',
     # 'util' candidates
         'login',
@@ -201,3 +199,14 @@ LOGGING = {
 # Use console backend for testing
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+
+# Registration credentials
+ACCOUNT_ACTIVATION_DAYS = 7
+# EMAIL_HOST = 'localhost'
+# EMAIL_PORT = 1023
+# EMAIL_HOST_USER = 'username'
+# EMAIL_HOST_PASSWORD = 'password'
+
+# Invitation settings
+ACCOUNT_INVITATION_DAYS = 7
+INVITATIONS_PER_USER = 1
