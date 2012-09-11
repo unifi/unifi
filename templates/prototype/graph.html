@@ -48,7 +48,7 @@
         var layouter = new Graph.Layout.Spring(g);
         layouter.layout();
         var renderer = new Graph.Renderer.Raphael(
-            'canvas', g, 800, ( {{ data.groups }} * 55 + 100 )
+            'canvas', g, 500, ( {{ data.groups }} * 55 + 100 )
         );
         renderer.draw();
 

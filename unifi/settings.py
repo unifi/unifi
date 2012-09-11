@@ -129,6 +129,7 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'south',
     'djangorestframework',
+    'django_extensions',
     # model-specific applications
     'actor',
     'student', # contains 'wish'

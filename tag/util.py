@@ -36,7 +36,10 @@ class TagDistribution():
         output = []
 
         # normalizes the score
-        max_tag_score = max( self.tag_dict.values() )
+        if len( self.tag_dict.values() ):
+            max_tag_score = max( self.tag_dict.values() )
+        else: # if the tagset is empty
+            max_tag_score = 0.0
 
         for k,v in self.tag_dict.items():
             key = k.name
