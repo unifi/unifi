@@ -21,7 +21,7 @@ $(document).ready( function() {
             */
             context = { tags: context };
             $.get(
-                "/static/javascripts/handlebars/templates/my/index.html",
+                "{{ STATIC_URL }}javascripts/handlebars/templates/my/index.html",
                 function( source ) {
                     var template = Handlebars.compile( source );
                     var markup = template( context );

@@ -1,4 +1,4 @@
-import pylab
+# import pylab
 import networkx as nx
 import time
 
@@ -27,12 +27,12 @@ class Matcher:
         Draw a "nice" visualization of a graph with matplotlib
         """
 
-        pos=nx.spring_layout(self.graph, scale=10)
-        pylab.figure(10, figsize=(13,12))
-        nx.draw(self.graph,pos, font_size=20)
-        edge_labels=dict([((u,v,),d['weight']) for u,v,d in self.graph.edges(data=True)])
-        nx.draw_networkx_edge_labels(self.graph,pos,edge_labels=edge_labels)
-        pylab.show()
+        #pos=nx.spring_layout(self.graph, scale=10)
+        #pylab.figure(10, figsize=(13,12))
+        #nx.draw(self.graph,pos, font_size=20)
+        #edge_labels=dict([((u,v,),d['weight']) for u,v,d in self.graph.edges(data=True)])
+        #nx.draw_networkx_edge_labels(self.graph,pos,edge_labels=edge_labels)
+        #pylab.show()
 
     def gettime(self):
         """

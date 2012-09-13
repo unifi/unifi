@@ -3,6 +3,10 @@ from login import views
 
 urlpatterns = patterns('',
     url(
+        r'^enter/$',
+        views.Login()
+    ),
+    url(
         r'^gateway/$',
         views.Gateway()
     ),

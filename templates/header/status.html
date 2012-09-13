@@ -6,12 +6,20 @@
 
 
 {% block status %}
+{% if user.is_authenticated %}
 <div class="bar">
     <div class="status">
-        {% if user.is_authenticated %}
         <div><span class="student" pk="{{ user.pk }}">{{ user }}</span></div>
-        <a href="/my"><img class="portrait" src="/static/images/users/{{ user.pk }}.png" alt="" /></a>
-        {% endif %}
+        <a href="/my"><img class="portrait" src="{{ STATIC_URL }}images/users/{{ user.pk }}.png" alt="" /></a>
     </div>
 </div>
+{% else %}
+<div class="bar">
+    <form method="POST" action="/login/enter/">{% csrf_token %}
+        <div><input type="text" name="username" /></div>
+        <div><input type="password" name="password" /></div>
+        <div><input type="submit" /></div>
+    </form>
+</div>
+{% endif %}
 {% endblock %}

@@ -1,6 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from login.views import Gateway
+from django.views.generic import RedirectView
 
 admin.autodiscover()
 

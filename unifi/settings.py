@@ -14,14 +14,13 @@ PROJECT_ROOT = dirname(
 
 # TEMPLATE_DIRS = ( PROJECT_ROOT + '/templates', )
 
-TEMPLATE_DIRS = ( PROJECT_ROOT + '/templates/', )
+TEMPLATE_DIRS = (
+    "/home/ilyakh/webapps/unifi/myproject/templates/",
 
-# Absolute path to the directory static files should be collected to.
-# Don't put anything in this directory yourself; store your static files
-# in apps' "static/" subdirectories and in STATICFILES_DIRS.
-# Example: "/home/media/media.lawrence.com/static/"
-# Use PROJECT_ROOT if you store the target files in the project folder.
-STATIC_ROOT = PROJECT_ROOT + '/static/'
+)
+# ( PROJECT_ROOT + '/templates/', )
+
+
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -29,7 +28,8 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     # Use PROJECT_ROOT if you store the target files in the project folder.
-    PROJECT_ROOT + "/static_base/",
+    #PROJECT_ROOT + "/static_base/",
+    "/home/ilyakh/webapps/unifi/myproject/static_base/",
 )
 
 if DEBUG: # Load reduction measure
@@ -78,8 +78,17 @@ MEDIA_ROOT = ''
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
 MEDIA_URL = ''
 
+# Absolute path to the directory static files should be collected to.
+# Don't put anything in this directory yourself; store your static files
+# in apps' "static/" subdirectories and in STATICFILES_DIRS.
+# Example: "/home/media/media.lawrence.com/static/"
+# Use PROJECT_ROOT if you store the target files in the project folder.
+STATIC_ROOT = '/home/ilyakh/webapps/unifi_static/'
+# PROJECT_ROOT + '/static/'
+
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
+# STATIC_URL = '/static/'
 STATIC_URL = '/static/'
 
 # List of finder classes that know how to find static files in
@@ -105,8 +114,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',    
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
@@ -126,8 +135,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.admindocs',
-    'debug_toolbar',
-    'south',
+    # 'debug_toolbar',
+    # 'south',
     'djangorestframework',
     # model-specific applications
     'actor',

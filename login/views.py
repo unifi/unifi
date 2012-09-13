@@ -1,7 +1,7 @@
 # -*- coding: utf8 -*-
 
 from django.shortcuts import redirect
-from core.views import AccessRestrictedView
+from core.views import AccessRestrictedView, UnifiView
 from django.contrib import auth
 
 class Gateway( AccessRestrictedView ):
@@ -28,3 +28,20 @@ class Leave( AccessRestrictedView ):
         """
         auth.logout( self.request )
         return redirect( "/" )
+
+class Login( AccessRestrictedView ):
+
+    def allow( self ):
+        return redirect( "/" )
+
+    def deny( self ):
+        username = self.request.POST.get( "username" )
+        password = self.request.POST.get( "password" )
+
+        user = auth.authenticate( username=username, password=password )
+
+        if user:
+            auth.login( self.request, user )
+
+        return redirect( "/" )
+
