@@ -129,7 +129,8 @@ class Generate( DevelopmentOnlyView ):
             from generators import \
                 StudentGenerator, \
                 WordTagGenerator, \
-                WishGenerator
+                WishGenerator, \
+                SubjectTagGenerator
 
             quantity, location, options = {}, {}, {}
             options['wish'] = {}
@@ -162,7 +163,7 @@ class Generate( DevelopmentOnlyView ):
                 students = [s.strip() for s in students]
 
             if quantity['tag'] > 0:
-                tags = ( WordTagGenerator() ).generate( quantity['tag'] )
+                tags = ( SubjectTagGenerator() ).generate( quantity['tag'] )
                 with open( location['tag'], "w" ) as output:
                     output.write( "\n".join(tags) )
             else:
