@@ -72,7 +72,7 @@ class Handlebars( AccessRestrictedView ):
 
 
 
-class Wishes( AccessRestrictedView ):
+class WishView( AccessRestrictedView ):
 
     def allow( self ):
 
