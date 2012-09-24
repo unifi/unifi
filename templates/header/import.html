@@ -1,0 +1,43 @@
+{% comment %}
+    Contains import-statements for javascript, css, less.
+
+    @param  graph   imports graph-drawing facilities
+{% endcomment %}
+
+{% block import %}
+
+    <!-- other stylesheets -->
+    <link href="{{ STATIC_URL }}stylesheets/jquery-ui.custom.css" type="text/css" rel="stylesheet" />
+    <link href="{{ STATIC_URL }}stylesheets/tagit.css" type="text/css" rel="stylesheet" />
+
+    <!-- less stylesheets (must be loaded prior to the less.js script!) -->
+    <link href="{{ STATIC_URL }}stylesheets/unifi.less" rel="stylesheet/less" type="text/css" />
+    <link href="{{ STATIC_URL }}stylesheets/my.less" rel="stylesheet/less" type="text/css" />
+
+    <!-- less.js scripts -->
+    <script src="{{ STATIC_URL }}javascripts/less.min.js"></script>
+
+    <!-- other libraries -->
+    <script src="{{ STATIC_URL }}javascripts/jquery.min.js"></script>
+    <script src="{{ STATIC_URL }}javascripts/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ STATIC_URL }}javascripts/handlebars/handlebars.js"></script>
+    <script src="{{ STATIC_URL }}javascripts/tagit.js" type="text/javascript" charset="utf-8"></script>
+
+
+    {% if graph %}
+        <!-- dracula dependencies -->
+        <script src="{{ STATIC_URL }}javascripts/dracula/Curry-1.0.1.js"></script>
+        <script src="{{ STATIC_URL }}javascripts/dracula/raphael-min.js"></script>
+        <script src="{{ STATIC_URL }}javascripts/dracula/dracula_graffle.js"></script>
+        <script src="{{ STATIC_URL }}javascripts/dracula/seedrandom.js"></script>
+        <script src="{{ STATIC_URL }}javascripts/dracula/dracula_graph.js"></script>
+        <script src="{{ STATIC_URL }}javascripts/dracula/dracula_algorithms.js"></script>
+    {% endif %}
+
+    <!-- project specific scripts -->
+    <script src="{{ STATIC_URL }}javascripts/django-csrf.js"></script>
+    <script src="{{ STATIC_URL }}javascripts/unifi.js"></script>
+
+
+
+{% endblock %}

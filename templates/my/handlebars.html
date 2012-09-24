@@ -1,0 +1,39 @@
+{% comment %}
+    As the handlebars.js templates are ought to be precompiled and served via
+    static, avoiding the django's native templating.
+
+    This is a temporary development-phase solution to integrate the
+    templates into dynamic pages like my/index.
+
+{% endcomment %}
+
+{% include "header.html" %}
+
+<script>
+$(document).ready( function() {
+    /* Fetches the page-context in json */
+    $.get(
+        "/tag/?format=json",
+        function( context ) {
+            /*
+                Fetches the template from static repository.
+                This bypasses the native templating.
+            */
+            context = { tags: context };
+            $.get(
+                "{{ STATIC_URL }}javascripts/handlebars/templates/my/index.html",
+                function( source ) {
+                    var template = Handlebars.compile( source );
+                    var markup = template( context );
+
+                    $(".content").append( markup );
+                }
+            )
+        }
+    );
+});
+</script>
+
+
+
+{% include "footer.html" %} 

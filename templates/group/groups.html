@@ -1,0 +1,12 @@
+{% comment %}
+{% endcomment %}
+
+
+
+{% block groups %}
+<div class="groups">
+{% for group in groups|dictsort:"pk" %}
+    {% include "group/group.html" %}
+{% endfor %}
+</div>
+{% endblock %}

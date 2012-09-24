@@ -1,0 +1,65 @@
+{% comment %}
+{% endcomment %}
+
+{% include "header.html" with graph="True" %}
+
+<h1>Relasjonene</h1>
+
+<div class="graph" id="canvas">
+    <script>
+        var g = new Graph();
+
+        var render = function(r, n) {
+            var set = r.set()
+                .push(
+                    r.rect(
+                        n.point[0]-30, n.point[1]-13, 60, 44)
+                            .attr( {
+                                "fill":         "#DDCCAA",
+                                r:              "5px",
+                                "stroke-width": "2px",
+                            } )
+                    )
+                    .push(
+                        r.text(
+                            n.point[0], n.point[1] + 10,
+                            (n.label || n.id) + "\n(" + n.quantity + ")\n" + n.tags
+                        )
+                    );
+            return set;
+        };
+
+        {% for group in groups %}
+        g.addNode( "{{ group.pk }}",
+            {
+                label: "{{ group.pk }}",
+                quantity: {{ group.students.count }},
+                tags: "",
+                render: render
+            }
+        );
+        {% for student in group.students.all %}
+            g.addEdge( "{{ student.username }}", "{{ group.pk }}",
+                { label: "{{ group.pk }}" }
+            );
+        {% endfor %}
+        {% endfor %}
+
+        var layouter = new Graph.Layout.Spring(g);
+        layouter.layout();
+        var renderer = new Graph.Renderer.Raphael(
+            'canvas', g, 800, ( {{ data.groups }} * 55 + 100 )
+        );
+        renderer.draw();
+
+    </script>
+</div>
+<!-- ... -->
+
+<table>
+{% for element in data.items %}
+<tr><td style="text-align: right;">{{ element.1 }}</td><td>{{ element.0 }}</td></tr>
+{% endfor %}
+</table>
+
+{% include "footer.html" %}

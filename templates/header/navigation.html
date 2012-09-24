@@ -1,0 +1,15 @@
+{% comment %}
+{% endcomment %}
+
+{% block navigation %}
+{% if user.is_authenticated %}
+<div class="bar">
+    <div class="navigation">
+        <!-- group -->
+        <a class="button" href="/group/all">Groups</a>
+        <!-- prototype -->
+        <a class="button" href="/login/leave/">Leave</a>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

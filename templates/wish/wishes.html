@@ -1,0 +1,13 @@
+{% comment %}
+{% endcomment %}
+
+{% block students %}
+<div class="wishes">
+
+{% for wish in wishes|dictsortreversed:"since" %}
+    {% if wish.is_active %}
+    {% include "wish/wish.html" %}
+    {% endif %}
+{% endfor %}
+</div>
+{% endblock %}

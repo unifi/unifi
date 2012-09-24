@@ -1,0 +1,10 @@
+{% comment %}
+{% endcomment %}
+
+{% block navigation %}
+{% if user.is_authenticated %}
+<div class="bar">
+    <div class="focus"></div>
+</div>
+{% endif %}
+{% endblock %}

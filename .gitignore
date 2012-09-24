@@ -1,0 +1,15 @@
+unifi/database.py
+unifi/security.py
+*/migrations
+static/
+.DS_Store
+*.pyc
+*/*.pyc
+.*.swp
+.*.swo
+*~
+*.tmp
+.idea
+gen
+.vim
+*.db
