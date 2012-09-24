@@ -80,6 +80,7 @@ class WishView( AccessRestrictedView ):
         wishes = Wish.objects.filter( student=student )
 
         return render_to_response( "wish/my.html", {
+                "title": "Yaaay",
                 "wishes": wishes
             },
             context_instance = RequestContext( self.request )
