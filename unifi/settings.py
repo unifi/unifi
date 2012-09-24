@@ -141,7 +141,6 @@ INSTALLED_APPS = (
     'djangorestframework',
     'django_extensions',
     # model-specific applications
-    'actor',
     'student', # contains 'wish'
     'group',
     'oracle',
