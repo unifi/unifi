@@ -11,8 +11,6 @@ from unifi.unifi_project_settings import MAX_NUMBER_OF_TAGS
 
 
 
-
-
 class SelectWish( AccessRestrictedView ):
     
     def allow( self, pk ):

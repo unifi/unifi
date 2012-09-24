@@ -6,6 +6,7 @@ from core.views import AccessRestrictedView
 from unifi.management import UserManager
 from group.models import Group
 from student.models import *
+from unifi.management import UserManager
 
 
 from django import template
@@ -69,3 +70,17 @@ class Handlebars( AccessRestrictedView ):
         )
 
 
+
+
+class Wishes( AccessRestrictedView ):
+
+    def allow( self ):
+
+        student = UserManager.getStudent( self.user )
+        wishes = Wish.objects.filter( student=student )
+
+        return render_to_response( "wish/wishes.html", {
+                "wishes": wishes
+            },
+            context_instance = RequestContext( self.request )
+        )

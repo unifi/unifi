@@ -54,7 +54,6 @@ urlpatterns = patterns( '',
         views.CreateWish()
     ),
 
-
 )
 
 
