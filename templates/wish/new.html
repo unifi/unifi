@@ -1,11 +1,11 @@
 {% comment %}
+    The instance template of the taggit-ui element that allows users to
+    fill out tags for the new Wishes.
 {% endcomment %}
 
 {% block new %}
 <div class="new_wish">
-
     <script type="text/javascript">
-
         $(document).ready(
             $.get( 
                 url='/tag/distribution/?format=json',
@@ -17,8 +17,8 @@
                         itemName: "user",
                         tabIndex: 1
                     })
-            })
-        , "json" );
+            }),
+        "json" );
     </script>
 
     <form action="/student/wish/create" method="POST" class="tagit_form">
@@ -28,6 +28,5 @@
         </ul>
         <input class="post" type="submit" value="Send inn!" tabindex="2" />
     </form>
-
 </div>
 {% endblock %}

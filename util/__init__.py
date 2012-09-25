@@ -1,3 +1,6 @@
+#!/usr/bin/env python2.7
+# -*- coding: utf8 -*-
+
 from django.db.models import get_models
 
 def get_project_models():
@@ -32,7 +35,6 @@ def get_project_models_dict():
         output[model.__name__.lower()] = model
 
     return output
-
 
 
 models = get_project_models_dict()

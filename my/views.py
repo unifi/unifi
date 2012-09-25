@@ -69,14 +69,41 @@ class Handlebars( AccessRestrictedView ):
             context_instance = RequestContext( self.request )
         )
 
-
-
-
 class WishView( AccessRestrictedView ):
 
     def allow( self ):
 
-        student = UserManager.getStudent( self.user )
+        student = Student.objects.get( user=self.user )
         wishes = Wish.objects.filter( student=student )
 
-        return self.dialog( message="Test %s" % len(wishes) )
+        return render_to_response( "wish/wishes.html", {
+                "wishes": wishes,
+                "delete": 1
+            },
+            context_instance = RequestContext( self.request )
+        )
+
+class GroupView( AccessRestrictedView ):
+
+    def allow( self ):
+
+        student = Student.objects.get( user=self.user )
+        groups = Group.objects.filter( students__in=[student] )
+
+        return render_to_response( "group/groups.html", {
+                "groups": groups,
+                "controls": 1
+            },
+            context_instance = RequestContext( self.request )
+        )
+
+class AssistanceView( AccessRestrictedView ):
+
+    def allow( self ):
+        groups = Group.objects.filter( needs_assistance=True )
+
+        return render_to_response( "group/groups.html", {
+                "groups": groups,
+            },
+            context_instance = RequestContext( self.request )
+        )

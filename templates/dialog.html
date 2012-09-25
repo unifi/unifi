@@ -1,14 +1,26 @@
+{% extends "base.html" %}
+
 {% comment %}
+    A default general purpose template for styled output of data
+    for development and testing purposes. Has its own method in the
+    UnifiView-class and takes three parameters:
+
+    @param title    the title of the page to be used inside of title-tag
+    @param message  the message this view is supposed to convey
+    @param set      the collection that this view shall represent as
+                    an unordered list
 {% endcomment %}
 
-{% include "header.html" %}
+{% block content %}
 
 <h2>Response: {{ title }}</h2>
-{{ message }}
+
+<div>{{ message }}</div>
+
 <ul>
-{% for element in set %}
-    <li>{{ element }}</li>
-{% endfor %}
+    {% for element in set %}
+        <li>{{ element }}</li>
+    {% endfor %}
 </ul>
 
-{% include "footer.html" %}
+{% endblock %}

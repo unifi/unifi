@@ -10,7 +10,7 @@ class Group(models.Model):
 
     wishes           = models.ManyToManyField( Wish )
     students         = models.ManyToManyField( Student, null=True )
-    needs_assistance = models.BooleanField() # [/] rename
+    needs_assistance = models.BooleanField()
 
 
     def tags( self ):

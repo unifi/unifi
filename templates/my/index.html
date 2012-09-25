@@ -1,59 +1,40 @@
+{% extends "base.html" %}
+
 {% comment %}
 {% endcomment %}
 
-{% include "header.html" %}
-
+{% block content %}
 <div class="column_container">
-    <div class="logo"><span style="color: rgba(192, 0, 0, 0.75);">UN</span>IFI</div>
-    <div class="greeting">
-        Velkommen tilbake, test
-        <span style="font-style: italic;">{{ user.username }}</span>!
-        Hva har du lyst å samarbeide om?
-    </div>
+
     <div class="column" id="tagit">
-        <div class="title">Nytt ønske</div>
+        <h3>Nytt ønske</h3>
         {% include "wish/new.html" %}
     </div>
 
-
-
     <!-- wishes -->
-    <div class="column" id="wish">
-        <div class="title">Dine ønsker
-            {% if wishes|length == 0 %}
-            <span class="count">ingen</span>
-            {% else %}
-            <span class="count">{{ wishes|length }}</span>
-            {% endif %}
-        </div>
-        {% include "wish/wishes.html" with delete="True" %}
+    <div class="column">
+        <h3>Dine ønsker</h3>
+        <div id="wishes"></div>
     </div>
     <!-- ... -->
 
     <!-- groups -->
-    <div class="column" id="group">
-        <div class="title">Dine grupper
-            {% if groups|length == 0 %}
-            <span class="count">ingen</span>
-            {% else %}
-            <span class="count">{{ groups|length }}</span>
-            {% endif %}
-        </div>
-        {% include "group/groups.html" with controls="True" %}
+    <div class="column">
+        <h3>Grupper</h3>
+        <div id="groups"></div>
     </div>
     <!-- ... -->
-    
-    <div class="column" id="oracle">
-    {% with is_oracle="1" %}
-    {% if is_oracle %}
-        <div class="title">Gruppene som trenger hjelp</div>
-        {% include "group/groups.html" with groups=assistance_groups %}
-    {% else %}
-        <h3>Du har ikke orakelstatus i systemet</h3>
-    {% endif %}
-    {% endwith %}
+
+    <!-- assist -->
+    <div class="column">
+        <h3>Hjelp</h3>
+        <div class="assistance_search">
+            <input type="text" id="assistance_search" />
+            <div class="filter"></div>
+        </div>
+        <div id="assistance"></div>
     </div>
+    <!-- ... -->
 
 </div>
-
-{% include "footer.html" %} 
+{% endblock %}

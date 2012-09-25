@@ -3,7 +3,7 @@
 
 {% block students %}
 <div class="wishes">
-
+{{ message }}
 {% for wish in wishes|dictsortreversed:"since" %}
     {% if wish.is_active %}
     {% include "wish/wish.html" %}
