@@ -38,7 +38,7 @@ class SelectWish( AccessRestrictedView ):
 
         except ObjectDoesNotExist, ValueError:
             # the corresponding object with a given pk is not found
-            response = HttpResponse( status = 404 );
+            response = HttpResponse( status = 404 )
 
         return response
 
