@@ -7,7 +7,6 @@ from unifi.management import WishManager
 from core.views import AccessRestrictedView
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render_to_response, redirect
-from unifi.unifi_project_settings import MAX_NUMBER_OF_TAGS
 
 
 
@@ -52,20 +51,22 @@ class CreateWish( AccessRestrictedView ):
         # [/] use self.error method
         result = redirect( "/" )
 
-        tag_list =  self.request.POST.getlist('user[tags][]')
-        tag_list = [ t.encode("utf8") for t in tag_list ]
-        tag_list = [ t.lower() for t in tag_list ]
+        tags =  self.request.POST.getlist('user[tags][]')
+        tags = [ t.encode("utf8") for t in tags ]
+        tags = [ t.lower() for t in tags ]
 
-        if not len( tag_list ):
+        MAX_NUMBER_OF_TAGS = 5
+
+        if not len( tags ):
             result =  self.dialog( "Error", "No tags given" )
 
-        elif len( tag_list ) > MAX_NUMBER_OF_TAGS:
+        elif len( tags ) > MAX_NUMBER_OF_TAGS:
             result = self.dialog( "Error",
                 "Your wish contains too many tags. Specify max %d tags." % \
                 MAX_NUMBER_OF_TAGS
             )
 
-        courses = WishDispatcher.extract_course_tag( tag_list )
+        courses = WishDispatcher.extract_course_tag( tags )
 
         if len( courses ) > 1:
             result = self.dialog( "Error", "Please specify a course" )
@@ -74,7 +75,7 @@ class CreateWish( AccessRestrictedView ):
         user = UserManager.getStudent( self.request.user.username )
         WishManager.addWish(
             user,
-            tag_list,
+            tags,
             courses
         )
 

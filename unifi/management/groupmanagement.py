@@ -4,7 +4,6 @@
     The unifi API
 """
 from student.models import Student, Wish
-from oracle.models import Oracle
 from tag.models import Tag
 from group.models import Group
 from usermanagement import UserManagement
@@ -17,13 +16,12 @@ class GroupManagement:
     def __init__(self):
         self.user_management = UserManagement()
 
-    def addGroup(self, wishes=[], students=[], oracle=None):
+    def addGroup(self, wishes=[], students=[]):
         # [-] remove mutable values
         """
             Create a new group
             @param tags: the group tags
             @param students: the students belonging to this group
-            @param oracle: the oracle tutoring this group
         """
         group = Group()
         group.save()
@@ -35,31 +33,7 @@ class GroupManagement:
             if student is not None:
                 group.students.add(student)
 
-        if oracle is not None:
-            group.oracle = oracle
-
         return group
-
-    def setOracle(self, oracle, group):
-        """
-            Assign an oracle to this group
-            @param oracle: the oracle
-            @param group: the group
-        """
-        try:
-            group.oracle = oracle
-        except: # Pokemon exception handling!
-            # It's super effective!
-            pass
-
-    def getOracle(self, group):
-        """
-            Get a groups oracle
-            @param group: the group
-            @return: the oracle
-        """
-
-        return group.oracle
 
     def getStudents(self, group):
         """

@@ -1,10 +1,11 @@
 #!/usr/bin/env python2.7
+
 from match.algorithms.WishDispatcher import *
 from multiprocessing import Process, Pool
 from threading import Thread
-from unifi.unifi_project_settings import MAX_GROUP_SIZE, MIN_SCORE
 
-
+MAX_GROUP_SIZE = 2
+MIN_SCORE = 0.5 # (less == high likeness, more = low likeness)
 
 WishDispatcher = WishDispatcher( MAX_GROUP_SIZE, MIN_SCORE )
 

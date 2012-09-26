@@ -6,15 +6,13 @@
 <div class="wish" pk="{{ wish.pk }}">
     <div class="tags">
     {% include "tag/tags.html" with tags=wish.tags.all %}
+    </div>
     <!-- menu -->
     {% if delete %}
-    <div class="controls">
-        <div class="control" id="delete" pk="{{ wish.pk }}">
-            <div class="ui-icon ui-icon-trash" style="display: inline-block; overflow: auto;">x</div>
-        </div>
+    <div class="actions">
+        <button id="delete" pk="{{ wish.pk }}" class="close">&times;</button>
     </div>
     {% endif %}
     <!-- menu -->
-    </div>
 </div>
 {% endblock %}

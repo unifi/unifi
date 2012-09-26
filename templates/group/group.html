@@ -6,22 +6,25 @@
 <div class="group" pk="{{ group.pk }}">
     {% if controls %}
     <!-- menu -->
-    <div class="controls">
-        <div class="control" id="inspect" pk="{{ group.pk }}">
-            <div class="ui-icon ui-icon-help" style="display: inline-block; overflow: auto;"></div>
-        </div>
-        <div class="control" id="leave" pk="{{ group.pk }}">
-            <div class="ui-icon ui-icon-close" style="display: inline-block; overflow: auto;"></div>
-        </div>
-    </div>
-    <!-- menu -->
     <div class="menu" pk="{{ group.pk }}">
-        <span class="control" id="leave">Meld deg av</span>
-        <span class="control" id="inspect">Se på</span>
-        <span class="control" id="contact">Kontakt</span>
-        <span class="control" id="require_assistance">Hjelp!</span>
+        <div class="btn-toolbar">
+            <div class="btn-group dropup">
+                <button class="btn btn-mini">Endre</button>
+                <button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a id="inspect"><i class="icon-eye-open pull-right"></i>Se på</a></li>
+                    <li><a id="contact"><i class="icon-envelope pull-right"></i>Kontakt</a></li>
+                    <li><a id="require_assistance"><i class="icon-question-sign pull-right"></i>Hjelp</a></li>
+                </ul>
+            </div>
+            <button class="btn btn-warning btn-mini pull-right" id="leave">Meld deg av</button>
+        </div>
     </div>
     {% endif %}
+
+
 
     <div class="number">{{ group.pk }}</div>
     <!-- users -->

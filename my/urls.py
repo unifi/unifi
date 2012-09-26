@@ -9,6 +9,9 @@ urlpatterns = patterns( '',
     # handlebars.js and RESTful-integration
     url( r'^handlebars$', views.Handlebars() ),
 
+    # model-specific views
     url( r'^wish/', views.WishView() ),
+    url( r'^group/', views.GroupView() ),
+    url( r'^assistance/', views.AssistanceView() ),
 
 )

@@ -1,7 +1,12 @@
+{% extends "base.html" %}
+
 {% comment %}
 {% endcomment %}
 
-{% include "header.html" with graph="True" %}
+{% with graph="True" %}
+
+{% block content %}
+
 
 <h1>Relasjonene</h1>
 
@@ -62,4 +67,6 @@
 {% endfor %}
 </table>
 
-{% include "footer.html" %}
+{% endblock %}
+
+{% endwith %}

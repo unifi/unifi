@@ -136,14 +136,12 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'django.contrib.admindocs',
-    # 'debug_toolbar',
-    # 'south',
+    'debug_toolbar',
     'djangorestframework',
     'django_extensions',
     # model-specific applications
     'student', # contains 'wish'
     'group',
-    'oracle',
     'tag',
     # control-specific applications
     'match',

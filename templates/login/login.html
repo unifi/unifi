@@ -1,6 +1,6 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>{{ title }}</title>
@@ -8,20 +8,14 @@
 </head>
 <body>
 
-<div class="login_overlay">
-    <form method="POST" action="/login/enter/">{% csrf_token %}
-        <div class="row">
-            <label for="username">Brukernavn</label>
-            <input class="username" id="username" type="text" name="username" tabindex="1" />
-        </div>
-        <div class="row">
-            <label for="password">Passord</label>
-            <input id="password" class= "password" type="password" name="password" tabindex="2" />
-        </div>
-        <div class="row right">
-            <input type="submit" value="✓" tabindex="3" />
-        </div>
-    </form>
+<div class="login containter-fluid pull-right">
+    <div class="row-fluid">
+        <form class="form-inline" method="POST" action="/login/enter/">{% csrf_token %}
+            <input name="username" type="text" class="input-small" placeholder="brukernavn" tabindex="1" />
+            <input name="password" type="password" class="input-small" placeholder="passord" tabindex="2" />
+            <button type="submit" class="btn" tabindex="3">Logg inn</button>
+        </form>
+    </div>
 </div>
 
 </body>

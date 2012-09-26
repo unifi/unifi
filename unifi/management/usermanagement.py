@@ -4,7 +4,6 @@
     The unifi API
 """
 from student.models import Student
-from oracle.models import Oracle
 from django.contrib.auth.models import User
 
 class UserManagement:
@@ -65,17 +64,6 @@ class UserManagement:
         except:
             return None
 
-    def getOracle(self, usr):
-        """
-            Get the oracle with username usr
-            @param usr: the username
-            @return: the oracle, or None if no oracle exists
-        """
-
-        try:
-            return Oracle.objects.get(user=self.getUser(usr))
-        except:
-            return None
 
     def deleteUser(self, usr):
         """
@@ -100,9 +88,9 @@ class UserManagement:
             @param: arg: info to be updated
         """
 
-        #o - oracle, s - student, r - restore (is_active = True)
-        if not arg or arg[0] not in ['o', 's', 'r', 'student', 'oracle', 'restore']:
-            print "Argument must be of type 'o', 's', or 'r', 'student', 'oracle', 'restore'"
+        # s - student, r - restore (is_active = True)
+        if not arg or arg[0] not in ['s', 'r', 'student', 'restore']:
+            print "Argument must be of type 's', or 'r', 'student', 'restore'"
             return
 
         usr = usr.strip()
@@ -112,15 +100,6 @@ class UserManagement:
         if arg[0] == 's' or arg[0] == 'student':
             s = Student.objects.get_or_create(user=u[0])
             print "User '%s' is now registered as student." % usr
-
-        elif arg[0] == 'o' or arg[0] == 'oracle':
-            try:
-                s = Student.objects.get(user=u[0])
-            except:
-                pass
-
-            o = Oracle.objects.get_or_create(user=u[0])
-            print "User '%s' is now registered as oracle." % usr
 
         else: #arg is now r
             u[0].is_active = True

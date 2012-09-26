@@ -30,10 +30,6 @@ urlpatterns = patterns('',
     # url( r'^communication/',       include('communication.urls')),
 
     url( r'^login/',               include('login.urls')),
-    # url(
-    #    r'^oracle/',
-    #    include('oracle.urls'),
-    #    name="oracle"
 
     url(
         r'^student/',
@@ -45,11 +41,7 @@ urlpatterns = patterns('',
         include('tag.urls'),
         name="tag"
     ),
-    # url(
-    #     r'^prototype/',
-    #     include('prototype.urls'),
-    #     name="prototype"
-    # ),
+
     url(
         r'^match/',
         include('match.urls'),
