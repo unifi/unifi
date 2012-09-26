@@ -50,8 +50,8 @@ class HeapGraphMatcher(Matcher):
         h = self.check_for_group(wish)
 
         #A group is found
-        if h is not None:
-            return self.make_group(wish, h)
+        # if h is not None:
+            # return self.make_group(wish, h)
 
     def make_group(self, wish, heap):
         """

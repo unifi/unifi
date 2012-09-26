@@ -4,6 +4,7 @@
 import re
 from student.models import Wish
 from tag.models import Tag
+from group.models import Group
 from match.rating import jaccard
 
 import networkx as network
@@ -37,14 +38,6 @@ def distribute_wishes_by_tag():
                 distribution[tag.name] = [wish]
     return distribution
 
-def distribute_wishes_by_tags( self ):
-    for wish in Wish.objects.all():
-        for tag in wish.tags.all():
-            if not self.buckets.get(tag.name):
-                self.buckets[tag.name] = Bucket( tag )
-            self.buckets[tag.name].add( wish )
-    return self.buckets
-
 
 
 
@@ -54,22 +47,6 @@ class Pool:
         self.buckets = dict()
         # creates the default bucket
         self.buckets[""] = Bucket( tag=None )
-
-    #[-] deprecated
-    def create_buckets( self, distributior=is_bucket ):
-        candidates = [ tag.name for tag in get_unique_active_tags() ]
-        for tag_name in candidates:
-            if is_bucket( tag_name ):
-                print "A bucket created for tag %s" % tag_name
-                tag = Tag.objects.get( name=tag_name )
-                self.buckets[tag_name] = Bucket( tag )
-
-    #[-] deprecated
-    def distribute_wishes( self ):
-        for bucket in self.buckets.values():
-            candidates = get_wishes_tagged_by( bucket.tag )
-            for wish in candidates:
-                bucket.add( wish )
 
     def distribute( self ):
         for wish in Wish.objects.all():
@@ -88,13 +65,6 @@ class Pool:
 
 
 
-
-
-
-
-
-
-
 class Bucket:
     def __init__( self, tag ):
         self.tag = tag
@@ -107,11 +77,11 @@ class Bucket:
         self.wishes.extend( other_collection )
 
 
+
 class Strategy:
-    def __init__( self, pool, rating_function, MIN_BOND_RATING=0.5 ):
+    def __init__( self, pool, rating_function, MIN_BOND_RATING=0.3 ):
         self.wishes = pool.wishes
         self.graph = network.Graph()
-
         self.rating_function = rating_function
         self.MIN_BOND_RATING = MIN_BOND_RATING
 
@@ -119,36 +89,56 @@ class Strategy:
         for wish in self.wishes:
             self.to_graph( wish )
 
-    def to_graph( self, wish ):
-        self.graph.add_node( wish )
+    def get_rating( self, first_wish, second_wish ):
+        rating_score = 0.0
+        if first_wish.student != second_wish.student:
+            rating_score = first_wish.distance( second_wish )
 
+        return rating_score
+
+    def to_graph( self, candidate ):
+        # adds the candidate wish to the graph
+        self.graph.add_node( candidate )
+        # creates bonds if the candidate wish is compatible with
+        # existing nodes of the graph
         for node in self.graph.nodes():
-            if wish.student != node.student:
-                rating = self.rating_function(
-                    wish.tags.all(),
-                    node.tags.all()
-                )
-
-                if rating >= self.MIN_BOND_RATING:
-                    self.graph.add_edge( wish, node, weight=rating )
+            rating = self.get_rating( candidate, node )
+            if rating >= self.MIN_BOND_RATING:
+                self.graph.add_edge( candidate, node, weight=rating )
 
 
     def create_group( self ):
+        out = []
+
         cliques = list( network.find_cliques( self.graph ) )
-        groups = sorted( [c for c in cliques if len(c) > 1], key=lambda x: len(x) )
-        counter = 0
-        for g in groups:
-            counter += 1
-            print counter, g
+        groups = sorted(
+            [ c for c in cliques if len(c) > 1 ],
+            key=lambda x: ( len(x) )
+        )
+
+        if len( groups ):
+            print "largest clique: ", max( [len(i) for i in groups] )
+            counter = 0
+            for g in groups:
+                counter += 1
+                print counter, g
+
+            # find already existing groups and suggest adding a user
+            for g in groups:
+                for gw in g:
+                    if gw.is_active is not True:
+                        print "one of the wishes is inactive"
+                out.append( g )
+
+            return out
+
+
 
 
 
 
 if __name__ == "__main__":
     pool = Pool()
-    #pool.create_buckets()
-    #pool.distribute_wishes()
-
     pool.distribute()
 
     for bucket in pool.buckets.values():
@@ -158,46 +148,22 @@ if __name__ == "__main__":
             print bucket.tag.name
         except AttributeError:
             pass
-        s.create_group()
+        print s.create_group()
 
 
-# registrerer gunstige opphopninger
-# når de nærmer seg en bestemt tidsgrense: danne grupper uansett score
 
-# tag1: bruker1, bruker2, bruker3
-# tag2:          bruker2
-# tag3:          bruker2
-# tag4: bruker1,          bruker3, bruker4
-# tag5: bruker5
 
-# Tag 2,3,5 er valgt kun av en bruker. Derfor kan de ekskluderes fra matching
-# Tag 4 og 1 har flere brukere, kan inkluderes i matching
-# Bruker 1,3,4 matches i en gruppe pga interesse i 4 og 1
+# 1. extract the remaining wishes from the original pool
+# 2. run the bonding with a reduced LOWER BOND LIMIT
+# 3. identify cliques in the current sub-pool
 
-class Clique:
-    def divide( self ):
-        pass
-        # 1. extract the remaining wishes from the original pool
-        # 2. run the bonding with a reduced LOWER BOND LIMIT
-        # 3. identify cliques in the current sub-pool
+# wishes in buckets have a default bonding right
+# independent from their score
+# so the bucket tags are stronger and yield greater
+# compatibility score
+# all wishes in the default bucket may be set together
+# to groups, especially if the user does not
+# provide any other tags in addition to the bucket tag
 
-    """
-    my.js must have features to fetch templated response views
-    from specific views: for instance, the groups from
-    a group view that parses the elements into a html.
-
-    Each time a button or state change is triggered in the document
-    the update_state function is called by javascript. The view is
-    updated.
-
-    The specific views generate the html code via template system,
-    excluding the header and footer template (so that their
-    output could be seamlessly integrated into the existing
-    webpage.
-
-    Therefore each restframework view must have a html-response
-    method that serves the internal django templated data.
-
-    A specific class of visual elements that update the the view.
-    <a class="update">
-    """
+# har du lyst aa danne en helt ny gruppe, eller bli med i en
+# eksisterende

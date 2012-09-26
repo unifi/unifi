@@ -51,9 +51,8 @@ urlpatterns = patterns( '',
     url(
         # wish creation from tagger
         r'^wish/create$',
-        views.CreateWish()
+        views.SuggestGroups()
     ),
-
 
 )
 

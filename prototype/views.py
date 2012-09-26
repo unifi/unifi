@@ -1,7 +1,7 @@
 # -*- coding: utf8 -*-
 
 from core.views import AccessRestrictedView, DevelopmentOnlyView
-from prototype.generators import RealNameStudentGenerator
+from prototype.generators import RealNameStudentGenerator, LetterTagGenerator
 from util import get_project_models, get_project_models_dict
 from django.shortcuts import render_to_response, redirect
 from django.template.context import RequestContext
@@ -51,7 +51,7 @@ class Flush( DevelopmentOnlyView ):
             title       =  "Flush entries",
             message     =  "Following tables have been flushed: (%s)" % len( model_names ),
             collection  =  model_names
-        );
+        )
 
 
 class Populate( DevelopmentOnlyView ):
@@ -163,7 +163,7 @@ class Generate( DevelopmentOnlyView ):
                 students = [s.strip() for s in students]
 
             if quantity['tag'] > 0:
-                tags = ( SubjectTagGenerator() ).generate( quantity['tag'] )
+                tags = ( LetterTagGenerator() ).generate( quantity['tag'] )
                 with open( location['tag'], "w" ) as output:
                     output.write( "\n".join(tags) )
             else:

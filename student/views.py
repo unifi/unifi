@@ -1,14 +1,15 @@
 # -*- coding: utf8 -*-
 from django.http import HttpResponse
+from django.template import RequestContext
 
 from match.algorithms import *
 from student.models import Wish
 from unifi.management import WishManager
 from core.views import AccessRestrictedView
 from django.core.exceptions import ObjectDoesNotExist
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import  redirect, render_to_response
 from unifi.unifi_project_settings import MAX_NUMBER_OF_TAGS
-
+from match2 import *
 
 
 
@@ -65,7 +66,6 @@ class CreateWish( AccessRestrictedView ):
                 "Your wish contains too many tags. Specify max %d tags." % \
                 MAX_NUMBER_OF_TAGS
             )
-
         courses = WishDispatcher.extract_course_tag( tag_list )
 
         if len( courses ) > 1:
@@ -80,3 +80,27 @@ class CreateWish( AccessRestrictedView ):
         )
 
         return result
+
+
+class SuggestGroups( AccessRestrictedView ):
+
+    def allow( self ):
+
+        result = {}
+
+        pool = Pool()
+        pool.distribute()
+
+        for bucket in pool.buckets.values():
+            result[bucket.tag] = []
+            s = Strategy( bucket, jaccard )
+            s.build_graph()
+
+            try:
+                print bucket.tag.name
+            except AttributeError:
+                pass
+
+            result[bucket.tag] = s.create_group()
+
+        return self.dialog( collection=result.items() )

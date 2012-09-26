@@ -40,10 +40,10 @@ urlpatterns = patterns( '',
 #        views.SelectMember()
 #    ),
 #
-#    url(
-#        r'^all$', # inspect/all
-#        views.All()
-#    ),
+    url(
+        r'^all$', # inspect/all
+        views.All()
+    ),
 #
 #    url(
 #        r'^(\d+)',
