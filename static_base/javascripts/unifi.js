@@ -39,6 +39,27 @@ $(document).ready( function() {
     $( ".focus").hide();
     $( ".group.menu").hide();
 
+    /*
+     *  Initialize Tagit
+     */
+    $.get(
+        url='/tag/distribution/?format=json',
+        success=function( distribution ) {
+            $( "#mytags" ).tagit( {
+                availableTags: distribution,
+                allowSpaces: true,
+                fieldName: "tags",
+                itemName: "user",
+                tabIndex: 1
+            })
+        },
+        format="json"
+    );
+
+    /*
+     *
+     */
+
     $(document).on( 'change', "#assistance_search", function( event ) {
 
         var selectedGroups = "";

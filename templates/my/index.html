@@ -4,37 +4,25 @@
 {% endcomment %}
 
 {% block content %}
-<div class="column_container">
-
-    <div class="column" id="tagit">
-        <h3>Nytt ønske</h3>
-        {% include "wish/new.html" %}
-    </div>
-
-    <!-- wishes -->
-    <div class="column">
-        <h3>Dine ønsker</h3>
-        <div id="wishes"></div>
-    </div>
-    <!-- ... -->
-
-    <!-- groups -->
-    <div class="column">
-        <h3>Grupper</h3>
-        <div id="groups"></div>
-    </div>
-    <!-- ... -->
-
-    <!-- assist -->
-    <div class="column">
-        <h3>Hjelp</h3>
-        <div class="assistance_search">
-            <input type="text" id="assistance_search" />
-            <div class="filter"></div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span7">
+            <div class="marked" id="tagit">
+                <h3>Nytt ønske</h3>
+                {% include "wish/new.html" %}
+            </div>
+            <div class="divider"></div>
+            <div class="marked">
+                <h3>Gruppene du er med i</h3>
+                <div id="groups"></div>
+            </div>
         </div>
-        <div id="assistance"></div>
+        <div class="span5">
+            <div class="marked">
+                <h3>Dine ønsker</h3>
+                <div id="wishes"></div>
+            </div>
+        </div>
     </div>
-    <!-- ... -->
-
 </div>
 {% endblock %}

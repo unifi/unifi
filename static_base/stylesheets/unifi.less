@@ -1,10 +1,6 @@
-@page-background-color:           white;
 @page-left-margin:                6%;
 
 @content-width:                   70%;
-@content-background-color:        white;
-@content-border-color:            rgba( 0, 0, 0, 0.5 );
-@content-border-thickness:        0.2em;
 
 @tag-background-color:            rgba(189, 47, 47, 1);
 @tag-font-color:                  white;
@@ -14,38 +10,41 @@
 @group-font-color:                black;
 @group-color:                     rgb( 230,136,33 );
 
+.marked {
+    border: 1px dashed white;
+}
+
+.login {
+    background-color: #333;
+    padding: 1.5em;
+    border-radius: 0.4em;
+    -moz-border-radius: 0.4em;
+    -moz-box-shadow: 1px 1px 5px #555;
+    -webkit-box-shadow: 1px 1px 5px #555;
+    box-shadow: 1px 1px 5px #555;
+}
+
+
+/* */
+
 body {
     font-family: Arial, sans-serif;
-    background-color: @page-background-color;
-    background-image: url("http://subtlepatterns.com/patterns/lghtmesh.png");
-    padding: 1.5em 3em 1.5em @page-left-margin;
+    padding: 2em 2em 1em @page-left-margin;
     padding-left: @page-left-margin;
+    background-image: url( "/static/images/bg.png" );
 
     .content {
 
-        border: @content-border-thickness solid @content-border-color;
-        background-color: @content-background-color;
-        /*-webkit-box-shadow: 0em 0.3em 0.3em 0.3em rgba( 0, 0, 0, 0.25 );*/
-
+        background-color: white;
         width: @content-width;
-        padding: 2% 3% 2% 2%;
+        padding: 2% 1% 4% 1%;
         text-align: left;
-        -moz-border-radius: 0.2em;
-        border-radius: 0.2em;
+        -moz-border-radius: 0.6em;
+        border-radius: 0.6em;
+        -moz-box-shadow: 1px 1px 3px #555;
+        -webkit-box-shadow: 1px 1px 3px #555;
+        box-shadow: 1px 1px 3px #555;
     }
-}
-
-.controls {
-    top: 0.5em;
-    right: 0.5em;
-    position: absolute;
-
-    .control {
-        position: relative;
-        cursor: pointer;
-        z-index: 254;
-    }
-
 }
 
 /*
@@ -64,9 +63,9 @@ body {
 
     .name {
         color: @student-font-color;
-        text-decoration: underline;
         font-size: 1.2em;
         font-style: italic;
+        text-decoration: underline;
     }
 
     .badges {
@@ -92,7 +91,23 @@ body {
         position: absolute;
         z-index: 254;
     }
+}
 
+.new {
+    cursor: text;
+    padding-bottom: 3.2em;
+
+    ul.ui-autocomplete {
+        background-color: rgba( 255, 255, 255, 0.75 );
+    }
+
+    .tagit-input {
+        background-color: rgba( 0, 0, 0, 0.0 );
+        border: none;
+        -moz-box-shadow: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
 }
 
 .group {
@@ -117,7 +132,6 @@ body {
         float: right;
         font-size: 2.8em;
         font-style: italic;
-        /* font-family: "Georgia", serif; */
         font-weight: bold;
     }
 
@@ -130,7 +144,7 @@ body {
         font-size: 1em;
         border-radius: 0.4em 0.4em 0em 0em;
         -moz-border-radius: 0.4em 0.4em 0em 0em;
-        padding: 0.2em 0.5em 0em 0.5em;
+        padding: 0.2em 1em 0em 1em;
         width: 80%;
         font-weight: bold;
         white-space: nowrap;
@@ -179,71 +193,6 @@ body {
     
 }
 
-
-.login {
-
-    background-color: rgba( 66, 66, 66, 0.25 );
-    border: 0.4em solid rgba( 66, 66, 66, 0.40 );
-    font-size: 1.2em;
-    text-align: center;
-/* margin: 10% 40% 5% 15%; */
-    border-radius: 1em;
-    -moz-border-radius: 1em;
-    padding: 3.75em 2.2em 5em 2.2em;
-    -moz-box-shadow: 1px 1px 10px rgb( 128, 128, 128 );
-    -webkit-box-shadow: 1px 1px 10px rgb( 128, 128, 128 );
-    box-shadow: 1px 1px 10px rgb( 128, 128, 128 );
-    position: fixed;
-    z-index: 255;
-    top: 10%;
-    left: 15%;
-
-    input {
-        border: 2pt solid rgb( 128, 128, 128 );
-        font-size: 1.2em;
-        padding: 0.4em;
-        padding-top: 0.5em;
-        border-radius: 0.2em;
-        -moz-border-radius: 0.2em;
-    }
-
-    input {
-        font-style: italic;
-    }
-
-    input[type=text], input[type=password] {
-        border-bottom: 5pt solid rgb( 128, 128, 128 );
-        width: 97%;
-    }
-
-    input[type=submit] {
-        color: rgb( 0, 128, 0 );
-        padding: 0.4em 1.4em 0.4em 1.4em;
-        border-radius: 0.8em;
-        -moz-border-radius: 0.8em;
-        cursor: pointer;
-    }
-
-    .row {
-        padding-bottom: 1em;
-        text-align: left;
-    }
-
-    .right {
-        text-align: right;
-    }
-
-    label {
-        background-color: rgb( 128, 128, 128 );
-        font-size: 0.8em;
-        color: white;
-        padding: 0.4em 0.8em 1em 0.8em;
-        border-radius: 0.4em 0.4em 0em 0em;
-        -moz-border-radius: 0.4em 0.4em 0em 0em;
-    }
-
-}
-
 /* Containers */
 
 .students {}
@@ -271,16 +220,6 @@ body {
 }
 
 /* Creation forms */
-
-.new_wish {
-
-    text-align: center;
-
-    input[type="submit"] {
-        font-weight: bold;
-        width: 90%;
-    }
-}
 
 
 
@@ -343,118 +282,4 @@ body {
     margin: 1em;
     text-align: center;
     border: 0.08em dotted rgba( 0, 0, 0, 0.1 );
-}
-
-.column_container {
-
-
-    .column {
-
-        background-color: rgb( 240, 240, 240 );
-        border: 0.1em solid rgba( 0, 0, 0, 0.1 );
-
-        width: auto;
-        text-align: left;
-        display: block;
-        padding: 1em;
-        margin: 0.75em;
-        border-radius: 0.2em;
-        -moz-border-radius: 0.2em;
-
-        z-index: 50;
-
-
-        /* #[-] remove
-        .title {
-
-            background-color: rgba( 0, 0, 0, 0.1 );
-
-            font-size: 1.2em;
-            padding: 0.25em 1.2em 0.25em 1.2em;
-            margin: 0em;
-            border-radius: 0em 0em 0em 0.3em;
-            -moz-border-radius: 0em 0em 0em 0.3em;
-
-            position: absolute;
-            top: 0;
-            right: 0;
-            clear: both;
-
-        }
-        */
-
-    }
-
-    .column#tagit {
-    
-        .tagit#mytags {
-                        
-            border: 0.1em solid rgba( 255, 0, 0, 0.5 );
-            border-bottom: 0.25em solid rgba( 192, 0, 0, 1 );
-            padding: 0.4em;
-            cursor: text;
-            
-            ul.ui-autocomplete {
-                background-color: rgba( 255, 255, 255, 0.75 );                
-            }
-            
-            .tagit-input {
-                background-color: rgba( 0, 0, 0, 0.0 )
-            }
-
-            
-            
-        }
-        
-        input[type=submit] {
-            background-color: rgba( 0, 0, 0, 0.1 );
-
-            font-size: 1.3em;
-            font-weigth: normal;
-            font-style: italic;
-            font-family: Arial, sans;
-            padding: 0.5em;
-            border: none;
-            border-radius: 0.5em;
-            -moz-border-radius: 0.5em;
-            cursor: pointer;
-        }
-
-    }
-
-    .column#group {
-
-    }
-
-    .column#wish {
-
-    }
-
-    .help {
-        font-size: 0.8em;
-        padding-right: 1em;
-    }
-
-    .count {
-        color: rgba( 0, 0, 0, 0.5 );
-        font-style: italic;
-    }
-
-}
-
-.assistance_search {
-
-    margin: 0.5em;
-
-    input {
-        width: 97%;
-        font-style: italic;
-        border-radius: 0.5em;
-        -moz-border-radius: 0.5em;
-        border: 0.2em solid rgb( 216, 0, 0 );
-        border: 0.1em solid rgba( 255, 0, 0, 0.5 );
-        border-bottom: 0.25em solid rgba( 192, 0, 0, 1 );
-        padding: 0.4em;
-        cursor: text;
-    }
 }

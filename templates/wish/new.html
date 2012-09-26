@@ -4,29 +4,13 @@
 {% endcomment %}
 
 {% block new %}
-<div class="new_wish">
-    <script type="text/javascript">
-        $(document).ready(
-            $.get( 
-                url='/tag/distribution/?format=json',
-                success=function( distribution ) {
-                    $( "#mytags" ).tagit( {
-                        availableTags: distribution,
-                        allowSpaces: true,
-                        fieldName: "tags",
-                        itemName: "user",
-                        tabIndex: 1
-                    })
-            }),
-        "json" );
-    </script>
-
+<div class="new">
     <form action="/student/wish/create" method="POST" class="tagit_form">
         {% csrf_token %}
         <ul id="mytags" class="tagit ui-widget ui-widget-content ui-corner-all">
             <li class="tagit-new"></li>
         </ul>
-        <input class="post" type="submit" value="Send inn!" tabindex="2" />
+        <input class="btn btn-large btn-block btn-success pull-right" type="submit" value="Registrér" tabindex="2" />
     </form>
 </div>
 {% endblock %}
