@@ -99,7 +99,7 @@ $(document).ready( function() {
 
         $.ajax({
             type: "DELETE",
-            url: "/student/wish/" + pk,
+            url: "/person/wish/" + pk,
             success: function() {
                 container.fadeOut(1000);
                 refresh();
@@ -195,17 +195,17 @@ $(document).ready( function() {
     });
 
 
-    /* student model */
+    /* person model */
     /* content view links */
 
-    $(document).on( 'mouseover', ".students .student", function( event ) {
+    $(document).on( 'mouseover', ".persons .person", function( event ) {
         $(this).fadeTo( 'slow', 0.75 );
         /* element info via rest request */
         $(".focus").html( $(this).clone() );
         $(".focus").fadeIn( focusAnimationTime );
     });
 
-    $(document).on( 'mouseout', ".students .student", function( event ) {
+    $(document).on( 'mouseout', ".persons .person", function( event ) {
         $(this).fadeTo( 'fast', 1 );
         /* reset focus state */
         /* $(".focus").html( "" ); */

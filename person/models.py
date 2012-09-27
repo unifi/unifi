@@ -7,8 +7,8 @@ from tag.models import Tag
 
 
 
-class Student(models.Model):
-    """ Student
+class Person(models.Model):
+    """ Person
     Participates in group collaboration.
     """
     user = models.ForeignKey(User, unique=True)
@@ -23,12 +23,12 @@ class Student(models.Model):
 class Wish(models.Model):
     """
     """
-    student = models.ForeignKey(Student)
+    person = models.ForeignKey(Person)
     tags = models.ManyToManyField(Tag)
     since = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
     
     def __unicode__(self):
-        return "Wish: " + self.student.__unicode__()
+        return "Wish: " + self.person.__unicode__()
 
 

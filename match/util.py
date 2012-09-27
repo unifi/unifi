@@ -25,7 +25,7 @@ class Pool:
         for p in self.active_pairs():
             score = p.sorensen_similarity()
             if score >= limit:
-                yield ( score, p, p.wish_A.student, p.wish_B.student )
+                yield ( score, p, p.wish_A.person, p.wish_B.person )
 
 
 

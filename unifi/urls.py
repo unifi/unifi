@@ -32,9 +32,9 @@ urlpatterns = patterns('',
     url( r'^login/',               include('login.urls')),
 
     url(
-        r'^student/',
-        include('student.urls'),
-        name="student"
+        r'^person/',
+        include('person.urls'),
+        name="person"
     ),
     url(
         r'^tag/',

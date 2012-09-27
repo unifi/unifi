@@ -45,15 +45,15 @@ class TagManagement:
         except Tag.DoesNotExist:
             return None
 
-    def getStudentsWithTag(self, tag):
+    def getPersonsWithTag(self, tag):
         """
-            Get all students with a given tag
+            Get all persons with a given tag
             @param tag: the tag
         """
         from unifi.management.wishmanagement import WishManagement
         self.wish_management = WishManagement()
         wishes = self.wish_management.getAllWishesWithTag(tag)
-        return [w.student for w in wishes]
+        return [w.person for w in wishes]
 
     def flush(self):
         """

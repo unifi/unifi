@@ -1,15 +1,15 @@
 # -*- coding: utf8 -*-
 
 from django.db import models
-from student.models import Wish, Student
+from person.models import Wish, Person
 
 class Group(models.Model):
     """
-    Group. A student container.
+    Group. A person container.
     """
 
     wishes           = models.ManyToManyField( Wish )
-    students         = models.ManyToManyField( Student, null=True )
+    persons         = models.ManyToManyField( Person, null=True )
     needs_assistance = models.BooleanField()
 
 

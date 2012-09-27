@@ -3,7 +3,7 @@
 """
     The unifi API
 """
-from student.models import Student, Wish
+from person.models import Person, Wish
 from tag.models import Tag
 from group.models import Group
 from usermanagement import UserManagement
@@ -16,12 +16,12 @@ class GroupManagement:
     def __init__(self):
         self.user_management = UserManagement()
 
-    def addGroup(self, wishes=[], students=[]):
+    def addGroup(self, wishes=[], persons=[]):
         # [-] remove mutable values
         """
             Create a new group
             @param tags: the group tags
-            @param students: the students belonging to this group
+            @param persons: the persons belonging to this group
         """
         group = Group()
         group.save()
@@ -29,20 +29,20 @@ class GroupManagement:
         for wish in wishes:
             group.wishes.add(wish)
 
-        for student in students:
-            if student is not None:
-                group.students.add(student)
+        for person in persons:
+            if person is not None:
+                group.persons.add(person)
 
         return group
 
-    def getStudents(self, group):
+    def getPersons(self, group):
         """
-            Get the students on a group
+            Get the persons on a group
             @param group: the group
-            @return: the students
+            @return: the persons
         """
 
-        return group.students
+        return group.persons
 
     def getTags(self, group):
         """
@@ -53,19 +53,19 @@ class GroupManagement:
 
         return group.tags
 
-    def getGroups(self, student):
+    def getGroups(self, person):
         """
-            Get all groups that a student is part of
-            @param student: the student
+            Get all groups that a person is part of
+            @param person: the person
             @return: a set of groups
         """
 
-        #if student is a string, get the student object
-        student = self.user_management.getStudent(student)
-        print student
+        #if person is a string, get the person object
+        person = self.user_management.getPerson(person)
+        print person
         groups = []
 
-        return [group for group in Group.objects.all() if student in group.students.all()]
+        return [group for group in Group.objects.all() if person in group.persons.all()]
 
     def flushGroups(self):
         """

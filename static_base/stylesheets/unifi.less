@@ -2,8 +2,8 @@
 
 @tag-background-color:            rgba(189, 47, 47, 1);
 @tag-font-color:                  white;
-@student-background-color:        rgba(50, 100, 200, 1);
-@student-font-color:              white;
+@person-background-color:        rgba(50, 100, 200, 1);
+@person-font-color:              white;
 @group-background-color:          white;
 @group-font-color:                black;
 @group-color:                     rgb( 230,136,33 );
@@ -48,10 +48,10 @@ body {
     Model-specific applications
 */
 
-.student {
+.person {
     display: inline-block;
     cursor: pointer;
-    background-color: @student-background-color;
+    background-color: @person-background-color;
     margin: 0.1em;
     padding: 0.4em 0.75em 0.4em 0.75em;
     border-radius: 0em 0.4em 0em 0.4em;
@@ -59,7 +59,7 @@ body {
     white-space: nowrap;
 
     .name {
-        color: @student-font-color;
+        color: @person-font-color;
         font-size: 1.2em;
         font-style: italic;
         text-decoration: underline;
@@ -204,7 +204,7 @@ body {
 
 /* Containers */
 
-.students {}
+.persons {}
 
 .wishes {}
 

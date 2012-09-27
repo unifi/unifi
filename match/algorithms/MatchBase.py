@@ -11,7 +11,7 @@ class Matcher:
 
     def __init__(self, group_size, min_score, scoring_function, name):
         """
-        @param group_size: the number of students on a group
+        @param group_size: the number of persons on a group
         @param min_score: the minimum score for two wishes to be considered "good match"
         @param scoring_function: the function used to score match between wishes
         @param name: the bucket name

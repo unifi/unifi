@@ -3,7 +3,7 @@
 """
     The unifi API
 """
-from student.models import Student
+from person.models import Person
 from django.contrib.auth.models import User
 
 class UserManagement:
@@ -34,7 +34,7 @@ class UserManagement:
 
         return u
 
-    def addStudent(self, usr):
+    def addPerson(self, usr):
         self.addUser(usr)
         self.updateUser(usr, "s")
 
@@ -52,15 +52,15 @@ class UserManagement:
         except User.DoesNotExist:
             return None
 
-    def getStudent(self, usr):
+    def getPerson(self, usr):
         """
-            Get the student with username usr
+            Get the person with username usr
             @param usr: the username
-            @return: the student, or None if no student exists
+            @return: the person, or None if no person exists
         """
 
         try:
-            return Student.objects.get(user=self.getUser(usr))
+            return Person.objects.get(user=self.getUser(usr))
         except:
             return None
 
@@ -88,18 +88,18 @@ class UserManagement:
             @param: arg: info to be updated
         """
 
-        # s - student, r - restore (is_active = True)
-        if not arg or arg[0] not in ['s', 'r', 'student', 'restore']:
-            print "Argument must be of type 's', or 'r', 'student', 'restore'"
+        # s - person, r - restore (is_active = True)
+        if not arg or arg[0] not in ['s', 'r', 'person', 'restore']:
+            print "Argument must be of type 's', or 'r', 'person', 'restore'"
             return
 
         usr = usr.strip()
 
         u = User.objects.get_or_create(username=usr)
 
-        if arg[0] == 's' or arg[0] == 'student':
-            s = Student.objects.get_or_create(user=u[0])
-            print "User '%s' is now registered as student." % usr
+        if arg[0] == 's' or arg[0] == 'person':
+            s = Person.objects.get_or_create(user=u[0])
+            print "User '%s' is now registered as person." % usr
 
         else: #arg is now r
             u[0].is_active = True

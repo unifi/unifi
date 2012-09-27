@@ -31,16 +31,16 @@ class Select( AccessRestrictedView ):
         response = self.dialog(
             title = group,
             message = "The group has following members",
-            collection = group.students.all()
+            collection = group.persons.all()
         )
 
     def post( self, group ):
 
         user = self.request.user
-        student = UserManager.getStudent( user.username )
+        person = UserManager.getPerson( user.username )
 
         if self.request.POST.get( "needs_assistance" ):
-            if group.students.filter(pk=student.pk):
+            if group.persons.filter(pk=person.pk):
                 if group.needs_assistance:
                     group.needs_assistance = False
                 else:
@@ -67,11 +67,11 @@ class SelectMember( AccessRestrictedView ):
 
             if member_pk == "":
                 # assumes that the user is the login record
-                self.member = UserManager.getStudent(
+                self.member = UserManager.getPerson(
                     self.request.user.username
                 )
             else:
-                self.member = self.group.students.get( pk=member_pk )
+                self.member = self.group.persons.get( pk=member_pk )
 
             # considering the objects are found
             if self.request.method == "GET":
@@ -97,10 +97,10 @@ class SelectMember( AccessRestrictedView ):
         member = self.member
         group = self.group
 
-        if member in group.students.all():
-            group.students.remove( member )
+        if member in group.persons.all():
+            group.persons.remove( member )
 
-            if not group.students.count():
+            if not group.persons.count():
                 group.delete()
             else:
                 group.save()
@@ -113,7 +113,7 @@ class SelectMember( AccessRestrictedView ):
         return HttpResponse( status=501 )
 
     def put( self ):
-        self.group.students.add( self.member )
+        self.group.persons.add( self.member )
         self.group.save()
         return HttpResponse( status=200 )
 
@@ -145,7 +145,7 @@ class Inspect( AccessRestrictedView ):
         return self.dialog(
             title = group,
             message = "The group has following members",
-            collection = group.students.all()
+            collection = group.persons.all()
         )
 
 

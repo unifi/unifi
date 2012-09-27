@@ -5,7 +5,7 @@ from django.db import models
 
 class Tag( models.Model ):
     """
-    Describes a topic the student is interested to work on,
+    Describes a topic the person is interested to work on,
     e.g "interface", "linked_list", or subject code, e.g. "inf1010"
 
     @param  name            the keyphrase or a keyword that constitutes this tag

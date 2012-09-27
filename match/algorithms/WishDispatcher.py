@@ -2,7 +2,7 @@ import re
 from HeapGraphMatcher import *
 from match.rating import jaccard
 from tag.models import Tag
-from student.models import Wish
+from person.models import Wish
 import networkx as nx
 
 class WishDispatcher(object):

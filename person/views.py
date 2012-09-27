@@ -2,7 +2,7 @@
 from django.http import HttpResponse
 
 from match.algorithms import *
-from student.models import Wish
+from person.models import Wish
 from unifi.management import WishManager
 from core.views import AccessRestrictedView
 from django.core.exceptions import ObjectDoesNotExist
@@ -28,7 +28,7 @@ class SelectWish( AccessRestrictedView ):
 
             elif self.request.method == "DELETE":
 
-                if wish.student.user == self.user:
+                if wish.person.user == self.user:
                     # the user owns the object
                     wish.is_active = False
                     wish.save()
@@ -72,7 +72,7 @@ class CreateWish( AccessRestrictedView ):
             result = self.dialog( "Error", "Please specify a course" )
 
 
-        user = UserManager.getStudent( self.request.user.username )
+        user = UserManager.getPerson( self.request.user.username )
         WishManager.addWish(
             user,
             tags,

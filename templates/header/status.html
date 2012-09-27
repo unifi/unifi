@@ -1,7 +1,7 @@
 {% comment %}
     Enable load static tag for the user image files.
 
-    @param      pk      has to be fixed in order to display the user, or the student
+    @param      pk      has to be fixed in order to display the user, or the person
 {% endcomment %}
 
 
@@ -9,7 +9,7 @@
 {% if user.is_authenticated %}
 <div class="bar">
     <div class="status">
-        <div><span class="student" pk="{{ user.pk }}">{{ user }}</span></div>
+        <div><span class="person" pk="{{ user.pk }}">{{ user }}</span></div>
         <a href="/my"><img class="portrait" src="{{ STATIC_URL }}images/users/{{ user.pk }}.png" alt="" /></a>
     </div>
 </div>

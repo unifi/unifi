@@ -30,7 +30,7 @@ class HeapGraphMatcher(Matcher):
 
     def add_wish_to_graph(self, wish):
         """
-        When a student registers a wish, it is added to the graph
+        When a person registers a wish, it is added to the graph
         @param wish: the registered wish
         """
 
@@ -39,7 +39,7 @@ class HeapGraphMatcher(Matcher):
         # For each existing node, calculate the score between the new wish and the node
         # 0.0 - Perfect match (all tags are the same), 1.0 - No match at all (disjoint tag sets)
         for node in self.graph.nodes():
-            if wish.student == node.student:
+            if wish.person == node.person:
                 continue
 
             score = 1 - self.scoring_function(wish.tags.all(), node.tags.all())
@@ -63,17 +63,17 @@ class HeapGraphMatcher(Matcher):
         group = Group()
         group.save()
         group.wishes.add(wish)
-        group.students.add(wish.student)
+        group.persons.add(wish.person)
 
         for item in heap:
             #Add the wish to the group and remove it from the graph
             group.wishes.add(item[1])
-            group.students.add(item[1].student)
+            group.persons.add(item[1].person)
             self.graph.remove_node(item[1])
 
         # send email to group members
         message = self.mail.build_message(group)
-        self.mail.toEmail(message, "Unifi",  group.students.all())
+        self.mail.toEmail(message, "Unifi",  group.persons.all())
 
         # deactivate wish
         wish.is_active = False

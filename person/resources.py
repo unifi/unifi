@@ -3,7 +3,7 @@
 
 from djangorestframework.resources import ModelResource
 from django.contrib.auth.models import User
-from models import Student, Wish
+from models import Person, Wish
 
 
 class UserResource( ModelResource ):
@@ -13,8 +13,8 @@ class UserResource( ModelResource ):
     )
 
 
-class StudentResource( ModelResource ):
-    model = Student
+class PersonResource( ModelResource ):
+    model = Person
     fields = (
         'id',
         ( 'user', UserResource),
@@ -26,8 +26,8 @@ class WishResource( ModelResource ):
     model = Wish
     fields = (
         (
-            'student',
-            StudentResource
+            'person',
+            PersonResource
         ),
         'since',
         'is_active',

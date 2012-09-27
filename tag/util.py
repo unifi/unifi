@@ -1,7 +1,7 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf8 -*- 
 
-from student.models import Wish
+from person.models import Wish
 from unifi.management import TagManager
 from tag.models import Tag
 from django.http import HttpResponse

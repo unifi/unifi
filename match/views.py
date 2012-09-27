@@ -3,7 +3,7 @@
 from django.shortcuts import render_to_response, redirect
 from django.template.context import RequestContext
 from core.views import AccessRestrictedView
-from student.models import Wish
+from person.models import Wish
 from util import *
 
 

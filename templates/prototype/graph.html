@@ -38,13 +38,13 @@
         g.addNode( "{{ group.pk }}",
             {
                 label: "{{ group.pk }}",
-                quantity: {{ group.students.count }},
+                quantity: {{ group.persons.count }},
                 tags: "",
                 render: render
             }
         );
-        {% for student in group.students.all %}
-            g.addEdge( "{{ student.username }}", "{{ group.pk }}",
+        {% for person in group.persons.all %}
+            g.addEdge( "{{ person.username }}", "{{ group.pk }}",
                 { label: "{{ group.pk }}" }
             );
         {% endfor %}

@@ -4,8 +4,8 @@
 from django.conf.urls import patterns, include, url
 from djangorestframework import permissions
 from djangorestframework.views import InstanceModelView, ListOrCreateModelView
-from student import views
-from resources import StudentResource, WishResource
+from person import views
+from resources import PersonResource, WishResource
 
 
 
@@ -15,14 +15,14 @@ urlpatterns = patterns( '',
     url(
         r'^$',
         ListOrCreateModelView.as_view(
-            resource=StudentResource,
+            resource=PersonResource,
             permissions=( permissions.IsAuthenticated, )
         )
     ),
     url(
         r'^(?P<pk>[0-9]+)/$',
         InstanceModelView.as_view(
-            resource=StudentResource,
+            resource=PersonResource,
             permissions=( permissions.IsAuthenticated, )
         )
     ),

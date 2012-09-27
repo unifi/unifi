@@ -1,0 +1,10 @@
+{% comment %}
+{% endcomment %}
+
+{% block persons %}
+<div class="persons">
+{% for person in persons|dictsort:"username" %}
+    {% include "person/person.html" %}
+{% endfor %}
+</div>
+{% endblock %}

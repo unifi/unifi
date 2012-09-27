@@ -3,7 +3,7 @@
 """
     The unifi API
 """
-from student.models import Wish, Student
+from person.models import Wish, Person
 from tag.models import Tag
 from django.contrib.auth.models import User
 from usermanagement import UserManagement
@@ -18,10 +18,10 @@ class WishManagement:
         self.user_management = UserManagement()
         self.tag_management = TagManagement()
 
-    def addWish(self, student, tags, courses = None):
+    def addWish(self, person, tags, courses = None):
         """
             Add a user
-            @param student: the student's thats register a wish
+            @param person: the person's thats register a wish
             @param tags: wish tags
             @return: the created wish
         """
@@ -30,18 +30,18 @@ class WishManagement:
         if not tags:
             return
 
-        if student.__class__ == str:
-            student = student.strip()
-            student = self.user_management.getStudent(student)
+        if person.__class__ == str:
+            person = person.strip()
+            person = self.user_management.getPerson(person)
 
-        w = self.getWish(student, tags)
+        w = self.getWish(person, tags)
 
         if w is not None:
-            print "Wish for: %s exist" % student
+            print "Wish for: %s exist" % person
             return w
 
         w = Wish()
-        w.student=student
+        w.person=person
         w.save()
 
         for t in tags:
@@ -51,8 +51,8 @@ class WishManagement:
             except Tag.DoesNotExist:
                 print "Tag %s does not exist" % t
 
-        print "Wish( student={0},\n\ttags=[{1}]\n)".format(
-            student,
+        print "Wish( person={0},\n\ttags=[{1}]\n)".format(
+            person,
             ", ".join(tags)
         )
 
@@ -77,17 +77,17 @@ class WishManagement:
 
         wish.delete()
 
-    def getWish(self, student, tags):
+    def getWish(self, person, tags):
         """
-            Return the wish (or None, if the wish doesnt exist) with the given student and tags
-            @param student: the students username
+            Return the wish (or None, if the wish doesnt exist) with the given person and tags
+            @param person: the persons username
             @param tags: a list with tag names
         """
 
-        if student.__class__ == str:
-            student = self.user_management.getStudent(student)
+        if person.__class__ == str:
+            person = self.user_management.getPerson(person)
 
-        wishes = Wish.objects.filter(student=student)
+        wishes = Wish.objects.filter(person=person)
 
         for w in wishes:
             wishtags = [t.name for t in w.tags.all()]
@@ -98,17 +98,17 @@ class WishManagement:
         #If no wish found
         return None
 
-    def getAStudentWishes(self, student):
+    def getAPersonWishes(self, person):
         """
-            Get all the wishes for a given student
-            @param student: the student
+            Get all the wishes for a given person
+            @param person: the person
             @return: list of wishes
         """
 
-        if student.__class__ == str:
-            student = self.user_management.getStudent(student)
+        if person.__class__ == str:
+            person = self.user_management.getPerson(person)
 
-        return Wish.objects.filter(student=student)
+        return Wish.objects.filter(person=person)
 
     def getAllWishesWithTag(self, tag):
         """

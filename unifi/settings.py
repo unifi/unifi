@@ -139,8 +139,10 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'djangorestframework',
     'django_extensions',
+    'celery',
+    'kombu.transport.django', # celery broker
     # model-specific applications
-    'student', # contains 'wish'
+    'person', # contains 'wish'
     'group',
     'tag',
     # control-specific applications
@@ -203,6 +205,9 @@ LOGGING = {
     }
 }
 
+
+# Celery
+BROKER_URL = 'django://'
 
 # Use console backend for testing
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

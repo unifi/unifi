@@ -34,7 +34,7 @@
 
     <div class="number">{{ group.pk }}</div>
     <!-- users -->
-    {% include "student/students.html" with students=group.students.all %}
+    {% include "person/persons.html" with persons=group.persons.all %}
     <!-- tags -->
     {% include "tag/tags.html" with tags=group.tags  %}
 </div>
