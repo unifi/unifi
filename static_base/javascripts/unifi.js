@@ -37,7 +37,7 @@ $(document).ready( function() {
     refresh();
 
     $( ".focus").hide();
-    $( ".group.menu").hide();
+    $( ".group.menu").slideDown()
 
     /*
      *  Initialize Tagit
@@ -213,12 +213,24 @@ $(document).ready( function() {
     });
 
     $(document).on( 'mouseenter', ".group", function( event ) {
-        $( "div.menu[pk=\"" + $(this).attr("pk") + "\"]").fadeIn('fast');
+        $( "div.menu[pk=\"" + $(this).attr("pk") + "\"]").slideDown();
     });
 
     $(document).on( 'mouseleave', ".group", function( event ) {
-        $( "div.menu[pk=\"" + $(this).attr("pk") + "\"]").fadeOut('slow');
+        $( "div.menu[pk=\"" + $(this).attr("pk") + "\"]").slideUp();
     });
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 });
