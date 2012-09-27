@@ -4,25 +4,44 @@
 {% endcomment %}
 
 {% block content %}
-<div class="container-fluid">
-    <div class="row-fluid">
-        <div class="span7">
+<div class="container-fluid marked">
+    <div class="row-fluid marked">
+        <div class="span8">
             <div class="marked" id="tagit">
                 <h3>Nytt ønske</h3>
+                <div class="alert alert-info">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    Skriv inn emnene du ønsker å samarbeide om i feltet under.
+                    Du bør skrive emnene i form av nøkkelord eller fraser (tagger).
+                    Bruk mest entall.
+                </div>
                 {% include "wish/new.html" %}
             </div>
-            <div class="divider"></div>
             <div class="marked">
                 <h3>Gruppene du er med i</h3>
+                <div class="alert alert-error">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    Dette feltet viser gruppene du allerede er medlem av.
+                    Du kan blant annet kontakte alle brukere på gruppen gjennom
+                    et meny som vises når du holder musepekeren over en gruppe.
+                </div>
                 <div id="groups"></div>
             </div>
         </div>
-        <div class="span5">
+
+        <div class="span4">
             <div class="marked">
                 <h3>Dine ønsker</h3>
+                <div class="alert alert-warning">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    Ønskene beskriver emnene du er interessert i å samarbeide om.
+                    Brukere med like ønsker blir du matchet mot, slik at dere
+                    kan danne en gruppe sammen.
+                </div>
                 <div id="wishes"></div>
             </div>
         </div>
     </div>
+
 </div>
 {% endblock %}

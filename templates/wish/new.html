@@ -5,12 +5,21 @@
 
 {% block new %}
 <div class="new">
-    <form action="/student/wish/create" method="POST" class="tagit_form">
+    <form action="/student/wish/create" method="POST" class="tagit_form" id="tagit_form">
         {% csrf_token %}
         <ul id="mytags" class="tagit ui-widget ui-widget-content ui-corner-all">
             <li class="tagit-new"></li>
         </ul>
-        <input class="btn btn-large btn-block btn-success pull-right" type="submit" value="Registrér" tabindex="2" />
+        <div class="btn-toolbar">
+        <button class="btn btn-large btn-info disabled span3" type="button" tabindex="3">
+            <i class="icon-white icon-search pull-left"></i>
+            Søk
+        </button>
+        <button class="btn btn-large btn-success span9 pull-right" onclick="submit()" tabindex="2">
+            <i class="icon-white icon-ok pull-right"></i>
+            Registrér
+        </button>
+        </div>
     </form>
 </div>
 {% endblock %}

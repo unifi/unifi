@@ -8,13 +8,53 @@
 </head>
 <body>
 
-<div class="login containter-fluid pull-right">
-    <div class="row-fluid">
-        <form class="form-inline" method="POST" action="/login/enter/">{% csrf_token %}
-            <input name="username" type="text" class="input-small" placeholder="brukernavn" tabindex="1" />
-            <input name="password" type="password" class="input-small" placeholder="passord" tabindex="2" />
-            <button type="submit" class="btn" tabindex="3">Logg inn</button>
-        </form>
+
+<div class="container-fluid">
+    <div class="login pull-right span6">
+        <div class="row-fluid">
+            <form class="form-inline pagination-centered" method="POST" action="/login/enter/">{% csrf_token %}
+                <input name="username" type="text" class="input-medium" placeholder="brukernavn" tabindex="1" />
+                <input name="password" type="password" class="input-medium" placeholder="passord" tabindex="2" />
+                <button type="submit" class="btn" tabindex="3">Logg inn</button>
+            </form>
+        </div>
+        <div class="row-fluid">
+            <div class="hero-unit">
+                <h1><span style="color: #8b0000;">UN</span>IFI</h1>
+                <p>automatisk kollokviegenerator</p>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="progress">
+                <div class="bar bar-success" style="width: 15%;"></div>
+                <div class="bar bar-warning" style="width: 25%;"></div>
+                <div class="bar bar-danger" style="width: 5%;"></div>
+            </div>
+            <p>
+                <span class="badge badge-success">isolert clique-matching</span>
+                <span class="badge badge-warning">integrering og sikring av ReST</span>
+                <span class="badge badge-important">kommunikasjon</span>
+            </p>
+        </div>
+        <div class="row-fluid">
+            <p></p>
+            <div id="development" class="carousel slide">
+                <!-- Carousel items -->
+                <div class="carousel-inner">
+                    <div class="active item">
+                        <img style="width: 100%;"
+                             src="http://1.bp.blogspot.com/-qWprHvEKWBQ/T8_Yr3Ag47I/AAAAAAAABSo/hj4uPh0dGdo/s1600/ron-swanson-computer.gif" />
+                        <div class="carousel-caption">
+                            <h4>Test UNIFI</h4>
+                            <p>Prosjektet trenger ditt feedback!</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Carousel nav -->
+                <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+                <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+            </div>
+        </div>
     </div>
 </div>
 
