@@ -13,14 +13,28 @@
 
 {% block content %}
 
-<h2>Response: {{ title }}</h2>
+<div class="container-fluid">
 
-<div>{{ message }}</div>
+<div class="row-fluid">
+    <div class="page-header">
+        <h1>Response: <small>{{ title }}</small></h1>
+    </div>
+</div>
 
-<ul>
-    {% for element in set %}
-        <li>{{ element }}</li>
-    {% endfor %}
-</ul>
+<div class="row-fluid">
+    <div class="well well-large">
+    {{ message }}
+    </div>
+</div>
+
+<div class="row-fluid">
+    <ul>
+        {% for element in set %}
+            <li>{{ element }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+</div>
 
 {% endblock %}

@@ -9,7 +9,7 @@ from unifi.management import UserManager
 class Select( AccessRestrictedView ):
 
     def allow( self, pk ):
-        response = HttpResponse( status = 200 )
+        response = HttpResponse( status=200 )
 
         try:
             group = Group.objects.get( pk=pk )
@@ -48,7 +48,7 @@ class Select( AccessRestrictedView ):
 
                 group.save()
 
-            return HttpResponse( status = 201 )
+            return HttpResponse( status=201 )
 
 
 

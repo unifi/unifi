@@ -10,13 +10,13 @@ from resources import TagResource
 
 
 urlpatterns = patterns('',
-    url(
-        r'^$',
-        ListOrCreateModelView.as_view(
-            resource=TagResource,
-            permissions=( permissions.IsAuthenticated, )
-        )
-    ),
+#    url(
+#        r'^$',
+#        ListOrCreateModelView.as_view(
+#            resource=TagResource,
+#            permissions=( permissions.IsAuthenticated, )
+#        )
+#    ),
     url(
         r'^(?P<pk>[0-9]+)/$',
         InstanceModelView.as_view(

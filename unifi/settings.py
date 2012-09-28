@@ -1,8 +1,8 @@
 # -*- coding: utf8 -*-
 
-from security import *
 from os.path import dirname, realpath, basename
 from database import DATABASES
+import djcelery
 
 
 
@@ -38,6 +38,7 @@ if DEBUG: # Load reduction measure
         'django.contrib.auth.hashers.SHA1PasswordHasher',
         'django.contrib.auth.hashers.MD5PasswordHasher',
     )
+
 
 
 ADMINS = ()
@@ -139,7 +140,7 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'djangorestframework',
     'django_extensions',
-    'celery',
+    'djcelery',
     'kombu.transport.django', # celery broker
     # model-specific applications
     'person', # contains 'wish'
@@ -206,20 +207,11 @@ LOGGING = {
 }
 
 
-# Celery
+# Celery: asynchronous stack queue used in matching and heavy optimization
+djcelery.setup_loader()
+
 BROKER_URL = 'django://'
+CELERYD_CONCURRENCY = 1
 
-# Use console backend for testing
+# Email-backend: dumps the contents of email messages into the console
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-
-# Registration credentials
-ACCOUNT_ACTIVATION_DAYS = 7
-# EMAIL_HOST = 'localhost'
-# EMAIL_PORT = 1023
-# EMAIL_HOST_USER = 'username'
-# EMAIL_HOST_PASSWORD = 'password'
-
-# Invitation settings
-ACCOUNT_INVITATION_DAYS = 7
-INVITATIONS_PER_USER = 1

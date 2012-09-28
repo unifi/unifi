@@ -4,6 +4,7 @@ from django.http import HttpResponse
 
 from django.shortcuts import render_to_response, redirect
 from django.template.context import RequestContext
+from login.util import Client
 from django.core.exceptions import ObjectDoesNotExist
 import unifi
 
@@ -25,7 +26,6 @@ class UnifiView:
                                 dialog's unordered list part
         """
 
-        # [!] try not to make any recursive calls here
         return render_to_response( "dialog.html", {
                 'title':    title,
                 'message':  message,
@@ -61,15 +61,19 @@ class AccessRestrictedView( UnifiView ):
 
 
     def deny( self ):
-        # [/] rename to 'deny'
-        return self.dialog(
-            
-            title       = "Not Authenticated",
-            message     = "Velkommen til UNIFI, du er ikke pålogget. " + \
-                          "For å logge deg på benytt universitetets " + \
-                          "innloggingsportal."
-                          
-        )
+        client = Client( self.request )
+
+        if client.is_banned():
+            return HttpResponse( status=403 )
+        else:
+            return self.dialog(
+
+                title       = "Not Authenticated",
+                message     = "Velkommen til UNIFI, du er ikke pålogget. " + \
+                              "For å logge deg på benytt universitetets " + \
+                              "innloggingsportal."
+
+            )
 
 
 class DevelopmentOnlyView( UnifiView ):

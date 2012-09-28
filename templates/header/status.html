@@ -14,20 +14,6 @@
     </div>
 </div>
 {% else %}
-<div class="bar">
-    <div class="status">
-        <form class="login" method="POST" action="/login/enter/">{% csrf_token %}
-            <div>
-                <label for="username">Brukernavn</label>
-                <input class="username" id="username" type="text" name="username" />
-            </div>
-            <div>
-                <label for="password">Passord</label>
-                <input id="password" class= "password" type="password" name="password" />
-            </div>
-            <div><input type="submit" /></div>
-        </form>
-    </div>
-</div>
+<div class="bar" style="display: none;"></div>
 {% endif %}
 {% endblock %}

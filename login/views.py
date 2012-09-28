@@ -1,4 +1,5 @@
 # -*- coding: utf8 -*-
+from django.http import HttpResponse
 
 from django.shortcuts import redirect
 from core.views import AccessRestrictedView, UnifiView
@@ -25,12 +26,18 @@ class Gateway( AccessRestrictedView ):
         return redirect( "/my" )
 
     def deny( self ):
-        return render_to_response( "login/login.html",
-            {
-                'title': "UNIFI",
-            },
-            context_instance=RequestContext(self.request)
-        )
+
+        client = Client( self.request )
+
+        if client.is_banned():
+            return HttpResponse( status=403 )
+        else:
+            return render_to_response( "login/login.html",
+                {
+                    'title': "UNIFI",
+                },
+                context_instance=RequestContext(self.request)
+            )
 
 class Leave( AccessRestrictedView ):
 
@@ -46,7 +53,6 @@ class Login( AccessRestrictedView ):
     def allow( self ):
         return redirect( "/my/" )
 
-    # [+] block the attacks directed against the same username from different IPs
     def deny( self ):
 
         # fetching the provided data

@@ -4,8 +4,9 @@
 from login.models import Attempt, Banned
 from django.db import IntegrityError
 from datetime import datetime
-from unifi.settings import BAN_PERIOD, MAX_LOGIN_ATTEMPTS
 
+BAN_PERIOD = 360
+MAX_LOGIN_ATTEMPTS = 5
 
 class Client:
 
@@ -31,7 +32,7 @@ class Client:
             # registers a failed login attempt
 
             failed_attempts = Attempt.objects.filter( address=self.address )
-            if failed_attempts.count() > MAX_LOGIN_ATTEMPTS:
+            if failed_attempts.count() >= MAX_LOGIN_ATTEMPTS:
                 self.ban()
 
     def banned_since( self ):

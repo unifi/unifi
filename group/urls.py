@@ -12,20 +12,22 @@ from group.resources import GroupResource
 
 urlpatterns = patterns( '',
 
-    url(
-        r'^$',
-        ListOrCreateModelView.as_view(
-            resource=GroupResource,
-            permissions=( permissions.IsAuthenticated, )
-        )
-    ),
-    url(
-        r'^(?P<pk>[0-9]+)/$',
-        InstanceModelView.as_view(
-            resource=GroupResource,
-            permissions=( permissions.IsAuthenticated, )
-        )
-    ),
+#   These djangorestframework views cannot be public
+#
+#    url(
+#        r'^$',
+#        ListOrCreateModelView.as_view(
+#            resource=GroupResource,
+#            permissions=( permissions.IsAuthenticated, )
+#        )
+#    ),
+#    url(
+#        r'^(?P<pk>[0-9]+)/$',
+#        InstanceModelView.as_view(
+#            resource=GroupResource,
+#            permissions=( permissions.IsAuthenticated, )
+#        )
+#    ),
 
     # old
     url(
