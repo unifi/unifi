@@ -7,7 +7,7 @@
 <div class="container-fluid marked">
     <div class="row-fluid marked">
         <div class="span8">
-            <div class="marked" id="tagit">
+            <div class="marked view" id="wishControl">
                 <h3>Nytt ønske</h3>
                 <div class="alert alert-info">
                     <button type="button" class="close" data-dismiss="alert">×</button>
@@ -17,7 +17,7 @@
                 </div>
                 {% include "wish/new.html" %}
             </div>
-            <div class="marked">
+            <div class="marked view" id="groupView">
                 <h3>Gruppene du er med i</h3>
                 <div class="alert alert-error">
                     <button type="button" class="close" data-dismiss="alert">×</button>
@@ -29,19 +29,16 @@
             </div>
         </div>
 
-        <div class="span4">
-            <div class="marked">
-                <h3>Dine ønsker</h3>
-                <div class="alert alert-warning">
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                    Ønskene beskriver emnene du er interessert i å samarbeide om.
-                    Brukere med like ønsker blir du matchet mot, slik at dere
-                    kan danne en gruppe sammen.
-                </div>
-                <div id="wishes"></div>
+        <div class="marked view span4" id="wishView">
+            <h3>Dine ønsker</h3>
+            <div class="alert alert-warning">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                Ønskene beskriver emnene du er interessert i å samarbeide om.
+                Brukere med like ønsker blir du matchet mot, slik at dere
+                kan danne en gruppe sammen.
             </div>
+            <div id="wishes"></div>
         </div>
     </div>
-
 </div>
 {% endblock %}

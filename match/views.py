@@ -1,39 +1,18 @@
-# -*- coding: utf8 -*-
+#!/usr/bin/env python2.7
+# -*- coding: utf8 -*- 
 
-from django.shortcuts import render_to_response, redirect
-from django.template.context import RequestContext
-from core.views import AccessRestrictedView
-from person.models import Wish
-from util import *
+from core.views import AccessRestrictedView, DevelopmentOnlyView
 
 
-class Match( AccessRestrictedView ):
+class Match( DevelopmentOnlyView ):
+    """
+    Temporary development matching process trigger.
+    Recreated as a task/regular task in production.
+    """
 
     def allow( self ):
 
-        all_tags = []
-        for wish in Wish.objects.all():
-            all_tags += list( wish.tags.all() )
-
-        unique_tags = set( all_tags )
-
-        lonely_tags = []
-        for tag in unique_tags:
-            if all_tags.count( tag ) == 1:
-                lonely_tags.append( tag )
-                print "lonely: %s" % tag
-
-        wishes = Wish.objects.exclude( tags__in=lonely_tags )
-
-        print wishes.count()
-
-        pool = Pool( wishes )
-        pairs = sorted( list(pool.pair() ), key=lambda x: x[0], reverse=True )
-
-        return render_to_response( "match.html", {
-                "title":    "Matching",
-                "message":  "Displaying %d pairs" % len(pairs),
-                "matches":  pairs
-            },
-            context_instance = RequestContext( self.request )
+        return self.dialog(
+            title="Match",
+            message="Not defined"
         )

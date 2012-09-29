@@ -1,174 +1,140 @@
 #!/usr/bin/env python2.7
+# -*- coding: utf8 -*-
 
-from __future__ import division
-from itertools import combinations
+import re
+import networkx as network
+from person.models import *
+
+
+def is_bucket( tag ):
+    pattern = r'^\w{3}\d{4}$'
+    return re.match( pattern, tag )
+
+def get_unique_active_tags():
+    from person.models import Wish
+
+    unique_active_tags = set()
+    for wish in Wish.objects.all():
+        for tag in wish.tags.all():
+            unique_active_tags.add( tag )
+
+    return unique_active_tags
+
+def get_wishes_tagged_by( tag ):
+    from person.models import Wish
+    return Wish.objects.filter( tags__in=[tag] )
+
+def distribute_wishes_by_tag():
+    distribution = {}
+    for wish in Wish.objects.all():
+        for tag in Wish.tags.all():
+            if distribution[tag.name]:
+                distribution[tag.name].append(wish)
+            else:
+                distribution[tag.name] = [wish]
+    return distribution
 
 
 
-from unifi.management import \
-    tagmanagement, wishmanagement, usermanagement, groupmanagement
 
 
 class Pool:
-    """
-    Ordering of pairs given by their index
+    def __init__( self ):
+        self.buckets = dict()
+        # creates the default bucket
+        self.buckets[""] = Bucket( tag=None )
 
-    @param wishes    the list of wishes with at least one tag in each
-    """
-    def __init__( self, wishes ):
-        self.wishes = wishes
+    def distribute( self ):
+        for wish in Wish.objects.all():
+            self.to_bucket( wish )
 
-    def pair( self, limit = 0.5 ):
-        """
-        @return     a list of pairs ordered by their quality index (score)
-        """
-        for p in self.active_pairs():
-            score = p.sorensen_similarity()
-            if score >= limit:
-                yield ( score, p, p.wish_A.person, p.wish_B.person )
+    def to_bucket( self, wish ):
+        for tag in wish.tags.all():
+            if is_bucket( tag.name ):
+                if not self.buckets.get(tag.name):
+                    self.buckets[tag.name] = Bucket( tag )
+                self.buckets[tag.name].add( wish )
+                return self.buckets[tag.name]
 
-
-
-    def active_pairs( self ):
-        for pair in combinations( self.active_wishes(), 2 ):
-            yield Pair( pair[0], pair[1] )
-
-    def active_wishes( self ):
-        active_wishes = []
-        for w in self.wishes:
-            for t in self.active_tags():
-                wish_tags = w.tags.all()
-                if t in wish_tags:
-                    active_wishes.append(w)
-
-        return set(active_wishes)
-
-
-    def active_tags( self ):
-        """
-        @return     a list of active tags
-        """
-
-        tags_in_wishes = set()
-
-        for w in self.wishes:
-            for t in w.tags.all():
-                tags_in_wishes.add( t )
-
-        return tags_in_wishes
+        self.buckets[""].add( wish )
+        return self.buckets[""]
 
 
 
+class Bucket:
+    def __init__( self, tag ):
+        self.tag = tag
+        self.wishes = []
 
-class Pair:
-    """
-    Temporary Pair-container for algorithm development.
-    """
-    class Sample:
-        def __init__( self, this, other ):
-            self.this = set(this)
-            self.other = set(other)
+    def add( self, other ):
+        self.wishes.append( other )
 
-        def __call__( self ):
-            return self.this
-
-        def __len__( self ):
-            return len( self.this )
-
-        def __rsub__( self, other ):
-            return self.this - other
-
-        def __rsub__( self, other ):
-            return other - self.this
-
-        def __add__( self, other ):
-            return self.this.union( other )
-
-        def __radd__( self, other ):
-            return self.__add__( other )
-
-        def common( self ):
-            return self.this & self.other
-
-        def uncommon( self ):
-            return self.this ^ self.other
-
-        def complement(self):
-            return self.other - self.this
-
-        def own(self):
-            return self.this - self.other
-
-    def __init__( self, A, B ):
-        self.wish_A = A
-        self.wish_B = B
-        self.A = self.Sample( A.tags.all(), B.tags.all() )
-        self.B = self.Sample( B.tags.all(), A.tags.all() )
-
-    def all( self ):
-        """
-        @return     union
-        """
-        return self.A() | self.B()
-
-    def common( self ):
-        return self.A() & self.B()
-
-    def uncommon( self ):
-        return self.A() ^ self.B()
-
-    def distance( self, insertion_cost=1, deletion_cost=1 ):
-        """
-        @return     the distance from A to B, mind that this is not
-                    a commutative operation if insertion_cost != deletion_cost
-        """
-        # for e in a:
-        #     if e not in b: # implies deletion from A
-        #         score += deletion_cost
-
-        # for e in b:
-        #     if e not in a: # implies insertion into A
-        #         score += insertion_cost
-
-        return len( self.A.complement() ) * insertion_cost + \
-               len( self.B.complement() ) * deletion_cost
+    def extend( self, other_collection ):
+        self.wishes.extend( other_collection )
 
 
-    def inverse_distance( self, insertion_cost=1, deletion_cost=1 ):
-        return len( self.B.complement() ) * insertion_cost +\
-               len( self.A.complement() ) * deletion_cost
 
-    # Similarity indices
+class Strategy:
+    def __init__( self, bucket, rating_function, MIN_BOND_RATING=0.5 ):
+        self.wishes = bucket.wishes
+        self.graph = network.Graph()
+        self.rating_function = rating_function
+        self.MIN_BOND_RATING = MIN_BOND_RATING
 
-    def sorensen_similarity( self ):
-        return ( 2.0 * len( self.common()) ) / ( len(self.A) + len(self.B) )
+    def build_graph( self ):
+        for wish in self.wishes:
+            self.to_graph( wish )
 
-    def tversky_similarity( self, alpha = 0.5, beta = 0.5 ):
-        """
-        @param alpha
-        @param beta
-        """
-        numerator = len(self.common())
-        denominator = len(self.common()) + alpha*len(self.A.own()) + beta*len(self.B.own())
-        return numerator / denominator
+    def to_graph( self, candidate ):
+        # adds the candidate wish to the graph
+        self.graph.add_node( candidate )
+        # creates bonds if the candidate wish is compatible with
+        # existing nodes of the graph
+        for node in self.graph.nodes():
+            rating = candidate.distance( node )
+            if rating >= self.MIN_BOND_RATING:
+                self.graph.add_edge( candidate, node, weight=rating )
 
-    def jaccard_similarity( self ):
-        return len(self.common()) / \
-               len(self.all())
 
-    def mountford_similarity( self ):
-        result = 0.0
-        numerator = 2.0 * len(self.common())
-        denominator = 2.0 * len(self.A) * len(self.B) \
-                      - (
-                            ( len(self.A) + len(self.B) ) * len( self.common() )
-                        )
-        try:
-            result = numerator / denominator
-        except ZeroDivisionError:
-            result = 0.0
+    def create_group( self ):
+        out = []
 
-        return result
+        cliques = list( network.find_cliques( self.graph ) )
+        groups = sorted(
+            [ c for c in cliques if len(c) > 1 ],
+            key=lambda x: ( len(x) )
+        )
 
-if __name__ == "__main__":
-    pass
+        if len( groups ):
+            print "largest clique: ", max( [len(i) for i in groups] )
+            counter = 0
+            for g in groups:
+                counter += 1
+                print counter, g
+
+            # find already existing groups and suggest adding a user
+            for g in groups:
+                for gw in g:
+                    if gw.is_active is not True:
+                        print "one of the wishes is inactive"
+                out.append( g )
+
+            return out
+
+
+
+
+# 1. extract the remaining wishes from the original pool
+# 2. run the bonding with a reduced LOWER BOND LIMIT
+# 3. identify cliques in the current sub-pool
+
+# wishes in buckets have a default bonding right
+# independent from their score
+# so the bucket tags are stronger and yield greater
+# compatibility score
+# all wishes in the default bucket may be set together
+# to groups, especially if the user does not
+# provide any other tags in addition to the bucket tag
+
+# har du lyst aa danne en helt ny gruppe, eller bli med i en
+# eksisterende

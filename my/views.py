@@ -1,16 +1,16 @@
+#!/usr/bin/env python2.7
 # -*- coding: utf8 -*-
-from django.core.exceptions import ObjectDoesNotExist
+
 from django.shortcuts import render_to_response, redirect
 from django.template.context import RequestContext
 from core.views import AccessRestrictedView
-from unifi.management import UserManager
 from group.models import Group
-from person.models import *
-from unifi.management import UserManager
+from person.models import Person, Wish
+from match.util import *
+from match.rating import *
 
 
 from django import template
-
 
 class MyView( AccessRestrictedView ):
 
@@ -59,16 +59,38 @@ class MyView( AccessRestrictedView ):
             return redirect( "/" )
 
 
-class Handlebars( AccessRestrictedView ):
+
+class SuggestGroups( AccessRestrictedView ):
 
     def allow( self ):
 
-        return render_to_response( "my/handlebars.html", {
-                "title":                "UNIFI",
+        result = {}
+
+        pool = Pool()
+        pool.distribute()
+
+        for bucket in pool.buckets.values():
+            result[bucket.tag] = []
+            s = Strategy( bucket, jaccard )
+            s.build_graph()
+
+            try:
+                print bucket.tag.name
+            except AttributeError:
+                pass
+
+            result[bucket.tag] = s.create_group()
+
+        return render_to_response( "dialog.html", {
+                'message': "Here's your empty response!",
             },
             context_instance = RequestContext( self.request )
         )
 
+
+
+# the views that generate page elements:
+# [+] create a descending class called PageElementView for the following:
 class WishView( AccessRestrictedView ):
 
     def allow( self ):
@@ -100,6 +122,7 @@ class GroupView( AccessRestrictedView ):
 class AssistanceView( AccessRestrictedView ):
 
     def allow( self ):
+
         groups = Group.objects.filter( needs_assistance=True )
 
         return render_to_response( "group/groups.html", {

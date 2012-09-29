@@ -5,10 +5,10 @@ function refresh() {
         url: "/my/wish/",
         dataType: "html",
         success: function( data ) {
-            $("#wishes").html( data );
+            $( "#wishes" ).html( data );
         },
         error: function() {}
-    })
+    });
 
     $.ajax({
         type: "GET",
@@ -19,7 +19,7 @@ function refresh() {
             $( ".group .menu").hide();
         },
         error: function() {}
-    })
+    });
 
     $.ajax({
         type: "GET",
@@ -29,7 +29,7 @@ function refresh() {
             $("#assistance").html( data )
         },
         error: function() {}
-    })
+    });
 }
 
 $(document).ready( function() {
@@ -37,7 +37,7 @@ $(document).ready( function() {
     refresh();
 
     $( ".focus").hide();
-    $( ".group.menu").slideDown()
+    $( ".group.menu").slideDown();
 
     /*
      *  Initialize Tagit
@@ -68,7 +68,7 @@ $(document).ready( function() {
         if ( query == "" ) {
 
             $( ".assistance_search .filter" ).html( '' );
-            refresh()
+            refresh();
 
         } else {
 
