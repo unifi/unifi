@@ -60,32 +60,13 @@ class MyView( AccessRestrictedView ):
 
 
 
-class SuggestGroups( AccessRestrictedView ):
+class Search( AccessRestrictedView ):
 
     def allow( self ):
 
-        result = {}
+        # not implemented
 
-        pool = Pool()
-        pool.distribute()
-
-        for bucket in pool.buckets.values():
-            result[bucket.tag] = []
-            s = Strategy( bucket, jaccard )
-            s.build_graph()
-
-            try:
-                print bucket.tag.name
-            except AttributeError:
-                pass
-
-            result[bucket.tag] = s.create_group()
-
-        return render_to_response( "dialog.html", {
-                'message': "Here's your empty response!",
-            },
-            context_instance = RequestContext( self.request )
-        )
+        return self.dialog( message="Not Implemented" )
 
 
 

@@ -2,7 +2,23 @@
 # -*- coding: utf8 -*-
 
 from django.db import models
-from tag.models import Tag
+from group.models import Group
+from person.models import Person, Wish
+
+
+
+class Match(models.Model):
+    person = models.ForeignKey( Person, null=False )
+    score = models.FloatField()
+
+    class Meta:
+        abstract = True
+
+class GroupMatch(Match):
+    group = models.ForeignKey( Group, null=False )
+
+class WishMatch(Match):
+    wish = models.ForeignKey( Wish, null=False )
 
 
 # class Bucket( models.Model ):

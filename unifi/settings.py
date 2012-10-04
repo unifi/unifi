@@ -215,3 +215,6 @@ CELERYD_CONCURRENCY = 1
 
 # Email-backend: dumps the contents of email messages into the console
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+import local_settings

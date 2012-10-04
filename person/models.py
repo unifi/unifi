@@ -7,28 +7,32 @@ from tag.models import Tag
 
 
 
-class Person(models.Model):
+class Person( models.Model ):
     """ Person
     Participates in group collaboration.
     """
     user = models.ForeignKey(User, unique=True)
 
-    def username(self):
+    def username( self ):
         return self.user.username
 
-    def __unicode__(self):
+    def __unicode__( self ):
         return self.user.username
 
+    # mock-up inheritance
+    def set_password( self, password ):
+        self.user.set_password( password )
+        self.user.save()
 
-class Wish(models.Model):
+class Wish( models.Model ):
     """
     """
-    person = models.ForeignKey(Person)
-    tags = models.ManyToManyField(Tag)
-    since = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=True)
+    person = models.ForeignKey( Person )
+    tags = models.ManyToManyField( Tag )
+    since = models.DateTimeField( auto_now=True )
+    is_active = models.BooleanField( default=True )
     
-    def __unicode__(self):
+    def __unicode__( self ):
         return "Wish: " + self.person.__unicode__()
 
 

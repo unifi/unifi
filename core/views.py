@@ -7,7 +7,7 @@ from django.template.context import RequestContext
 from login.util import Client
 from django.core.exceptions import ObjectDoesNotExist
 import unifi
-
+from unifi.management import UserManager
 
 
 
@@ -36,9 +36,6 @@ class UnifiView:
 
 
     def error( self ):
-        """
-        Not Implemented
-        """
         pass
 
 class AccessRestrictedView( UnifiView ):
@@ -53,6 +50,7 @@ class AccessRestrictedView( UnifiView ):
         self.args = args
         self.kwargs = kwargs
         self.user = self.request.user
+        self.person = UserManager.getPerson( self.user )
         
         if self.request.user.is_authenticated():
             return self.allow( *args, **kwargs )

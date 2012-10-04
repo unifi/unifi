@@ -52,6 +52,26 @@ body {
     display: inline-block;
     cursor: pointer;
     background-color: @person-background-color;
+
+    background-color: @person-background-color;
+    background-image: -moz-linear-gradient(
+      top, @person-background-color, darken( @person-background-color, 10% )
+    );
+    background-image: -webkit-gradient(
+      linear, 0 0, 0 100%, from(@person-background-color), to(darken( @person-background-color, 10%))
+    );
+    background-image: -webkit-linear-gradient(
+      top, @person-background-color, darken(@person-background-color, 10%)
+    );
+    background-image: -o-linear-gradient(top,
+      @person-background-color, darken(@person-background-color, 10%)
+    );
+    background-image: linear-gradient(
+      to bottom, @person-background-color, darken(@person-background-color, 10%)
+    );
+
+    border: 1pt solid darken(@person-background-color, 10%);
+
     margin: 0.1em;
     padding: 0.4em 0.75em 0.4em 0.75em;
     border-radius: 0em 0.4em 0em 0.4em;
@@ -184,6 +204,26 @@ body {
 .tag {
     background-color: @tag-background-color;
     color: @tag-font-color;
+
+    background-color: @tag-background-color;
+    background-image: -moz-linear-gradient(
+      top, @tag-background-color, darken( @tag-background-color, 10% )
+    );
+    background-image: -webkit-gradient(
+      linear, 0 0, 0 100%, from(@tag-background-color), to(darken( @tag-background-color, 10%))
+    );
+    background-image: -webkit-linear-gradient(
+      top, @tag-background-color, darken(@tag-background-color, 10%)
+    );
+    background-image: -o-linear-gradient(top,
+      @tag-background-color, darken(@tag-background-color, 10%)
+    );
+    background-image: linear-gradient(
+      to bottom, @tag-background-color, darken(@tag-background-color, 10%)
+    );
+
+    border: 1pt solid darken(@tag-background-color, 10%);
+
     display: inline-block;
     padding: 0.4em 0.4em 0.4em 0.4em;
     margin: 0.15em;

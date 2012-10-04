@@ -3,6 +3,7 @@
 
 import re
 import networkx as network
+from group.models import Group
 from person.models import *
 
 
@@ -43,6 +44,7 @@ class Pool:
         self.buckets = dict()
         # creates the default bucket
         self.buckets[""] = Bucket( tag=None )
+        self.distribute()
 
     def distribute( self ):
         for wish in Wish.objects.all():
@@ -81,45 +83,74 @@ class Strategy:
         self.rating_function = rating_function
         self.MIN_BOND_RATING = MIN_BOND_RATING
 
-    def build_graph( self ):
-        for wish in self.wishes:
-            self.to_graph( wish )
+        self._build_graph()
 
-    def to_graph( self, candidate ):
+    def __call__( self ):
+        cliques = list( network.find_cliques( self.graph ) )
+        groups = []
+
+        for c in cliques:
+            # excludes the cliques that have only one member
+            if len(c) > 1:
+                groups.append(c)
+
+        groups = sorted( groups, key=lambda x: len(x) )
+
+        return groups
+
+    def _build_graph( self ):
+        for wish in self.wishes:
+            if wish.is_active:
+                self._to_graph( wish )
+        return self.graph
+
+    def cliques( self ):
+        candidates = list( network.find_cliques( self.graph ) )
+        result = []
+        for c in candidates:
+            # excludes the cliques that have only one member
+            if len(c) > 1:
+                result.append(c)
+
+        return result
+
+    def create_groups( self ):
+        wish_sets = sorted( self.cliques(), key=lambda x: len(x) )
+        for ws in wish_sets:
+            group = Group()
+            group.save()
+            for w in ws:
+                group.persons.add( w.person )
+                group.wishes.add( w )
+                self._from_graph( w )
+            group.save()
+
+
+    def _to_graph( self, candidate ):
         # adds the candidate wish to the graph
         self.graph.add_node( candidate )
         # creates bonds if the candidate wish is compatible with
         # existing nodes of the graph
         for node in self.graph.nodes():
-            rating = candidate.distance( node )
+            rating = self._rate( candidate, node )
             if rating >= self.MIN_BOND_RATING:
                 self.graph.add_edge( candidate, node, weight=rating )
 
+    def _from_graph( self, candidate ):
+        # self.wishes.remove( candidate )
+        candidate.is_active = False
+        candidate.save()
+        self._build_graph()
 
-    def create_group( self ):
-        out = []
+    def _rate( self, this, other ):
+        rating = 0.0
+        if this.person != other.person:
+            rating = self.rating_function( this.tags.all(), other.tags.all() )
 
-        cliques = list( network.find_cliques( self.graph ) )
-        groups = sorted(
-            [ c for c in cliques if len(c) > 1 ],
-            key=lambda x: ( len(x) )
-        )
+        return rating
 
-        if len( groups ):
-            print "largest clique: ", max( [len(i) for i in groups] )
-            counter = 0
-            for g in groups:
-                counter += 1
-                print counter, g
-
-            # find already existing groups and suggest adding a user
-            for g in groups:
-                for gw in g:
-                    if gw.is_active is not True:
-                        print "one of the wishes is inactive"
-                out.append( g )
-
-            return out
+    def _dev_rate( self, this, other ):
+        return self.rating_function( this.tags.all(), other.tags.all() )
 
 
 

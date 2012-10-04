@@ -37,6 +37,7 @@ class UserManagement:
     def addPerson(self, usr):
         self.addUser(usr)
         self.updateUser(usr, "s")
+        return self.getPerson(usr)
 
 
     def getUser(self, usr):

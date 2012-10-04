@@ -1,3 +1,6 @@
+#!/usr/bin/env python2.7
+# -*- coding: utf8 -*-
+
 from tagmanagement import *
 from groupmanagement import *
 from usermanagement import *

@@ -1,5 +1,7 @@
 unifi/database.py
 unifi/security.py
+prototype/
+prototype/*
 */migrations
 static/
 .DS_Store

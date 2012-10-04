@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% comment %}
+{% endcomment %}
+
+{% block content %}
+<div class="container-fluid">
+
+    <div class="row-fluid">
+        <div class="page-header">
+            <h1>Groups to consider: <small>Search</small></h1>
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="well">
+            {% for bucket in buckets %}
+            <dl class="dl-horizontal">
+                {% for group in bucket %}
+                    {% for wish in group %}
+                    <dt>{{ wish.person }}</dt>
+                        <dd>
+                        {% for tag in wish.tags.all %}
+                        <span class="tag">{{ tag }}</span>
+                        {% endfor %}
+                        </dd>
+                    {% endfor %}
+                    <hr />
+                {% endfor %}
+            </dl>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
+{% endblock %}

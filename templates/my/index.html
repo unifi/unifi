@@ -5,6 +5,7 @@
 
 {% block content %}
 <div class="container-fluid marked">
+    <h1>Oversikt <small>over dine ønsker og grupper</small></h1>
     <div class="row-fluid marked">
         <div class="span8">
             <div class="marked view" id="wishControl">
@@ -33,12 +34,16 @@
             <h3>Dine ønsker</h3>
             <div class="alert alert-warning">
                 <button type="button" class="close" data-dismiss="alert">×</button>
-                Ønskene beskriver emnene du er interessert i å samarbeide om.
-                Brukere med like ønsker blir du matchet mot, slik at dere
+                Ønskene beskriver emnene du er interessert i.
+                Brukere med like ønsker blir du matchet mot dine, slik at dere
                 kan danne en gruppe sammen.
             </div>
             <div id="wishes"></div>
         </div>
     </div>
 </div>
+
+{% include "my/contact.html" %}
+
+
 {% endblock %}

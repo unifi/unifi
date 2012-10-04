@@ -8,7 +8,7 @@
 {% block status %}
 {% if user.is_authenticated %}
 <div class="bar">
-    <div class="status">
+    <div class="status navbar-inverse">
         <div><span class="person" pk="{{ user.pk }}">{{ user }}</span></div>
         <a href="/my"><img class="portrait" src="{{ STATIC_URL }}images/users/{{ user.pk }}.png" alt="" /></a>
     </div>

@@ -39,13 +39,19 @@ $(document).ready( function() {
     $( ".focus").hide();
     $( ".group.menu").slideDown();
 
+
+    $( ".modal#contactPopup" ).modal( {
+        show: false,
+        backdrop: "static"
+    });
+
     /*
      *  Initialize Tagit
      */
     $.get(
         url='/tag/distribution/?format=json',
         success=function( distribution ) {
-            $( "#mytags" ).tagit( {
+            $( "#tagit_form" ).tagit( {
                 availableTags: distribution,
                 allowSpaces: true,
                 fieldName: "tags",
@@ -115,19 +121,20 @@ $(document).ready( function() {
      *   Group Object Controls
      */
 
-    $(document).on( 'click', ".group .control#delete", function( event ) {
+    $(document).on( 'click', ".group .menu button#leave", function( event ) {
 
         // this allows a member to leave the group
         // the member is the user in the request
 
-        var pk = $(this).parentNode.attr( "pk" );
+        var pk = $(this).parent().parent().parent().attr( "pk" );
         var container = $("div.group[pk=\"" + pk + "\"]");
 
         $.ajax({
             type: "DELETE",
             url: "/group/" + pk + "/member/",
             success: function() {
-                refresh()
+                container.fadeOut(1000);
+                refresh();
             },
             error: function() {
                 container.css( "border-color", "red" );
@@ -136,14 +143,13 @@ $(document).ready( function() {
 
     });
 
-    // register the group as requiring assistance
-    $(document).on( 'click', "#require_assistance", function( event ) {
-        var pk = $(this).parent().attr( "pk" );
+
+    $(document).on( 'click', ".group .menu button#assist", function( event ) {
+        var pk = $(this).parent().parent().parent().attr( "pk" );
         $.post(
             "/group/" + pk,
             { 'needs_assistance': 1 }
         );
-        refresh()
     });
 
 

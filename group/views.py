@@ -1,9 +1,10 @@
-
+#!/usr/bin/env python2.7
 # -*- coding: utf8 -*-
 
 from django.http import HttpResponse
 from group.models import Group
 from core.views import *
+from person.models import Wish
 from unifi.management import UserManager
 
 class Select( AccessRestrictedView ):
@@ -99,10 +100,23 @@ class SelectMember( AccessRestrictedView ):
 
         if member in group.persons.all():
             group.persons.remove( member )
-
-            if not group.persons.count():
+            members_left = group.persons.count()
+            if members_left < 2:
+                # deletes the group if it has less than 2 members
+                for w in group.wishes.all():
+                    # and reactivates the wishes
+                    w.is_active = True
+                    w.save()
                 group.delete()
+
             else:
+                try:
+                    w = group.wishes.get( person=member )
+                    w.is_active = True
+                    w.save()
+                except Wish.DoesNotExist:
+                    pass
+
                 group.save()
 
             return HttpResponse( status=200 )
@@ -147,19 +161,3 @@ class Inspect( AccessRestrictedView ):
             message = "The group has following members",
             collection = group.persons.all()
         )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
