@@ -15,7 +15,7 @@ class Group( models.Model ):
     persons          = models.ManyToManyField( Person, null=True )
     needs_assistance = models.BooleanField()
     capacity         = models.IntegerField( default=DEFAULT_GROUP_CAPACITY )
-    slots            = models.ManyToManyField( Slot, null=True )
+    slots            = models.ManyToManyField( "Slot", null=True )
 
 
     def tags( self ):
@@ -43,7 +43,7 @@ class Slot( models.Model ):
     ...
     A slot also identifies a 'role' of a person in the group.
     """
-    role = models.ForeignKey( Role, null=False )
+    role = models.ForeignKey( "Role", null=False )
     person = models.ForeignKey( Person, null=True )
     candidates = models.ManyToManyField( Person, null=True )
 
