@@ -5,7 +5,7 @@ from person.models import Wish, Person
 
 DEFAULT_GROUP_CAPACITY = 5
 
-class Group(models.Model):
+class Group( models.Model ):
     """
     Contains Person objects, has a flag that identifies an assistance request.
     Number of group members is limited by its capacity, yet a group that is
@@ -40,7 +40,7 @@ class Slot( models.Model ):
     the group. If the group has an open slot (no 'person' assigned: hence,
     person allows null), it can accept new members even if its capacity is
     satisfied.
-
+    ...
     A slot also identifies a 'role' of a person in the group.
     """
     role = models.ForeignKey( Role, null=False )
@@ -49,9 +49,11 @@ class Slot( models.Model ):
 
 class Role( models.Model ):
     """
-    Describes a Person's rights and properties as a member of a group or
+    Describes a Person's rights and properties as a member of a group or inside
     the system. In other words, it can be used as an indication of what a person
-    can do and what a person needs to see.
+    can do and what that person needs to see (of the state representation)
+    ...
+    Ex. an 'expert' is predominantly used to assist regular group members, or
+    to lead a project that a group is commited to.
     """
     name = models.CharField( max_length=50, null=False, unique=True )
-
