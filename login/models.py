@@ -1,5 +1,7 @@
+#!/usr/bin/env python2.7
+# -*- coding: utf8 -*-
+
 from django.db import models
-from django.contrib.auth.models import User
 
 class Attempt( models.Model ):
     """

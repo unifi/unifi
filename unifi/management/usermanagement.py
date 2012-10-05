@@ -53,17 +53,25 @@ class UserManagement:
         except User.DoesNotExist:
             return None
 
-    def getPerson(self, usr):
+    def getPerson( self, user ):
         """
-            Get the person with username usr
-            @param usr: the username
-            @return: the person, or None if no person exists
+        Gets the user disregarding the type of incoming parameter
+        @param user:    can either be a User instance or a username-as-string
         """
+        target = None
+        if isinstance( user, User ):
+            target = self.getUser( user.username )
+        elif isinstance(user, basestring ):
+            target = self.getUser( user )
 
-        try:
-            return Person.objects.get(user=self.getUser(usr))
-        except:
+        if target:
+            try:
+                return Person.objects.get( user=target )
+            except Person.DoesNotExist:
+                return None
+        else:
             return None
+
 
 
     def deleteUser(self, usr):

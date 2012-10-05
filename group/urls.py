@@ -41,7 +41,7 @@ urlpatterns = patterns( '',
     ),
 
     url(
-        r'^all$', # inspect/all
+        r'^all$',
         views.All()
     ),
     

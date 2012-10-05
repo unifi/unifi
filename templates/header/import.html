@@ -6,11 +6,8 @@
 
 {% block import %}
 
-    <!-- less stylesheets (must be loaded prior to the less.js script!) -->
-    <link href="{{ STATIC_URL }}stylesheets/unifi.less" rel="stylesheet/less" type="text/css" />
-
-    <!-- less.js scripts -->
-    <script src="{{ STATIC_URL }}javascripts/less.min.js"></script>
+    <!-- google fonts: first in line because IE -->
+    <link href='http://fonts.googleapis.com/css?family=ABeeZee&text=1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅabcdefghijklmnopqrstuvwxyzæøå%20-' rel='stylesheet' type='text/css' />
 
     <!-- other libraries -->
     <script src="{{ STATIC_URL }}javascripts/jquery.min.js"></script>
@@ -18,6 +15,10 @@
     <script src="{{ STATIC_URL }}javascripts/tagit.js" type="text/javascript" charset="utf-8"></script>
     <script src="{{ STATIC_URL }}javascripts/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
 
+    <!-- project specific scripts -->
+    <script src="{{ STATIC_URL }}javascripts/django-csrf.js"></script>
+    <script src="{{ STATIC_URL }}javascripts/unifi.js"></script>
+    <script src="{{ STATIC_URL }}javascripts/my.js"></script>
 
     {% if graph %}
         <!-- dracula dependencies -->
@@ -29,17 +30,17 @@
         <script src="{{ STATIC_URL }}javascripts/dracula/dracula_algorithms.js"></script>
     {% endif %}
 
-    <!-- project specific scripts -->
-    <script src="{{ STATIC_URL }}javascripts/django-csrf.js"></script>
-    <script src="{{ STATIC_URL }}javascripts/unifi.js"></script>
-    <script src="{{ STATIC_URL }}javascripts/my.js"></script>
-
-
     <!-- other stylesheets -->
     <link href="{{ STATIC_URL }}stylesheets/jquery-ui.custom.css" type="text/css" rel="stylesheet" />
     <link href="{{ STATIC_URL }}stylesheets/tagit.css" type="text/css" rel="stylesheet" />
     <link href="{{ STATIC_URL }}stylesheets/tagit.css" type="text/css" rel="stylesheet" />
     <link href="{{ STATIC_URL }}stylesheets/bootstrap-responsive.min.css" type="text/css" rel="stylesheet" />
     <link href="{{ STATIC_URL }}stylesheets/bootstrap.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- less stylesheets (must be loaded prior to the less.js script!) -->
+    <link href="{{ STATIC_URL }}stylesheets/unifi.less" rel="stylesheet/less" type="text/css" />
+
+    <!-- less.js scripts -->
+    <script src="{{ STATIC_URL }}javascripts/less.min.js"></script>
 
 {% endblock %}

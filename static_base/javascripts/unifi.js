@@ -143,6 +143,23 @@ $(document).ready( function() {
 
     });
 
+    $(document).on('click', ".group button#join", function (event) {
+
+        // allows a member to join a group
+
+        var pk = $(this).parent().parent().parent().parent().attr( "pk" );
+        var container = $("div.group[pk=\"" + pk + "\"]");
+
+        $.ajax({
+            type:"PUT",
+            url:"/group/" + pk + "/member/",
+            success:function () {
+                $( ".group .menu button#join" ).fadeOut();
+                refresh();
+            }
+        });
+
+    });
 
     $(document).on( 'click', ".group .menu button#assist", function( event ) {
         var pk = $(this).parent().parent().parent().attr( "pk" );

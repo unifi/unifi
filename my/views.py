@@ -5,12 +5,13 @@ from django.shortcuts import render_to_response, redirect
 from django.template.context import RequestContext
 from core.views import AccessRestrictedView
 from group.models import Group
+from match.algorithms import WishDispatcher
+from match.rating import jaccard
 from person.models import Person, Wish
 from match.util import *
-from match.rating import *
+from unifi import UserManager, WishManager
 
 
-from django import template
 
 class MyView( AccessRestrictedView ):
 
@@ -60,16 +61,6 @@ class MyView( AccessRestrictedView ):
 
 
 
-class Search( AccessRestrictedView ):
-
-    def allow( self ):
-
-        # not implemented
-
-        return self.dialog( message="Not Implemented" )
-
-
-
 # the views that generate page elements:
 # [+] create a descending class called PageElementView for the following:
 class WishView( AccessRestrictedView ):
@@ -111,3 +102,95 @@ class AssistanceView( AccessRestrictedView ):
             },
             context_instance = RequestContext( self.request )
         )
+
+
+
+
+
+class Search( AccessRestrictedView ):
+
+    def allow( self ):
+
+        # [!] TEMP
+
+        from time import time
+
+        t = time()
+
+        groups = Group.objects.all()
+        # [!] probably needs to be checked for age as well
+        wishes = Wish.objects.filter(
+            is_active=True ).filter( person=self.person )
+
+        graph = network.Graph()
+
+        for g in groups:
+            graph.add_node( g )
+
+        # . at this point in time all groups are in the graph, but there are
+        # . no connections between them. To make connections, we introduce
+        # . wishes as additional nodes and make edges with perspective groups:
+
+        report = []
+
+        for w in wishes:
+            for g in graph.nodes():
+                rating = jaccard( w.tags.all(), g.tags() )
+                report.append ( "Wish %s fits well into the group %s (rated: %s) <br />%s<br />%s" % ( w, g, rating, g.tags(), w.tags.all() ) )
+
+        print time() - t
+
+        return self.dialog( title=( time() - t), collection=report )
+
+
+
+
+
+
+class CreateWish( AccessRestrictedView ):
+
+    def allow( self ):
+        result = redirect( "/" )
+
+        tags =  self.request.POST.getlist('user[tags][]')
+        tags = [ t.encode("utf8") for t in tags ]
+        tags = [ t.lower() for t in tags ]
+
+        MAX_NUMBER_OF_TAGS = 5
+
+        if not len( tags ):
+            return self.dialog( "Error", "No tags given" )
+
+        elif len( tags ) > MAX_NUMBER_OF_TAGS:
+            return self.dialog( "Error",
+                  "Your wish contains too many tags. Specify max %d tags." %\
+                  MAX_NUMBER_OF_TAGS
+            )
+
+        courses = WishDispatcher.extract_course_tag( tags )
+
+        # check if user has similar wishes
+
+        NEW_WISH_MAX_SIMILARITY = 0.75
+
+        has_similar = False
+        existing_wishes = Wish.objects.filter( person=self.person ).filter( is_active=True )
+
+        for w in existing_wishes:
+            rating = jaccard( [t.name for t in w.tags.all()], tags )
+            if rating > NEW_WISH_MAX_SIMILARITY:
+                return self.dialog( "Error", "One of your existing wishes is too alike" )
+
+        if len( courses ) > 1:
+            return self.dialog( "Error", "Please specify a course" )
+
+
+        person = UserManager.getPerson( self.request.user.username )
+
+        WishManager.addWish(
+            person,
+            tags,
+            courses
+        )
+
+        return result

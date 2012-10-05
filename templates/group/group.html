@@ -34,11 +34,28 @@
     </div>
     {% endif %}
 
-    <div class="number">{{ group.pk }}</div>
+
+    <div class="number">
+        {{ group.pk }}
+
+    </div>
     <!-- users -->
+    <div>
+    <div pk="{{ group.pk }}">
+        <div class="btn-group pull-right">
+            <button class="btn btn-success" id="join">
+                <i class="icon-plus icon-white pull-right"></i>
+                Bli med&nbsp;&nbsp;
+            </button>
+        </div>
+    </div>
+    
     {% include "person/persons.html" with persons=group.persons.all %}
+    </div>
     <!-- tags -->
     {% include "tag/tags.html" with tags=group.tags  %}
+    <!-- join -->
+
 </div>
 
 {% endblock %}

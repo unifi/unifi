@@ -1,3 +1,4 @@
+#!/usr/bin/env python2.7
 # -*- coding: utf8 -*-
 
 from django.db import models
@@ -44,8 +45,8 @@ class Slot( models.Model ):
     A slot also identifies a 'role' of a person in the group.
     """
     role = models.ForeignKey( "Role", null=False )
-    person = models.ForeignKey( Person, null=True )
-    candidates = models.ManyToManyField( Person, null=True )
+    person = models.ForeignKey( Person, null=True, related_name="person" )
+    candidates = models.ManyToManyField( Person, null=True, related_name="candidates" )
 
 class Role( models.Model ):
     """

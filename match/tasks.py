@@ -6,6 +6,10 @@ from match.util import *
 from match.rating import jaccard
 
 
+# debug
+from time import time
+#
+
 @task()
 def match_groups():
     pool = Pool()

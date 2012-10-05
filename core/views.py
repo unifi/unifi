@@ -50,7 +50,7 @@ class AccessRestrictedView( UnifiView ):
         self.args = args
         self.kwargs = kwargs
         self.user = self.request.user
-        self.person = UserManager.getPerson( self.user )
+        self.person = UserManager.getPerson( self.user.username )
         
         if self.request.user.is_authenticated():
             return self.allow( *args, **kwargs )

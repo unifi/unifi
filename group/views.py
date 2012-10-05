@@ -74,18 +74,18 @@ class SelectMember( AccessRestrictedView ):
             else:
                 self.member = self.group.persons.get( pk=member_pk )
 
-            # considering the objects are found
+
             if self.request.method == "GET":
                 response = self.get()
             elif self.request.method == "DELETE":
                 response = self.delete()
-
-        except ObjectDoesNotExist, ValueError:
-            # objects not found, thus can be created
-            if self.request.method == "PUT":
+            elif self.request.method == "PUT":
                 response = self.put()
             elif self.request.method == "POST":
                 response = self.post()
+
+        except ObjectDoesNotExist, ValueError:
+            return HttpResponse( status=404 )
 
         return response
 
@@ -127,9 +127,18 @@ class SelectMember( AccessRestrictedView ):
         return HttpResponse( status=501 )
 
     def put( self ):
+        if self.person in self.group.persons.all():
+            # the user is already a member of a group
+            return HttpResponse( status=412 )
+
+        if self.group.persons.count() >= self.group.capacity:
+            # the group is over capacity
+            return HttpResponse( status=412 )
+
         self.group.persons.add( self.member )
         self.group.save()
         return HttpResponse( status=200 )
+
 
 
 

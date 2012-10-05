@@ -6,15 +6,17 @@ from my import views
 
 urlpatterns = patterns( '',
 
-    # a personal front page belonging to each user's account
+    # A personal front page for each authorized user
     url( r'^$', views.MyView() ),
 
-    # search
-    url( r'^search/', views.Search() ),
+    # ... allows to create a wish
+    url( r'^wish/create', views.CreateWish() ),
 
-    # model-specific views
-    url( r'^wish/', views.WishView() ),
-    url( r'^group/', views.GroupView() ),
-    url( r'^assistance/', views.AssistanceView() ),
+    # ... to do a tag-specific search amongst groups
+    url( r'^search', views.Search() ),
 
+    # ... It relies on some model-specific views
+    url( r'^wish', views.WishView() ),
+    url( r'^group', views.GroupView() ),
+    url( r'^assistance', views.AssistanceView() ),
 )
