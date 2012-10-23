@@ -41,33 +41,22 @@ class Pool:
         self.lonely_nodes = self.update_lonely_nodes()
         self.remove_lonely_nodes()
         self.update_cliques() ## extracts cliques
-
         self.suggestions = []
 
         ## evaluate alternatives
         for wish_pk, cliques in self.get_conflicting_cliques().items():
-
             if len(cliques) > 1:
-                max_score = 0.0
-                max_size = 2
-                size_score = 0.0
-                max_mean_score = 0.0
-                mean_score = 0.0
-
-                for c in cliques:
-                    max_score = c.get_score() if c.get_score() > max_score else max_score
-                    max_size = len(c) if len(c) > max_size else max_size
-                    size_score = float( len(c) ) / max_size
-                    mean_score = ( size_score + max_score ) / 2.0
-                    max_mean_score = mean_score if mean_score > max_mean_score else max_mean_score
-
                 suggestion = Suggestion(
-                    Wish.objects.get(pk=wish_pk), cliques, mean_score )
+                    Wish.objects.get(pk=wish_pk), cliques )
                 self.suggestions.append( suggestion )
 
         ## expose suggestions
         for s in self.suggestions:
-            print s.owner
+            best_clique = s.get_best_clique()
+            print s.wish, best_clique[0], best_clique[1].nodes
+            for c in s.cliques:
+                print "\t",
+                print c.get_score(), [ n for n in c.nodes ]
 
 
     def exclude( self, min_number_of_edges=3 ):
@@ -121,10 +110,37 @@ class Pool:
 
 
 class Suggestion:
-    def __init__( self, wish, cliques, score ):
-        self.wish = wish
-        self.cliques = cliques
-        self.score = score
+    def __init__( self, wish, cliques ):
+        self.wish = wish        # 1-to->
+        self.cliques = cliques  # ->many
+
+        if len( self.cliques ) < 2:
+            print "(!) the number of cliques in the suggestion is less than 2"
+
+    def get_best_clique( self ):
+        return max( self.get_rated_cliques(), key=lambda t: t[0] )
+
+    def get_rated_cliques( self ):
+        result = []
+        max_score, size_score, max_mean_score, mean_score = \
+              0.0,        0.0,            0.0,        0.0
+
+        max_size = 2
+
+        for c in self.cliques:
+            ## assigns right values to scoring variables
+            max_score = c.get_score() \
+                if c.get_score() > max_score else max_score
+            max_size = len(c) \
+                if len(c) > max_size else max_size
+            size_score = float( len(c) ) / max_size
+            mean_score = ( size_score + max_score ) / 2.0
+            max_mean_score = mean_score \
+                if mean_score > max_mean_score else max_mean_score
+            ## adds a tuple of score and clique to the output
+            result.append( ( mean_score, c ) )
+        ## sorts the output and sorts it by the score
+        return sorted( result, key=lambda x: x[0] )
 
 
 
@@ -174,23 +190,4 @@ class Clique:
         return result
 
 
-class CliquePool:
-    def __init__( self, cliques ):
 
-        self.graph = Graph()
-
-        for c in cliques:
-            if len(c) > 1:
-                ci = Clique( c )
-                self.graph.add_node( ci )
-                for co in self.graph.nodes_iter():
-                    score = jaccard( ci.tags, co.tags )
-                    if score > 0.8:
-                        self.graph.add_edge( ci, co )
-
-        cc = find_cliques( self.graph )
-
-        for c in cc:
-            for n in c:
-                print n
-                print
