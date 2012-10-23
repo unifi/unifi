@@ -6,7 +6,7 @@ from person.models import Wish
 from unifi.management import WishManager
 from core.views import AccessRestrictedView
 from django.core.exceptions import ObjectDoesNotExist
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render, redirect
 
 
 

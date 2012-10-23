@@ -39,6 +39,8 @@ $(document).ready( function() {
     $( ".focus").hide();
     $( ".group.menu").slideDown();
 
+    /* initialize modals */
+
 
     $( ".modal#contactPopup" ).modal( {
         show: false,
@@ -207,14 +209,14 @@ $(document).ready( function() {
         $(this).fadeTo( 'slow', 0.75 );
         /* element info via rest request */
         $(".focus").html( $(this).clone() );
-        $(".focus").fadeIn( focusAnimationTime );
+        $(".focus").stop( true, true ).fadeIn( focusAnimationTime );
     });
 
     $(document).on( 'mouseout', ".tags .tag", function( event ) {
         $(this).fadeTo( 'fast', 1 );
         /* reset focus state */
         /* $(".focus").html( "" ); */
-        $(".focus").fadeOut( focusAnimationTime );
+        $(".focus").stop( true, true ).fadeOut( focusAnimationTime );
     });
 
 
@@ -225,14 +227,14 @@ $(document).ready( function() {
         $(this).fadeTo( 'slow', 0.75 );
         /* element info via rest request */
         $(".focus").html( $(this).clone() );
-        $(".focus").fadeIn( focusAnimationTime );
+        $(".focus").stop( true, true ).fadeIn( focusAnimationTime );
     });
 
     $(document).on( 'mouseout', ".persons .person", function( event ) {
         $(this).fadeTo( 'fast', 1 );
         /* reset focus state */
         /* $(".focus").html( "" ); */
-        $(".focus").fadeOut( focusAnimationTime );
+        $(".focus").stop( true, true ).fadeOut( focusAnimationTime );
     });
 
     $(document).on( 'mouseenter', ".group", function( event ) {

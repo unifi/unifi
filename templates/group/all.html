@@ -4,6 +4,8 @@
 {% endcomment %}
 
 {% block content %}
-{% include "group/groups.html" %}
+{% with join=1 %}
+    {% include "group/groups.html" %}
+{% endwith %}
 {% endblock %}
 

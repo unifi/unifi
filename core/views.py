@@ -1,12 +1,8 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf8 -*-
 from django.http import HttpResponse
-
-from django.shortcuts import render_to_response, redirect
-from django.template.context import RequestContext
+from django.shortcuts import render, redirect
 from login.util import Client
-from django.core.exceptions import ObjectDoesNotExist
-import unifi
 from unifi.management import UserManager
 
 
@@ -26,13 +22,13 @@ class UnifiView:
                                 dialog's unordered list part
         """
 
-        return render_to_response( "dialog.html", {
-                'title':    title,
-                'message':  message,
-                'set':      collection,
-            },
-            context_instance = RequestContext( self.request )
-        )
+        context = {
+            'title':    title,
+            'message':  message,
+            'set':      collection,
+        }
+
+        return render( self.request, "dialog.html", context );
 
 
     def error( self ):

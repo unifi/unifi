@@ -17,18 +17,14 @@ class Tag( models.Model ):
                             predefined by the administrator of the bucket
     """
     name = models.CharField( max_length=50, unique=True )
-
     popularity = models.DecimalField(
-        max_digits=6,
-        decimal_places=5,
-        default="0.0"
-    )
-
+        max_digits=6, decimal_places=5, default="0.0" )
     is_predefined = models.BooleanField( default=False )
+
+    class Meta:
+        ordering = ["name"]
 
     def __unicode__(self):
         return self.name
-
-
 
 

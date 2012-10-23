@@ -54,6 +54,7 @@ h1, h2, h3 {
 
 .person {
     display: inline-block;
+    color: @person-font-color;
     cursor: pointer;
     background-color: @person-background-color;
 
@@ -82,12 +83,10 @@ h1, h2, h3 {
     -moz-border-radius: 0em 0.4em 0em 0.4em;
     white-space: nowrap;
 
-    .name {
-        color: @person-font-color;
-        font-size: 1.2em;
-        font-style: italic;
-        text-decoration: underline;
-    }
+    color: @person-font-color;
+    font-size: 1.2em;
+    font-style: italic;
+    text-decoration: underline;
 
     .badges {
         padding-left: 0.4em;

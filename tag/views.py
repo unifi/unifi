@@ -1,7 +1,6 @@
 # -*- coding: utf8 -*-
 
-from django.shortcuts import render_to_response
-from django.template.context import RequestContext
+from django.shortcuts import render
 from core.views import AccessRestrictedView
 from tag.util import TagDistribution
 from django.http import HttpResponse
@@ -35,10 +34,11 @@ class GetTagDistribution( AccessRestrictedView ):
         )
 
     def html( self, tag_distribution ):
-        return render_to_response( "dialog.html", {
-                "title":    "Tags in the Database",
-                "message":  "",
-                "set":      tag_distribution().items()
-            },
-            context_instance = RequestContext( self.request )
-        )
+
+        context = {
+            "title": "Tags in the Database",
+            "message": "",
+            "set": tag_distribution().items()
+        }
+
+        return render( self.request, "dialog.html", context )

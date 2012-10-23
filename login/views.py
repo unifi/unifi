@@ -4,8 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from core.views import AccessRestrictedView, UnifiView
 from django.contrib import auth
-from django.shortcuts import render_to_response, redirect
-from django.template.context import RequestContext
+from django.shortcuts import render, redirect
 from login.models import Attempt, Banned
 from login.util import Client, BAN_PERIOD
 
@@ -32,12 +31,8 @@ class Gateway( AccessRestrictedView ):
         if client.is_banned():
             return HttpResponse( status=403 )
         else:
-            return render_to_response( "login/login.html",
-                {
-                    'title': "UNIFI",
-                },
-                context_instance=RequestContext(self.request)
-            )
+            context = { 'title': "UNIFI" }
+            return render( self.request, "login/login.html", context )
 
 class Leave( AccessRestrictedView ):
 

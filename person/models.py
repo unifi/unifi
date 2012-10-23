@@ -35,4 +35,7 @@ class Wish( models.Model ):
     def __unicode__( self ):
         return "Wish: " + self.person.__unicode__()
 
+    def __str__( self ):
+        return "Wish: " + self.person.__unicode__()
+
 

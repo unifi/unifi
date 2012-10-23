@@ -41,20 +41,41 @@
     </div>
     <!-- users -->
     <div>
-    <div pk="{{ group.pk }}">
-        <div class="btn-group pull-right">
-            <button class="btn btn-success" id="join">
-                <i class="icon-plus icon-white pull-right"></i>
-                Bli med&nbsp;&nbsp;
-            </button>
+    {% if join %}
+        <div pk="{{ group.pk }}">
+            <div class="btn-group pull-right">
+                <button class="btn btn-success" id="join">
+                    <i class="icon-arrow-left icon-white"></i>
+                    Bli med&nbsp;&nbsp;
+                </button>
+            </div>
         </div>
-    </div>
-    
+    {% endif %}
+
     {% include "person/persons.html" with persons=group.persons.all %}
     </div>
     <!-- tags -->
     {% include "tag/tags.html" with tags=group.tags  %}
     <!-- join -->
+
+    <div class="modal hide fade" id="contactPopup" pk="{{ group.pk }}" tabindex="-1" role="dialog" aria-labelledby="contactPopup" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3>Kontakt <small>Gruppe#{{ group.pk }}</small></h3>
+        </div>
+        <div class="modal-body">
+            <div class="row-fluid">
+                <form action="/my/" method="POST">
+                    {% csrf_token %}
+                    <textarea rows="10" class="span12" disabled="1"></textarea>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+            <button class="btn btn-primary">Send</button>
+        </div>
+    </div>
 
 </div>
 

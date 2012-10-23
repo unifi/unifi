@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% comment %}
+    The detailed description of the group and its members.
+    Visualizes age, tag relationships and user-custom text
+    fields.
+{% endcomment %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="row-fluid">
+        <h1 class="pull-right"><small>Gruppe #</small>{{ group.pk }}</h1>
+        <h3>Mål</h3>
+        <h4>Age<small>10 uker</small></h4>
+    </div>
+
+    <ol>
+        {% for wish in group.wishes.all %}
+        <li>
+            <div class="wish"><span class="person">{{ wish.person }}</span>
+                <div class="tags">
+                    {% for tag in wish.tags.all %}
+                    <span class="tag">{{ tag.name }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ol>
+
+</div>
+
+{% endblock %}

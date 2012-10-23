@@ -28,26 +28,30 @@ class Select( AccessRestrictedView ):
 
         return response
 
-    def get( self, group ):
-        response = self.dialog(
-            title = group,
-            message = "The group has following members",
-            collection = group.persons.all()
-        )
+    def get( self, group_instance ):
 
-    def post( self, group ):
+        group = group_instance
+
+        context = {
+            'group': group,
+        }
+
+        return render( self.request, "group/detailed.html", context )
+
+
+    def post( self, group_instance ):
 
         user = self.request.user
         person = UserManager.getPerson( user.username )
 
         if self.request.POST.get( "needs_assistance" ):
-            if group.persons.filter(pk=person.pk):
-                if group.needs_assistance:
-                    group.needs_assistance = False
+            if group_instance.persons.filter(pk=person.pk):
+                if group_instance.needs_assistance:
+                    group_instance.needs_assistance = False
                 else:
-                    group.needs_assistance = True
+                    group_instance.needs_assistance = True
 
-                group.save()
+                group_instance.save()
 
             return HttpResponse( status=201 )
 
@@ -147,13 +151,14 @@ class All( AccessRestrictedView ):
     def allow( self ):
         groups = Group.objects.all()
 
-        return render_to_response( "group/all.html", {
-                'standalone':   True,
-                'title':        "All groups",
-                'groups':       groups,
-            },
-            context_instance = RequestContext( self.request )
-        )
+        context = {
+            'standalone': True,
+            'title': "All groups",
+            'groups': groups,
+        }
+
+        return render( self.request, "group/all.html", context );
+
 
 class Inspect( AccessRestrictedView ):
     

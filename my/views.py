@@ -1,7 +1,7 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf8 -*-
 
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render, redirect
 from django.template.context import RequestContext
 from core.views import AccessRestrictedView
 from group.models import Group
@@ -47,14 +47,14 @@ class MyView( AccessRestrictedView ):
             # for u in sample( list(Person.objects.all()), 10 ):
                 # UserManager.updateUser( u.username(), "o" )
 
-            return render_to_response( "my/index.html", {
-                    "title":                "UNIFI",
-                    "groups":               groups,
-                    "wishes":               wishes,
-                    "assistance_groups":    assistance_groups,
-                },
-                context_instance = RequestContext( self.request )
-            )
+            context = {
+                "title":                "UNIFI",
+                "groups":               groups,
+                "wishes":               wishes,
+                "assistance_groups":    assistance_groups,
+            }
+
+            return render( self.request, "my/index.html", context )
 
         else:
             return redirect( "/" )
@@ -70,12 +70,12 @@ class WishView( AccessRestrictedView ):
         person = Person.objects.get( user=self.user )
         wishes = Wish.objects.filter( person=person )
 
-        return render_to_response( "wish/wishes.html", {
-                "wishes": wishes,
-                "delete": 1
-            },
-            context_instance = RequestContext( self.request )
-        )
+        context = {
+            "wishes": wishes,
+            "delete": 1
+        }
+
+        return render( self.request, "wish/wishes.html", context )
 
 class GroupView( AccessRestrictedView ):
 
@@ -84,12 +84,12 @@ class GroupView( AccessRestrictedView ):
         person = Person.objects.get( user=self.user )
         groups = Group.objects.filter( persons__in=[person] )
 
-        return render_to_response( "group/groups.html", {
-                "groups": groups,
-                "controls": 1
-            },
-            context_instance = RequestContext( self.request )
-        )
+        context = {
+            'groups': groups,
+            'controls': 1
+        }
+
+        return render( self.request, "group/groups.html", context )
 
 class AssistanceView( AccessRestrictedView ):
 
@@ -97,11 +97,11 @@ class AssistanceView( AccessRestrictedView ):
 
         groups = Group.objects.filter( needs_assistance=True )
 
-        return render_to_response( "group/groups.html", {
-                "groups": groups,
-            },
-            context_instance = RequestContext( self.request )
-        )
+        context = {
+            'groups': groups
+        }
+
+        return render( self.request, "group/groups.html", context )
 
 
 

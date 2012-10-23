@@ -45,8 +45,8 @@ urlpatterns = patterns( '',
         views.All()
     ),
     
-    url(
-        r'^(\d+)',
-        views.Inspect()
-    ),
+#    url(
+#        r'^(\d+)',
+#        views.Inspect()
+#    ),
 )
