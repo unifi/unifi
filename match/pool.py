@@ -175,7 +175,6 @@ class Suggestion:
 class Clique:
     def __init__( self, nodes ):
         self.nodes = nodes
-        print self.nodes, "EOI"
         self.tags = self.update_tags()
         self.persons = self.update_persons()
 
@@ -184,7 +183,6 @@ class Clique:
 
     def update_tags( self ):
         result = set()
-        print self.nodes
         for n in self.nodes:
             for t in n.tags.all():
                 result.add( t )
