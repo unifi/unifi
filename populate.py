@@ -22,8 +22,8 @@ if __name__ == "__main__":
         tag_quantity = ( raw_input( "max: " ), raw_input( "min: " ) )
     except IndexError:
         number_of_persons = 50
-        number_of_tags = 10
-        tag_quantity = (3, 5)
+        number_of_tags = 3
+        tag_quantity = (1, 2)
 
 
     persons = ( StudentGenerator( 5 ) ).generate( number_of_persons )

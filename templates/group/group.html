@@ -55,7 +55,9 @@
     {% include "person/persons.html" with persons=group.persons.all %}
     </div>
     <!-- tags -->
-    {% include "tag/tags.html" with tags=group.tags  %}
+    {% if group.tags %}
+        {% include "tag/tags.html" with tags=group.tags  %}
+    {% endif %}
     <!-- join -->
 
     <div class="modal hide fade" id="contactPopup" pk="{{ group.pk }}" tabindex="-1" role="dialog" aria-labelledby="contactPopup" aria-hidden="true">

@@ -2,6 +2,7 @@
 # -*- coding: utf8 -*- 
 
 from person.models import Wish
+from group.models import Group
 from networkx import Graph
 from networkx.algorithms.clique import find_cliques, cliques_containing_node
 from match.rating import jaccard
@@ -44,19 +45,32 @@ class Pool:
         self.suggestions = []
 
         ## evaluate alternatives
-        for wish_pk, cliques in self.get_conflicting_cliques().items():
-            if len(cliques) > 1:
-                suggestion = Suggestion(
-                    Wish.objects.get(pk=wish_pk), cliques )
-                self.suggestions.append( suggestion )
+        for wish_pk, cliques in self.get_distributed_cliques().items():
+            suggestion = Suggestion(
+                Wish.objects.get(pk=wish_pk), cliques )
+            self.suggestions.append( suggestion )
+
+        ## select appropriate cliques
+        self.group_candidates = set()
+        for s in self.suggestions:
+            self.group_candidates.add( s.get_best_clique() )
 
         ## expose suggestions
-        for s in self.suggestions:
-            best_clique = s.get_best_clique()
-            print s.wish, best_clique[0], best_clique[1].nodes
-            for c in s.cliques:
-                print "\t",
-                print c.get_score(), [ n for n in c.nodes ]
+        for s in self.group_candidates:
+
+            ## create groups
+            g = Group()
+            g.save()
+
+            print "Creating a group for Clique: %s" % s
+
+            for p in s.persons:
+                g.persons.add( p )
+
+            for w in s.nodes:
+                g.wishes.add( w )
+
+            g.save()
 
 
     def exclude( self, min_number_of_edges=3 ):
@@ -79,17 +93,31 @@ class Pool:
         self.graph.remove_nodes_from( self.lonely_nodes )
 
     def update_cliques( self ):
-        self.cliques = [ c for c in find_cliques( self.graph ) if len(c) > 1 ]
-        return self.cliques
+        result = set()
+
+        for c in find_cliques( self.graph ):
+            if len(c) > 1:
+                result.add( Clique(c) )
+
+        self.cliques = result
+        print len(self.cliques)
+        return result
 
     def get_distributed_cliques( self ):
         self.cliques_for_wish = {}
+        #for n in self.graph.nodes():
+        #    clique_buffer = cliques_containing_node(
+        #        self.graph, n, cliques=[ c.nodes for c in self.cliques ] )
+
         for n in self.graph.nodes():
-            clique_buffer = cliques_containing_node(
-                self.graph, n, cliques=self.cliques )
+            clique_buffer = []
+            for c in self.cliques:
+                if n in c.nodes:
+                    clique_buffer.append( c )
             if len(clique_buffer):
                 self.cliques_for_wish[n.pk] = [
-                    Clique(c) for c in clique_buffer if len(c) > 1 ]
+                    c for c in clique_buffer if len(c.nodes) > 1 ]
+
         return self.cliques_for_wish
 
     def get_conflicting_cliques( self ):
@@ -111,14 +139,14 @@ class Pool:
 
 class Suggestion:
     def __init__( self, wish, cliques ):
-        self.wish = wish        # 1-to->
-        self.cliques = cliques  # ->many
-
-        if len( self.cliques ) < 2:
-            print "(!) the number of cliques in the suggestion is less than 2"
+        self.wish = wish        # 1
+        self.cliques = cliques  # *
 
     def get_best_clique( self ):
-        return max( self.get_rated_cliques(), key=lambda t: t[0] )
+        if len( self.cliques ) == 1:
+            return self.cliques[0]
+        else:
+            return max( self.get_rated_cliques(), key=lambda t: t[0] )
 
     def get_rated_cliques( self ):
         result = []
@@ -147,6 +175,7 @@ class Suggestion:
 class Clique:
     def __init__( self, nodes ):
         self.nodes = nodes
+        print self.nodes, "EOI"
         self.tags = self.update_tags()
         self.persons = self.update_persons()
 
@@ -155,6 +184,7 @@ class Clique:
 
     def update_tags( self ):
         result = set()
+        print self.nodes
         for n in self.nodes:
             for t in n.tags.all():
                 result.add( t )
@@ -168,7 +198,6 @@ class Clique:
                 result = set( n.tags.all() )
             else:
                 result.intersection_update( n.tags.all() )
-
         return result
 
     def get_missing_tags( self ):
@@ -189,5 +218,7 @@ class Clique:
         self.persons = result
         return result
 
-
+if __name__ == "__main__":
+    from timeit import timeit
+    a = Pool()
 
