@@ -8,6 +8,17 @@ from networkx.algorithms.clique import find_cliques, cliques_containing_node
 from match.rating import jaccard
 
 
+## If the clique-size is low, the likeness demands are high.
+## When the clique-size is hight, the likeness demands for clique score are reduced
+## When the cliques are found, traverse the unmatched wishes and add them to the
+# groups with plausible tagsets
+
+# [+] Skimming: match, skim the unmatched, match the unmatched against the
+# the recently created groups
+
+def default_wish_selector()
+
+
 class Pool:
     def __init__( self, selector = lambda x: x.is_active, connector = jaccard ):
         """
@@ -62,12 +73,12 @@ class Pool:
             g = Group()
             g.save()
 
-            print "Creating a group for Clique: %s" % s
-
             for p in s.persons:
                 g.persons.add( p )
 
             for w in s.nodes:
+                w.is_active = False ## deactivate Wish
+                w.save()
                 g.wishes.add( w )
 
             g.save()
@@ -94,20 +105,14 @@ class Pool:
 
     def update_cliques( self ):
         result = set()
-
         for c in find_cliques( self.graph ):
             if len(c) > 1:
                 result.add( Clique(c) )
-
         self.cliques = result
-        print len(self.cliques)
         return result
 
     def get_distributed_cliques( self ):
         self.cliques_for_wish = {}
-        #for n in self.graph.nodes():
-        #    clique_buffer = cliques_containing_node(
-        #        self.graph, n, cliques=[ c.nodes for c in self.cliques ] )
 
         for n in self.graph.nodes():
             clique_buffer = []
@@ -121,14 +126,11 @@ class Pool:
         return self.cliques_for_wish
 
     def get_conflicting_cliques( self ):
-        self.cliques_for_wish = {}
-        for n in self.graph.nodes():
-            clique_buffer = cliques_containing_node(
-                self.graph, n, cliques=self.cliques )
-            if len(clique_buffer) > 1:
-                self.cliques_for_wish[n.pk] = [
-                    Clique(c) for c in clique_buffer if len(c) > 1 ]
-        return self.cliques_for_wish
+        result = {}
+        for w,c in self.get_distributed_cliques():
+            if len(c) > 1:
+                result[w] = c
+        return result
 
     def rate_cliques( self ):
         result = []
@@ -146,7 +148,7 @@ class Suggestion:
         if len( self.cliques ) == 1:
             return self.cliques[0]
         else:
-            return max( self.get_rated_cliques(), key=lambda t: t[0] )
+            return max( self.get_rated_cliques(), key=lambda t: t[0] )[1]
 
     def get_rated_cliques( self ):
         result = []
@@ -162,7 +164,7 @@ class Suggestion:
             max_size = len(c) \
                 if len(c) > max_size else max_size
             size_score = float( len(c) ) / max_size
-            mean_score = ( size_score + max_score ) / 2.0
+            mean_score = size_score + size_score
             max_mean_score = mean_score \
                 if mean_score > max_mean_score else max_mean_score
             ## adds a tuple of score and clique to the output
