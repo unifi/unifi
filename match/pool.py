@@ -16,11 +16,20 @@ from match.rating import jaccard
 # [+] Skimming: match, skim the unmatched, match the unmatched against the
 # the recently created groups
 
-def default_wish_selector()
+def default_selector( wish ):
+    return wish.is_active
+
+def default_connector( this, other ):
+    return jaccard( this.tags.all(), other.tags.all() )
 
 
-class Pool:
-    def __init__( self, selector = lambda x: x.is_active, connector = jaccard ):
+
+class WishPool:
+    def __init__( self,
+                  min_edge_score = 0.5,
+                  # min_number_of_edges = 3,
+                  selector = default_selector,
+                  connector = jaccard ):
         """
         A filterable pool of wishes represented as nodes. Is used to find
         relations between wishes.
@@ -30,7 +39,9 @@ class Pool:
         @return:
         """
 
-        self.graph = Graph()
+        self.graph                 = Graph()
+        self.min_edge_weight       = min_edge_score
+        # self.min_number_of_edges   = min_number_of_edges
 
         for wish in Wish.objects.iterator():
             if selector( wish ):
@@ -40,36 +51,29 @@ class Pool:
                     # compares candidate to all existing nodes except itself
                     if other != wish and other.person != wish.person:
                         score = connector( wish.tags.all(), other.tags.all() )
-                        # if score is high enough, creates an edge weighted
-                        # by score
-                        if score > 0.5:
+                        if score > self.min_edge_weight:
                             self.graph.add_edge( wish, other, weight=score )
 
-        # When the graph is complete it is possible to see all vertices
-        # with more than one connection
-
-        ## update sets
+        ## processes the graph, excludes lonely nods
         self.connected_nodes = self.update_connected_nodes()
         self.lonely_nodes = self.update_lonely_nodes()
         self.remove_lonely_nodes()
-        self.update_cliques() ## extracts cliques
-        self.suggestions = []
+        self.update_cliques()
 
-        ## evaluate alternatives
+        ## evaluates alternatives, gathers suggestions
+        self.suggestions = []
         for wish_pk, cliques in self.get_distributed_cliques().items():
             suggestion = Suggestion(
                 Wish.objects.get(pk=wish_pk), cliques )
             self.suggestions.append( suggestion )
 
-        ## select appropriate cliques
+        ## selects appropriate cliques from suggestions
         self.group_candidates = set()
         for s in self.suggestions:
             self.group_candidates.add( s.get_best_clique() )
 
-        ## expose suggestions
+        ## exposes suggestions, creates groups
         for s in self.group_candidates:
-
-            ## create groups
             g = Group()
             g.save()
 
@@ -77,18 +81,17 @@ class Pool:
                 g.persons.add( p )
 
             for w in s.nodes:
-                w.is_active = False ## deactivate Wish
+                w.is_active = False # post-processing: deactivates wish
                 w.save()
                 g.wishes.add( w )
-
             g.save()
 
 
-    def exclude( self, min_number_of_edges=3 ):
-        for n in self.graph:
-            if self.graph.number_of_edges( n ) < min_number_of_edges:
-                self.graph.remove_node( n )
-        return self.graph
+    #def exclude( self, min_number_of_edges=3 ):
+    #    for n in self.graph:
+    #        if self.graph.number_of_edges( n ) < min_number_of_edges:
+    #            self.graph.remove_node( n )
+    #    return self.graph
 
     def update_connected_nodes( self ):
         connected = set()
@@ -113,7 +116,6 @@ class Pool:
 
     def get_distributed_cliques( self ):
         self.cliques_for_wish = {}
-
         for n in self.graph.nodes():
             clique_buffer = []
             for c in self.cliques:
@@ -122,7 +124,6 @@ class Pool:
             if len(clique_buffer):
                 self.cliques_for_wish[n.pk] = [
                     c for c in clique_buffer if len(c.nodes) > 1 ]
-
         return self.cliques_for_wish
 
     def get_conflicting_cliques( self ):
@@ -152,26 +153,19 @@ class Suggestion:
 
     def get_rated_cliques( self ):
         result = []
-        max_score, size_score, max_mean_score, mean_score = \
-              0.0,        0.0,            0.0,        0.0
 
-        max_size = 2
+        max_size   =  max( map( lambda c: len( c.nodes ), self.cliques ) )
+        max_score  =  max( map( lambda c: c.get_score(), self.cliques ) )
 
         for c in self.cliques:
-            ## assigns right values to scoring variables
-            max_score = c.get_score() \
-                if c.get_score() > max_score else max_score
-            max_size = len(c) \
-                if len(c) > max_size else max_size
-            size_score = float( len(c) ) / max_size
-            mean_score = size_score + size_score
-            max_mean_score = mean_score \
-                if mean_score > max_mean_score else max_mean_score
-            ## adds a tuple of score and clique to the output
-            result.append( ( mean_score, c ) )
-        ## sorts the output and sorts it by the score
-        return sorted( result, key=lambda x: x[0] )
+            scores = (
+                len( c.nodes ) / float( max_size ),
+                c.get_score() / float( max_score ),
+            )
+            mean = sum( scores ) / float( len ( scores ) )
+            result.append( ( mean, c ) )
 
+        return sorted( result, key=lambda x: x[0] )
 
 
 class Clique:
@@ -218,7 +212,11 @@ class Clique:
         self.persons = result
         return result
 
+
 if __name__ == "__main__":
     from timeit import timeit
-    a = Pool()
+    a = WishPool()
+
+    free_wishes = Wish.objects.filter( is_active=True )
+    print free_wishes
 

@@ -4,14 +4,18 @@ import sys
 
 from random import sample, randint
 
+from django.db.models.loading import get_models
+
 from util.generators import StudentGenerator, LetterTagGenerator
 from unifi.management import UserManager, WishManager, TagManager
 from person.models import Person, Wish
 from tag.models import Tag
+from group.models import Group
 
 
 if __name__ == "__main__":
 
+    Group.objects.all().delete()
     Wish.objects.all().delete()
     Person.objects.all().delete()
     Tag.objects.all().delete()
@@ -21,7 +25,7 @@ if __name__ == "__main__":
         number_of_tags = sys.argv[2]
         tag_quantity = ( raw_input( "max: " ), raw_input( "min: " ) )
     except IndexError:
-        number_of_persons = 50
+        number_of_persons = 200
         number_of_tags = 3
         tag_quantity = (1, 2)
 
@@ -41,7 +45,6 @@ if __name__ == "__main__":
         chosen_tags = sample(
             tags, randint( tq[0], tq[1] )
         )
-
 
         for t in chosen_tags:
             w.tags.add( TagManager.addTag( t ) )
