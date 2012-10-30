@@ -2,11 +2,14 @@
 # -*- coding: utf8 -*-
 
 from django.db import models
-from person.models import Wish, Person
+from django_extensions.db.models import TimeStampedModel
 
-DEFAULT_GROUP_CAPACITY = 5
+from person.models import Person, Wish
 
-class Group( models.Model ):
+from unifi.rules import GROUP_CAPACITY
+
+
+class Group( TimeStampedModel ):
     """
     Contains Person objects, has a flag that identifies an assistance request.
     Number of group members is limited by its capacity, yet a group that is
@@ -14,8 +17,8 @@ class Group( models.Model ):
     """
     wishes           = models.ManyToManyField( Wish )
     persons          = models.ManyToManyField( Person, null=True )
-    needs_assistance = models.BooleanField()
-    capacity         = models.IntegerField( default=DEFAULT_GROUP_CAPACITY )
+    needs_assistance = models.BooleanField() # deprecate when slots are introduced
+    capacity         = models.IntegerField( default=GROUP_CAPACITY ) # bypassed via slots
     slots            = models.ManyToManyField( "Slot", null=True )
 
 

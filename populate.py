@@ -4,8 +4,6 @@ import sys
 
 from random import sample, randint
 
-from django.db.models.loading import get_models
-
 from util.generators import StudentGenerator, LetterTagGenerator
 from unifi.management import UserManager, WishManager, TagManager
 from person.models import Person, Wish
@@ -28,7 +26,6 @@ if __name__ == "__main__":
         number_of_persons = 200
         number_of_tags = 3
         tag_quantity = (1, 2)
-
 
     persons = ( StudentGenerator( 5 ) ).generate( number_of_persons )
     tags = ( LetterTagGenerator() ).generate( number_of_tags )

@@ -84,32 +84,39 @@ class DevelopmentOnlyView( UnifiView ):
         if DEBUG:
             return self.allow( *args, **kwargs )
         else:
-            return self.deny()
+            return self.deny( *args, **kwargs )
 
 
-    def deny( self ):
+    def deny( self, *args, **kwargs ):
         return self.dialog(
             title   = "Development is over. We're done. Everything is perfect.",
             message = "This page was restricted to the development phase."
         )
 
 
+class MethodView( AccessRestrictedView ):
 
-
-
-class ModelView( AccessRestrictedView ):
-    """
-    Please, don't use this.
-    """
-
-    def __init__( self, model=None ):
+    def __init__( self, model ):
         self.model = model
 
-    def allow( self, pk ):
-        if self.request.method == "DELETE":
-            try:
-                target = self.model.objects.get( pk=pk )
-                target.delete()
-            except ValueError, ObjectDoesNotExist:
-                return HttpResponse( status=404 )
+    def allow( self, pk=None, *args, **kwargs ):
+
+        self.pk = pk
+
+        self.get = lambda a,k: HttpResponse( status=403 )
+        self.post = lambda a,k: HttpResponse( status=403 )
+        self.put = lambda a,k: HttpResponse( status=403 )
+        self.delete = lambda a,k: HttpResponse( status=403 )
+
+        if self.request.method == "GET":
+            return self.get( self.pk, args, kwargs )
+        elif self.request.method == "POST":
+            return self.post( self.pk, args, kwargs )
+        elif self.request.method == "PUT":
+            return self.put( self.pk, args, kwargs )
+        elif self.request.method == "DELETE":
+            return self.delete( self.pk, args, kwargs )
+        else:
+            return HttpResponse( status=501 )
+
 
