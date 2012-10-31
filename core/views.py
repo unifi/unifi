@@ -28,7 +28,7 @@ class UnifiView:
             'set':      collection,
         }
 
-        return render( self.request, "dialog.html", context );
+        return render( self.request, "dialog.html", context )
 
 
     def error( self ):

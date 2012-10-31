@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.7
-# -*- coding: utf8 -*- 
+# -*- coding: utf8 -*-
 
 GROUP_CAPACITY = 5
+WISH_EXPIRATION_DAYS = 90

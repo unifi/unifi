@@ -3,6 +3,7 @@
 
 from django.db.models import get_models
 
+
 def get_project_models():
     """
     @return     a list of all project-specific models

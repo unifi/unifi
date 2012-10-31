@@ -17,7 +17,7 @@ class Group( TimeStampedModel ):
     """
     wishes           = models.ManyToManyField( Wish )
     persons          = models.ManyToManyField( Person, null=True )
-    needs_assistance = models.BooleanField() # deprecate when slots are introduced
+    needs_assistance = models.BooleanField() # deprecate when slots are introduced, represent as an expert slot
     capacity         = models.IntegerField( default=GROUP_CAPACITY ) # bypassed via slots
     slots            = models.ManyToManyField( "Slot", null=True )
 
@@ -35,7 +35,6 @@ class Group( TimeStampedModel ):
 
     def __unicode__( self ):
         return "Group %s" % self.pk
-
 
 
 class Slot( models.Model ):

@@ -3,6 +3,8 @@
 import random
 from string import ascii_lowercase
 
+GENERATOR_LIMIT = 5000
+
 class Generator:
     """
     A default abstract data generator. Generates raw text blueprints for object
@@ -72,12 +74,15 @@ class LetterTagGenerator(TagGenerator):
     while 10 tags will increase the tag length to 2 etc.
     """
     def generate( self, quantity ):
-        output = []
+        output = set()
 
         tag_length = ( quantity / len(ascii_lowercase) ) +1
-        print tag_length, len(ascii_lowercase)
-        for i in xrange(quantity):
-            output.append(
+
+        counter = 0
+
+        while len(output) < quantity and counter < GENERATOR_LIMIT:
+            counter += 1
+            output.add(
                 "".join( random.sample( ascii_lowercase, tag_length ) )
             )
 
@@ -109,7 +114,7 @@ class StudentGenerator(Generator):
         self.username_length = username_length
 
     def generate( self, quantity ):
-        output = []
+        output = set()
         minimum_length_factor = 0.7
 
         def make_username(length):
@@ -133,12 +138,14 @@ class StudentGenerator(Generator):
             return output
 
 
-        for i in range(quantity):
+        counter = 0
+        while len(output) < quantity and counter < GENERATOR_LIMIT:
+            counter += 1
             username_length = random.randint(
                 int(self.username_length * minimum_length_factor),
                 self.username_length
             )
-            output.append(
+            output.add(
                 "".join(make_username(username_length))
             )
 

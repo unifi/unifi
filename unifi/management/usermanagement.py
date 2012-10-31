@@ -24,10 +24,10 @@ class UserManagement:
 
         try:
             u = User.objects.get(username=usr)
-            print "User '%s' exists in database." % usr
+            # print "User '%s' exists in database." % usr
         except:
             u = User.objects.create_user(usr, password="123")
-            print "user %s added!" % usr
+            # print "user %s added!" % usr
             if not u.is_active:
                 print "If the user at some point was deleted "\
                     "you want to do a user restore instead of add"
@@ -108,7 +108,7 @@ class UserManagement:
 
         if arg[0] == 's' or arg[0] == 'person':
             s = Person.objects.get_or_create(user=u[0])
-            print "User '%s' is now registered as person." % usr
+            # print "User '%s' is now registered as person." % usr
 
         else: #arg is now r
             u[0].is_active = True

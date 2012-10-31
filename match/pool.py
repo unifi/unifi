@@ -7,6 +7,9 @@ from networkx import Graph
 from networkx.algorithms.clique import find_cliques, cliques_containing_node
 from match.rating import jaccard
 
+from match.clique import WishClique as Clique
+from match.suggestion import Suggestion
+
 
 ## If the clique-size is low, the likeness demands are high.
 ## When the clique-size is hight, the likeness demands for clique score are reduced
@@ -17,7 +20,7 @@ from match.rating import jaccard
 # the recently created groups
 
 def default_selector( wish ):
-    return wish.is_active
+    return not wish.is_matched
 
 def default_connector( this, other ):
     return jaccard( this.tags.all(), other.tags.all() )
@@ -26,7 +29,7 @@ def default_connector( this, other ):
 
 class WishPool:
     def __init__( self,
-                  min_edge_score = 0.5,
+                  min_edge_score = 0.50,
                   # min_number_of_edges = 3,
                   selector = default_selector,
                   connector = jaccard ):
@@ -51,7 +54,7 @@ class WishPool:
                     # compares candidate to all existing nodes except itself
                     if other != wish and other.person != wish.person:
                         score = connector( wish.tags.all(), other.tags.all() )
-                        if score > self.min_edge_weight:
+                        if score >= self.min_edge_weight:
                             self.graph.add_edge( wish, other, weight=score )
 
         ## processes the graph, excludes lonely nods
@@ -60,38 +63,11 @@ class WishPool:
         self.remove_lonely_nodes()
         self.update_cliques()
 
-        ## evaluates alternatives, gathers suggestions
-        self.suggestions = []
-        for wish_pk, cliques in self.get_distributed_cliques().items():
-            suggestion = Suggestion(
-                Wish.objects.get(pk=wish_pk), cliques )
-            self.suggestions.append( suggestion )
-
-        ## selects appropriate cliques from suggestions
-        self.group_candidates = set()
-        for s in self.suggestions:
-            self.group_candidates.add( s.get_best_clique() )
-
-        ## exposes suggestions, creates groups
-        for s in self.group_candidates:
-            g = Group()
-            g.save()
-
-            for p in s.persons:
-                g.persons.add( p )
-
-            for w in s.nodes:
-                w.is_active = False # post-processing: deactivates wish
-                w.save()
-                g.wishes.add( w )
-            g.save()
+        ## evaluates alternatives, gathers suggestions for each wish
+        # this implies that some cliques occur twice
+        self.suggestions = self.update_suggestions()
 
 
-    #def exclude( self, min_number_of_edges=3 ):
-    #    for n in self.graph:
-    #        if self.graph.number_of_edges( n ) < min_number_of_edges:
-    #            self.graph.remove_node( n )
-    #    return self.graph
 
     def update_connected_nodes( self ):
         connected = set()
@@ -133,90 +109,33 @@ class WishPool:
                 result[w] = c
         return result
 
-    def rate_cliques( self ):
-        result = []
-        for c in self.cliques:
-            ci = Clique(c)
-            result.append( (ci.get_score(), ci) )
+    def update_suggestions( self ):
+        suggestions = []
+        for wish_pk, cliques in self.get_distributed_cliques().items():
+            suggestion = Suggestion(
+                Wish.objects.get(pk=wish_pk), cliques )
+            suggestions.append( suggestion )
+        self.suggestions = suggestions
+        return suggestions
 
 
-class Suggestion:
-    def __init__( self, wish, cliques ):
-        self.wish = wish        # 1
-        self.cliques = cliques  # *
-
-    def get_best_clique( self ):
-        if len( self.cliques ) == 1:
-            return self.cliques[0]
-        else:
-            return max( self.get_rated_cliques(), key=lambda t: t[0] )[1]
-
-    def get_rated_cliques( self ):
-        result = []
-
-        max_size   =  max( map( lambda c: len( c.nodes ), self.cliques ) )
-        max_score  =  max( map( lambda c: c.get_score(), self.cliques ) )
-
-        for c in self.cliques:
-            scores = (
-                len( c.nodes ) / float( max_size ),
-                c.get_score() / float( max_score ),
-            )
-            mean = sum( scores ) / float( len ( scores ) )
-            result.append( ( mean, c ) )
-
-        return sorted( result, key=lambda x: x[0] )
 
 
-class Clique:
-    def __init__( self, nodes ):
-        self.nodes = nodes
-        self.tags = self.update_tags()
-        self.persons = self.update_persons()
-
-    def __len__( self ):
-        return len( self.nodes )
-
-    def update_tags( self ):
-        result = set()
-        for n in self.nodes:
-            for t in n.tags.all():
-                result.add( t )
-        self.tags = result
-        return result
-
-    def get_common_tags( self ):
-        result = set()
-        for n in self.nodes:
-            if not len( result ):
-                result = set( n.tags.all() )
-            else:
-                result.intersection_update( n.tags.all() )
-        return result
-
-    def get_missing_tags( self ):
-        return self.tags.difference( self.get_common_tags() )
-
-    def get_score( self ):
-        score = 0.0
-        try:
-            score = len( self.get_common_tags() ) / float( len( self.tags ) )
-        except ZeroDivisionError:
-            pass
-        return score
-
-    def update_persons( self ):
-        result = []
-        for n in self.nodes:
-            result.append( n.person )
-        self.persons = result
-        return result
 
 
 if __name__ == "__main__":
     from timeit import timeit
     a = WishPool()
 
-    free_wishes = Wish.objects.filter( is_active=True )
+    # creates a list of distinct suggestions
+    distinct_cliques = set()
+
+    for s in a.suggestions:
+        distinct_cliques.add( s.get_best_clique() )
+
+    for c in distinct_cliques:
+        print c.create_group()
+
+    free_wishes = Wish.objects.filter( is_matched=False )
     print free_wishes
 

@@ -1,4 +1,3 @@
-#!/usr/bin/env python2.7
 # -*- coding: utf8 -*-
 
 from django.db import models
@@ -7,14 +6,14 @@ from django_extensions.db.models import TimeStampedModel
 
 from tag.models import Tag
 
+from unifi.rules import WISH_EXPIRATION_DAYS
 
-
+from datetime import date
+from dateutil.relativedelta import relativedelta
 
 
 class Person( models.Model ):
-    """ Person
-    Participates in group collaboration.
-    """
+
     user = models.ForeignKey( User, unique=True )
 
     def username( self ):
@@ -44,14 +43,27 @@ class Person( models.Model ):
         else:
             return False
 
+    def wishes( self ):
+        return Wish.objects.filter( person=self )
+
+    def groups( self ):
+        from group.models import Group
+        return Group.objects.filter( persons__in=[self] )
+
+
+
 
 
 
 class Wish( TimeStampedModel ):
+
     person = models.ForeignKey( Person )
     tags = models.ManyToManyField( Tag )
     is_active = models.BooleanField( default=True )
-
+    is_matched = models.BooleanField( default=False )
+    expires = models.DateField(
+        default=( date.today() + relativedelta( days=WISH_EXPIRATION_DAYS ) )
+    )
 
     def toggle_activity( self ):
         self.is_active = not self.is_active

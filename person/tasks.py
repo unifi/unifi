@@ -9,3 +9,7 @@ def draw_person( person ):
     # must write to media-location
 
 
+@task()
+def clear_old_wishes():
+    pass
+

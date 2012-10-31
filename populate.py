@@ -23,12 +23,15 @@ if __name__ == "__main__":
         number_of_tags = sys.argv[2]
         tag_quantity = ( raw_input( "max: " ), raw_input( "min: " ) )
     except IndexError:
-        number_of_persons = 200
-        number_of_tags = 3
+        number_of_persons = 20
+        number_of_tags = 2
         tag_quantity = (1, 2)
 
     persons = ( StudentGenerator( 5 ) ).generate( number_of_persons )
     tags = ( LetterTagGenerator() ).generate( number_of_tags )
+
+    print "Creating wishes for {0} persons, with a set of {1} tags".format(
+        len(persons), len(tags) )
 
     for p in persons:
         UserManager.addPerson( p )
