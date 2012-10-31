@@ -22,10 +22,12 @@ class WishClique:
 
         for wish in self.nodes:
             wish.is_matched = True
-            wish.save()
             new_group.wishes.add( wish )
+            wish.save()
 
         new_group.save()
+
+        return new_group
 
 
     def update_tags( self ):

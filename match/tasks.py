@@ -2,18 +2,18 @@
 # -*- coding: utf8 -*- 
 
 from celery import task
-from match.util import *
-from match.rating import jaccard
 
+from match.pool import WishPool
 
-# debug
-from time import time
-#
+from timeit import timeit
 
 @task()
-def match_groups():
-    pool = Pool()
-    for name, bucket in pool.buckets.items():
-        # creates groups in each bucket
-        strategy = Strategy( bucket, jaccard )
-        strategy.create_groups()
+def match( distribute_free_wishes=False ):
+
+    def process():
+        pool = WishPool()
+        pool.create_groups()
+
+    t = timeit( process )
+
+    print "Matching task was executed in {0} seconds".format( t )

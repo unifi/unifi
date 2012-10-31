@@ -22,6 +22,15 @@ class Group( TimeStampedModel ):
     slots            = models.ManyToManyField( "Slot", null=True )
 
 
+    def add_wish( self, wish ):
+        self.wishes.add( wish )
+        self.persons.add( wish.person )
+
+    def remove_person( self, person ):
+        #[!] test
+        self.persons.filter( person_pk=person.pk ).delete()
+        self.wishes.filter( person=person ).delete()
+
     def tags( self ):
         """
         Return group tags as a models.query.QuerySet
@@ -32,6 +41,10 @@ class Group( TimeStampedModel ):
             tags = tags | w.tags.all()
 
         return tags.distinct()
+
+
+    def is_open( self ):
+        return self.persons.count() < self.capacity
 
     def __unicode__( self ):
         return "Group %s" % self.pk

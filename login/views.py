@@ -5,8 +5,9 @@ from django.shortcuts import redirect
 from core.views import AccessRestrictedView, UnifiView
 from django.contrib import auth
 from django.shortcuts import render, redirect
-from login.models import Attempt, Banned
-from login.util import Client, BAN_PERIOD
+from login.models import Attempt, Banned, Invitation
+from login.util import Client
+from unifi.rules import BAN_PERIOD_MINUTES
 
 
 class Gateway( AccessRestrictedView ):
@@ -67,7 +68,7 @@ class Login( AccessRestrictedView ):
             return self.dialog(
                 message="Your address has been blocked for further login attempts. " + \
                 "Please wait %s seconds before you try again." \
-                % ( BAN_PERIOD - client.banned_since() )
+                % ( BAN_PERIOD_MINUTES - client.banned_since() )
             )
 
         else:
@@ -93,3 +94,31 @@ class Login( AccessRestrictedView ):
 
             return redirect( "/" )
 
+
+
+class Register( AccessRestrictedView ):
+    def allow( self ):
+        return redirect( "/my" )
+
+    def deny( self ):
+
+        code = self.request.GET.get( "c" )
+
+        if code:
+            try:
+                Invitation.objects.get( code=code )
+                return render( self.request,
+                    "login/register.html",
+                )
+            except Invitation.DoesNotExist:
+                client = Client( self.request )
+                attempt = Attempt(
+                    address=client.address,
+                    username=None
+                )
+                attempt.save()
+        else:
+            return redirect( "/" )
+
+        codes = [ o.code for o in Invitation.objects.all() ]
+        return self.dialog( message="{0}".format( ", ".join( codes ) ) )

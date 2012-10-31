@@ -5,8 +5,7 @@ from login.models import Attempt, Banned
 from django.db import IntegrityError
 from datetime import datetime
 
-BAN_PERIOD = 360
-MAX_LOGIN_ATTEMPTS = 5
+from unifi.rules import BAN_PERIOD_MINUTES, MAX_LOGIN_ATTEMPTS
 
 class Client:
 
@@ -24,7 +23,7 @@ class Client:
 
         if self.banned:
             # unbans the address if the ban period has passed
-            if self.banned_since() > BAN_PERIOD:
+            if self.banned_since() > BAN_PERIOD_MINUTES:
                 self.unban()
 
         else:

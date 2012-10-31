@@ -26,9 +26,13 @@ class Suggestion:
                 'size': len( c.nodes ) / float( max_size ),
                 # compared to the best clique score
                 'relative': c.get_score() / float( max_score ),
+                #'relative_boost': c.get_score() / float( max_score ),
             }
             mean = sum( scores.values() ) / float( len ( scores.values() ) )
-            print scores['relative']
+
+            if len(c.nodes) > 4:
+                mean = 0.0
+
             result.append( ( mean, c ) )
 
         return sorted( result, key=lambda x: x[0] )

@@ -9,10 +9,10 @@
     <div class="menu" pk="{{ group.pk }}">
         <div class="btn-toolbar">
             <div class="btn-group">
-                <button class="btn btn-warning btn-mini" id="inspect">
+                <a href="/group/{{ group.pk }}" class="btn btn-warning btn-mini" id="inspect">
                     <i class="icon-eye-open icon-white"></i>
                     Undersøk
-                </button>
+                </a>
                 <a class="btn btn-warning btn-mini" id="contact" href="#contactPopup" role="button" class="btn" data-toggle="modal">
                     <i class="icon-envelope icon-white"></i>
                     Kontakt
@@ -48,6 +48,9 @@
                     <i class="icon-arrow-left icon-white"></i>
                     Bli med&nbsp;&nbsp;
                 </button>
+                <a href="/group/{{ group.pk }}" class="btn btn-info" id="inspect">
+                    <i class="icon-arrow-left icon-eye-open icon-white"></i>
+                </a>
             </div>
         </div>
     {% endif %}

@@ -4,31 +4,40 @@ import sys
 
 from random import sample, randint
 
-from util.generators import StudentGenerator, LetterTagGenerator
+from django.contrib.auth.models import User
+
+from util.generators import StudentGenerator
+from util.generators import WordTagGenerator as TagGenerator
 from unifi.management import UserManager, WishManager, TagManager
 from person.models import Person, Wish
 from tag.models import Tag
 from group.models import Group
+from login.models import Invitation
 
 
 if __name__ == "__main__":
 
     Group.objects.all().delete()
     Wish.objects.all().delete()
-    Person.objects.all().delete()
+    Person.objects.exclude( user__username="ilyakh" ).delete()
+    User.objects.exclude( username="ilyakh" ).delete()
     Tag.objects.all().delete()
+    Invitation.objects.all().delete()
 
     try:
         number_of_persons = sys.argv[1]
         number_of_tags = sys.argv[2]
         tag_quantity = ( raw_input( "max: " ), raw_input( "min: " ) )
     except IndexError:
-        number_of_persons = 20
-        number_of_tags = 2
-        tag_quantity = (1, 2)
+        number_of_persons = 100
+        number_of_tags = 10
+        tag_quantity = (4, 5)
+
+
+    UserManager.addPerson( "ilyakh" )
 
     persons = ( StudentGenerator( 5 ) ).generate( number_of_persons )
-    tags = ( LetterTagGenerator() ).generate( number_of_tags )
+    tags = ( TagGenerator() ).generate( number_of_tags )
 
     print "Creating wishes for {0} persons, with a set of {1} tags".format(
         len(persons), len(tags) )
@@ -48,3 +57,11 @@ if __name__ == "__main__":
 
         for t in chosen_tags:
             w.tags.add( TagManager.addTag( t ) )
+
+
+
+    # invitations
+    invitation_codes = ( StudentGenerator( 5 ) ).generate( 5 )
+
+    for c in invitation_codes:
+        ( Invitation( code=c ) ).save()

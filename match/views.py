@@ -2,7 +2,7 @@
 # -*- coding: utf8 -*- 
 
 from core.views import AccessRestrictedView, DevelopmentOnlyView
-from match.tasks import match_groups
+from match.tasks import match
 
 
 class Match( DevelopmentOnlyView ):
@@ -12,7 +12,7 @@ class Match( DevelopmentOnlyView ):
     """
 
     def allow( self ):
-        match_groups()
+        match()
         return self.dialog( "Matching started", "Check your page" )
 
 

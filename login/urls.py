@@ -14,4 +14,8 @@ urlpatterns = patterns('',
         r'^leave/$',
         views.Leave()
     ),
+    url(
+        r'^register/$',
+        views.Register()
+    ),
 )

@@ -10,14 +10,13 @@ from match.rating import jaccard
 from match.clique import WishClique as Clique
 from match.suggestion import Suggestion
 
+from unifi.rules import MIN_NUMBER_OF_EDGES, MIN_EDGE_SCORE
+
 
 ## If the clique-size is low, the likeness demands are high.
 ## When the clique-size is hight, the likeness demands for clique score are reduced
 ## When the cliques are found, traverse the unmatched wishes and add them to the
 # groups with plausible tagsets
-
-# [+] Skimming: match, skim the unmatched, match the unmatched against the
-# the recently created groups
 
 def default_selector( wish ):
     return not wish.is_matched
@@ -29,10 +28,11 @@ def default_connector( this, other ):
 
 class WishPool:
     def __init__( self,
-                  min_edge_score = 0.50,
-                  # min_number_of_edges = 3,
+                  wishes = Wish.objects.iterator(),
+                  min_edge_score = MIN_EDGE_SCORE,
+                  # min_number_of_edges = MIN_NUMBER_OF_EDGES,
                   selector = default_selector,
-                  connector = jaccard ):
+                  connector = default_connector ):
         """
         A filterable pool of wishes represented as nodes. Is used to find
         relations between wishes.
@@ -46,18 +46,18 @@ class WishPool:
         self.min_edge_weight       = min_edge_score
         # self.min_number_of_edges   = min_number_of_edges
 
-        for wish in Wish.objects.iterator():
+        for wish in wishes:
             if selector( wish ):
                 self.graph.add_node( wish )
                 # loops through the existing nodes in the graph
                 for other in self.graph.nodes_iter():
                     # compares candidate to all existing nodes except itself
                     if other != wish and other.person != wish.person:
-                        score = connector( wish.tags.all(), other.tags.all() )
-                        if score >= self.min_edge_weight:
+                        score = connector( wish, other )
+                        if score > self.min_edge_weight:
                             self.graph.add_edge( wish, other, weight=score )
 
-        ## processes the graph, excludes lonely nods
+        ## processes the graph, excludes lonely nodes
         self.connected_nodes = self.update_connected_nodes()
         self.lonely_nodes = self.update_lonely_nodes()
         self.remove_lonely_nodes()
@@ -66,8 +66,6 @@ class WishPool:
         ## evaluates alternatives, gathers suggestions for each wish
         # this implies that some cliques occur twice
         self.suggestions = self.update_suggestions()
-
-
 
     def update_connected_nodes( self ):
         connected = set()
@@ -118,24 +116,25 @@ class WishPool:
         self.suggestions = suggestions
         return suggestions
 
+    def create_groups( self ):
+        distinct_cliques = set()
 
+        for s in self.suggestions:
+            distinct_cliques.add( s.get_best_clique() )
 
-
+        for c in distinct_cliques:
+            c.create_group()
 
 
 if __name__ == "__main__":
-    from timeit import timeit
-    a = WishPool()
-
-    # creates a list of distinct suggestions
-    distinct_cliques = set()
-
-    for s in a.suggestions:
-        distinct_cliques.add( s.get_best_clique() )
-
-    for c in distinct_cliques:
-        print c.create_group()
+    pool = WishPool()
+    pool.create_groups()
 
     free_wishes = Wish.objects.filter( is_matched=False )
-    print free_wishes
+    print len(free_wishes), free_wishes
+
+
+
+
+
 

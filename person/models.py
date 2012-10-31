@@ -65,10 +65,6 @@ class Wish( TimeStampedModel ):
         default=( date.today() + relativedelta( days=WISH_EXPIRATION_DAYS ) )
     )
 
-    def toggle_activity( self ):
-        self.is_active = not self.is_active
-        self.save()
-
     def __unicode__( self ):
         return "Wish: " + self.person.__unicode__()
 

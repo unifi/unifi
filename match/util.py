@@ -25,10 +25,10 @@ def get_wishes_tagged_by( tag ):
     from person.models import Wish
     return Wish.objects.filter( tags__in=[tag] )
 
-def distribute_wishes_by_tag():
+def distribute_wishes_by_tag( wishes ):
     distribution = {}
-    for wish in Wish.objects.all():
-        for tag in Wish.tags.all():
+    for wish in wishes:
+        for tag in wish.tags.all():
             if distribution[tag.name]:
                 distribution[tag.name].append(wish)
             else:

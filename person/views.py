@@ -4,8 +4,6 @@ from person.models import Wish
 from core.views import AccessRestrictedView, MethodView
 
 
-
-
 class SelectWish( AccessRestrictedView ):
     def allow( self, pk ):
         response = HttpResponse( status = 200 )

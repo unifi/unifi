@@ -12,10 +12,32 @@
 
     <div class="row-fluid">
         <h1 class="pull-right"><small>Gruppe #</small>{{ group.pk }}</h1>
-        <h3>Mål</h3>
-        <h4>Age<small>10 uker</small></h4>
+        <h3>Mål <small>_____________________</small></h3>
     </div>
 
+    <div class="row-fluid span5">
+
+    </div>
+
+
+    <div class="row-fluid">
+        <h3 class="span6">Eksisterer siden <small>{{ group.created }}</small></h3>
+        <h3 class="pull-right"><small>{{ group.tags|length }}</small> tagger</h3>
+    </div>
+
+    <div class="row-fluid">
+        <div class="tags span3 pull-right" style="text-align: right;">
+            {% for tag in group.tags %}
+            <span class="tag">{{ tag }}</span>
+            {% endfor %}
+        </div>
+    </div>
+
+
+
+    <hr />
+
+    <div class="span8">
     <ol>
         {% for wish in group.wishes.all %}
         <li>
@@ -29,6 +51,7 @@
         </li>
         {% endfor %}
     </ol>
+    </div>
 
 </div>
 

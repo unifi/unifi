@@ -2,7 +2,6 @@
 # -*- coding: utf8 -*-
 
 from django.shortcuts import render, redirect
-from django.template.context import RequestContext
 from core.views import AccessRestrictedView
 from group.models import Group
 from match.algorithms import WishDispatcher
@@ -11,7 +10,7 @@ from person.models import Person, Wish
 from match.util import *
 from unifi import UserManager, WishManager
 
-
+from unifi.rules import MAX_WISHES_PER_USER, MAX_TAGS_PER_WISH, MAX_WISH_SIMILARITY
 
 class MyView( AccessRestrictedView ):
 
@@ -29,12 +28,6 @@ class MyView( AccessRestrictedView ):
 
         if self.request.user.is_authenticated():
 
-            # assistance_groups = sample( list( Group.objects.all() ), 10 )
-
-            # for g in assistance_groups:
-                # g.needs_assistance = True
-                # g.save()
-
             assistance_groups = Group.objects.filter( needs_assistance=True )
 
             wishes = Wish.objects.filter( person=person )
@@ -43,9 +36,6 @@ class MyView( AccessRestrictedView ):
             groups = Group.objects.filter( persons__in=[person] )
 
             autocomplete = Tag.objects.all()
-
-            # for u in sample( list(Person.objects.all()), 10 ):
-                # UserManager.updateUser( u.username(), "o" )
 
             context = {
                 "title":                "UNIFI",
@@ -156,29 +146,28 @@ class CreateWish( AccessRestrictedView ):
         tags = [ t.encode("utf8") for t in tags ]
         tags = [ t.lower() for t in tags ]
 
-        MAX_NUMBER_OF_TAGS = 5
+        if self.person.groups().count() > MAX_WISHES_PER_USER:
+            return self.dialog( "Error", "Too many wishes" )
 
         if not len( tags ):
             return self.dialog( "Error", "No tags given" )
 
-        elif len( tags ) > MAX_NUMBER_OF_TAGS:
+        elif len( tags ) > MAX_TAGS_PER_WISH:
             return self.dialog( "Error",
                   "Your wish contains too many tags. Specify max %d tags." %\
-                  MAX_NUMBER_OF_TAGS
+                  MAX_TAGS_PER_WISH
             )
 
         courses = WishDispatcher.extract_course_tag( tags )
 
         # check if user has similar wishes
 
-        NEW_WISH_MAX_SIMILARITY = 0.75
-
         has_similar = False
         existing_wishes = Wish.objects.filter( person=self.person ).filter( is_active=True )
 
         for w in existing_wishes:
             rating = jaccard( [t.name for t in w.tags.all()], tags )
-            if rating > NEW_WISH_MAX_SIMILARITY:
+            if rating > MAX_WISH_SIMILARITY:
                 return self.dialog( "Error", "One of your existing wishes is too alike" )
 
         if len( courses ) > 1:
