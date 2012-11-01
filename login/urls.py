@@ -1,4 +1,6 @@
 from django.conf.urls import patterns, include, url
+from socialregistration.views import Setup
+
 from login import views
 
 urlpatterns = patterns('',
@@ -14,8 +16,8 @@ urlpatterns = patterns('',
         r'^leave/$',
         views.Leave()
     ),
-    url(
-        r'^register/$',
-        views.Register()
+    url(r'^social/', include('socialregistration.urls',
+        namespace='socialregistration')
     ),
+    url(r'social/setup/', Setup.as_view() )
 )

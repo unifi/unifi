@@ -2,34 +2,12 @@
 # -*- coding: utf8 -*-
 
 from django.conf.urls import patterns, url
-from djangorestframework import permissions
-from djangorestframework.views import \
-    ListOrCreateModelView, InstanceModelView
 from group import views
-from group.resources import GroupResource
 
 
 
 urlpatterns = patterns( '',
 
-#   These djangorestframework views cannot be public
-#
-#    url(
-#        r'^$',
-#        ListOrCreateModelView.as_view(
-#            resource=GroupResource,
-#            permissions=( permissions.IsAuthenticated, )
-#        )
-#    ),
-#    url(
-#        r'^(?P<pk>[0-9]+)/$',
-#        InstanceModelView.as_view(
-#            resource=GroupResource,
-#            permissions=( permissions.IsAuthenticated, )
-#        )
-#    ),
-
-    # old
     url(
         r'^(?P<pk>\d*)$',
         views.Select()
@@ -44,9 +22,4 @@ urlpatterns = patterns( '',
         r'^all$',
         views.All()
     ),
-    
-#    url(
-#        r'^(\d+)',
-#        views.Inspect()
-#    ),
 )

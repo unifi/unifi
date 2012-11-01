@@ -1,7 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from login.views import Gateway
-from django.views.generic import RedirectView
 
 admin.autodiscover()
 
@@ -11,11 +10,11 @@ urlpatterns = patterns('',
     # url(r'^admin/doc/',           include('django.contrib.admindocs.urls')),
     url( r'^admin/',                include(admin.site.urls)),
 
-    # djangorestframework
+    # rest_framework
     url(
         r'^restframework/',
-        include( 'djangorestframework.urls',
-           namespace='djangorestframework'
+        include( 'rest_framework.urls',
+           namespace='rest_framework'
         )
     ),
 

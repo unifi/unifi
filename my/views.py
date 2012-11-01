@@ -1,4 +1,3 @@
-#!/usr/bin/env python2.7
 # -*- coding: utf8 -*-
 
 from django.shortcuts import render, redirect
@@ -51,8 +50,6 @@ class MyView( AccessRestrictedView ):
 
 
 
-# the views that generate page elements:
-# [+] create a descending class called PageElementView for the following:
 class WishView( AccessRestrictedView ):
 
     def allow( self ):
@@ -66,6 +63,8 @@ class WishView( AccessRestrictedView ):
         }
 
         return render( self.request, "wish/wishes.html", context )
+
+
 
 class GroupView( AccessRestrictedView ):
 
@@ -81,6 +80,8 @@ class GroupView( AccessRestrictedView ):
 
         return render( self.request, "group/groups.html", context )
 
+
+
 class AssistanceView( AccessRestrictedView ):
 
     def allow( self ):
@@ -95,45 +96,9 @@ class AssistanceView( AccessRestrictedView ):
 
 
 
-
-
 class Search( AccessRestrictedView ):
-
     def allow( self ):
-
-        # [!] TEMP
-
-        from time import time
-
-        t = time()
-
-        groups = Group.objects.all()
-        # [!] probably needs to be checked for age as well
-        wishes = Wish.objects.filter(
-            is_active=True ).filter( person=self.person )
-
-        graph = network.Graph()
-
-        for g in groups:
-            graph.add_node( g )
-
-        # . at this point in time all groups are in the graph, but there are
-        # . no connections between them. To make connections, we introduce
-        # . wishes as additional nodes and make edges with perspective groups:
-
-        report = []
-
-        for w in wishes:
-            for g in graph.nodes():
-                rating = jaccard( w.tags.all(), g.tags() )
-                report.append ( "Wish %s fits well into the group %s (rated: %s) <br />%s<br />%s" % ( w, g, rating, g.tags(), w.tags.all() ) )
-
-        print time() - t
-
-        return self.dialog( title=( time() - t), collection=report )
-
-
-
+        return self.dialog( title="Search is not available", message="" )
 
 
 
@@ -146,7 +111,7 @@ class CreateWish( AccessRestrictedView ):
         tags = [ t.encode("utf8") for t in tags ]
         tags = [ t.lower() for t in tags ]
 
-        if self.person.groups().count() > MAX_WISHES_PER_USER:
+        if self.person.wishes().count() > MAX_WISHES_PER_USER:
             return self.dialog( "Error", "Too many wishes" )
 
         if not len( tags ):

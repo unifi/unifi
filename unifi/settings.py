@@ -127,6 +127,9 @@ ROOT_URLCONF = 'unifi.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'unifi.wsgi.application'
 
+
+##
+
 INSTALLED_APPS = (
     # third party applications
     'django.contrib.auth',
@@ -138,7 +141,13 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.admindocs',
     'debug_toolbar',
-    'djangorestframework',
+    'rest_framework',
+    # socialregistration
+    'socialregistration',
+    'socialregistration.contrib.openid',
+    'socialregistration.contrib.twitter',
+    'socialregistration.contrib.github',
+    #
     'django_extensions',
     'djcelery',
     'kombu.transport.django', # celery broker
@@ -155,6 +164,26 @@ INSTALLED_APPS = (
         'communication',
     # information aggregator applications
     'my',
+)
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'socialregistration.contrib.openid.auth.OpenIDAuth',
+    'socialregistration.contrib.twitter.auth.TwitterAuth',
+    'socialregistration.contrib.github.auth.GithubAuth',
+)
+
+TWITTER_CONSUMER_KEY = 'eLBZ5EytNpE5vBotKKz6g'
+TWITTER_CONSUMER_SECRET_KEY = 'x8ZjrcklM3M3XxxqIyDbitgpPLkdFDrO6nY96LPtaos'
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.contrib.messages.context_processors.messages',
+    'django.core.context_processors.request',
 )
 
 DEBUG_TOOLBAR_PANELS = (
@@ -176,6 +205,9 @@ DEBUG_TOOLBAR_CONFIG = {
 INTERNAL_IPS = (
     '127.0.0.1',
 )
+
+#SESSION_COOKIE_SECURE = True
+#CSRF_COOKIE_SECURE = True
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -206,6 +238,7 @@ LOGGING = {
     }
 }
 
+SITE_ID = 1
 
 # Celery: asynchronous stack queue used in matching and heavy optimization
 djcelery.setup_loader()
@@ -216,5 +249,7 @@ CELERYD_CONCURRENCY = 1
 # Email-backend: dumps the contents of email messages into the console
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+LOGIN_URL = "/"
+LOGIN_REDIRECT_URL = "/my/"
+LOGOUT_URL = "/login/leave"
 
-import local_settings

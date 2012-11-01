@@ -5,6 +5,7 @@ import sys
 from random import sample, randint
 
 from django.contrib.auth.models import User
+from django.contrib.sites.models import Site
 
 from util.generators import StudentGenerator
 from util.generators import WordTagGenerator as TagGenerator
@@ -12,7 +13,7 @@ from unifi.management import UserManager, WishManager, TagManager
 from person.models import Person, Wish
 from tag.models import Tag
 from group.models import Group
-from login.models import Invitation
+
 
 
 if __name__ == "__main__":
@@ -22,15 +23,16 @@ if __name__ == "__main__":
     Person.objects.exclude( user__username="ilyakh" ).delete()
     User.objects.exclude( username="ilyakh" ).delete()
     Tag.objects.all().delete()
-    Invitation.objects.all().delete()
+
+    # set site
 
     try:
         number_of_persons = sys.argv[1]
         number_of_tags = sys.argv[2]
         tag_quantity = ( raw_input( "max: " ), raw_input( "min: " ) )
     except IndexError:
-        number_of_persons = 100
-        number_of_tags = 10
+        number_of_persons = 20
+        number_of_tags = 15
         tag_quantity = (4, 5)
 
 
@@ -60,8 +62,3 @@ if __name__ == "__main__":
 
 
 
-    # invitations
-    invitation_codes = ( StudentGenerator( 5 ) ).generate( 5 )
-
-    for c in invitation_codes:
-        ( Invitation( code=c ) ).save()

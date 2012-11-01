@@ -3,6 +3,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from login.util import Client
+from person.models import Person
 from unifi.management import UserManager
 
 
@@ -45,11 +46,19 @@ class AccessRestrictedView( UnifiView ):
         self.request = request
         self.args = args
         self.kwargs = kwargs
-        self.user = self.request.user
-        self.person = UserManager.getPerson( self.user.username )
         
         if self.request.user.is_authenticated():
+
+            self.user = self.request.user
+
+            try:
+                self.person = Person.objects.get( user=self.user )
+            except Person.DoesNotExist:
+                self.person = Person( user=self.user )
+                self.person.save()
+
             return self.allow( *args, **kwargs )
+
         else:
             return self.deny()
 
