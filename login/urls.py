@@ -1,5 +1,8 @@
+# -*- coding: utf8 -*-
+
 from django.conf.urls import patterns, include, url
-from socialregistration.views import Setup
+
+from login.views import UnifiSetup
 
 from login import views
 
@@ -16,8 +19,12 @@ urlpatterns = patterns('',
         r'^leave/$',
         views.Leave()
     ),
-    url(r'^social/', include('socialregistration.urls',
-        namespace='socialregistration')
+    url(
+        r'social/setup/',
+        UnifiSetup.as_view()
     ),
-    url(r'social/setup/', Setup.as_view() )
+    url(
+        r'^social/',
+        include('socialregistration.urls', namespace='socialregistration')
+    ),
 )

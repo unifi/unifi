@@ -1,25 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{{ title }}</title>
+    {% include "header/import.html" %}
 </head>
 <body>
 
+<div class="content" style="padding: 5%;">
+    <div class="row-fluid">
 
-<h1>Setup</h1>
+    <h1>Ny UNIFI-bruker</h1>
 
+    <hr />
 
-	<form action="." method="post">
-	    <table>
-	        <tr><th><label for="id_username">Username:</label></th><td><input id="id_username" type="text" name="username" maxlength="32" /></td></tr>
-<tr><th><label for="id_email">Email:</label></th><td><input type="text" name="email" id="id_email" /></td></tr>
-	    </table>
-	    <div style='display:none'><input type='hidden' name='csrfmiddlewaretoken' value='XMYzq1p1DUYiLUe4ibFaSjL717YO7o09' /></div>
-	    <input type="submit" value="save" />
-	</form>
+    <form class="form-horizontal" action="/login/social/setup/" method="post">{% csrf_token %}
+        <div class="control-group">
+        <label class="control-label" for="id_username">Skal hete</label>
+            <div class="controls">
+                <input type="text" name="username" id="id_username" placeholder="brukernavn">
+            </div>
+        </div>
+        <div class="control-group">
+        <label class="control-label" for="id_email">og vil bli kontaktet via</label>
+            <div class="controls">
+                <input type="text" name="email" id="id_email" placeholder="epost-adresse">
+            </div>
+        </div>
 
+        <div class="control-group">
+            <div class="alert alert-danger">
+                Systemet du tar i bruk er under testing og kan være ustabil,
+                føre til tap av data og eksponere dine personlige opplysninger.
+                Som en testbruker frasier du deg alt rett til å holde utviklere
+                til ansvar hvis det overnevnte skjer.
+            </div>
+        </div>
 
+        <div class="control-group">
+            <div class="controls">
+                Trykk <button type="submit" class="btn" style="margin-left: 1em; margin-right: 1em;">jeg samtykker</button> kun hvis du aksepterer vilkårene.
+            </div>
+        </div>
+    </form>
 
+    </div>
+</div>
 
 </body>
 </html>

@@ -65,6 +65,10 @@ class Wish( TimeStampedModel ):
         default=( date.today() + relativedelta( days=WISH_EXPIRATION_DAYS ) )
     )
 
+    def groups( self ):
+        from group.models import Group
+        return Group.objects.filter( wishes__in=[self] )
+
     def __unicode__( self ):
         return "Wish: " + self.person.__unicode__()
 

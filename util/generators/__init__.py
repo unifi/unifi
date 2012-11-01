@@ -104,7 +104,14 @@ class WordTagGenerator(TagGenerator):
         from urllib import urlopen
         data = urlopen( uri ).read().split( separator )
 
-        return random.sample( data, quantity )
+        try:
+            result = random.sample( data, quantity )
+        except ValueError:
+            print "You are using WordTag generator that fetches the tags names" \
+            "from an online dictionary. Your dictionary was empty, which means" \
+            "that the internet connection was probably lost."
+
+        return result
 
 
 

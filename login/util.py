@@ -1,5 +1,4 @@
-#!/usr/bin/env python2.7
-# -*- coding: utf8 -*- 
+# -*- coding: utf8 -*-
 
 from login.models import Attempt, Banned
 from django.db import IntegrityError

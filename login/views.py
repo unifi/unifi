@@ -90,3 +90,9 @@ class Login( AccessRestrictedView ):
 
             return redirect( "/" )
 
+
+
+from socialregistration.views import Setup
+
+class UnifiSetup( Setup ):
+    template_name = "login/setup.html"

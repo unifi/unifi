@@ -253,3 +253,5 @@ LOGIN_URL = "/"
 LOGIN_REDIRECT_URL = "/my/"
 LOGOUT_URL = "/login/leave"
 
+SOCIALREGISTRATION_SETUP_FORM = "login.forms.UserForm"
+

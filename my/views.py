@@ -111,7 +111,7 @@ class CreateWish( AccessRestrictedView ):
         tags = [ t.encode("utf8") for t in tags ]
         tags = [ t.lower() for t in tags ]
 
-        if self.person.wishes().count() > MAX_WISHES_PER_USER:
+        if self.person.wishes().count() >= MAX_WISHES_PER_USER:
             return self.dialog( "Error", "Too many wishes" )
 
         if not len( tags ):

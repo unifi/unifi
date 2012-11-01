@@ -31,12 +31,12 @@ if __name__ == "__main__":
         number_of_tags = sys.argv[2]
         tag_quantity = ( raw_input( "max: " ), raw_input( "min: " ) )
     except IndexError:
-        number_of_persons = 20
-        number_of_tags = 15
-        tag_quantity = (4, 5)
+        number_of_persons = 100
+        number_of_tags = 10
+        tag_quantity = (1, 2)
 
 
-    UserManager.addPerson( "ilyakh" )
+    UserManager.addPerson( "ilyakh" ).set_password( "123" )
 
     persons = ( StudentGenerator( 5 ) ).generate( number_of_persons )
     tags = ( TagGenerator() ).generate( number_of_tags )

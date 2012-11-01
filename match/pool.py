@@ -1,10 +1,11 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf8 -*- 
 
-from person.models import Wish
+from person.models import Wish, Person
 from group.models import Group
 from networkx import Graph
 from networkx.algorithms.clique import find_cliques, cliques_containing_node
+import networkx as nx
 from match.rating import jaccard
 
 from match.clique import WishClique as Clique
@@ -59,8 +60,10 @@ class WishPool:
 
         ## processes the graph, excludes lonely nodes
         self.connected_nodes = self.update_connected_nodes()
+        debug_graph(self.graph, message="Connected nodes are set")
         self.lonely_nodes = self.update_lonely_nodes()
-        self.remove_lonely_nodes()
+        # self.remove_lonely_nodes()
+        debug_graph(self.graph, message="Lonely nodes are removed")
         self.update_cliques()
 
         ## evaluates alternatives, gathers suggestions for each wish
@@ -125,13 +128,86 @@ class WishPool:
         for c in distinct_cliques:
             c.create_group()
 
+    def get_suggestion_pool( self ):
+        return SuggestionPool( self.suggestions )
+
+
+class SuggestionPool:
+    def __init__( self, suggestions ):
+        self.suggestions = suggestions
+
+
+    def exclude_wish( self, wish ):
+        for s in self.suggestions:
+            s.remove_wish( wish )
+
+    def exclude_clique( self, clique ):
+        self.suggestions.remove( clique )
+
+    def create_groups( self ):
+        candidates = set()
+
+        for s in self.suggestions:
+            candidate = s.get_best_clique()
+            if len(candidate) > 1:
+                candidates.add( candidate )
+
+        candidates = list( candidates )
+
+        for c in candidates:
+            candidates.remove(c)
+            c.create_group()
+            for w in c.nodes:
+                for c in candidates:
+                    if w in c.nodes:
+                        c.nodes.remove( w )
+
+
+
+
+def debug_graph( graph, message="" ):
+    import matplotlib.pyplot as plt
+    print message
+
+    pos = nx.layout.fruchterman_reingold_layout( graph )
+    nx.draw( graph, pos )
+    plt.show()
+
+
+
 
 if __name__ == "__main__":
     pool = WishPool()
-    pool.create_groups()
+    sp = pool.get_suggestion_pool()
+
+    sp.create_groups()
 
     free_wishes = Wish.objects.filter( is_matched=False )
     print len(free_wishes), free_wishes
+
+
+    try:
+        sum = 0.0
+        for p in Person.objects.all():
+            sum += p.groups().count()
+
+        print "Mean groups per Wish: {0}".format(
+            sum / float( Wish.objects.count() )
+        )
+
+
+        matched_persons = 0.0
+        for g in Group.objects.all():
+            matched_persons += g.persons.count()
+
+        print "Mean group size: {0}".format(
+            float(matched_persons) / Group.objects.count()
+        )
+
+    except ZeroDivisionError:
+        pass
+
+
 
 
 

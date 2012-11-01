@@ -8,6 +8,11 @@ class Suggestion:
     def is_conflicted( self ):
         return len(self.cliques) > 1
 
+    def remove_wish( self, wish ):
+        for c in self.cliques:
+            if wish in c.nodes:
+                c.nodes.remove( wish )
+
     def get_best_clique( self ):
         if len( self.cliques ) == 1:
             return self.cliques[0]
@@ -30,7 +35,7 @@ class Suggestion:
             }
             mean = sum( scores.values() ) / float( len ( scores.values() ) )
 
-            if len(c.nodes) > 4:
+            if len(c.nodes) > 10:
                 mean = 0.0
 
             result.append( ( mean, c ) )
