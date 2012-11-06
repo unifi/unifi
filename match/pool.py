@@ -179,10 +179,13 @@ def debug_graph( graph, message="" ):
     import matplotlib.pyplot as plt
     from time import time
     print message
+    from networkx.readwrite.json_graph import dumps
 
     pos = nx.layout.fruchterman_reingold_layout( graph )
     nx.draw( graph, pos )
-    nx.write_dot( graph, "./dots/{0}.dot".format( time() ) )
+
+    # output
+    # nx.write_dot( graph, "./dots/{0}.dot".format( time() ) )
     nx.draw_graphviz( graph )
     plt.show()
 

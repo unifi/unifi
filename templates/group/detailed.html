@@ -22,14 +22,18 @@
 
     <div class="row-fluid">
         <h3 class="span6">Eksisterer siden <small>{{ group.created }}</small></h3>
-        <h3 class="pull-right"><small>{{ group.tags|length }}</small> tagger</h3>
+        <h3 class="pull-right">
+            <small>{% if group.tags|length > 1 %}{{ group.tags|length }}{% endif %}</small> tagger
+        </h3>
     </div>
 
     <div class="row-fluid">
         <div class="tags span3 pull-right" style="text-align: right;">
+        {% if group.tags|length > 1 %}
             {% for tag in group.tags %}
             <span class="tag">{{ tag }}</span>
             {% endfor %}
+        {% endif %}
         </div>
     </div>
 
@@ -39,6 +43,7 @@
 
     <div class="span8">
     <ol>
+        {% if group.wishes.all|length > 1 %}
         {% for wish in group.wishes.all %}
         <li>
             <div class="wish"><span class="person">{{ wish.person }}</span>
@@ -50,6 +55,7 @@
             </div>
         </li>
         {% endfor %}
+        {% endif %}
     </ol>
     </div>
 
