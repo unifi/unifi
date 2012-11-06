@@ -1,0 +1,7 @@
+strict graph  {
+	"Wish: salaz";
+	"Wish: gego" -- "Wish: cajo"	 [weight=1.0];
+	"Wish: gego" -- "Wish: gaxi"	 [weight=0.666666666667];
+	"Wish: gaxi" -- "Wish: cajo"	 [weight=0.666666666667];
+	"Wish: vupo";
+}

@@ -10,6 +10,7 @@ from match.rating import jaccard
 
 from match.clique import WishClique as Clique
 from match.suggestion import Suggestion
+from match.vitality import group_size_mean, groups_per_wish_mean
 
 from unifi.rules import MIN_NUMBER_OF_EDGES, MIN_EDGE_SCORE
 
@@ -20,7 +21,7 @@ from unifi.rules import MIN_NUMBER_OF_EDGES, MIN_EDGE_SCORE
 # groups with plausible tagsets
 
 def default_selector( wish ):
-    return not wish.is_matched
+    return wish.is_active
 
 def default_connector( this, other ):
     return jaccard( this.tags.all(), other.tags.all() )
@@ -29,7 +30,7 @@ def default_connector( this, other ):
 
 class WishPool:
     def __init__( self,
-                  wishes = Wish.objects.iterator(),
+                  wishes = Wish.objects.filter( is_active=True ),
                   min_edge_score = MIN_EDGE_SCORE,
                   # min_number_of_edges = MIN_NUMBER_OF_EDGES,
                   selector = default_selector,
@@ -62,8 +63,6 @@ class WishPool:
         self.connected_nodes = self.update_connected_nodes()
         debug_graph(self.graph, message="Connected nodes are set")
         self.lonely_nodes = self.update_lonely_nodes()
-        # self.remove_lonely_nodes()
-        debug_graph(self.graph, message="Lonely nodes are removed")
         self.update_cliques()
 
         ## evaluates alternatives, gathers suggestions for each wish
@@ -81,7 +80,7 @@ class WishPool:
         return whole_graph.difference( self.connected_nodes )
 
     def remove_lonely_nodes( self ):
-        self.graph.remove_nodes_from( self.lonely_nodes )
+        raise NotImplementedError
 
     def update_cliques( self ):
         result = set()
@@ -132,10 +131,11 @@ class WishPool:
         return SuggestionPool( self.suggestions )
 
 
+
+
 class SuggestionPool:
     def __init__( self, suggestions ):
         self.suggestions = suggestions
-
 
     def exclude_wish( self, wish ):
         for s in self.suggestions:
@@ -144,10 +144,20 @@ class SuggestionPool:
     def exclude_clique( self, clique ):
         self.suggestions.remove( clique )
 
+    def get_rated_suggestions( self ):
+        result = []
+        for s in self.suggestions:
+            result.append(
+                ( s.get_rating(), s )
+            )
+        return sorted( result, key=lambda x: x[0], reverse=False)
+        # reverse false makes empty groups, not checked for true
+
     def create_groups( self ):
         candidates = set()
+        suggestions = [s[1] for s in self.get_rated_suggestions()]
 
-        for s in self.suggestions:
+        for s in suggestions:
             candidate = s.get_best_clique()
             if len(candidate) > 1:
                 candidates.add( candidate )
@@ -167,45 +177,20 @@ class SuggestionPool:
 
 def debug_graph( graph, message="" ):
     import matplotlib.pyplot as plt
+    from time import time
     print message
 
     pos = nx.layout.fruchterman_reingold_layout( graph )
     nx.draw( graph, pos )
+    nx.write_dot( graph, "./dots/{0}.dot".format( time() ) )
+    nx.draw_graphviz( graph )
     plt.show()
 
 
 
 
 if __name__ == "__main__":
-    pool = WishPool()
-    sp = pool.get_suggestion_pool()
-
-    sp.create_groups()
-
-    free_wishes = Wish.objects.filter( is_matched=False )
-    print len(free_wishes), free_wishes
-
-
-    try:
-        sum = 0.0
-        for p in Person.objects.all():
-            sum += p.groups().count()
-
-        print "Mean groups per Wish: {0}".format(
-            sum / float( Wish.objects.count() )
-        )
-
-
-        matched_persons = 0.0
-        for g in Group.objects.all():
-            matched_persons += g.persons.count()
-
-        print "Mean group size: {0}".format(
-            float(matched_persons) / Group.objects.count()
-        )
-
-    except ZeroDivisionError:
-        pass
+    pass
 
 
 

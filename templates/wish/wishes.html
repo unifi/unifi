@@ -6,9 +6,7 @@
 {{ message }}
 {% for wish in wishes|dictsortreversed:"created" %}
     {% if wish.is_active %}
-    {% if wish.is_matched != True %}
     {% include "wish/wish.html" %}
-    {% endif %}
     {% endif %}
 {% endfor %}
 </div>

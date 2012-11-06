@@ -5,6 +5,9 @@ class Suggestion:
         self.wish = wish        # 1
         self.cliques = cliques  # *
 
+    def __len__( self ):
+        return len( self.cliques )
+
     def is_conflicted( self ):
         return len(self.cliques) > 1
 
@@ -31,13 +34,25 @@ class Suggestion:
                 'size': len( c.nodes ) / float( max_size ),
                 # compared to the best clique score
                 'relative': c.get_score() / float( max_score ),
-                #'relative_boost': c.get_score() / float( max_score ),
             }
             mean = sum( scores.values() ) / float( len ( scores.values() ) )
-
-            if len(c.nodes) > 10:
-                mean = 0.0
-
             result.append( ( mean, c ) )
 
         return sorted( result, key=lambda x: x[0] )
+
+
+    def get_rating( self ):
+
+        # Alternatives: 1. score mean 2. conflictedness
+
+        rated_cliques = self.get_rated_cliques()
+        scores = [s[0] for s in rated_cliques]
+        result = 0.0
+        try:
+            result = sum(scores) / float(len(scores))
+        except ZeroDivisionError:
+            pass
+
+
+
+        return result

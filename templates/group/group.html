@@ -58,7 +58,7 @@
     {% include "person/persons.html" with persons=group.persons.all %}
     </div>
     <!-- tags -->
-    {% if group.tags %}
+    {% if group.tags|length > 0 %}
         {% include "tag/tags.html" with tags=group.tags  %}
     {% endif %}
     <!-- join -->

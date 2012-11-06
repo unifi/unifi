@@ -20,8 +20,10 @@ class WishClique:
         for person in self.persons:
             new_group.persons.add( person )
 
+        new_group.save()
+
         for wish in self.nodes:
-            wish.is_matched = True
+            wish.is_active = False
             new_group.wishes.add( wish )
             wish.save()
 

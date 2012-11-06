@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 
 from util.generators import StudentGenerator
-from util.generators import WordTagGenerator as TagGenerator
+from util.generators import LetterTagGenerator as TagGenerator
 from unifi.management import UserManager, WishManager, TagManager
 from person.models import Person, Wish
 from tag.models import Tag
@@ -27,12 +27,12 @@ if __name__ == "__main__":
     # set site
 
     try:
-        number_of_persons = sys.argv[1]
-        number_of_tags = sys.argv[2]
-        tag_quantity = ( raw_input( "max: " ), raw_input( "min: " ) )
+        number_of_persons = int(sys.argv[1])
+        number_of_tags = int(sys.argv[2])
+        tag_quantity = ( int(raw_input( "min: " )), int(raw_input( "max: " )) )
     except IndexError:
         number_of_persons = 100
-        number_of_tags = 10
+        number_of_tags = 2
         tag_quantity = (1, 2)
 
 

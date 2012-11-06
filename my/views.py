@@ -12,7 +12,6 @@ from unifi import UserManager, WishManager
 from unifi.rules import MAX_WISHES_PER_USER, MAX_TAGS_PER_WISH, MAX_WISH_SIMILARITY
 
 class MyView( AccessRestrictedView ):
-
     def allow( self ):
 
         candidates = Person.objects.filter(
@@ -51,7 +50,6 @@ class MyView( AccessRestrictedView ):
 
 
 class WishView( AccessRestrictedView ):
-
     def allow( self ):
 
         person = Person.objects.get( user=self.user )
@@ -67,7 +65,6 @@ class WishView( AccessRestrictedView ):
 
 
 class GroupView( AccessRestrictedView ):
-
     def allow( self ):
 
         person = Person.objects.get( user=self.user )
@@ -83,7 +80,6 @@ class GroupView( AccessRestrictedView ):
 
 
 class AssistanceView( AccessRestrictedView ):
-
     def allow( self ):
 
         groups = Group.objects.filter( needs_assistance=True )
@@ -103,7 +99,6 @@ class Search( AccessRestrictedView ):
 
 
 class CreateWish( AccessRestrictedView ):
-
     def allow( self ):
         result = redirect( "/" )
 
@@ -111,7 +106,9 @@ class CreateWish( AccessRestrictedView ):
         tags = [ t.encode("utf8") for t in tags ]
         tags = [ t.lower() for t in tags ]
 
-        if self.person.wishes().count() >= MAX_WISHES_PER_USER:
+        active_wishes = self.person.wishes().filter( is_active=True )
+
+        if active_wishes.count() >= MAX_WISHES_PER_USER:
             return self.dialog( "Error", "Too many wishes" )
 
         if not len( tags ):
@@ -120,8 +117,7 @@ class CreateWish( AccessRestrictedView ):
         elif len( tags ) > MAX_TAGS_PER_WISH:
             return self.dialog( "Error",
                   "Your wish contains too many tags. Specify max %d tags." %\
-                  MAX_TAGS_PER_WISH
-            )
+                  MAX_TAGS_PER_WISH )
 
         courses = WishDispatcher.extract_course_tag( tags )
 

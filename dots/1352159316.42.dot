@@ -1,0 +1,15 @@
+strict graph  {
+	"Wish: zat" -- "Wish: holas"	 [weight=0.666666666667];
+	"Wish: zat" -- "Wish: gaxi"	 [weight=0.666666666667];
+	"Wish: zat" -- "Wish: lase"	 [weight=0.666666666667];
+	"Wish: vupo" -- "Wish: holas"	 [weight=0.666666666667];
+	"Wish: vupo" -- "Wish: lase"	 [weight=0.666666666667];
+	"Wish: lase" -- "Wish: holas"	 [weight=1.0];
+	"Wish: salaz" -- "Wish: deha"	 [weight=0.666666666667];
+	"Wish: salaz" -- "Wish: ilyakh"	 [weight=0.666666666667];
+	"Wish: salaz" -- "Wish: tosa"	 [weight=0.666666666667];
+	"Wish: salaz" -- "Wish: viv"	 [weight=0.666666666667];
+	"Wish: deha" -- "Wish: tosa"	 [weight=1.0];
+	"Wish: deha" -- "Wish: viv"	 [weight=1.0];
+	"Wish: tosa" -- "Wish: viv"	 [weight=1.0];
+}

@@ -4,9 +4,9 @@ from django.db import models
 from django.contrib.auth.models import User
 from django_extensions.db.models import TimeStampedModel
 
-from tag.models import Tag
-
 from unifi.rules import WISH_EXPIRATION_DAYS
+from person.managers import WishManager
+from tag.models import Tag
 
 from datetime import date
 from dateutil.relativedelta import relativedelta
@@ -54,13 +54,12 @@ class Person( models.Model ):
 
 
 
-
 class Wish( TimeStampedModel ):
+    objects = WishManager()
 
     person = models.ForeignKey( Person )
     tags = models.ManyToManyField( Tag )
     is_active = models.BooleanField( default=True )
-    is_matched = models.BooleanField( default=False )
     expires = models.DateField(
         default=( date.today() + relativedelta( days=WISH_EXPIRATION_DAYS ) )
     )
