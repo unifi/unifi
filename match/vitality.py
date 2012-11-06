@@ -6,7 +6,7 @@ from group.models import Group
 
 def wish_satisfaction_ratio():
     free = float( Wish.objects.filter( is_active=False ).count() )
-    total = float( Wish.objects.all() )
+    total = float( Wish.objects.count() )
 
     return free / float( total )
 

@@ -8,7 +8,6 @@ class WishClique:
     def __init__( self, nodes ):
         self.nodes = nodes
         self.tags = self.update_tags()
-        self.persons = self.update_persons()
 
     def __len__( self ):
         return len( self.nodes )
@@ -17,18 +16,13 @@ class WishClique:
         new_group = Group()
         new_group.save()
 
-        for person in self.persons:
-            new_group.persons.add( person )
-
-        new_group.save()
-
         for wish in self.nodes:
             wish.is_active = False
+            new_group.persons.add( wish.person )
             new_group.wishes.add( wish )
             wish.save()
 
         new_group.save()
-
         return new_group
 
 
@@ -54,15 +48,11 @@ class WishClique:
 
     def get_score( self ):
         score = 0.0
-        try:
-            score = len( self.get_common_tags() ) / float( len( self.tags ) )
-        except ZeroDivisionError:
-            pass
-        return score
 
-    def update_persons( self ):
-        result = []
-        for n in self.nodes:
-            result.append( n.person )
-        self.persons = result
-        return result
+        if len( self.nodes ) > 1:
+            try:
+                score = len( self.get_common_tags() ) / float( len( self.tags ) )
+            except ZeroDivisionError:
+                pass
+
+        return score

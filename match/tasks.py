@@ -1,14 +1,24 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf8 -*- 
 
+from unifi.rules import ALGORITHM_VERSION
+
 from celery import task
 from timeit import timeit
 from match.pool import WishPool
 from person.models import Wish, Person
 from match.vitality import *
+from match.models import Report
 
 @task()
 def match( distribute_free_wishes=False ):
+
+    report = {
+        'cycles':                   -1,
+        'elapsed_time':             0.0,
+        'satisfaction_ratio':       0.0,
+    }
+
     def process():
         pool = WishPool()
         sp = pool.get_suggestion_pool()
@@ -28,8 +38,16 @@ def match( distribute_free_wishes=False ):
     last_remainder = Wish.objects.count_active() +1
     while last_remainder > Wish.objects.count_active() and last_remainder > 0:
         last_remainder = Wish.objects.count_active()
-        print "Matching task was executed in {0} seconds".format(
-            timeit( process, number=1 ) )
+        report['cycles'] += 1
+        report['elapsed_time'] += timeit( process, number=1 )
+
+
+    report['satisfaction_ratio'] = wish_satisfaction_ratio()
+    report['active_wishes'] = Wish.objects.count_active()
+    report['groups_per_wish_mean'] = groups_per_wish_mean()
+    report['group_size_mean'] = group_size_mean()
+
+    return report
 
 
 
@@ -40,4 +58,12 @@ def skim():
         pass
 
 if __name__ == "__main__":
-    match()
+    report = match()
+
+    from json import dumps
+
+    # save report to the database
+    report_archive = Report( data=report, version=ALGORITHM_VERSION )
+    report_archive.save()
+
+    print dumps(report, sort_keys=True, indent=4 )

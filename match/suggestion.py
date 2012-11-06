@@ -28,19 +28,21 @@ class Suggestion:
         max_size   =  max( map( lambda c: len( c.nodes ), self.cliques ) )
         max_score  =  max( map( lambda c: c.get_score(), self.cliques ) )
 
+        scores = {}
         for c in self.cliques:
-            scores = {
-                # compared to the largest clique
-                'size': len( c.nodes ) / float( max_size ),
-                # compared to the best clique score
-                'relative': c.get_score() / float( max_score ),
-            }
+            if len(c.nodes) > 1:
+                scores['size'] = len( c.nodes ) / float( max_size )
+                scores['relative'] = c.get_score() / float( max_score )
+            else:
+                scores['size'] = 0.0
+
             mean = sum( scores.values() ) / float( len ( scores.values() ) )
             result.append( ( mean, c ) )
 
         return sorted( result, key=lambda x: x[0] )
 
 
+    # [-] remove
     def get_rating( self ):
 
         # Alternatives: 1. score mean 2. conflictedness

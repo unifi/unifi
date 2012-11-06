@@ -48,6 +48,9 @@ class WishPool:
         self.min_edge_weight       = min_edge_score
         # self.min_number_of_edges   = min_number_of_edges
 
+        if not wishes.count:
+            return
+
         for wish in wishes:
             if selector( wish ):
                 self.graph.add_node( wish )
@@ -145,17 +148,13 @@ class SuggestionPool:
         self.suggestions.remove( clique )
 
     def get_rated_suggestions( self ):
-        result = []
-        for s in self.suggestions:
-            result.append(
-                ( s.get_rating(), s )
-            )
-        return sorted( result, key=lambda x: x[0], reverse=False)
-        # reverse false makes empty groups, not checked for true
+        # by conflictedness: assumes that the number of the alternative
+        # suggestions implies conflictedness
+        return sorted( self.suggestions, key=lambda x: len(x), reverse=False )
 
     def create_groups( self ):
         candidates = set()
-        suggestions = [s[1] for s in self.get_rated_suggestions()]
+        suggestions = self.get_rated_suggestions()
 
         for s in suggestions:
             candidate = s.get_best_clique()
@@ -171,25 +170,20 @@ class SuggestionPool:
                 for c in candidates:
                     if w in c.nodes:
                         c.nodes.remove( w )
+                    if not len(c) > 1:
+                        candidates.remove(c)
 
 
 
 
 def debug_graph( graph, message="" ):
     import matplotlib.pyplot as plt
-    from time import time
     print message
-    from networkx.readwrite.json_graph import dumps
 
     pos = nx.layout.fruchterman_reingold_layout( graph )
     nx.draw( graph, pos )
-
-    # output
-    # nx.write_dot( graph, "./dots/{0}.dot".format( time() ) )
     nx.draw_graphviz( graph )
     plt.show()
-
-
 
 
 if __name__ == "__main__":
