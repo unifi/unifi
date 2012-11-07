@@ -1,6 +1,0 @@
-strict graph  {
-	"Wish: deha" -- "Wish: tosa"	 [weight=1.0];
-	"Wish: deha" -- "Wish: viv"	 [weight=1.0];
-	"Wish: gaxi";
-	"Wish: tosa" -- "Wish: viv"	 [weight=1.0];
-}
