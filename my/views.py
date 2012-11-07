@@ -108,7 +108,7 @@ class CreateWish( AccessRestrictedView ):
 
         active_wishes = self.person.wishes().filter( is_active=True )
 
-        if active_wishes.count() >= MAX_WISHES_PER_USER:
+        if Wish.objects.count_active() >= MAX_WISHES_PER_USER:
             return self.dialog( "Error", "Too many wishes" )
 
         if not len( tags ):

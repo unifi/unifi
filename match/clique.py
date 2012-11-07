@@ -46,6 +46,7 @@ class WishClique:
     def get_missing_tags( self ):
         return self.tags.difference( self.get_common_tags() )
 
+    # [!] Clique rating
     def get_score( self ):
         score = 0.0
 

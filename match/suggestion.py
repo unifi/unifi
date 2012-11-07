@@ -29,6 +29,7 @@ class Suggestion:
         max_score  =  max( map( lambda c: c.get_score(), self.cliques ) )
 
         scores = {}
+        # [!] Clique rating
         for c in self.cliques:
             if len(c.nodes) > 1:
                 scores['size'] = len( c.nodes ) / float( max_size )

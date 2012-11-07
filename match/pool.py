@@ -44,12 +44,13 @@ class WishPool:
         @return:
         """
 
+        if wishes.count() < 2:
+            print "Too few wishes to match"
+            return
+
         self.graph                 = Graph()
         self.min_edge_weight       = min_edge_score
         # self.min_number_of_edges   = min_number_of_edges
-
-        if not wishes.count:
-            return
 
         for wish in wishes:
             if selector( wish ):
@@ -64,7 +65,7 @@ class WishPool:
 
         ## processes the graph, excludes lonely nodes
         self.connected_nodes = self.update_connected_nodes()
-        debug_graph(self.graph, message="Connected nodes are set")
+        # debug_graph(self.graph, message="Connected nodes are set")
         self.lonely_nodes = self.update_lonely_nodes()
         self.update_cliques()
 

@@ -4,7 +4,11 @@
 from unifi.rules import ALGORITHM_VERSION
 
 from celery import task
+from celery.task import periodic_task
 from timeit import timeit
+from datetime import timedelta
+from json import dumps, loads
+
 from match.pool import WishPool
 from person.models import Wish, Person
 from match.vitality import *
@@ -51,11 +55,20 @@ def match( distribute_free_wishes=False ):
 
 
 
-@task
+@task()
 def skim():
     free_wishes = Wish.objects.filter( is_active=True )
     for w in free_wishes:
         pass
+
+
+@periodic_task(run_every=timedelta(minutes=2))
+def match_only():
+    report = match()
+    json_report = dumps(report)
+    report_archive = Report( data=json_report, version=ALGORITHM_VERSION )
+    report_archive.save()
+
 
 if __name__ == "__main__":
     report = match()
@@ -63,7 +76,8 @@ if __name__ == "__main__":
     from json import dumps
 
     # save report to the database
-    report_archive = Report( data=report, version=ALGORITHM_VERSION )
+    json_report = dumps(report)
+    report_archive = Report( data=json_report, version=ALGORITHM_VERSION )
     report_archive.save()
 
-    print dumps(report, sort_keys=True, indent=4 )
+    print json_report

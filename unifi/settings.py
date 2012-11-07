@@ -9,6 +9,8 @@ import djcelery
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
+
+
 PROJECT_ROOT = dirname(
     realpath( __file__ + "/../" )
 )
@@ -255,3 +257,30 @@ LOGOUT_URL = "/login/leave"
 
 SOCIALREGISTRATION_SETUP_FORM = "login.forms.UserForm"
 
+CELERY_ALWAYS_EAGER = True
+
+# Name of nodes to start, here we have a single node
+CELERYD_NODES="worker1"
+
+# Where to chdir at start.
+CELERYD_CHDIR="/home/ilyakh/webapps/unifi/myproject/"
+
+# How to call "manage.py celeryd_multi"
+CELERYD_MULTI="$CELERYD_CHDIR/manage.py celeryd"
+
+# How to call "manage.py celeryctl"
+CELERYCTL="$CELERYD_CHDIR/manage.py celeryctl"
+
+# Extra arguments to celeryd
+CELERYD_OPTS="--time-limit=300 --concurrency=1"
+
+# Name of the celery config module.
+CELERY_CONFIG_MODULE="celery"
+
+# %n will be replaced with the nodename.
+CELERYD_LOG_FILE="/home/ilyakh/webapps/unifi/myproject/celery/logs/celery_%n.log"
+CELERYD_PID_FILE="/home/ilyakh/webapps/unifi/myproject/celery_%n.pid"
+
+# Workers should run as an unprivileged user.
+CELERYD_USER="celery"
+CELERYD_GROUP="celery"
