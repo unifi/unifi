@@ -156,6 +156,19 @@ class All( AccessRestrictedView ):
         return self.render( "group/all.html", context )
 
 
+class Assistance( AccessRestrictedView ):
+    def allow( self ):
+        groups = Group.objects.all().filter( needs_assistance=True )
+
+        context = {
+            'standalone': True,
+            'title': "Groups in need of assistance",
+            'groups': groups,
+        }
+
+        return self.render( "group/assistance.html", context )
+
+
 class Inspect( AccessRestrictedView ):
     def allow( self, pk ):
         try:

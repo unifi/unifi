@@ -7,8 +7,8 @@ admin.autodiscover()
 urlpatterns = patterns('',
 
     # admin
-    # url(r'^admin/doc/',           include('django.contrib.admindocs.urls')),
-    url( r'^admin/',                include(admin.site.urls)),
+    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+    url( r'^admin/', include(admin.site.urls)),
 
     # rest_framework
     url(
@@ -28,37 +28,37 @@ urlpatterns = patterns('',
     # inclusive applications
     # url( r'^communication/',       include('communication.urls')),
 
-    url( r'^login/',               include('login.urls')),
+    url( r'^login/', include('login.urls', namespace='login' ) ),
 
     url(
         r'^person/',
-        include('person.urls'),
+        include('person.urls', namespace='person'),
         name="person"
     ),
     url(
         r'^tag/',
-        include('tag.urls'),
+        include('tag.urls', namespace='tag'),
         name="tag"
     ),
 
     url(
         r'^match/',
-        include('match.urls'),
+        include('match.urls', namespace='match'),
         name="match"
     ),
     url(
         r'^group/',
-        include('group.urls'),
+        include('group.urls', namespace='group'),
         name="group"
     ),
     url(
         r'^my/',
-        include('my.urls'),
+        include('my.urls', namespace='my'),
         name="my"
     ),
     url(
         r'^communication/',
-        include('communication.urls'),
+        include('communication.urls', namespace='communication'),
         name="communication"
     ),
 )

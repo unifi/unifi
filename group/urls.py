@@ -24,6 +24,12 @@ urlpatterns = patterns( '',
     ),
 
     url(
+        r'^assistance$',
+        views.Assistance(),
+        name="assistance"
+    ),
+
+    url(
         r'^(?P<pk>\d*)/correspondence$',
         views.Contact()
     ),

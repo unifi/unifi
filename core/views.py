@@ -133,3 +133,5 @@ class MethodView( AccessRestrictedView ):
             return HttpResponse( status=501 )
 
 
+class ModelFilterView( AccessRestrictedView ):
+    pass
