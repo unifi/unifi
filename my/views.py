@@ -3,7 +3,6 @@
 from django.shortcuts import render, redirect
 from core.views import AccessRestrictedView
 from group.models import Group
-from match.algorithms import WishDispatcher
 from match.rating import jaccard
 from person.models import Person, Wish
 from match.util import *
@@ -119,7 +118,11 @@ class CreateWish( AccessRestrictedView ):
                   "Your wish contains too many tags. Specify max %d tags." %\
                   MAX_TAGS_PER_WISH )
 
-        courses = WishDispatcher.extract_course_tag( tags )
+        def extract_course_tags( tags ):
+            pattern = r'^[\-\w]+\d{4}'
+            return [tag for tag in tags if re.findall(pattern, tag)]
+
+        courses = extract_course_tags( tags )
 
         # check if user has similar wishes
 

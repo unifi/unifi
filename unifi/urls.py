@@ -56,4 +56,9 @@ urlpatterns = patterns('',
         include('my.urls'),
         name="my"
     ),
+    url(
+        r'^communication/',
+        include('communication.urls'),
+        name="communication"
+    ),
 )

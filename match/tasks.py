@@ -3,7 +3,6 @@
 
 from unifi.rules import *
 
-from celery import task
 from celery.task import periodic_task
 from timeit import timeit
 from datetime import timedelta

@@ -19,7 +19,7 @@ class Group( TimeStampedModel ):
     capacity         = models.IntegerField( default=GROUP_CAPACITY ) # bypassed via slots
     slots            = models.ManyToManyField( "Slot", null=True )
     is_announced     = models.BooleanField()
-    goal             = models.CharField( max_length=GOAL_TEXT_LENGTH, null=True )
+    goal             = models.CharField( max_length=GOAL_TEXT_LENGTH, null=True, default="" )
     description      = models.TextField( null=True )
 
 
@@ -67,6 +67,18 @@ class Group( TimeStampedModel ):
 
     def is_open( self ):
         return self.persons.count() < self.capacity
+
+    def contact( self, message ):
+        from django.core.mail import EmailMessage, get_connection
+        email = EmailMessage()
+        email.body = message
+        email.connection( get_connection() )
+        for person in self.persons.all():
+            address = person.user.email
+            if address:
+                email.cc.append( person.user.email )
+        email.send()
+
 
     def __unicode__( self ):
         return "Group %s" % self.pk

@@ -3,7 +3,12 @@
 
 {% block group %}
 
+{% if group.age < rules.NEW_GROUP_MARKER_SECONDS %}
+<div class="group group-new " pk="{{ group.pk }}">
+{% else %}
 <div class="group" pk="{{ group.pk }}">
+{% endif %}
+
     {% if controls %}
     <!-- menu -->
     <div class="menu" pk="{{ group.pk }}">
@@ -63,7 +68,7 @@
     {% endif %}
     <!-- join -->
 
-    <div class="modal hide fade" id="contactPopup{{ group.pk }}" pk="{{ group.pk }}" tabindex="-1" role="dialog" aria-labelledby="contactPopup" aria-hidden="true">
+    <div class="modal hide fade" id="contactPopup{{ group.pk }}" pk="{{ group.pk }}" tabindex="-1" role="dialog" aria-labelledby="contactPopup{{group.pk}}" aria-hidden="true">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             <h3>Kontakt <small>Gruppe#{{ group.pk }}</small></h3>
@@ -72,7 +77,7 @@
             <div class="row-fluid">
                 <form action="/my/" method="POST">
                     {% csrf_token %}
-                    <textarea rows="10" class="span12" disabled="1"></textarea>
+                    <textarea rows="10" class="span12" name="formContactPopup{{ group.pk }}">Hei folkens, det er {{ person.user.username }}!</textarea>
                 </form>
             </div>
         </div>
