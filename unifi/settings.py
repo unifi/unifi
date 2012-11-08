@@ -6,10 +6,8 @@ import djcelery
 
 
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
-
-
 
 PROJECT_ROOT = dirname(
     realpath( __file__ + "/../" )
@@ -58,7 +56,7 @@ TIME_ZONE = 'Europe/Oslo'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'no'
+LANGUAGE_CODE = 'nb'
 
 SITE_ID = 1
 

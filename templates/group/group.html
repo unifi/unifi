@@ -3,12 +3,11 @@
 
 {% block group %}
 
-{% if group.age < rules.NEW_GROUP_MARKER_SECONDS %}
-<div class="group group-new " pk="{{ group.pk }}">
+{% if group.age < rules.NEW_GROUP_MARKER %}
+<div class="group group-new" pk="{{ group.pk }}">
 {% else %}
 <div class="group" pk="{{ group.pk }}">
 {% endif %}
-
     {% if controls %}
     <!-- menu -->
     <div class="menu" pk="{{ group.pk }}">
@@ -40,7 +39,7 @@
     {% endif %}
 
     <div class="number">
-        {% if group.age < rules.NEW_GROUP_MARKER_SECONDS %}*{% endif %}
+        {% if group.age < rules.NEW_GROUP_MARKER %}*{% endif %}
         {{ group.pk }}
     </div>
 
@@ -73,20 +72,18 @@
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             <h3>Kontakt <small>Gruppe#{{ group.pk }}</small></h3>
         </div>
-        <div class="modal-body">
-            <div class="row-fluid">
-                <form action="/my/" method="POST">
-                    {% csrf_token %}
-                    <textarea rows="10" class="span12" name="formContactPopup{{ group.pk }}">Hei folkens, det er {{ person.user.username }}!</textarea>
-                </form>
+        <form action="/group/{{ group.pk }}/correspondence" method="POST">{% csrf_token %}
+            <div class="modal-body">
+                <div class="row-fluid">
+                    <textarea rows="10" class="span12" name="message">Hei folkens, det er {{ person.user.username }}!</textarea>
+                </div>
             </div>
-        </div>
-        <div class="modal-footer">
-            <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-            <button class="btn btn-primary">Send</button>
-        </div>
+            <div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Lukk</button>
+                <button type="submit" class="btn btn-primary">Send</button>
+            </div>
+        </form>
     </div>
-
 </div>
 
 {% endblock %}

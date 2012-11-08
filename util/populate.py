@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 
 from util.generators import StudentGenerator
-from util.generators import LetterTagGenerator as TagGenerator
+from util.generators import WordTagGenerator as TagGenerator
 from unifi.management import UserManager, WishManager, TagManager
 from person.models import Person, Wish
 from tag.models import Tag
@@ -37,6 +37,13 @@ if __name__ == "__main__":
 
 
     UserManager.addPerson( "ilyakh" ).set_password( "123" )
+    UserManager.addPerson( "kritisk" ).set_password( "123" )
+    UserManager.addPerson( "michael" ).set_password( "123" )
+    UserManager.addPerson( "peder" ).set_password( "123" )
+    UserManager.addPerson( "rantonse" ).set_password( "123" )
+    UserManager.addPerson( "rantonse1" ).set_password( "123" )
+    UserManager.addPerson( "rantonse2" ).set_password( "123" )
+    UserManager.addPerson( "rantonse3" ).set_password( "123" )
 
     persons = ( StudentGenerator( 5 ) ).generate( number_of_persons )
     tags = ( TagGenerator() ).generate( number_of_tags )

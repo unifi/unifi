@@ -11,7 +11,6 @@ class Select( AccessRestrictedView ):
 
     def allow( self, pk ):
         response = HttpResponse( status=200 )
-
         try:
             group = Group.objects.get( pk=pk )
 
@@ -29,9 +28,7 @@ class Select( AccessRestrictedView ):
         return response
 
     def get( self, group_instance ):
-
         group = group_instance
-
         context = {
             'group': group,
         }
@@ -147,9 +144,8 @@ class SelectMember( AccessRestrictedView ):
 
 
 class All( AccessRestrictedView ):
-
     def allow( self ):
-        groups = Group.objects.exclude( persons__in=[self.person] )
+        groups = Group.objects.all().exclude( persons__in=[self.person] )
 
         context = {
             'standalone': True,
@@ -157,11 +153,10 @@ class All( AccessRestrictedView ):
             'groups': groups,
         }
 
-        return self.render( "group/all.html", context );
+        return self.render( "group/all.html", context )
 
 
 class Inspect( AccessRestrictedView ):
-    
     def allow( self, pk ):
         try:
             group = Group.objects.get( pk=pk )
@@ -169,9 +164,25 @@ class Inspect( AccessRestrictedView ):
             return self.dialog(
                 message = "No group with such id was found"
             )
-        
+
         return self.dialog(
             title = group,
             message = "The group has following members",
             collection = group.persons.all()
         )
+
+
+class Contact( AccessRestrictedView ):
+    def allow( self, pk ):
+        try:
+            group = Group.objects.get( pk=pk )
+            message = self.request.POST.get( "message" )
+
+            if message:
+                group.contact( message )
+                return redirect( "/" ) # [/]
+
+            return redirect( "/" ) # [/]
+
+        except Group.DoesNotExist:
+            return redirect( "/" ) # [/]

@@ -72,11 +72,14 @@ class Group( TimeStampedModel ):
         from django.core.mail import EmailMessage, get_connection
         email = EmailMessage()
         email.body = message
-        email.connection( get_connection() )
+        email.subject = "[UNIFI]"
+        email.connection = get_connection()
         for person in self.persons.all():
+            print "{0}({1})".format(person.username(), person.pk)
             address = person.user.email
             if address:
                 email.cc.append( person.user.email )
+        print message
         email.send()
 
 
@@ -93,9 +96,10 @@ class Slot( models.Model ):
     ...
     A slot also identifies a 'role' of a person in the group.
     """
-    role = models.ForeignKey( "Role", null=False )
-    person = models.ForeignKey( Person, null=True, related_name="person" )
-    candidates = models.ManyToManyField( Person, null=True, related_name="candidates" )
+    role        = models.ForeignKey( "Role", null=False )
+    person      = models.ForeignKey( Person, null=True, related_name="person" )
+    candidates  = models.ManyToManyField(
+        Person, null=True, related_name="candidates" )
 
 class Role( models.Model ):
     """
@@ -106,4 +110,4 @@ class Role( models.Model ):
     Ex. an 'expert' is predominantly used to assist regular group members, or
     to lead a project that a group is commited to.
     """
-    name = models.CharField( max_length=50, null=False, unique=True )
+    name        = models.CharField( max_length=50, null=False, unique=True )

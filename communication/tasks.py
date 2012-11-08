@@ -7,7 +7,7 @@ from communication.emulator import EmailEmulator
 from datetime import timedelta
 
 
-@periodic_task(run_every=timedelta(minutes=NOTIFICATION_FREQUENCY_MINUTES))
+#@periodic_task(run_every=timedelta(minutes=NOTIFICATION_FREQUENCY_MINUTES))
 def send_group_notification():
     emulator = EmailEmulator()
     new_groups = Group.objects.filter( is_announced=False )

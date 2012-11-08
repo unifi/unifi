@@ -218,14 +218,14 @@ $(document).ready( function() {
 
     /* highlighting */
     $(document).on( 'mouseover', ".tags .tag", function( event ) {
-        $(this).fadeTo( 'slow', 0.75 );
+        $(this).stop( true, true ).fadeTo( 'slow', 0.75 );
         /* element info via rest request */
         $(".focus").html( $(this).clone() );
         $(".focus").stop( true, true ).fadeIn( focusAnimationTime );
     });
 
     $(document).on( 'mouseout', ".tags .tag", function( event ) {
-        $(this).fadeTo( 'fast', 1 );
+        $(this).stop( true, true ).fadeTo( 'fast', 1 );
         /* reset focus state */
         /* $(".focus").html( "" ); */
         $(".focus").stop( true, true ).fadeOut( focusAnimationTime );
@@ -236,14 +236,14 @@ $(document).ready( function() {
     /* content view links */
 
     $(document).on( 'mouseover', ".persons .person", function( event ) {
-        $(this).fadeTo( 'slow', 0.75 );
+        $(this).stop( true, true ).fadeTo( 'slow', 0.75 );
         /* element info via rest request */
         $(".focus").html( $(this).clone() );
         $(".focus").stop( true, true ).fadeIn( focusAnimationTime );
     });
 
     $(document).on( 'mouseout', ".persons .person", function( event ) {
-        $(this).fadeTo( 'fast', 1 );
+        $(this).stop( true, true ).fadeTo( 'fast', 1 );
         /* reset focus state */
         /* $(".focus").html( "" ); */
         $(".focus").stop( true, true ).fadeOut( focusAnimationTime );

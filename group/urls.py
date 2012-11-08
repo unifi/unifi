@@ -22,4 +22,9 @@ urlpatterns = patterns( '',
         r'^all$',
         views.All()
     ),
+
+    url(
+        r'^(?P<pk>\d*)/correspondence$',
+        views.Contact()
+    ),
 )
