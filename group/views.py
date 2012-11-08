@@ -88,7 +88,7 @@ class SelectMember( AccessRestrictedView ):
             elif self.request.method == "POST":
                 response = self.post()
 
-        except ObjectDoesNotExist, ValueError:
+        except Group.DoesNotExist, ValueError:
             return HttpResponse( status=404 )
 
         return response
@@ -149,11 +149,11 @@ class SelectMember( AccessRestrictedView ):
 class All( AccessRestrictedView ):
 
     def allow( self ):
-        groups = Group.objects.all()
+        groups = Group.objects.exclude( persons__in=[self.person] )
 
         context = {
             'standalone': True,
-            'title': "All groups",
+            'title': "Other groups",
             'groups': groups,
         }
 
@@ -165,7 +165,7 @@ class Inspect( AccessRestrictedView ):
     def allow( self, pk ):
         try:
             group = Group.objects.get( pk=pk )
-        except ObjectDoesNotExist:
+        except Group.DoesNotExist:
             return self.dialog(
                 message = "No group with such id was found"
             )

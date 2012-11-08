@@ -22,6 +22,10 @@ class Group( TimeStampedModel ):
     slots            = models.ManyToManyField( "Slot", null=True )
 
 
+    def age( self ):
+        from django.utils.timezone import now
+        return ( now() - self.created ).total_seconds()
+
     def add_wish( self, wish ):
         self.wishes.add( wish )
         self.persons.add( wish.person )
@@ -31,16 +35,33 @@ class Group( TimeStampedModel ):
         self.persons.filter( person_pk=person.pk ).delete()
         self.wishes.filter( person=person ).delete()
 
+    # [!] returns a QuerySet
     def tags( self ):
         """
         Return group tags as a models.query.QuerySet
         """
         wishes = self.wishes.all()
         tags = wishes[0].tags.all()
-        for w in wishes[1:]:
-            tags = tags | w.tags.all()
+        for wish in wishes[1:]:
+            tags = tags | wish.tags.all()
 
         return tags.distinct()
+
+
+    def uncommon_tags( self ):
+        result = set( self.tags() ).difference( self.common_tags() )
+        return result
+
+    # [!] returns a set
+    def common_tags( self ):
+        result = set()
+        for w in self.wishes.all():
+            wish_tags = set( w.tags.all() )
+            if len(result) > 0:
+                result.intersection_update( set( w.tags.all() ) )
+            else:
+                result = wish_tags
+        return sorted( result, key=lambda x: x.name )
 
 
     def is_open( self ):

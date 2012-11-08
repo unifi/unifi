@@ -15,10 +15,13 @@
         <h3>Mål <small>_____________________</small></h3>
     </div>
 
-    <div class="row-fluid span5">
-
+    <div class="row-fluid"
+         style="text-align: center; padding-top: 3em; padding-bottom: 2.6em;">
+        <h2>Medlemmer <small>{{ group.persons.all|length }} / {{ group.capacity }}</small></h2>
+        {% for person in group.persons.all %}
+        <span class="person">{{ person.username }}</span>
+        {% endfor %}
     </div>
-
 
     <div class="row-fluid">
         <h3 class="span6">Eksisterer siden <small>{{ group.created }}</small></h3>
@@ -30,35 +33,80 @@
     <div class="row-fluid">
         <div class="tags span3 pull-right" style="text-align: right;">
         {% if group.tags|length > 1 %}
-            {% for tag in group.tags %}
-            <span class="tag">{{ tag }}</span>
+            {% for tag in group.common_tags %}
+                <span class="tag" style="font-size: 1.2em;">{{ tag }}</span>
+            {% endfor %}
+            {% for tag in group.uncommon_tags %}
+                <span class="tag">{{ tag }}</span>
             {% endfor %}
         {% endif %}
         </div>
     </div>
 
-
-
     <hr />
 
-    <div class="span8">
-    <ol>
-        {% if group.wishes.all|length > 1 %}
-        {% for wish in group.wishes.all %}
-        <li>
-            <div class="wish"><span class="person">{{ wish.person }}</span>
-                <div class="tags">
-                    {% for tag in wish.tags.all %}
-                    <span class="tag">{{ tag.name }}</span>
-                    {% endfor %}
+
+    <div class="accordion" id="accordion">
+        <div class="accordion-group">
+            <!-- Description -->
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#group-description">
+                    Beskrivelse
+                </a>
+            </div>
+            <div id="group-description" class="accordion-body collapse">
+                <div class="accordion-inner">
+                    <small>Tom</small>
                 </div>
             </div>
-        </li>
-        {% endfor %}
-        {% endif %}
-    </ol>
+            <!-- Statistikk -->
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#group-stats">
+                    Egenskaper
+                </a>
+            </div>
+            <div id="group-stats" class="accordion-body collapse">
+                <div class="accordion-inner">
+                    <!-- Capacity -->
+                    <h4>Gruppen er
+                    {% if group.persons.all|length >= group.capacity %}
+                    lukket
+                    <small>antall medlemmer i gruppa er for høyt.</small>
+                    {% else %}
+                    åpen <small>det er plass til flere medlemmer!</small>
+                    {% endif %}
+                    </h4>
+                </div>
+            </div>
+            <!-- Wishes -->
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#group-wishes">
+                    Ønsker
+                </a>
+            </div>
+            {% if group.wishes.all|length > 1 %}
+            <div id="group-wishes" class="accordion-body collapse in">
+                <div class="accordion-inner">
+                    <div class="span8 pull-right"><ol>
+                    {% for wish in group.wishes.all %}
+                    <li><div class="wish"><span class="person">{{ wish.person }}</span>
+                        <div class="tags pull-right">
+                        {% for tag in wish.tags.all %}
+                        <span class="tag">{{ tag.name }}</span>
+                        {% endfor %}
+                        </div>
+                    </div></li>
+                    {% endfor %}
+                    </ol></div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
     </div>
 
 </div>
+
+
+
 
 {% endblock %}

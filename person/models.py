@@ -53,7 +53,6 @@ class Person( models.Model ):
 
 
 
-
 class Wish( TimeStampedModel ):
     objects = WishManager()
 
@@ -67,6 +66,10 @@ class Wish( TimeStampedModel ):
     def groups( self ):
         from group.models import Group
         return Group.objects.filter( wishes__in=[self] )
+
+    def age( self ):
+        from django.utils.timezone import now
+        return ( now() - self.created ).total_seconds()
 
     def __unicode__( self ):
         return "Wish: " + self.person.__unicode__()

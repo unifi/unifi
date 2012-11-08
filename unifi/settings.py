@@ -144,6 +144,7 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'debug_toolbar',
     'rest_framework',
+    'djsupervisor',
     # socialregistration
     'socialregistration',
     'socialregistration.contrib.openid',

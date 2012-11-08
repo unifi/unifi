@@ -13,7 +13,7 @@
                     <i class="icon-eye-open icon-white"></i>
                     Undersøk
                 </a>
-                <a class="btn btn-warning btn-mini" id="contact" href="#contactPopup" role="button" class="btn" data-toggle="modal">
+                <a class="btn btn-warning btn-mini" id="contact" href="#contactPopup{{ group.pk }}" role="button" class="btn" data-toggle="modal">
                     <i class="icon-envelope icon-white"></i>
                     Kontakt
                 </a>
@@ -34,11 +34,11 @@
     </div>
     {% endif %}
 
-
     <div class="number">
+        {% if group.age < 300 %}*{% endif %}
         {{ group.pk }}
-
     </div>
+
     <!-- users -->
     <div>
     {% if join %}
@@ -63,7 +63,7 @@
     {% endif %}
     <!-- join -->
 
-    <div class="modal hide fade" id="contactPopup" pk="{{ group.pk }}" tabindex="-1" role="dialog" aria-labelledby="contactPopup" aria-hidden="true">
+    <div class="modal hide fade" id="contactPopup{{ group.pk }}" pk="{{ group.pk }}" tabindex="-1" role="dialog" aria-labelledby="contactPopup" aria-hidden="true">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             <h3>Kontakt <small>Gruppe#{{ group.pk }}</small></h3>

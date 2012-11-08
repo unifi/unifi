@@ -30,6 +30,17 @@ function refresh() {
         },
         error: function() {}
     });
+
+    $.ajax({
+        type: "GET",
+        url: "/my/assistance/",
+        dataType: "html",
+        success: function( data ) {
+            $("#assistance").html( data )
+        },
+        error: function() {}
+    });
+
 }
 
 $(document).ready( function() {
@@ -157,6 +168,7 @@ $(document).ready( function() {
             url:"/group/" + pk + "/member/",
             success:function () {
                 $( ".group .menu button#join" ).fadeOut();
+                document.location.reload(true)
                 refresh();
             }
         });

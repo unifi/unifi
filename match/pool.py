@@ -20,9 +20,6 @@ from unifi.rules import MIN_NUMBER_OF_EDGES, MIN_EDGE_SCORE
 ## When the cliques are found, traverse the unmatched wishes and add them to the
 # groups with plausible tagsets
 
-def default_selector( wish ):
-    return wish.is_active
-
 def default_connector( this, other ):
     return jaccard( this.tags.all(), other.tags.all() )
 
@@ -30,38 +27,31 @@ def default_connector( this, other ):
 
 class WishPool:
     def __init__( self,
-                  wishes = Wish.objects.filter( is_active=True ),
+                  wishes,
                   min_edge_score = MIN_EDGE_SCORE,
                   # min_number_of_edges = MIN_NUMBER_OF_EDGES,
-                  selector = default_selector,
                   connector = default_connector ):
         """
         A filterable pool of wishes represented as nodes. Is used to find
         relations between wishes.
 
-        @param selector: default selector function selects all elements
         @param connector: default connector is jaccard
         @return:
         """
-
-        if wishes.count() < 2:
-            print "Too few wishes to match"
-            return
 
         self.graph                 = Graph()
         self.min_edge_weight       = min_edge_score
         # self.min_number_of_edges   = min_number_of_edges
 
         for wish in wishes:
-            if selector( wish ):
-                self.graph.add_node( wish )
-                # loops through the existing nodes in the graph
-                for other in self.graph.nodes_iter():
-                    # compares candidate to all existing nodes except itself
-                    if other != wish and other.person != wish.person:
-                        score = connector( wish, other )
-                        if score > self.min_edge_weight:
-                            self.graph.add_edge( wish, other, weight=score )
+            self.graph.add_node( wish )
+            # loops through the existing nodes in the graph
+            for other in self.graph.nodes_iter():
+                # compares candidate to all existing nodes except itself
+                if other != wish and other.person != wish.person:
+                    score = connector( wish, other )
+                    if score > self.min_edge_weight:
+                        self.graph.add_edge( wish, other, weight=score )
 
         ## processes the graph, excludes lonely nodes
         self.connected_nodes = self.update_connected_nodes()
