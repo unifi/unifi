@@ -77,8 +77,14 @@
                     {% endif %}
                     </h4>
                     <h4>
-                        <small>Den har eksistert i</small> {{ group.created|timesince }}.
+                    <small>Den har eksistert i</small> {{ group.created|timesince }}.
                     </h4>
+                    {% if group.needs_assistance %}
+                    <h4>
+                    Gruppen trenger hjelp. <small>Hvis du kan noe om
+                    emnene gruppen arbeider med, så kan du melde deg som orakel.</small>
+                    </h4>
+                    {% endif %}
                 </div>
             </div>
             <!-- Wishes -->
@@ -106,7 +112,6 @@
             {% endif %}
         </div>
     </div>
-
 </div>
 
 

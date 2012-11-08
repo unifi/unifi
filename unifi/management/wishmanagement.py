@@ -5,7 +5,6 @@
 """
 from person.models import Wish, Person
 from tag.models import Tag
-from django.contrib.auth.models import User
 from usermanagement import UserManagement
 from tagmanagement import TagManagement
 
@@ -25,7 +24,6 @@ class WishManagement:
             @param tags: wish tags
             @return: the created wish
         """
-        from match.algorithms import *
 
         if not tags:
             return
@@ -55,17 +53,6 @@ class WishManagement:
             person,
             ", ".join(tags)
         )
-
-
-        #add to correct bucket
-        if courses is None:
-            courses = WishDispatcher.extract_course_tag(tags)
-
-        #No course - "default" bucket
-        if not len(courses):
-            WishDispatcher.add_wish_to_bucket(w, "default")
-        else:
-            WishDispatcher.add_wish_to_bucket(w, courses[0])
 
         return w
 
