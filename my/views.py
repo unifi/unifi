@@ -42,7 +42,7 @@ class MyView( AccessRestrictedView ):
                 "assistance_groups":    assistance_groups,
             }
 
-            return render( self.request, "my/index.html", context )
+            return self.render( "my/index.html", context )
 
         else:
             return redirect( "/" )
@@ -60,7 +60,7 @@ class WishView( AccessRestrictedView ):
             "delete": 1
         }
 
-        return render( self.request, "wish/wishes.html", context )
+        return self.render( "wish/wishes.html", context )
 
 
 
@@ -75,7 +75,7 @@ class GroupView( AccessRestrictedView ):
             'controls': 1
         }
 
-        return render( self.request, "group/groups.html", context )
+        return self.render( "group/groups.html", context )
 
 
 
@@ -88,7 +88,7 @@ class AssistanceView( AccessRestrictedView ):
             'groups': groups
         }
 
-        return render( self.request, "group/groups.html", context )
+        return self.render( "group/groups.html", context )
 
 
 

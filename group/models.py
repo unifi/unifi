@@ -3,10 +3,8 @@
 
 from django.db import models
 from django_extensions.db.models import TimeStampedModel
-
 from person.models import Person, Wish
-
-from unifi.rules import GROUP_CAPACITY
+from unifi.rules import GROUP_CAPACITY, GOAL_TEXT_LENGTH
 
 
 class Group( TimeStampedModel ):
@@ -20,6 +18,9 @@ class Group( TimeStampedModel ):
     needs_assistance = models.BooleanField() # deprecate when slots are introduced, represent as an expert slot
     capacity         = models.IntegerField( default=GROUP_CAPACITY ) # bypassed via slots
     slots            = models.ManyToManyField( "Slot", null=True )
+    is_announced     = models.BooleanField()
+    goal             = models.CharField( max_length=GOAL_TEXT_LENGTH, null=True )
+    description      = models.TextField( null=True )
 
 
     def age( self ):

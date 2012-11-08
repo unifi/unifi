@@ -41,4 +41,4 @@ class GetTagDistribution( AccessRestrictedView ):
             "set": tag_distribution().items()
         }
 
-        return render( self.request, "dialog.html", context )
+        return self.render( "dialog.html", context )

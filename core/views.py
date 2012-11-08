@@ -1,10 +1,12 @@
 #!/usr/bin/env python2.7
 # -*- coding: utf8 -*-
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
+from django.shortcuts import render as builtin_render
 from login.util import Client
 from person.models import Person
 from unifi.management import UserManager
+from unifi import rules
 
 
 
@@ -29,7 +31,7 @@ class UnifiView:
             'set':      collection,
         }
 
-        return render( self.request, "dialog.html", context )
+        return builtin_render( self.request, "dialog.html", context )
 
 
     def error( self ):
@@ -42,13 +44,11 @@ class AccessRestrictedView( UnifiView ):
         Due to security concerns, do not overload this function or
         any of its subclass overrides.
         """
-    
         self.request = request
         self.args = args
         self.kwargs = kwargs
         
         if self.request.user.is_authenticated():
-
             self.user = self.request.user
 
             try:
@@ -56,7 +56,6 @@ class AccessRestrictedView( UnifiView ):
             except Person.DoesNotExist:
                 self.person = Person( user=self.user )
                 self.person.save()
-
             return self.allow( *args, **kwargs )
 
         else:
@@ -77,6 +76,11 @@ class AccessRestrictedView( UnifiView ):
                               "innloggingsportal."
 
             )
+
+    def render( self, template_name, context ):
+        context['person'] = self.person
+        context['rules'] = rules
+        return builtin_render( self.request, template_name, context )
 
 
 class DevelopmentOnlyView( UnifiView ):

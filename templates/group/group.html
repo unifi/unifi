@@ -35,7 +35,7 @@
     {% endif %}
 
     <div class="number">
-        {% if group.age < 300 %}*{% endif %}
+        {% if group.age < rules.NEW_GROUP_MARKER_SECONDS %}*{% endif %}
         {{ group.pk }}
     </div>
 

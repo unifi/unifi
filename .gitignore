@@ -16,3 +16,4 @@ static/
 gen
 .vim
 *.db
+*.pid

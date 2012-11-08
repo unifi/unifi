@@ -36,7 +36,7 @@ class Select( AccessRestrictedView ):
             'group': group,
         }
 
-        return render( self.request, "group/detailed.html", context )
+        return self.render( "group/detailed.html", context )
 
 
     def post( self, group_instance ):
@@ -157,7 +157,7 @@ class All( AccessRestrictedView ):
             'groups': groups,
         }
 
-        return render( self.request, "group/all.html", context );
+        return self.render( "group/all.html", context );
 
 
 class Inspect( AccessRestrictedView ):

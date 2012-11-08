@@ -12,7 +12,7 @@
 
     <div class="row-fluid">
         <h1 class="pull-right"><small>Gruppe #</small>{{ group.pk }}</h1>
-        <h3>Mål <small>_____________________</small></h3>
+        <h3>Mål <small>{{ group.goal|default:"_____________________" }}</small></h3>
     </div>
 
     <div class="row-fluid"
@@ -25,9 +25,11 @@
 
     <div class="row-fluid">
         <h3 class="span6">Eksisterer siden <small>{{ group.created }}</small></h3>
+
         <h3 class="pull-right">
             <small>{% if group.tags|length > 1 %}{{ group.tags|length }}{% endif %}</small> tagger
         </h3>
+
     </div>
 
     <div class="row-fluid">
@@ -75,6 +77,9 @@
                     {% else %}
                     åpen <small>det er plass til flere medlemmer!</small>
                     {% endif %}
+                    </h4>
+                    <h4>
+                        <small>Den har eksistert i</small> {{ group.created|timesince }}.
                     </h4>
                 </div>
             </div>
