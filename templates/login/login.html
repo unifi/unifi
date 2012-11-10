@@ -34,14 +34,14 @@
         </div>
         <div class="row-fluid">
             <div class="form-inline pagination-centered">
-                <form class="connect-button" name="login" method="post" action="{% url socialregistration:twitter:redirect %}">{% csrf_token %}
+                <form class="connect-button" name="login" method="post" action="{% url login:socialregistration:twitter:redirect %}">{% csrf_token %}
                     <button class="btn btn-info input-xlarge" onclick="this.form.submit();">
                         <i class="icon icon-user icon-white"></i>
                         Logg inn med Twitter OAuth
                     </button>
                 </form>
             </div>
-            <form class="form-inline pagination-centered" action="{% url socialregistration:openid:redirect %}" method="post">{% csrf_token %}
+            <form class="form-inline pagination-centered" action="{% url login:socialregistration:openid:redirect %}" method="post">{% csrf_token %}
                 <input type="hidden" name="openid_provider" value="http://www.google.com/accounts/o8/id" />
                 <button class="btn btn-info input-xlarge" type="submit">
                     <i class="icon icon-user icon-white"></i>

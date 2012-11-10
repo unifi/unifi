@@ -48,9 +48,15 @@ class Group( TimeStampedModel ):
 
         return tags.distinct()
 
+    def all_tags( self ):
+        result = set()
+        for wish in self.wishes.iterator():
+             result.update( set( wish.tags.all() ) )
+        return result
+
 
     def uncommon_tags( self ):
-        result = set( self.tags() ).difference( self.common_tags() )
+        result = set( self.all_tags() ).difference( self.common_tags() )
         return result
 
     # [!] returns a set
@@ -59,10 +65,10 @@ class Group( TimeStampedModel ):
         for w in self.wishes.all():
             wish_tags = set( w.tags.all() )
             if len(result) > 0:
-                result.intersection_update( set( w.tags.all() ) )
+                result = result.intersection( set( w.tags.all() ) )
             else:
                 result = wish_tags
-        return sorted( result, key=lambda x: x.name )
+        return set( sorted( result, key=lambda x: x.name ) )
 
 
     def is_open( self ):

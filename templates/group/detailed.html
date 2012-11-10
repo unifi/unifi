@@ -26,19 +26,23 @@
     <div class="row-fluid">
         <h3 class="span6">Eksisterer siden <small>{{ group.created }}</small></h3>
         <h3 class="pull-right">
-            <small>{% if group.tags|length > 1 %}{{ group.tags|length }}{% endif %}</small> tagger
+            <small>{% if group.all_tags|length %}{{ group.all_tags|length }}{% endif %}</small> tagger
         </h3>
     </div>
 
     <div class="row-fluid">
         <div class="tags span3 pull-right" style="text-align: right;">
-        {% if group.tags|length > 1 %}
-            {% for tag in group.common_tags %}
-                <span class="tag" style="font-size: 1.2em;">{{ tag }}</span>
-            {% endfor %}
-            {% for tag in group.uncommon_tags %}
-                <span class="tag">{{ tag }}</span>
-            {% endfor %}
+        {% if group.tags|length >= 1 %}
+            {% if group.common_tags %}
+                {% for tag in group.common_tags %}
+                    <span class="tag" style="font-size: 1.2em;">{{ tag }}</span>
+                {% endfor %}
+            {% endif %}
+            {% if group.uncommon_tags %}
+                {% for tag in group.uncommon_tags %}
+                    <span class="tag">{{ tag }}</span>
+                {% endfor %}
+            {% endif %}
         {% endif %}
         </div>
     </div>
@@ -46,12 +50,26 @@
     <hr />
 
 
+    <div class="navbar">
+      <div class="navbar-inner">
+        <a class="brand" href="#">Du er medlem</a>
+        <ul class="nav">
+          <li class="active"><a href="#">Forlat</a></li>
+          <li><a href="#">Kontakt</a></li>
+          <li><a href="#">Regider</a></li>
+          <li><a href="#">Oppløs</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <hr />
+
     <div class="accordion" id="accordion">
         <div class="accordion-group">
             <!-- Description -->
             <div class="accordion-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#group-description">
-                    Beskrivelse
+                    Beskrivelse <i class="icon-info-sign pull-right"></i>
                 </a>
             </div>
             <div id="group-description" class="accordion-body collapse">
@@ -62,35 +80,36 @@
             <!-- Statistikk -->
             <div class="accordion-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#group-stats">
-                    Egenskaper
+                    Egenskapene <i class="icon-question-sign pull-right"></i>
                 </a>
             </div>
             <div id="group-stats" class="accordion-body collapse">
                 <div class="accordion-inner">
                     <!-- Capacity -->
-                    <h4>Gruppen er
-                    {% if group.persons.all|length >= group.capacity %}
-                    lukket
-                    <small>antall medlemmer i gruppa er for høyt.</small>
-                    {% else %}
-                    åpen <small>det er plass til flere medlemmer!</small>
-                    {% endif %}
-                    </h4>
                     <h4>
-                    <small>Den har eksistert i</small> {{ group.created|timesince }}.
+                        Vår gruppe er
+                        {% if group.persons.all|length >= group.capacity %} lukket
+                        <small>antall medlemmer i gruppa er for høyt.</small>
+                        {% else %}
+                        åpen <small>og vi ønsker flere medlemmer!</small>
+                        {% endif %}
                     </h4>
+                    <!-- age -->
+                    <h4><small>Den har eksistert i</small> {{ group.created|timesince }}.</h4>
+                    <!-- assistance -->
                     {% if group.needs_assistance %}
-                    <h4>
-                    Gruppen trenger hjelp. <small>Hvis du kan noe om
-                    emnene gruppen arbeider med, så kan du melde deg som orakel.</small>
-                    </h4>
+                    <h4>Vi trenger hjelp. <small>Hvis du kan noe om emnene vi jobber med, så kan du kontakte oss og hjelpe til!</small></h4>
                     {% endif %}
+                    <!-- score -->
+                    <div class="progress progress-striped">
+                      <div class="bar" style="width: 20%;"></div>
+                    </div>
                 </div>
             </div>
             <!-- Wishes -->
             <div class="accordion-heading">
                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#group-wishes">
-                    Ønsker
+                    Ønskene <i class="icon-th-list pull-right"></i>
                 </a>
             </div>
             {% if group.wishes.all|length > 1 %}
@@ -110,6 +129,17 @@
                 </div>
             </div>
             {% endif %}
+            <!-- Contact -->
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#group-contact">
+                     Kontakt oss<i class="icon-envelope pull-right"></i>
+                </a>
+            </div>
+            <div id="group-contact" class="accordion-body collapse">
+                <div class="accordion-inner">
+                    <textarea class="span10"></textarea>
+                </div>
+            </div>
         </div>
     </div>
 </div>

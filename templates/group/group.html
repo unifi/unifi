@@ -54,10 +54,12 @@
                     Forlat&nbsp;&nbsp;
                 </button>
                 {% else %}
-                <button class="btn btn-success" id="join">
-                    <i class="icon-arrow-left icon-white"></i>
-                    Bli med&nbsp;&nbsp;
-                </button>
+                    {% if group.is_open %}
+                    <button class="btn btn-success" id="join">
+                        <i class="icon-arrow-left icon-white"></i>
+                        Bli med&nbsp;&nbsp;
+                    </button>
+                    {% endif %}
                 {% endif %}
                 <a class="btn btn-warning" id="contact" href="#contactPopup{{ group.pk }}" role="button" class="btn" data-toggle="modal">
                     <i class="icon-envelope icon-white"></i>
