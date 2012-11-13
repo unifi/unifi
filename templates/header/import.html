@@ -18,7 +18,10 @@
     <!-- project specific scripts -->
     <script src="{{ STATIC_URL }}javascripts/django-csrf.js"></script>
     <script src="{{ STATIC_URL }}javascripts/unifi.js"></script>
-    <script src="{{ STATIC_URL }}javascripts/my.js"></script>
+
+    <!-- resources -->
+    <script src="{{ STATIC_URL }}javascripts/resources/group.js"></script>
+    <script src="{{ STATIC_URL }}javascripts/resources/wish.js"></script>
 
     {% if graph %}
         <!-- dracula dependencies -->
@@ -42,5 +45,7 @@
 
     <!-- less.js scripts -->
     <script src="{{ STATIC_URL }}javascripts/less.min.js"></script>
+
+
 
 {% endblock %}

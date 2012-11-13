@@ -1,20 +1,3 @@
-function modelRequest( method, model, pk, payload ) {
-
-    var target = ["/", model, "/", pk].join( "" );
-    var result = $.ajax({
-        type: method,
-        url: target,
-        success: function() {
-
-        },
-        error: function() {
-
-        }
-    });
-    return result
-}
-
-
 function refresh() {
 
     $.ajax({
@@ -62,7 +45,7 @@ function refresh() {
 function highlight( selector ) {
 
     var state = {
-        'on': 0.9,
+        'on': 0.95,
         'off': 1.0
     }
 
@@ -75,14 +58,18 @@ function highlight( selector ) {
     });
 }
 
+
+
 $(document).ready( function() {
 
-
+    /* enable highlighting on elements */
     highlight( ".person" );
     highlight( ".tag" );
 
+    /* refresh the dynamic views */
     refresh();
 
+    /* hide the menu */
     $( ".group.menu").slideDown();
 
 
@@ -96,9 +83,7 @@ $(document).ready( function() {
         backdrop: "static"
     });
 
-    /*
-     *  Initialize Tagit
-     */
+    /* Initialize Tagit */
     $.get(
         url='/tag/distribution/?format=json',
         success=function( distribution ) {
@@ -113,26 +98,20 @@ $(document).ready( function() {
         format="json"
     );
 
+    $(document).on( 'mouseenter', ".group", function( event ) {
+        $( "div.hint[pk=\"" + $(this).attr("pk") + "\"]").slideUp();
+        $( "div.menu[pk=\"" + $(this).attr("pk") + "\"]").slideDown();
+    });
+
+    $(document).on( 'mouseleave', ".group", function( event ) {
+        $( "div.hint[pk=\"" + $(this).attr("pk") + "\"]").slideDown();
+        $( "div.menu[pk=\"" + $(this).attr("pk") + "\"]").slideUp();
+    });
+
+
     /*
      *  Wish object controls
      */
-    $(document).on( 'click', ".wish .actions button#delete", function( event ) {
-        var pk = $(this).attr( "pk" );
-        // saving the parent container element in the right scope
-        var container = $("div.wish[pk=\"" + pk + "\"]");
-
-        $.ajax({
-            type: "DELETE",
-            url: "/person/wish/" + pk,
-            success: function() {
-                container.fadeOut(1000);
-                refresh();
-            },
-            error: function() {
-                container.css( "border-color", "red" );
-            }
-        });
-    });
 
 
 
@@ -167,31 +146,42 @@ $(document).ready( function() {
         var container = $("div.group[pk=\"" + pk + "\"]");
 
         $.ajax({
-            type:"PUT",
-            url:"/group/" + pk + "/member/",
+            type: "PUT",
+            url: "/group/" + pk + "/member/",
             success:function () {
                 $( ".group .menu button#join" ).fadeOut();
                 document.location.reload(true)
                 refresh();
             }
         });
-    });
 
-    $(document).on( 'click', ".group .menu button#assist", function( event ) {
-        var pk = $(this).parent().parent().parent().attr( "pk" );
-        $.post(
-            "/group/" + pk,
-            { 'needs_assistance': 1 }
-        );
     });
 
 
-    $(document).on( 'mouseenter', ".group", function( event ) {
-        $( "div.menu[pk=\"" + $(this).attr("pk") + "\"]").slideDown();
+
+
+
+
+    $(document).on( 'click', ".group .menu button#assist", function() {
+        var groupPk = $(this).parent().parent().parent().attr("pk");
+        var groupInstance = new Group( groupPk );
+        groupInstance.assistance.on();
     });
 
-    $(document).on( 'mouseleave', ".group", function( event ) {
-        $( "div.menu[pk=\"" + $(this).attr("pk") + "\"]").slideUp();
+    $(document).on( 'click', ".wish .actions button#delete", function( event ) {
+        var pk = $(this).attr( "pk" );
+        var wishInstance = new Wish(pk);
+        var container = $("div.wish[pk=\"" + pk + "\"]");
+        wishInstance.delete(
+            function() {
+                container.fadeOut(1000);
+                refresh();
+            },
+            function() {
+                container.css( "border-color", "red" );
+            }
+        )
     });
+
 
 });

@@ -1,0 +1,16 @@
+{% comment %}
+    ...
+{% endcomment %}
+
+{% block initialize %}
+
+<script type="text/javascript">
+    var Person = {
+        pk: {{ person.pk }},
+        rules: {
+            MAX_TAG_PER_WISH: {{ rules.MAX_TAGS_PER_WISH }}
+        }
+    }
+</script>
+
+{% endblock %}

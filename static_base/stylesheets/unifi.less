@@ -182,7 +182,7 @@ h1, h2, h3, h4, h5, h6 {
         z-index: 140;
     }
 
-    .menu {
+    .menu, .hint {
         background-color: @group-color;
         color: white;
         position: absolute;
@@ -210,9 +210,17 @@ h1, h2, h3, h4, h5, h6 {
             border-radius: 0.4em 0.4em 0em 0em;
             -moz-border-radius: 0.4em 0.4em 0em 0em;
         }
-
     }
-
+    
+    .hint {
+        width: auto;
+        bottom: 0em;
+        padding-bottom: 0.4em;
+        left: 1em;
+        font-size: 0.8em;
+        font-weight: normal;
+        z-index: 149;
+    }
 }
 
 .group-new {

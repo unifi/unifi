@@ -49,8 +49,10 @@ class Select( AccessRestrictedView ):
                     group_instance.needs_assistance = True
 
                 group_instance.save()
-
-            return HttpResponse( status=201 )
+                return HttpResponse( status=200 )
+            return HttpResponse( status=404 )
+        else:
+            return HttpResponse( status=405 )
 
 
 

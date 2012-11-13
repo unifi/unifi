@@ -237,7 +237,8 @@
                                 )
                             )
                         )
-                    ) {
+                    )
+                    {
                         event.preventDefault();
                         that.createTag(that._cleanedInput());
 
