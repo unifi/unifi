@@ -100,71 +100,24 @@ $(document).ready( function() {
 
     $(document).on( 'mouseenter', ".group", function( event ) {
         $( "div.hint[pk=\"" + $(this).attr("pk") + "\"]").slideUp();
+        $( "div.marker[pk=\"" + $(this).attr("pk") + "\"]").slideUp();
+        $( "div.assistance[pk=\"" + $(this).attr("pk") + "\"]").slideUp();
+        /* */
         $( "div.menu[pk=\"" + $(this).attr("pk") + "\"]").slideDown();
     });
 
     $(document).on( 'mouseleave', ".group", function( event ) {
         $( "div.hint[pk=\"" + $(this).attr("pk") + "\"]").slideDown();
+        $( "div.marker[pk=\"" + $(this).attr("pk") + "\"]").slideDown();
+        $( "div.assistance[pk=\"" + $(this).attr("pk") + "\"]").slideDown();
         $( "div.menu[pk=\"" + $(this).attr("pk") + "\"]").slideUp();
     });
-
-
-    /*
-     *  Wish object controls
-     */
-
-
-
-
-
-
-
-
-    // this allows a member to leave the group
-    // the member is the user in the request
-    $(document).on( 'click', ".group .menu button#leave", function( event ) {
-        var pk = $(this).parent().parent().parent().attr( "pk" );
-        var container = $("div.group[pk=\"" + pk + "\"]");
-
-        $.ajax({
-            type: "DELETE",
-            url: "/group/" + pk + "/member/",
-            success: function() {
-                container.fadeOut(1000);
-                refresh();
-            },
-            error: function() {
-                container.css( "border-color", "red" );
-            }
-        });
-
-    });
-
-    // allows a member to join a group
-    $(document).on('click', ".group button#join", function (event) {
-        var pk = $(this).parent().parent().parent().parent().attr( "pk" );
-        var container = $("div.group[pk=\"" + pk + "\"]");
-
-        $.ajax({
-            type: "PUT",
-            url: "/group/" + pk + "/member/",
-            success:function () {
-                $( ".group .menu button#join" ).fadeOut();
-                document.location.reload(true)
-                refresh();
-            }
-        });
-
-    });
-
-
-
-
 
 
     $(document).on( 'click', ".group .menu button#assist", function() {
         var groupPk = $(this).parent().parent().parent().attr("pk");
         var groupInstance = new Group( groupPk );
+
         groupInstance.assistance.on();
     });
 
@@ -172,16 +125,50 @@ $(document).ready( function() {
         var pk = $(this).attr( "pk" );
         var wishInstance = new Wish(pk);
         var container = $("div.wish[pk=\"" + pk + "\"]");
-        wishInstance.delete(
-            function() {
+
+        wishInstance.delete({
+            success: function() {
                 container.fadeOut(1000);
                 refresh();
             },
-            function() {
+            error: function() {
                 container.css( "border-color", "red" );
             }
-        )
+        })
     });
+
+
+    $(document).on('click', ".group button#join", function (event) {
+        var pk = $(this).parent().parent().parent().parent().attr( "pk" );
+        var container = $("div.group[pk=\"" + pk + "\"]");
+        var groupInstance = new Group(pk);
+
+        groupInstance.join({
+            success: function() {
+                $( ".group .menu button#join" ).fadeOut();
+                document.location.reload(true);
+                refresh();
+            }
+        });
+    });
+
+
+    $(document).on( 'click', ".group .menu button#leave", function( event ) {
+        var pk = $(this).parent().parent().parent().parent().attr( "pk" );
+        var container = $("div.group[pk=\"" + pk + "\"]");
+        var groupInstance = new Group(pk);
+
+        groupInstance.leave({
+            success: function() {
+                container.fadeOut(1000);
+                refresh();
+            },
+            error: function() {
+                container.css( "border-color", "red" );
+            }
+        } )
+    });
+
 
 
 });

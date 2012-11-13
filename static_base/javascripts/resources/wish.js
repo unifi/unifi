@@ -1,6 +1,6 @@
 function Wish( pk ) {
-    this.delete = function( success, error ) {
-        this.request( "delete", {}, success, error );
+    this.delete = function( parameters ) {
+        this.request( "delete", {}, parameters.success, parameters.error );
     };
 
     this.request = function( method, data, success, error ) {
@@ -9,5 +9,4 @@ function Wish( pk ) {
             type: method, url: target, data: data, success: success, error: error
         } );
     }
-
 }

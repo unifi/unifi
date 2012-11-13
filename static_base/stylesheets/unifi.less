@@ -182,7 +182,7 @@ h1, h2, h3, h4, h5, h6 {
         z-index: 140;
     }
 
-    .menu, .hint {
+    .menu, .hint, .marker, .assistance {
         background-color: @group-color;
         color: white;
         position: absolute;
@@ -211,15 +211,25 @@ h1, h2, h3, h4, h5, h6 {
             -moz-border-radius: 0.4em 0.4em 0em 0em;
         }
     }
-    
-    .hint {
-        width: auto;
+
+    .hint, .marker, .assistance {
+        width: 1.3em;
+        text-align: center;
         bottom: 0em;
         padding-bottom: 0.4em;
         left: 1em;
         font-size: 0.8em;
         font-weight: normal;
         z-index: 149;
+    }
+
+    .marker {
+        left: 4.5em;
+    }
+
+    .assistance {
+        background-color: #ff4500;
+        left: 8em;
     }
 }
 
@@ -228,16 +238,16 @@ h1, h2, h3, h4, h5, h6 {
 
     .number {
         color: @group-new-color;
+
         .icon {
             font-style: normal;
             font-size: 0.9em;
         }
     }
 
-    .menu {
+    .menu, .hint {
         background-color: @group-new-color;
     }
-
 }
 
 

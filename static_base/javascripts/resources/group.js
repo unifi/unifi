@@ -2,26 +2,27 @@
 
 function Group( pk ) {
 
-    this.get = function( pk ) {
+    this.get = function( parameters ) {
         var message = ["Displaying group", pk].join(" ");
         console.info( message );
     };
 
-    this.join = function( pk ) {
+    this.join = function( parameters ) {
         var message = [Person.pk, "joins group", pk].join(" ");
         console.info( message );
+        this.persons.request( "put", "", {}, parameters.success, parameters.error );
     };
 
-    this.contact = function( pk ) {
+    this.contact = function( parameters ) {
         var message = [Person.pk, "is contacting group", pk].join(" ");
         console.info( message );
     };
 
-    this.leave = function( pk ) {
+    this.leave = function( parameters ) {
         /* remove a member: called by a member */
         var message = ["Member", Person.pk, "attempts to leave group", pk].join(" ");
         console.info( message );
-        this.members.delete( pk, Person.pk )
+        this.persons.request( "delete", "", {}, parameters.success, parameters.error );
     };
 
     /* submodels */
@@ -35,7 +36,6 @@ function Group( pk ) {
             type: method, url: target, data: data, success: success, error: error
         } );
     };
-
 }
 
 
@@ -63,7 +63,7 @@ function GroupAssistance( pk ) {
 }
 
 /* persons: a field for members of a group */
-function GroupPersons(  pk ) { /* submodel */
+function GroupPersons( pk ) {
 
     this.add = function( personPk ) {
         var message = ["Adding the member", personPk, "to group", pk].join(" ");
@@ -84,7 +84,7 @@ function GroupPersons(  pk ) { /* submodel */
     };
 
     /* request */
-    this.request = function( method, personPk, success, error ) {
+    this.request = function( method, personPk, data, success, error ) {
         var target = [ '/', 'group', '/', pk, '/member/', personPk ].join('');
         console.info( "here" );
         var response = $.ajax( {

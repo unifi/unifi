@@ -15,6 +15,17 @@
     <div class="hint" pk="{{ group.pk }}">
         <i class="icon icon-hand-up icon-white"></i>
     </div>
+
+    {% if group.age < rules.NEW_GROUP_MARKER_SECONDS %}
+    <div class="marker" pk="{{ group.pk }}"><i class="icon icon-star icon-white"></i></div>
+    {% elif not group.is_announced %}
+    <div class="marker" pk="{{ group.pk }}"><i class="icon icon-star icon-white"></i></div>
+    {% endif %}
+
+    {% if group.needs_assistance %}
+    <div class="assistance" pk="{{ group.pk }}"><i class="icon icon-question-sign icon-white"></i></div>
+    {% endif %}
+
     <div class="menu" pk="{{ group.pk }}">
         <div class="btn-toolbar">
             <div class="btn-group">
