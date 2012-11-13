@@ -57,10 +57,11 @@
             <form class="navbar-form">
                 <div class="btn-group pull-right">
                     <!-- insignificant actions -->
-                    <button class="btn" href="#">Kontakt</button>
                     <button class="btn" href="#">Redigér</button>
-                    <button class="btn" href="#">Forlat</button>
-                    <button class="btn" href="#">Oppløs</button>
+                    <button class="btn" href="#">Kontakt</button>
+                    <button class="btn" href="#">Be om hjelp</button>
+                    <button class="btn btn-warning" href="#notification" data-toggle="modal">Forlat</button>
+                    <button class="btn btn-warning" href="#">Oppløs</button>
                 </div>
             </form>
         </div>
@@ -102,7 +103,7 @@
                     <h4>
                         Vår gruppe er
                         {% if group.persons.all|length >= group.capacity %} lukket
-                        <small>antall medlemmer i gruppa er for høyt.</small>
+                        <small>antall medlemmer på gruppa er for høyt.</small>
                         {% else %}
                         åpen <small>og vi ønsker flere medlemmer!</small>
                         {% endif %}

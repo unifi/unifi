@@ -15,8 +15,6 @@ function modelRequest( method, model, pk, payload ) {
 }
 
 
-
-
 function refresh() {
 
     $.ajax({
@@ -59,20 +57,41 @@ function refresh() {
         },
         error: function() {}
     });
+}
 
+function highlight( selector ) {
+
+    var state = {
+        'on': 0.9,
+        'off': 1.0
+    }
+
+    $(document).on( 'mouseover', selector, function( event ) {
+        $(this).css( 'opacity', state['on'] );
+    });
+
+    $(document).on( 'mouseout', selector, function( event ) {
+        $(this).css( 'opacity', state['off'] );
+    });
 }
 
 $(document).ready( function() {
 
+
+    highlight( ".person" );
+    highlight( ".tag" );
+
     refresh();
 
-    /* $( ".focus").hide(); */
     $( ".group.menu").slideDown();
-
-    /* initialize modals */
 
 
     $( ".modal#contactPopup" ).modal( {
+        show: false,
+        backdrop: "static"
+    });
+
+    $( ".modal#notification" ).modal( {
         show: false,
         backdrop: "static"
     });
@@ -94,28 +113,6 @@ $(document).ready( function() {
         format="json"
     );
 
-    $(document).on( 'change', "#assistance_search", function( event ) {
-        var selectedGroups = "";
-        var query = $(this).val();
-
-        if ( query == "" ) {
-            $( ".assistance_search .filter" ).html( '' );
-            refresh();
-        } else {
-
-            $("#assistance .groups .group:contains(" + query +")" ).each( function() {
-                selectedGroups += $(this).prop( "outerHTML" );
-            });
-            $( "#assistance .groups" ).html( selectedGroups );
-            $( ".assistance_search .filter" ).html(
-                $( ".assistance_search .filter" ).html() +
-                '<div class="tag">' + query + '</div>'
-            );
-            $( ".assistance_search input").val( "" );
-        }
-    });
-
-
     /*
      *  Wish object controls
      */
@@ -136,6 +133,13 @@ $(document).ready( function() {
             }
         });
     });
+
+
+
+
+
+
+
 
     // this allows a member to leave the group
     // the member is the user in the request

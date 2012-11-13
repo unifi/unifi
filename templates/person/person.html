@@ -2,7 +2,7 @@
 {% endcomment %}
 
 {% block person %}
-<div class="person" pk={{ person.pk }}>
-    <span class="name">{{ person.username }}</span>
+<div class="person" pk="{{ person.pk }}">
+    <span class="name" pk="{{ person.pk }}">{{ person.username }}</span>
 </div>
 {% endblock %}

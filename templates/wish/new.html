@@ -8,7 +8,7 @@
     <form action="/my/wish/create" method="POST" class="tagit_form" id="tagit_form">
         {% csrf_token %}
         <ul id="mytags" class="tagit ui-widget ui-widget-content ui-corner-all">
-            <li class="tagit-new"></li>
+            <li class="tagit-new" placeholder=""></li>
         </ul>
         <div class="btn-toolbar">
             <a href="/my/search/" style="cursor: not-allowed;"class="btn btn-large btn-info span3 disabled" type="button" tabindex="3">
