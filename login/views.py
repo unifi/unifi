@@ -36,7 +36,7 @@ class Leave( AccessRestrictedView ):
         A silent logout routine
         """
         auth.logout( self.request )
-        return redirect( "socialregistration:logout" )
+        return redirect( "login:socialregistration:logout" )
 
 
 

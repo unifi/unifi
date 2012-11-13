@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 
 from util.generators import StudentGenerator
-from util.generators import WordTagGenerator as TagGenerator
+from util.generators import LetterTagGenerator as TagGenerator
 from unifi.management import UserManager, WishManager, TagManager
 from person.models import Person, Wish
 from tag.models import Tag

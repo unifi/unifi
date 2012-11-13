@@ -4,42 +4,50 @@
 {% endcomment %}
 
 {% block content %}
-<div class="container-fluid marked">
+<div class="container-fluid" id="my">
     <h1>Oversikt <small>over dine ønsker og grupper</small></h1>
-    <div class="row-fluid marked">
+    <div class="row-fluid">
         <div class="span8">
-            <div class="marked view" id="wishControl">
-                <h3>Nytt ønske</h3>
-                <div class="alert alert-info">
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                    Skriv inn emnene du ønsker å samarbeide om i feltet under.
-                    Du bør skrive emnene i form av nøkkelord eller fraser (tagger), og
-                    helst i entall.
+            <div class="view" id="wishControl">
+                <div class="outer">
+                    <h3>Nytt ønske</h3>
+                    <div class="alert alert-info">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        Skriv inn emnene du ønsker å samarbeide om i feltet under.
+                        Du bør skrive emnene i form av nøkkelord eller fraser (tagger), og
+                        helst i entall.
+                    </div>
+                    {% include "wish/new.html" %}
                 </div>
-                {% include "wish/new.html" %}
             </div>
-            <div class="marked view" id="groupView">
-                <h3>Gruppene du er med i</h3>
-                <div class="alert alert-error">
-                    <button type="button" class="close" data-dismiss="alert">×</button>
-                    Dette feltet viser gruppene du allerede er medlem av.
-                    Du kan blant annet kontakte alle brukere på gruppen gjennom
-                    et meny som vises når du holder musepekeren over.
+            <div class="view" id="groupView">
+                <div class="outer">
+                    <h3>Gruppene du er med i</h3>
+                    <div class="alert alert-error">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        Dette feltet viser gruppene du allerede er medlem av.
+                        Du kan blant annet kontakte alle brukere på gruppen gjennom
+                        et meny som vises når du holder musepekeren over.
+                    </div>
+                    <div id="groups"></div>
                 </div>
-                <div id="groups"></div>
             </div>
         </div>
 
-        <div class="marked view span4" id="wishView">
-            <h3>Dine ønsker</h3>
-            <div class="alert alert-warning">
-                <button type="button" class="close" data-dismiss="alert">×</button>
-                Ønskene beskriver emnene du er interessert i og gruppene du
-                er på utkikk etter. Brukere med like ønsker blir matchet mot
-                dine, slik at dere kan danne en gruppe sammen.
+
+        <div class="view span4" id="wishView">
+            <div class="outer">
+                <h3>Dine ønsker</h3>
+                <div class="alert alert-warning">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    Ønskene beskriver emnene du er interessert i og gruppene du
+                    er på utkikk etter. Brukere med like ønsker blir matchet mot
+                    dine, slik at dere kan danne en gruppe sammen.
+                </div>
+                <div id="wishes"></div>
             </div>
-            <div id="wishes"></div>
         </div>
+
     </div>
 </div>
 

@@ -5,7 +5,7 @@
 
 {% block groups %}
 <div class="groups">
-{% for group in groups|dictsort:"pk" %}
+{% for group in groups|dictsortreversed:"created" %}
     {% include "group/group.html" with join=join %}
 {% endfor %}
 </div>

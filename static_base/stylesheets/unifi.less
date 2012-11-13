@@ -1,4 +1,4 @@
-@content-width:                   70%;
+@content-width:                   80%;
 
 @tag-background-color:            rgba(189, 47, 47, 1);
 @tag-font-color:                  white;
@@ -7,12 +7,9 @@
 @group-background-color:          white;
 @group-font-color:                black;
 @group-color:                     rgb( 230,136,33 );
-@group-new-color:                 darken( @group-color, 15% );
+@group-color:                     rgb( 160, 160, 160 );
+@group-new-color:                 rgb( 22, 130, 235 );
 
-
-.marked {
-    border: 1px dashed white;
-}
 
 .login {
     background-color: #333;
@@ -34,10 +31,9 @@ body {
     background-image: url( "/static/images/bg.png" );
 
     .content {
-
         background-color: white;
         width: @content-width;
-        padding: 2% 1% 4% 1%;
+        padding: 3em 1em 3em 1em;
         text-align: left;
         -moz-border-radius: 0.6em;
         border-radius: 0.6em;
@@ -61,9 +57,9 @@ h1, h2, h3, h4, h5, h6 {
 */
 
 .person {
+    cursor: default;
     display: inline-block;
     color: @person-font-color;
-    cursor: pointer;
     background-color: @person-background-color;
 
     background-color: @person-background-color;
@@ -100,11 +96,9 @@ h1, h2, h3, h4, h5, h6 {
     .badges {
         padding-left: 0.4em;
     }
-
 }
 
 .wish {
-
     border-radius: 0.2em;
     -moz-border-radius: 0.2em;
     padding: 0.5em 2em 0.5em 0.5em;
@@ -114,7 +108,9 @@ h1, h2, h3, h4, h5, h6 {
     position: relative;
 
     .actions {
-        cursor: pointer;
+
+        cursor: default;
+
         top: 0.2em;
         right: 0.4em;
         position: absolute;
@@ -123,7 +119,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .new {
-
     padding-bottom: 3.2em;
 
     .tagit {
@@ -156,7 +151,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .group {
-
     background-color: white;
     border: 0.08em solid @group-color;
     border-left: 0.4em solid @group-color;
@@ -170,15 +164,16 @@ h1, h2, h3, h4, h5, h6 {
     overflow: auto;
 
     .number {
-        color: rgba( 0, 0, 0, 0.1 );
+        color: @group-color;
         position: absolute;
-        bottom: 0.6em;
+        bottom: 0.5em;
         right: 0.4em;
         float: right;
         font-family: "ABeeZee", Arial, sans;
         font-size: 2.8em;
         font-style: italic;
         font-weight: bold;
+        z-index: 140;
     }
 
     .menu {
@@ -193,6 +188,7 @@ h1, h2, h3, h4, h5, h6 {
         padding: 0.2em 1em 0em 1em;
         width: 80%;
         font-weight: bold;
+        z-index: 150;
 
         cursor: pointer;
 
@@ -214,8 +210,20 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .group-new {
-    border-left-color: @group-new-color;
-    border-bottom-color: @group-new-color;
+    border-color: @group-new-color;
+
+    .number {
+        color: @group-new-color;
+        .icon {
+            font-style: normal;
+            font-size: 0.9em;
+        }
+    }
+
+    .menu {
+        background-color: @group-new-color;
+    }
+
 }
 
 
@@ -251,8 +259,9 @@ h1, h2, h3, h4, h5, h6 {
 
     border-radius: 0.2em;
     -moz-border-radius: 0.2em;
-    cursor: pointer;
-    
+
+    cursor: default;
+
     .score {
         font-family: monospace;
         font-size: 0.8em;
@@ -273,17 +282,14 @@ h1, h2, h3, h4, h5, h6 {
         padding: 0.4em 0.4em 0.4em 0.4em;
         margin: 0.3em 0em 0.3em 0em;
         border: none;
-
         border-radius: 0.2em;
         -moz-border-radius: 0.2em;
-        cursor: pointer;
+        cursor: default;
     }
 }
 
 .groups {
-
     overflow: hidden;
-
 }
 
 /* Creation forms */
@@ -292,7 +298,47 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Control-specific applications */
 
-.my {}
+
+#my {
+    .view {
+        .outer {
+            margin: 2.5em 0.5em 0.5em 0.5em;
+            padding: 1em;
+
+            h3 {
+                margin-top: 0.1em;
+                margin-bottom: 0.5em;
+            }
+
+            border-radius: 0.3em;
+            -moz-border-radius: 0.3em;
+
+            background-color: rgb( 248, 248, 248 );
+            background-image: url('/static/images/bg-group.png');
+
+            .groups {
+                padding: 0.5em;
+            }
+        }
+    }
+}
+
+#detailed {
+
+    .members {
+        @members-container-width: 50%;
+        border: 0.3em solid rgb( 240, 240, 240 );
+        border-radius: 2em;
+        -moz-border-radius: 2em;
+        text-align: center;
+        position: relative;
+        margin: 2em 1em 2em 1em;
+        padding: 1em 1em 2.5em 1em;
+        width: 40%;
+        left: ( 100 - @members-container-width ) / 2.0;
+        right: -(( 100 - @members-container-width ) / 2.0);
+    }
+}
 
 
 /* General interface elements */
