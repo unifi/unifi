@@ -1,5 +1,6 @@
 unifi/database.py
 unifi/security.py
+static_base/images/users/*
 prototype/
 prototype/*
 configure.py
