@@ -83,6 +83,9 @@ $(document).ready( function() {
         backdrop: "static"
     });
 
+    /* tooltips */
+    $('.flag .assistance').tooltip();
+
     /* Initialize Tagit */
     $.get(
         url='/tag/distribution/?format=json',
@@ -98,29 +101,20 @@ $(document).ready( function() {
         format="json"
     );
 
-    $(document).on( 'mouseenter', ".group", function( event ) {
-        $( "div.hint[pk=\"" + $(this).attr("pk") + "\"]").slideUp();
-        $( "div.marker[pk=\"" + $(this).attr("pk") + "\"]").slideUp();
-        $( "div.assistance[pk=\"" + $(this).attr("pk") + "\"]").slideUp();
-        /* */
+    $(document).on( 'mouseenter', "#my .group", function( event ) {
+        $( "div.flags[pk=\"" + $(this).attr("pk") + "\"]").slideUp();
+        $( "div.number[pk=\"" + $(this).attr("pk") + "\"]").fadeOut();
         $( "div.menu[pk=\"" + $(this).attr("pk") + "\"]").slideDown();
     });
 
-    $(document).on( 'mouseleave', ".group", function( event ) {
-        $( "div.hint[pk=\"" + $(this).attr("pk") + "\"]").slideDown();
-        $( "div.marker[pk=\"" + $(this).attr("pk") + "\"]").slideDown();
-        $( "div.assistance[pk=\"" + $(this).attr("pk") + "\"]").slideDown();
+    $(document).on( 'mouseleave', "#my .group", function( event ) {
+        $( "div.flags[pk=\"" + $(this).attr("pk") + "\"]").slideDown();
+        $( "div.number[pk=\"" + $(this).attr("pk") + "\"]").fadeIn();
         $( "div.menu[pk=\"" + $(this).attr("pk") + "\"]").slideUp();
     });
 
 
-    $(document).on( 'click', ".group .menu button#assist", function() {
-        var groupPk = $(this).parent().parent().parent().attr("pk");
-        var groupInstance = new Group( groupPk );
-
-        groupInstance.assistance.on();
-    });
-
+    /* delete wish */
     $(document).on( 'click', ".wish .actions button#delete", function( event ) {
         var pk = $(this).attr( "pk" );
         var wishInstance = new Wish(pk);
@@ -137,7 +131,15 @@ $(document).ready( function() {
         })
     });
 
+    /* request assistance */
+    $(document).on( 'click', ".group .menu button#assist", function() {
+        var groupPk = $(this).parent().parent().parent().attr("pk");
+        var groupInstance = new Group( groupPk );
 
+        groupInstance.assistance.on();
+    });
+
+    /* join group */
     $(document).on('click', ".group button#join", function (event) {
         var pk = $(this).parent().parent().parent().parent().attr( "pk" );
         var container = $("div.group[pk=\"" + pk + "\"]");
@@ -153,6 +155,7 @@ $(document).ready( function() {
     });
 
 
+    /* leave group */
     $(document).on( 'click', ".group .menu button#leave", function( event ) {
         var pk = $(this).parent().parent().parent().parent().attr( "pk" );
         var container = $("div.group[pk=\"" + pk + "\"]");
@@ -168,7 +171,4 @@ $(document).ready( function() {
             }
         } )
     });
-
-
-
 });

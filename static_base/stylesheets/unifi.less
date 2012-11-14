@@ -11,23 +11,14 @@
 @group-new-color:                 rgb( 22, 130, 235 );
 
 
-.login {
-    background-color: #333;
-    padding: 1.5em;
-    border-radius: 0.4em;
-    -moz-border-radius: 0.4em;
-    -moz-box-shadow: 1px 1px 5px #555;
-    -webkit-box-shadow: 1px 1px 5px #555;
-    box-shadow: 1px 1px 5px #555;
+@font-face {
+    font-family: "ABeeZee";
+    src: url( "/static/fonts/ABeeZee-Regular.ttf" ) format( "truetype" );
 }
-
-
-
-/* */
 
 body {
     font-family: Arial, sans-serif;
-    padding: 2em 2em 1em 2em;
+    padding: 2em 2em 2em 2em;
     background-image: url( "/static/images/bg.png" );
 
     .content {
@@ -167,7 +158,7 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 0.6em;
     -moz-border-radius: 0.6em;
     position: relative;
-    overflow: auto;
+    overflow: hidden;
 
     .number {
         color: @group-color;
@@ -182,7 +173,7 @@ h1, h2, h3, h4, h5, h6 {
         z-index: 140;
     }
 
-    .menu, .hint, .marker, .assistance {
+    .menu {
         background-color: @group-color;
         color: white;
         position: absolute;
@@ -212,25 +203,38 @@ h1, h2, h3, h4, h5, h6 {
         }
     }
 
-    .hint, .marker, .assistance {
-        width: 1.3em;
-        text-align: center;
+    .flags {
+        position: absolute;
+        width: 80%;
+        height: 2em;
+        left: 0.75em;
         bottom: 0em;
-        padding-bottom: 0.4em;
-        left: 1em;
-        font-size: 0.8em;
-        font-weight: normal;
+        font-size: 1em;
         z-index: 149;
+        margin-bottom: 0em;
+
+        .flag {
+            display: inline-block;
+            left: 0em;
+            width: 1.2em;
+            background-color: @group-color;
+            padding: 0.5em 0.7em 0.2em 0.65em;
+            font-size: 1em;
+            text-align: center;
+            border-radius: 0.4em 0.4em 0em 0em;
+            -moz-border-radius: 0.4em 0.4em 0em 0em;
+        }
+
+        .assistance {
+            background-color: #ff4500;
+        }
+
+        .hint {
+            margin-right: 0.5em;
+        }
     }
 
-    .marker {
-        left: 4.5em;
-    }
 
-    .assistance {
-        background-color: #ff4500;
-        left: 8em;
-    }
 }
 
 .group-new {
@@ -245,8 +249,14 @@ h1, h2, h3, h4, h5, h6 {
         }
     }
 
-    .menu, .hint {
+    .menu {
         background-color: @group-new-color;
+    }
+
+    .flags {
+        .hint {
+            background-color: @group-new-color;
+        }
     }
 }
 
@@ -379,6 +389,10 @@ h1, h2, h3, h4, h5, h6 {
         -moz-border-radius: 0.5em;
         padding: 0.5em;
         z-index: 500;
+
+        -moz-box-shadow: -2px 3px 10px #333;
+        -webkit-box-shadow: -2px 3px 10px #333;
+        box-shadow: -2px 3px 10px #333;
     }
 
     @navigation-height: 1em;
@@ -386,12 +400,13 @@ h1, h2, h3, h4, h5, h6 {
         bottom: @navigation-height;
         font-family: "ABeeZee", Arial, sans;
         right: 1em;
+        padding-top: 0.65em;
 
         a {
             color: #CCC;
             text-decoration: none;
-            margin-right: 2em;
-            margin-left: 1em;
+            margin-right: 1.5em;
+            margin-left: 0.75em;
         }
     }
 
@@ -400,7 +415,6 @@ h1, h2, h3, h4, h5, h6 {
         text-align: center;
         top: 1em;
         right: 1em;
-
 
         .portrait {
             padding: 0.75em;
@@ -415,6 +429,17 @@ h1, h2, h3, h4, h5, h6 {
     }
 
 }
+
+.login {
+    background-color: #333;
+    padding: 1.5em;
+    border-radius: 0.4em;
+    -moz-border-radius: 0.4em;
+    -moz-box-shadow: 1px 1px 5px #555;
+    -webkit-box-shadow: 1px 1px 5px #555;
+    box-shadow: 1px 1px 5px #555;
+}
+
 
 .graph {
     background-color: rgba( 0, 0, 0, 0.1 );

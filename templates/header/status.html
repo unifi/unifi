@@ -10,7 +10,8 @@
 <div class="bar">
     <div class="status navbar-inverse">
         <div><span class="person" pk="{{ user.pk }}">{{ user }}</span></div>
-        <a href="/my"><img class="img-rounded" src="{{ STATIC_URL }}images/placeholder.png" alt="" /></a>
+        <!-- <a href="/my"><img class="img-rounded" src="{{ STATIC_URL }}images/placeholder.png" alt="" /></a> -->
+        <a href="/my"><img class="img-rounded" style="width: 90%; opacity: 0.8;" src="{{ STATIC_URL }}images/users/{{ user.pk }}.png" alt="" /></a>
     </div>
 </div>
 {% else %}

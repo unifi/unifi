@@ -4,8 +4,12 @@
 {% endcomment %}
 
 {% block content %}
+<div class="container-fluid">
+<h1>Andre grupper <small>gruppene du er ikke med på</small></h1>
+<hr />
 {% with join=1 %}
     {% include "group/groups.html" %}
 {% endwith %}
+</div>
 {% endblock %}
 

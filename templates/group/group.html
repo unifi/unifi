@@ -10,43 +10,48 @@
 {% else %}
 <div class="group" pk="{{ group.pk }}">
 {% endif %}
-    {% if controls %}
-    <!-- menu -->
-    <div class="hint" pk="{{ group.pk }}">
-        <i class="icon icon-hand-up icon-white"></i>
+
+    <!-- flags -->
+    <div class="flags" pk="{{ group.pk }}">
+        {% if controls %}
+        <div class="flag hint" pk="{{ group.pk }}"><i class="icon icon-chevron-up icon-white"></i></div>
+        {% endif %}
+
+        {% if group.age < rules.NEW_GROUP_MARKER_SECONDS %}
+        <div title="ny gruppe" class="flag marker" pk="{{ group.pk }}"><i class="icon icon-star icon-white"></i></div>
+        {% elif not group.is_announced %}
+        <div title="ny gruppe" class="flag marker" pk="{{ group.pk }}"><i class="icon icon-star icon-white"></i></div>
+        {% endif %}
+
+        {% if group.needs_assistance %}
+        <div title="trenger hjelp" class="flag assistance" pk="{{ group.pk }}"><i class="icon icon-flag icon-white"></i></div>
+        {% endif %}
+
     </div>
 
-    {% if group.age < rules.NEW_GROUP_MARKER_SECONDS %}
-    <div class="marker" pk="{{ group.pk }}"><i class="icon icon-star icon-white"></i></div>
-    {% elif not group.is_announced %}
-    <div class="marker" pk="{{ group.pk }}"><i class="icon icon-star icon-white"></i></div>
-    {% endif %}
-
-    {% if group.needs_assistance %}
-    <div class="assistance" pk="{{ group.pk }}"><i class="icon icon-question-sign icon-white"></i></div>
-    {% endif %}
-
+    {% if controls %}
+    <!-- menu -->
     <div class="menu" pk="{{ group.pk }}">
         <div class="btn-toolbar">
             <div class="btn-group">
                 <a href="/group/{{ group.pk }}" class="btn btn-mini" id="inspect">
-                    <i class="icon-eye-open"></i>
+                    <i class="icon icon-eye-open"></i>
                     Undersøk
                 </a>
                 <a class="btn btn-mini" id="contact" href="#contactPopup{{ group.pk }}" role="button" class="btn" data-toggle="modal">
-                    <i class="icon-envelope"></i>
+                    <i class="icon icon-envelope"></i>
                     Kontakt
                 </a>
-                <button class="btn btn-mini btn-success
+                <button class="btn btn-mini btn-warning
                 {% if group.needs_assistance %}active{% endif %}
                 " id="assist" data-toggle="button">
-                    <i class="icon-question-sign icon-white"></i>
+                    <i class="icon icon-flag icon-white"></i>
                     Be om hjelp
                 </button>
             </div>
             <div class="btn-group pull-right">
                 <button class="btn btn-danger btn-mini" id="leave">
-                    <i class="icon-remove icon-white pull-right"></i>
+                    <i class="icon icon-remove icon-white pull-right"></i>
                     Forlat&nbsp;&nbsp;
                 </button>
             </div>
@@ -54,7 +59,7 @@
     </div>
     {% endif %}
 
-    <div class="number">
+    <div class="number" pk="{{ group.pk }}">
         {% if group.age < rules.NEW_GROUP_MARKER_SECONDS %}
         <span class="icon">&#9733;</span>
         {% elif not group.is_announced %}
@@ -70,22 +75,22 @@
             <div class="btn-group pull-right">
                 {% if person in group.persons.all %}
                 <button class="btn btn-danger" id="leave">
-                    <i class="icon-remove icon-white"></i>
+                    <i class="icon icon-remove icon-white"></i>
                     Forlat&nbsp;&nbsp;
                 </button>
                 {% else %}
                     {% if group.is_open %}
                     <button class="btn btn-success" id="join">
-                        <i class="icon-arrow-left icon-white"></i>
+                        <i class="icon icon-arrow-left icon-white"></i>
                         Bli med&nbsp;&nbsp;
                     </button>
                     {% endif %}
                 {% endif %}
                 <a class="btn btn-warning" id="contact" href="#contactPopup{{ group.pk }}" role="button" class="btn" data-toggle="modal">
-                    <i class="icon-envelope icon-white"></i>
+                    <i class="icon icon-envelope icon-white"></i>
                 </a>
                 <a href="/group/{{ group.pk }}" class="btn btn-info" id="inspect">
-                    <i class="icon-arrow-left icon-eye-open icon-white"></i>
+                    <i class="icon icon-arrow-left icon-eye-open icon-white"></i>
                 </a>
             </div>
         </div>

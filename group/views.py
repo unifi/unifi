@@ -151,7 +151,7 @@ class All( AccessRestrictedView ):
 
         context = {
             'standalone': True,
-            'title': "Other groups",
+            'title': "Andre grupper",
             'groups': groups,
         }
 
@@ -164,7 +164,7 @@ class Assistance( AccessRestrictedView ):
 
         context = {
             'standalone': True,
-            'title': "Groups in need of assistance",
+            'title': "Hjelp!",
             'groups': groups,
         }
 
