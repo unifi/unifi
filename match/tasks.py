@@ -43,6 +43,7 @@ def match():
 
         ])
         print event_message
+        print
 
     last_remainder = Wish.objects.active().count() +1
     while last_remainder > Wish.objects.active().count() and last_remainder > 0:

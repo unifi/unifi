@@ -39,11 +39,13 @@
                     <span class="tag" style="font-size: 1.2em;">{{ tag }}</span>
                 {% endfor %}
             {% endif %}
+            <br />
             {% if group.uncommon_tags %}
                 {% for tag in group.uncommon_tags %}
                     <span class="tag">{{ tag }}</span>
                 {% endfor %}
             {% endif %}
+            <br />
         {% endif %}
         </div>
     </div>
@@ -62,6 +64,7 @@
                     <button class="btn" href="#">Be om hjelp</button>
                     <button class="btn btn-warning" href="#notification" data-toggle="modal">Forlat</button>
                     <button class="btn btn-warning" href="#">Oppløs</button>
+                    <button class="btn btn-warning" href="#">Lås</button>
                 </div>
             </form>
         </div>
@@ -140,6 +143,25 @@
                     </div></li>
                     {% endfor %}
                     </ol></div>
+
+
+                    <div class="span4 pull-right wish" style=" margin: 0.5em;">
+                    <table>
+                    {% for wish in group.wishes.all %}
+                       <tr><td><span class="person">{{ wish.person }}</span></td>
+                       {% for tag in group.all_tags %}
+                           {% if tag in wish.tags.all %}
+                           <td><span class="tag">{{ tag }}</span></td>
+                           {% else %}
+                           <td>&nbsp;</td>
+                           {% endif %}
+                       {% endfor %}
+                       </tr>
+                    {% endfor %}
+                    </table>
+                    </div>
+
+
                 </div>
             </div>
             {% endif %}

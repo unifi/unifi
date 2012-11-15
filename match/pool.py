@@ -55,7 +55,7 @@ class WishPool:
 
         ## processes the graph, excludes lonely nodes
         self.connected_nodes = self.update_connected_nodes()
-        # debug_graph(self.graph, message="Connected nodes are set")
+        debug_graph(self.graph, message="Connected nodes are set")
         self.lonely_nodes = self.update_lonely_nodes()
         self.update_cliques()
 

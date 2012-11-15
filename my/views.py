@@ -108,14 +108,14 @@ class CreateWish( AccessRestrictedView ):
         active_wishes = self.person.wishes().filter( is_active=True )
 
         if active_wishes.count() >= MAX_WISHES_PER_USER:
-            return self.dialog( "Error", "Too many wishes" )
+            return self.dialog( "Feil", "Du har altfor mange ønsker" )
 
         if not len( tags ):
-            return self.dialog( "Error", "No tags given" )
+            return self.dialog( "Feil", "Du glemte å skrive inn nøkkelord" )
 
         elif len( tags ) > MAX_TAGS_PER_WISH:
             return self.dialog( "Error",
-                  "Your wish contains too many tags. Specify max %d tags." %\
+                  "Du har ført inn for mange nøkkelord. Prøv å ha %d for hvert ønske." %\
                   MAX_TAGS_PER_WISH )
 
         def extract_course_tags( tags ):
@@ -132,10 +132,10 @@ class CreateWish( AccessRestrictedView ):
         for w in existing_wishes:
             rating = jaccard( [t.name for t in w.tags.all()], tags )
             if rating > MAX_WISH_SIMILARITY:
-                return self.dialog( "Error", "One of your existing wishes is too alike" )
+                return self.dialog( "Feil", "Du har et veldig likt ønske allerede. Slett det hvis du vil endre nøkkelord." )
 
         if len( courses ) > 1:
-            return self.dialog( "Error", "Please specify a course" )
+            return self.dialog( "Feil", "Du har angitt flere enn ett emne. Hvert ønske skal inneholde kun ett." )
 
 
         person = UserManager.getPerson( self.request.user.username )
